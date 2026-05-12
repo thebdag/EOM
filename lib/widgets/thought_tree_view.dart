@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models/thought_node.dart';
 import '../theme/eom_colors.dart';
 
@@ -12,20 +14,44 @@ class ThoughtTreeView extends StatelessWidget {
 
   final ThoughtNode root;
 
+  Future<void> _exportMap(BuildContext context) async {
+    final jsonString = const JsonEncoder.withIndent('  ').convert(root.toJson());
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share(
+      jsonString,
+      subject: 'EOM Thought Map',
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 300),
       opacity: 1.0,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: EomColors.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
-        ),
-        child: _buildNode(context, root, '', true),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: EomColors.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
+            ),
+            child: _buildNode(context, root, '', true),
+          ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: IconButton(
+              icon: const Icon(Icons.ios_share, size: 18),
+              color: EomColors.textTertiary,
+              onPressed: () => _exportMap(context),
+              tooltip: 'Export Map',
+            ),
+          ),
+        ],
       ),
     );
   }

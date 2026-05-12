@@ -20,4 +20,19 @@ class ThoughtNode {
     }
     return count;
   }
+
+  Map<String, dynamic> toJson() => {
+        'label': label,
+        'children': children.map((c) => c.toJson()).toList(),
+        'isExpanded': isExpanded,
+      };
+
+  factory ThoughtNode.fromJson(Map<String, dynamic> json) => ThoughtNode(
+        label: json['label'] as String,
+        children: (json['children'] as List<dynamic>?)
+                ?.map((e) => ThoughtNode.fromJson(e as Map<String, dynamic>))
+                .toList() ??
+            const [],
+        isExpanded: json['isExpanded'] as bool? ?? true,
+      );
 }

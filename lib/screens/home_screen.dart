@@ -6,6 +6,8 @@ import '../widgets/intent_button.dart';
 import '../widgets/response_card.dart';
 import '../widgets/thought_tree_view.dart';
 import 'settings_screen.dart';
+import 'history_screen.dart';
+import '../services/history_service.dart';
 
 /// Main screen — the "vault" where thoughts are processed.
 class HomeScreen extends StatefulWidget {
@@ -53,6 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
           _history.add({'role': 'user', 'content': input});
           _history.add({'role': 'assistant', 'content': response.text});
         });
+        
+        await HistoryService().saveConversation(
+          initialInput: input,
+          intent: intent.name,
+          response: response.text,
+        );
+
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));
         if (_scrollController.hasClients) {
@@ -174,6 +183,15 @@ class _HomeScreenState extends State<HomeScreen> {
               color: EomColors.textTertiary,
               tooltip: 'New thought',
             ),
+          IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const HistoryScreen()),
+            ),
+            icon: const Icon(Icons.history_outlined, size: 20),
+            color: EomColors.textTertiary,
+            tooltip: 'History',
+          ),
           IconButton(
             onPressed: () => Navigator.push(
               context,

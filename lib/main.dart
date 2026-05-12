@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'screens/home_screen.dart';
 import 'theme/eom_theme.dart';
 import 'services/settings_service.dart';
+import 'services/history_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SettingsService.init();
+  await HistoryService().init();
   // Lock to dark status bar icons matching our dark theme
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
