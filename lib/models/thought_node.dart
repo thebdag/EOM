@@ -2,9 +2,9 @@
 class ThoughtNode {
   ThoughtNode({
     required this.label,
-    this.children = const [],
+    List<ThoughtNode>? children,
     this.isExpanded = true,
-  });
+  }) : children = children ?? [];
 
   final String label;
   final List<ThoughtNode> children;
@@ -30,9 +30,8 @@ class ThoughtNode {
   factory ThoughtNode.fromJson(Map<String, dynamic> json) => ThoughtNode(
         label: json['label'] as String,
         children: (json['children'] as List<dynamic>?)
-                ?.map((e) => ThoughtNode.fromJson(e as Map<String, dynamic>))
-                .toList() ??
-            const [],
+            ?.map((e) => ThoughtNode.fromJson(e as Map<String, dynamic>))
+            .toList(),
         isExpanded: json['isExpanded'] as bool? ?? true,
       );
 }
