@@ -24,7 +24,7 @@ class AiService {
     final provider = _getProvider();
     
     // Global context applied to all intents
-    const defaultContext = 'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language.';
+    const defaultContext = 'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language. detect sentiment from user input: if more chaotic, encourage toward balanced order. If too ordlery, encourage toward balanced chaos';
     
     String intentContext = '';
     
