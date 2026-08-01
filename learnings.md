@@ -1,0 +1,58 @@
+# Learnings
+
+A running log of bugs to avoid, gotchas, and best practices discovered while
+developing EOM. Append a new entry under the relevant section each time you
+hit a non-obvious issue or confirm a useful pattern. Keep entries short and
+actionable — one bullet per finding, with a date and a link to the PR/commit
+when relevant.
+
+> Convention: newest entries go at the top of each section so the most recent
+> learning is read first.
+
+---
+
+## Bugs To Avoid
+
+- _(none yet)_ — add the first one when you hit a non-obvious failure.
+
+<!-- Template:
+- **YYYY-MM-DD** — Short title. What went wrong, root cause, the fix.
+  Prevent it by: <actionable rule>. (PR #123)
+-->
+
+---
+
+## Best Practices
+
+- **Flutter class name collisions** — Avoid naming enums/classes after
+  Flutter framework symbols. The `Intent` enum collided with
+  `android.content.Intent` / Flutter's own `Intent`; renaming to
+  `CognitiveIntent` resolved it. Prefix app-specific types with a project
+  token (e.g. `Eom`).
+- **Service-first architecture** — Wrap every external API or persistence
+  layer in a Singleton service under `lib/services/` behind an abstract
+  interface (see `LlmProvider`). Keeps backends swappable and UI testable.
+- **Never hardcode colors** — Use tokens in `lib/theme/eom_colors.dart`.
+  The "Epistemic Calm" aesthetic depends on consistent slate/border values.
+- **Zero elevation** — No drop shadows. Depth comes from 0.5px
+  `EomColors.surfaceBorder` strokes only (per `docs/design_spec.md`).
+- **Secrets via `shared_preferences`** — API keys live on-device, never in
+  `.env` (committed) or source. The `.env` migration to `shared_preferences`
+  was intentional.
+- **macOS builds need CocoaPods** — `shared_preferences` (and other
+  platform plugins) require CocoaPods installed or the macOS build fails.
+- **Relative imports inside `lib/`** — Use `import '../models/intent.dart';`
+  style, not `package:eom/...`. Keeps the linter happy and refactor-safe.
+- **Run `dart format` before every commit** and keep `flutter_lints` at
+  zero warnings.
+
+---
+
+## Gotchas
+
+- **`.env` is still listed as a Flutter asset** in `pubspec.yaml` even though
+  runtime config moved to `shared_preferences`. Don't reintroduce `.env`
+  reads without a deliberate reason.
+- **`hive` / `hive_flutter` are dependencies** but `history_service.dart`
+  notes SQLite — verify which persistence backend is actually in use before
+  adding storage code, to avoid duplicate stores.
