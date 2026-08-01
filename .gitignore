@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# AI agent skills (installed locally via `npx skills add ...`, not shared via git)
+.agents/skills/
+skills-lock.json
