@@ -14,9 +14,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final _openAiController = TextEditingController();
   final _anthropicController = TextEditingController();
   final _geminiController = TextEditingController();
-  final _ollamaHostController = TextEditingController();
-  final _ollamaModelController = TextEditingController();
-  final _ollamaApiKeyController = TextEditingController();
+  final _localHostController = TextEditingController();
+  final _localModelController = TextEditingController();
+  final _localApiKeyController = TextEditingController();
 
   @override
   void initState() {
@@ -25,9 +25,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _openAiController.text = SettingsService.openAiKey;
     _anthropicController.text = SettingsService.anthropicKey;
     _geminiController.text = SettingsService.geminiKey;
-    _ollamaHostController.text = SettingsService.ollamaHost;
-    _ollamaModelController.text = SettingsService.ollamaModel;
-    _ollamaApiKeyController.text = SettingsService.ollamaApiKey;
+    _localHostController.text = SettingsService.localHost;
+    _localModelController.text = SettingsService.localModel;
+    _localApiKeyController.text = SettingsService.localApiKey;
   }
 
   @override
@@ -35,9 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _openAiController.dispose();
     _anthropicController.dispose();
     _geminiController.dispose();
-    _ollamaHostController.dispose();
-    _ollamaModelController.dispose();
-    _ollamaApiKeyController.dispose();
+    _localHostController.dispose();
+    _localModelController.dispose();
+    _localApiKeyController.dispose();
     super.dispose();
   }
 
@@ -46,9 +46,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await SettingsService.setOpenAiKey(_openAiController.text);
     await SettingsService.setAnthropicKey(_anthropicController.text);
     await SettingsService.setGeminiKey(_geminiController.text);
-    await SettingsService.setOllamaHost(_ollamaHostController.text);
-    await SettingsService.setOllamaModel(_ollamaModelController.text);
-    await SettingsService.setOllamaApiKey(_ollamaApiKeyController.text);
+    await SettingsService.setLocalHost(_localHostController.text);
+    await SettingsService.setLocalModel(_localModelController.text);
+    await SettingsService.setLocalApiKey(_localApiKeyController.text);
     if (mounted) {
       Navigator.of(context).pop();
     }
@@ -70,25 +70,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildSectionTitle('Active Provider'),
           _buildDropdown(),
           const SizedBox(height: 32),
-          
+
           _buildSectionTitle('OpenAI'),
           _buildTextField('API Key (sk-...)', _openAiController, obscure: true),
           const SizedBox(height: 24),
-          
+
           _buildSectionTitle('Anthropic'),
-          _buildTextField('API Key (sk-ant-...)', _anthropicController, obscure: true),
+          _buildTextField(
+            'API Key (sk-ant-...)',
+            _anthropicController,
+            obscure: true,
+          ),
           const SizedBox(height: 24),
-          
+
           _buildSectionTitle('Google Gemini'),
           _buildTextField('API Key', _geminiController, obscure: true),
           const SizedBox(height: 24),
-          
-          _buildSectionTitle('Ollama (Local)'),
-          _buildTextField('API Key', _ollamaApiKeyController, obscure: true),
+
+          _buildSectionTitle('LiteLLM'),
+          _buildTextField(
+            'Master Key (required)',
+            _localApiKeyController,
+            obscure: true,
+          ),
           const SizedBox(height: 12),
-          _buildTextField('Host URL', _ollamaHostController),
+          _buildTextField(
+            'Gateway Origin (e.g., http://127.0.0.1:4000)',
+            _localHostController,
+          ),
           const SizedBox(height: 12),
-          _buildTextField('Model Name (e.g., llama3.1)', _ollamaModelController),
+          _buildTextField(
+            'Model Alias (e.g., qwen-smart)',
+            _localModelController,
+          ),
         ],
       ),
     );
@@ -124,9 +138,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           dropdownColor: EomColors.surface,
           items: const [
             DropdownMenuItem(value: 'OPENAI', child: Text('OpenAI')),
-            DropdownMenuItem(value: 'ANTHROPIC', child: Text('Anthropic Claude')),
+            DropdownMenuItem(
+              value: 'ANTHROPIC',
+              child: Text('Anthropic Claude'),
+            ),
             DropdownMenuItem(value: 'GEMINI', child: Text('Google Gemini')),
-            DropdownMenuItem(value: 'OLLAMA', child: Text('Ollama (Local)')),
+            DropdownMenuItem(value: 'LOCAL', child: Text('LiteLLM')),
           ],
           onChanged: (val) {
             if (val != null) setState(() => _activeProvider = val);
@@ -136,7 +153,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildTextField(String hint, TextEditingController controller, {bool obscure = false}) {
+  Widget _buildTextField(
+    String hint,
+    TextEditingController controller, {
+    bool obscure = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: EomColors.surface,
@@ -151,7 +172,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           hintText: hint,
           hintStyle: const TextStyle(color: EomColors.textTertiary),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
         ),
       ),
     );

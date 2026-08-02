@@ -5,9 +5,13 @@ class SettingsService {
   static const String _kOpenAiKey = 'openai_api_key';
   static const String _kAnthropicKey = 'anthropic_api_key';
   static const String _kGeminiKey = 'gemini_api_key';
-  static const String _kOllamaHost = 'ollama_host';
-  static const String _kOllamaModel = 'ollama_model';
-  static const String _kOllamaApiKey = 'ollama_api_key';
+  // Preference keys keep `ollama_*` names for backward compatibility.
+  static const String _kLocalHost = 'ollama_host';
+  static const String _kLocalModel = 'ollama_model';
+  static const String _kLocalApiKey = 'ollama_api_key';
+
+  static const String defaultGatewayOrigin = 'http://127.0.0.1:4000';
+  static const String defaultModelAlias = 'qwen-smart';
 
   static late SharedPreferences _prefs;
 
@@ -15,10 +19,28 @@ class SettingsService {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  // Active Provider
-  static String get activeProvider => _prefs.getString(_kProvider) ?? 'GEMINI';
-  static Future<void> setActiveProvider(String provider) async =>
-      await _prefs.setString(_kProvider, provider);
+  /// Strip trailing slashes and an optional `/v1` so pasted LITELLM_BASE
+  /// values do not become `/v1/v1/...` when clients append the OpenAI path.
+  static String normalizeGatewayOrigin(String host) {
+    var origin = host.trim();
+    origin = origin.replaceAll(RegExp(r'/+$'), '');
+    if (origin.toLowerCase().endsWith('/v1')) {
+      origin = origin.substring(0, origin.length - 3);
+      origin = origin.replaceAll(RegExp(r'/+$'), '');
+    }
+    return origin;
+  }
+
+  // Active Provider — migrate legacy OLLAMA → LOCAL
+  static String get activeProvider {
+    final raw = _prefs.getString(_kProvider) ?? 'GEMINI';
+    return raw.toUpperCase() == 'OLLAMA' ? 'LOCAL' : raw;
+  }
+
+  static Future<void> setActiveProvider(String provider) async {
+    final normalized = provider.toUpperCase() == 'OLLAMA' ? 'LOCAL' : provider;
+    await _prefs.setString(_kProvider, normalized);
+  }
 
   // OpenAI Key
   static String get openAiKey => _prefs.getString(_kOpenAiKey) ?? '';
@@ -35,19 +57,28 @@ class SettingsService {
   static Future<void> setGeminiKey(String key) async =>
       await _prefs.setString(_kGeminiKey, key.trim());
 
-  // Ollama Host
-  static String get ollamaHost =>
-      _prefs.getString(_kOllamaHost) ?? 'http://127.0.0.1:11434';
-  static Future<void> setOllamaHost(String host) async =>
-      await _prefs.setString(_kOllamaHost, host.trim());
+  // LiteLLM Gateway Origin (no /v1 suffix)
+  static String get localHost {
+    final raw = _prefs.getString(_kLocalHost);
+    if (raw == null || raw.trim().isEmpty) return defaultGatewayOrigin;
+    return normalizeGatewayOrigin(raw);
+  }
 
-  // Ollama Model
-  static String get ollamaModel => _prefs.getString(_kOllamaModel) ?? 'llama3.1';
-  static Future<void> setOllamaModel(String model) async =>
-      await _prefs.setString(_kOllamaModel, model.trim());
+  static Future<void> setLocalHost(String host) async =>
+      await _prefs.setString(_kLocalHost, normalizeGatewayOrigin(host));
 
-  // Ollama API Key
-  static String get ollamaApiKey => _prefs.getString(_kOllamaApiKey) ?? '';
-  static Future<void> setOllamaApiKey(String key) async =>
-      await _prefs.setString(_kOllamaApiKey, key.trim());
+  // LiteLLM Model Alias (e.g. qwen-smart, auto, claude-haiku)
+  static String get localModel {
+    final raw = _prefs.getString(_kLocalModel);
+    if (raw == null || raw.trim().isEmpty) return defaultModelAlias;
+    return raw.trim();
+  }
+
+  static Future<void> setLocalModel(String model) async =>
+      await _prefs.setString(_kLocalModel, model.trim());
+
+  // LiteLLM Master Key (required for the LAN-facing gateway)
+  static String get localApiKey => _prefs.getString(_kLocalApiKey) ?? '';
+  static Future<void> setLocalApiKey(String key) async =>
+      await _prefs.setString(_kLocalApiKey, key.trim());
 }

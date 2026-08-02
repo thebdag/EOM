@@ -13,7 +13,10 @@ when relevant.
 
 ## Bugs To Avoid
 
-- _(none yet)_ — add the first one when you hit a non-obvious failure.
+- **2026-08-02 — Double `/v1`** — Pasting scratchpad `LITELLM_BASE`
+  (`http://host:4000/v1`) into Gateway Origin without normalize yields
+  `/v1/v1/chat/completions`. Prevent it by: always run
+  `normalizeGatewayOrigin` on save/read.
 
 <!-- Template:
 - **YYYY-MM-DD** — Short title. What went wrong, root cause, the fix.
@@ -24,6 +27,12 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-02 — LiteLLM slot** — Settings label is **LiteLLM** (prefs id
+  `LOCAL`). Store Gateway Origin without `/v1` (normalize pasted
+  `LITELLM_BASE`); require Master Key; default Model Alias `qwen-smart`.
+  Never read `~/.config/litellm/.env` from the app — Settings /
+  `shared_preferences` only. Pasting `…/v1` without normalize causes
+  `/v1/v1/chat/completions`.
 - **Flutter class name collisions** — Avoid naming enums/classes after
   Flutter framework symbols. The `Intent` enum collided with
   `android.content.Intent` / Flutter's own `Intent`; renaming to
