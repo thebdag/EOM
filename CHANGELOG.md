@@ -4,6 +4,9 @@ All notable changes to the EOM project will be documented in this file.
 
 ## [Unreleased] - 2026-05-11
 
+### Changed
+- **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
+
 ### Added
 - **Flutter Scaffolding**: Initialized Flutter project with macOS deployment support.
 - **Design System**: Created `EomColors` and `EomTheme` to implement the "Epistemic Calm" dark mode vault aesthetic (no shadows, subtle borders, slate backgrounds).
