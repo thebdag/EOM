@@ -5,12 +5,15 @@ An overview of the EOM application structure.
 ```text
 EOM/
 ├── CHANGELOG.md               # Version history and notable changes
+├── CONTEXT.md                 # Domain glossary (ubiquitous language)
 ├── README.md                  # Project overview and setup instructions
 ├── pubspec.yaml               # Flutter package dependencies and assets
 │
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
-│   └── design_spec.md         # Original design philosophy and component spec
+│   ├── design_spec.md         # Original design philosophy and component spec
+│   └── adr/
+│       └── 0001-local-means-litellm-gateway.md
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
@@ -22,7 +25,7 @@ EOM/
 │   ├── screens/
 │   │   ├── history_screen.dart  # Library of saved thought sessions
 │   │   ├── home_screen.dart     # Main "Vault" interface (input, intents, response)
-│   │   └── settings_screen.dart # API Key and Provider configuration UI
+│   │   └── settings_screen.dart # API Key / LiteLLM / Provider configuration UI
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router and prompt management
@@ -40,6 +43,7 @@ EOM/
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
-    └── thought_node_test.dart # Logic tests for tree structure management
+    ├── settings_service_test.dart # Gateway-origin normalization
+    └── thought_node_test.dart     # Logic tests for tree structure management
 ```
 

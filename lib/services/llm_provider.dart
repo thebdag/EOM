@@ -3,14 +3,24 @@ import 'settings_service.dart';
 import 'package:http/http.dart' as http;
 
 abstract class LlmProvider {
-  Future<String> generate(String systemPrompt, String userMessage, {List<Map<String, String>> history = const []});
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  });
 }
 
 class OpenAiProvider implements LlmProvider {
   @override
-  Future<String> generate(String systemPrompt, String userMessage, {List<Map<String, String>> history = const []}) async {
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  }) async {
     final apiKey = SettingsService.openAiKey;
-    if (apiKey == null || apiKey.isEmpty) throw Exception('OPENAI_API_KEY is missing');
+    if (apiKey.isEmpty) {
+      throw Exception('OPENAI_API_KEY is missing');
+    }
 
     final response = await http.post(
       Uri.parse('https://api.openai.com/v1/chat/completions'),
@@ -28,7 +38,9 @@ class OpenAiProvider implements LlmProvider {
       }),
     );
 
-    if (response.statusCode != 200) throw Exception('OpenAI Error: ${response.body}');
+    if (response.statusCode != 200) {
+      throw Exception('OpenAI Error: ${response.body}');
+    }
     final data = jsonDecode(response.body);
     return data['choices'][0]['message']['content'];
   }
@@ -36,9 +48,15 @@ class OpenAiProvider implements LlmProvider {
 
 class AnthropicProvider implements LlmProvider {
   @override
-  Future<String> generate(String systemPrompt, String userMessage, {List<Map<String, String>> history = const []}) async {
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  }) async {
     final apiKey = SettingsService.anthropicKey;
-    if (apiKey == null || apiKey.isEmpty) throw Exception('ANTHROPIC_API_KEY is missing');
+    if (apiKey.isEmpty) {
+      throw Exception('ANTHROPIC_API_KEY is missing');
+    }
 
     final response = await http.post(
       Uri.parse('https://api.anthropic.com/v1/messages'),
@@ -58,7 +76,9 @@ class AnthropicProvider implements LlmProvider {
       }),
     );
 
-    if (response.statusCode != 200) throw Exception('Anthropic Error: ${response.body}');
+    if (response.statusCode != 200) {
+      throw Exception('Anthropic Error: ${response.body}');
+    }
     final data = jsonDecode(response.body);
     return data['content'][0]['text'];
   }
@@ -66,44 +86,73 @@ class AnthropicProvider implements LlmProvider {
 
 class GeminiProvider implements LlmProvider {
   @override
-  Future<String> generate(String systemPrompt, String userMessage, {List<Map<String, String>> history = const []}) async {
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  }) async {
     final apiKey = SettingsService.geminiKey;
-    if (apiKey == null || apiKey.isEmpty) throw Exception('GEMINI_API_KEY is missing');
+    if (apiKey.isEmpty) {
+      throw Exception('GEMINI_API_KEY is missing');
+    }
 
     final response = await http.post(
-      Uri.parse('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$apiKey'),
+      Uri.parse(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$apiKey',
+      ),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'systemInstruction': {
-          'parts': [{'text': systemPrompt}]
+          'parts': [
+            {'text': systemPrompt},
+          ],
         },
         'contents': [
-          ...history.map((m) => {
-            'role': m['role'] == 'assistant' ? 'model' : 'user',
-            'parts': [{'text': m['content']}]
-          }),
+          ...history.map(
+            (m) => {
+              'role': m['role'] == 'assistant' ? 'model' : 'user',
+              'parts': [
+                {'text': m['content']},
+              ],
+            },
+          ),
           {
             'role': 'user',
-            'parts': [{'text': userMessage}]
-          }
+            'parts': [
+              {'text': userMessage},
+            ],
+          },
         ],
       }),
     );
 
-    if (response.statusCode != 200) throw Exception('Gemini Error: ${response.body}');
+    if (response.statusCode != 200) {
+      throw Exception('Gemini Error: ${response.body}');
+    }
     final data = jsonDecode(response.body);
     return data['candidates'][0]['content']['parts'][0]['text'];
   }
 }
 
-class OllamaProvider implements LlmProvider {
+/// LiteLLM Gateway client (provider id `LOCAL`) — OpenAI-compatible
+/// `/v1/chat/completions` against the scratchpad-shaped LiteLLM proxy.
+class LocalProvider implements LlmProvider {
   @override
-  Future<String> generate(String systemPrompt, String userMessage, {List<Map<String, String>> history = const []}) async {
-    final host = SettingsService.ollamaHost;
-    final model = SettingsService.ollamaModel;
-    final apiKey = SettingsService.ollamaApiKey;
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  }) async {
+    final host = SettingsService.localHost;
+    final model = SettingsService.localModel;
+    final apiKey = SettingsService.localApiKey;
 
-    if (apiKey.isEmpty) throw Exception('OLLAMA_API_KEY is missing');
+    if (apiKey.isEmpty) {
+      throw Exception('LiteLLM Master Key is required');
+    }
+    if (model.isEmpty) {
+      throw Exception('LiteLLM Model Alias is missing');
+    }
 
     final response = await http.post(
       Uri.parse('$host/v1/chat/completions'),
@@ -122,13 +171,14 @@ class OllamaProvider implements LlmProvider {
       }),
     );
 
-    if (response.statusCode != 200) throw Exception('Ollama Error: ${response.body}');
+    if (response.statusCode != 200) {
+      throw Exception('LiteLLM Error: ${response.body}');
+    }
     final data = jsonDecode(response.body);
-    
-    // Support both OpenAI format and native Ollama format
+
     if (data['choices'] != null && data['choices'].isNotEmpty) {
       return data['choices'][0]['message']['content'];
     }
-    return data['message']['content'];
+    throw Exception('LiteLLM Error: unexpected response shape');
   }
 }
