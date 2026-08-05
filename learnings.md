@@ -47,6 +47,13 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-05 — Keep intent→graph derivation pure, apply thin** —
+  `ClarifyOperation` (EOM-T6) splits into a static `derive(payload, nodes)`
+  (pure, unit-testable without a database) and a thin `apply` shell over
+  `EpistemicService`. This avoids needing `sqflite_common_ffi` in dev
+  dependencies just to test intent logic, and gives T7–T10 a copyable
+  pattern: LLM response → parse → derive → apply. (EOM-T6)
+
 - **2026-08-05 — EpistemicCategory is orthogonal to NodeType and ProvenanceSource** —
   When adding EOM-T5, it became clear the three epistemic metadata axes serve
   completely different roles: `EpistemicNodeType` = *what kind* of proposition;

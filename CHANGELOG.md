@@ -5,6 +5,7 @@ All notable changes to the EOM project will be documented in this file.
 ## [Unreleased] - 2026-05-11
 
 ### Changed
+- **Clarify intent**: Clarify exchanges now update your private epistemic map — the app records the surface concern and the deeper current beneath it, links them, and nudges up the confidence of beliefs the exchange resolved (EOM-T6). The AI's machine-readable summary is never shown.
 - **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
 
 ### Added

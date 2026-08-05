@@ -12,6 +12,20 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T6** `lib/models/epistemic_operation.dart` — `EpistemicOperation`
+  value object + `EpistemicOperationType` enum (`disambiguate`,
+  `raiseConfidence`); the canonical intent→graph mutation contract for
+  EOM-T6..T10.
+- **EOM-T6** `lib/services/clarify_operation.dart` — `IntentOperation`
+  interface + `ClarifyOperation`: parses the fenced JSON payload appended to
+  Clarify responses (`surface` / `deeper` / `resolved`), creates
+  surface/deeper `question` nodes linked by a `refines` edge (reusing
+  existing nodes on normalized-content match), and raises a resolved
+  belief's confidence by 0.1 capped at 0.9. Derivation is pure/static;
+  apply goes through `EpistemicService`.
+- **EOM-T6** `test/clarify_operation_test.dart` — 16 tests covering payload
+  parsing (fenced/bare/malformed), payload stripping, and operation
+  derivation (match reuse, ceiling cap, full payload).
 - **EOM-T1** `lib/models/epistemic_node.dart` — `EpistemicNode` model with
   `EpistemicNodeType` enum (belief, knowledge, hypothesis, intuition, question,
   unknown), `double confidence` (0.0–1.0, default 0.5), T3 provenance stubs
@@ -30,6 +44,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `test/settings_service_test.dart` for gateway-origin normalization.
 
 ### Changed
+- **EOM-T6** `lib/services/ai_service.dart` — Clarify prompt now asks the
+  LLM to append a machine-readable JSON payload; the payload is stripped
+  from the displayed text and applied to the epistemic graph via
+  `ClarifyOperation`. `AiResponse` gains an `operations` field. Graph
+  failures degrade silently to "no graph update."
 - Aligned **LiteLLM** (provider id `LOCAL`) with the scratchpad gateway:
   Settings UI renamed from Local Provider; Master Key required; defaults
   Gateway Origin `http://127.0.0.1:4000` and Model Alias `qwen-smart`;

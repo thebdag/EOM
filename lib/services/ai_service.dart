@@ -1,10 +1,16 @@
 import 'dart:convert';
+import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
+import 'clarify_operation.dart';
+import 'epistemic_service.dart';
 import 'llm_provider.dart';
 import 'settings_service.dart';
 
 class AiService {
+  final EpistemicService _epistemic = EpistemicService();
+  late final ClarifyOperation _clarify = ClarifyOperation(_epistemic);
+
   LlmProvider _getProvider() {
     final provider = SettingsService.activeProvider.toUpperCase();
     switch (provider) {
@@ -39,7 +45,12 @@ class AiService {
         intentContext =
             'You are an epistemic agent helping the user clarify their thoughts. '
             'Ensure your questions are inquisitive and delicate. '
-            'Analyze the input, point out the surface concern and deeper current, and end with a clarifying question.';
+            'Analyze the input, point out the surface concern and deeper current, and end with a clarifying question. '
+            'After the clarifying question, on a new line append a fenced json block exactly of the form '
+            '```json {"surface": "...", "deeper": "...", "resolved": "..."}``` '
+            'where "surface" is the surface concern, "deeper" is the deeper current beneath it, and "resolved" '
+            'is the user\'s pre-existing belief that this exchange clarified (or null if none). '
+            'Never mention this json block in the visible text.';
         break;
       case CognitiveIntent.compress:
         intentContext =
@@ -90,7 +101,29 @@ class AiService {
         );
       }
 
-      return AiResponse(text: textResponse.trim(), intent: intent);
+      var displayText = textResponse.trim();
+      var operations = const <EpistemicOperation>[];
+
+      if (intent == CognitiveIntent.clarify) {
+        displayText = ClarifyOperation.stripPayload(displayText);
+        try {
+          await _epistemic.init();
+          operations = await _clarify.apply(
+            input: input,
+            llmResponse: textResponse,
+          );
+        } catch (_) {
+          // Graph updates are best-effort; a storage failure must never
+          // break the user-facing response.
+          operations = const [];
+        }
+      }
+
+      return AiResponse(
+        text: displayText,
+        intent: intent,
+        operations: operations,
+      );
     } catch (e) {
       return AiResponse(
         text:
@@ -114,9 +147,19 @@ class AiService {
 
 /// Response from the AI service.
 class AiResponse {
-  const AiResponse({required this.text, required this.intent, this.tree});
+  const AiResponse({
+    required this.text,
+    required this.intent,
+    this.tree,
+    this.operations = const [],
+  });
 
   final String text;
   final CognitiveIntent intent;
   final ThoughtNode? tree;
+
+  /// Epistemic graph mutations applied as a result of this exchange
+  /// (EOM-T6: Clarify only, for now). Empty for other intents or when the
+  /// response carried no machine-readable payload.
+  final List<EpistemicOperation> operations;
 }
