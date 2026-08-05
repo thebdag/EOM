@@ -57,7 +57,33 @@ providers. See `README.md`, `docs/design_spec.md`, and
 - **Quality:** `dart format` before every commit; zero `flutter_lints`
   warnings.
 
-## 5. Pre-PR checklist (do this LAST, every time)
+## 5. Update the issue tracker (`dev/tracker/`)
+
+The repo has a local SQLite tracker (launch with `npm run tracker`). **Every
+time a task is completed or changes state, update the tracker immediately —
+not as an afterthought.** Stale tracker state is a known recurring problem.
+
+- **When to update:** as soon as a subtask, story, or epic changes status.
+  Do not wait until the PR checklist.
+- **How to update programmatically** (preferred for agents doing bulk work):
+  ```bash
+  cd dev/tracker
+  node -e "
+  const { initDb, Subtasks } = require('./db');
+  initDb().then(() => {
+    // resolve id first if needed:
+    // const t = Subtasks.forStory(storyId).find(x => x.key === 'EOM-T7');
+    Subtasks.update(id, { status: 'done' });
+  });
+  "
+  ```
+- **Must `await initDb()`** before calling any helper — writes are lost
+  otherwise. The DB auto-saves on every write and on process exit.
+- **Keys:** epics = `EOM-E{n}`, stories = `EOM-S{n}`, subtasks = `EOM-T{n}`.
+- See `.agents/skills/eom-tracker/SKILL.md` for the full procedure and
+  `.agents/skills/eom-tracker/references/schema.md` for the JS helper API.
+
+## 6. Pre-PR checklist (do this LAST, every time)
 
 Before opening a pull request, **always**:
 
@@ -70,13 +96,15 @@ Before opening a pull request, **always**:
    the change (grouped by Added / Changed / Fixed / Removed).
 6. **Append a learning to `learnings.md`** if you hit a non-obvious bug or
    confirmed a best practice worth remembering.
-7. Commit doc updates together with the code change (or in a follow-up
+7. **Update the issue tracker** — mark completed subtasks/stories as `done`
+   using the pattern in section 5 above.
+8. Commit doc updates together with the code change (or in a follow-up
    commit on the same branch), then push and open/update the PR.
 
-> Do not mark a branch "ready for PR" until steps 3–6 are done. These docs
+> Do not mark a branch "ready for PR" until steps 3–7 are done. These docs
 > are part of the deliverable, not optional cleanup.
 
-## 6. Commit & PR conventions
+## 7. Commit & PR conventions
 
 - One logical change per commit; clear, descriptive messages.
 - Branch naming: `cursor/<descriptive-name>-b83b` (lowercase).

@@ -1,0 +1,14 @@
+{
+  "name": "eom-tracker",
+  "version": "1.0.0",
+  "description": "Lightweight Jira-like issue tracker for the EOM repo",
+  "main": "tracker.js",
+  "scripts": {
+    "start": "node tracker.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "sql.js": "^1.12.0",
+    "blessed": "^0.1.81"
+  }
+}
