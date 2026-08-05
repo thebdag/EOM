@@ -12,6 +12,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T1** `lib/models/epistemic_node.dart` — `EpistemicNode` model with
+  `EpistemicNodeType` enum (belief, knowledge, hypothesis, intuition, question,
+  unknown), `double confidence` (0.0–1.0, default 0.5), T3 provenance stubs
+  (`sourceType`, `sourceTimestamp`), client-side UUID, `copyWith`, full JSON
+  round-trip, and ID-based equality.
+- **EOM-T1** `lib/services/epistemic_service.dart` — `EpistemicService`:
+  sqflite-backed CRUD for the `epistemic_nodes` table with CHECK constraints
+  on `type` and `confidence`.
+- **EOM-T1** `test/epistemic_node_test.dart` — 17 unit tests (type enum
+  helpers, construction defaults, all-6-type JSON round-trip, provenance
+  stubs, copyWith, equality).
+- `pubspec.yaml` — added `sqflite ^2.3.3+1` and `uuid ^4.4.0`.
 - `CONTEXT.md` domain glossary (LiteLLM Gateway, Master Key, Gateway Origin,
   Model Alias).
 - `docs/adr/0001-local-means-litellm-gateway.md`.
@@ -32,6 +44,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `changelog.md` — this agent-maintained development log (separate from the
   user-facing `CHANGELOG.md`).
 - `AGENTS.md` — instructions for AI agents working in this repo.
+- **Dev Tracker** (`dev/tracker/`) — SQLite + Node.js blessed TUI issue
+  tracker with Epic → Story → Subtask hierarchy, status cycling
+  (`todo`/`in_progress`/`done`), P1–P3 priority, and auto git-branch
+  detection. Launch with `npm run tracker` from repo root. Pre-seeded with 7
+  epics derived from the existing codebase.
 
 <!-- Entry template:
 ### Added / Changed / Fixed / Removed

@@ -13,6 +13,12 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-04 — `package:path` is a transitive dep, not a direct one** —
+  Using `import 'package:path/path.dart'` in a service triggers the
+  `depend_on_referenced_packages` lint because `path` is not listed in
+  `pubspec.yaml`. Prefer `sqflite`'s built-in `getDatabasesPath()` for DB
+  file location — it avoids the extra dependency entirely.
+
 - **2026-08-02 — Double `/v1`** — Pasting scratchpad `LITELLM_BASE`
   (`http://host:4000/v1`) into Gateway Origin without normalize yields
   `/v1/v1/chat/completions`. Prevent it by: always run

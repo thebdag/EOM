@@ -19,8 +19,9 @@ EOM/
 │   ├── main.dart              # Application entry point & theme initialization
 │   │
 │   ├── models/
-│   │   ├── intent.dart        # CognitiveIntent enum (Clarify, Compress, Map, etc.)
-│   │   └── thought_node.dart  # Recursive node structure for the Map tree view
+│   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType enum (EOM-T1)
+│   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
+│   │   └── thought_node.dart    # Recursive node structure for the Map tree view
 │   │
 │   ├── screens/
 │   │   ├── history_screen.dart  # Library of saved thought sessions
@@ -29,7 +30,8 @@ EOM/
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router and prompt management
-│   │   ├── history_service.dart # Persistent storage for session logs (SQLite)
+│   │   ├── epistemic_service.dart # SQLite CRUD for the epistemic graph (EOM-T1)
+│   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
 │   │   └── settings_service.dart# SharedPreferences wrapper for persistent storage
 │   │
@@ -43,7 +45,16 @@ EOM/
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
+    ├── epistemic_node_test.dart   # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── settings_service_test.dart # Gateway-origin normalization
     └── thought_node_test.dart     # Logic tests for tree structure management
+
+dev/
+└── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
+    ├── package.json           # Tracker dependencies (better-sqlite3, blessed)
+    ├── db.js                  # SQLite schema, migrations, and CRUD helpers
+    ├── tracker.js             # Entry point (git branch detection, DB init, TUI launch)
+    ├── ui.js                  # blessed TUI — three-pane Epics/Stories/Detail layout
+    └── seed.js                # One-time seed script: 7 epics from the existing codebase
 ```
 
