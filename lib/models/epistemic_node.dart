@@ -24,9 +24,56 @@ enum EpistemicNodeType {
 /// Throws [ArgumentError] if [value] is not a valid type name.
 EpistemicNodeType epistemicNodeTypeFromString(String value) {
   return EpistemicNodeType.values.firstWhere(
+  return EpistemicNodeType.values.firstWhere(
     (e) => e.name == value,
     orElse: () => throw ArgumentError('Unknown EpistemicNodeType: "$value"'),
   );
+}
+
+/// The four canonical sources of an epistemic node.
+enum ProvenanceSource {
+  experience,
+  reasoning,
+  testimony,
+  intuition,
+}
+
+/// Converts a raw string to the matching [ProvenanceSource].
+///
+/// Throws [ArgumentError] if [value] is not a valid source name.
+ProvenanceSource provenanceSourceFromString(String value) {
+  return ProvenanceSource.values.firstWhere(
+    (e) => e.name == value,
+    orElse: () => throw ArgumentError('Unknown ProvenanceSource: "$value"'),
+  );
+}
+
+/// Represents the origin of a belief or knowledge claim.
+class ProvenanceRecord {
+  const ProvenanceRecord({
+    required this.source,
+    required this.timestamp,
+  });
+
+  /// The category of origin.
+  final ProvenanceSource source;
+
+  /// When the originating event occurred.
+  final DateTime timestamp;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProvenanceRecord &&
+          runtimeType == other.runtimeType &&
+          source == other.source &&
+          timestamp == other.timestamp;
+
+  @override
+  int get hashCode => source.hashCode ^ timestamp.hashCode;
+
+  @override
+  String toString() => 'ProvenanceRecord(source: ${source.name}, timestamp: $timestamp)';
 }
 
 /// An atomic entry in the user's epistemic database.
@@ -47,8 +94,7 @@ class EpistemicNode {
     this.confidence = 0.5,
     DateTime? createdAt,
     DateTime? updatedAt,
-    this.sourceType,
-    this.sourceTimestamp,
+    this.provenance,
   }) : id = id ?? const Uuid().v4(),
        createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
@@ -76,20 +122,10 @@ class EpistemicNode {
   /// When this node was last modified.
   final DateTime updatedAt;
 
-  // ── T3 stub fields ─────────────────────────────────────────────────────────
-  // These are present but nullable so the schema is forward-compatible.
-  // EOM-T3 will replace them with a richer ProvenanceRecord type.
+  // ── Provenance ─────────────────────────────────────────────────────────────
 
-  /// How this belief was originally formed.
-  ///
-  /// Expected values: `'experience'`, `'reasoning'`, `'testimony'`,
-  /// `'intuition'`. Null until EOM-T3 lands.
-  final String? sourceType;
-
-  /// When the originating experience or reasoning occurred.
-  ///
-  /// Null until EOM-T3 lands.
-  final DateTime? sourceTimestamp;
+  /// The origin of this belief or knowledge claim.
+  final ProvenanceRecord? provenance;
 
   // ── Serialisation ───────────────────────────────────────────────────────────
 
@@ -100,22 +136,29 @@ class EpistemicNode {
     'confidence': confidence,
     'created_at': createdAt.toIso8601String(),
     'updated_at': updatedAt.toIso8601String(),
-    'source_type': sourceType,
-    'source_timestamp': sourceTimestamp?.toIso8601String(),
+    'source_type': provenance?.source.name,
+    'source_timestamp': provenance?.timestamp.toIso8601String(),
   };
 
-  factory EpistemicNode.fromJson(Map<String, dynamic> json) => EpistemicNode(
-    id: json['id'] as String,
-    content: json['content'] as String,
-    type: epistemicNodeTypeFromString(json['type'] as String),
-    confidence: (json['confidence'] as num).toDouble(),
-    createdAt: DateTime.parse(json['created_at'] as String),
-    updatedAt: DateTime.parse(json['updated_at'] as String),
-    sourceType: json['source_type'] as String?,
-    sourceTimestamp: json['source_timestamp'] != null
-        ? DateTime.parse(json['source_timestamp'] as String)
-        : null,
-  );
+  factory EpistemicNode.fromJson(Map<String, dynamic> json) {
+    ProvenanceRecord? prov;
+    if (json['source_type'] != null && json['source_timestamp'] != null) {
+      prov = ProvenanceRecord(
+        source: provenanceSourceFromString(json['source_type'] as String),
+        timestamp: DateTime.parse(json['source_timestamp'] as String),
+      );
+    }
+
+    return EpistemicNode(
+      id: json['id'] as String,
+      content: json['content'] as String,
+      type: epistemicNodeTypeFromString(json['type'] as String),
+      confidence: (json['confidence'] as num).toDouble(),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+      provenance: prov,
+    );
+  }
 
   /// Returns a copy of this node with the given fields replaced.
   EpistemicNode copyWith({
@@ -123,8 +166,7 @@ class EpistemicNode {
     EpistemicNodeType? type,
     double? confidence,
     DateTime? updatedAt,
-    String? sourceType,
-    DateTime? sourceTimestamp,
+    ProvenanceRecord? provenance,
   }) => EpistemicNode(
     id: id,
     content: content ?? this.content,
@@ -132,8 +174,7 @@ class EpistemicNode {
     confidence: confidence ?? this.confidence,
     createdAt: createdAt,
     updatedAt: updatedAt ?? DateTime.now(),
-    sourceType: sourceType ?? this.sourceType,
-    sourceTimestamp: sourceTimestamp ?? this.sourceTimestamp,
+    provenance: provenance ?? this.provenance,
   );
 
   @override

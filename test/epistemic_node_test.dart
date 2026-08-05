@@ -26,6 +26,23 @@ void main() {
     });
   });
 
+  // ── ProvenanceSource helpers ────────────────────────────────────────────────
+
+  group('provenanceSourceFromString', () {
+    test('round-trips every valid source name', () {
+      for (final source in ProvenanceSource.values) {
+        expect(provenanceSourceFromString(source.name), source);
+      }
+    });
+
+    test('throws ArgumentError for unknown source string', () {
+      expect(
+        () => provenanceSourceFromString('nonsense'),
+        throwsA(isA<ArgumentError>()),
+      );
+    });
+  });
+
   // ── Construction ────────────────────────────────────────────────────────────
 
   group('EpistemicNode construction', () {
@@ -62,13 +79,12 @@ void main() {
       expect(node.confidence, 0.95);
     });
 
-    test('sourceType and sourceTimestamp default to null', () {
+    test('provenance defaults to null', () {
       final node = EpistemicNode(
         content: 'c',
         type: EpistemicNodeType.intuition,
       );
-      expect(node.sourceType, isNull);
-      expect(node.sourceTimestamp, isNull);
+      expect(node.provenance, isNull);
     });
   });
 
@@ -95,23 +111,22 @@ void main() {
         expect(roundTripped.confidence, original.confidence);
         expect(roundTripped.createdAt, original.createdAt);
         expect(roundTripped.updatedAt, original.updatedAt);
-        expect(roundTripped.sourceType, isNull);
-        expect(roundTripped.sourceTimestamp, isNull);
+        expect(roundTripped.provenance, isNull);
       }
     });
 
-    test('round-trips provenance stub fields when set', () {
+    test('round-trips provenance field when set', () {
       final ts = DateTime(2025, 6, 15, 10, 30);
       final original = EpistemicNode(
         id: 'prov-id',
         content: 'I experienced this.',
         type: EpistemicNodeType.belief,
-        sourceType: 'experience',
-        sourceTimestamp: ts,
+        provenance: ProvenanceRecord(source: ProvenanceSource.experience, timestamp: ts),
       );
       final rt = EpistemicNode.fromJson(original.toJson());
-      expect(rt.sourceType, 'experience');
-      expect(rt.sourceTimestamp, ts);
+      expect(rt.provenance?.source, ProvenanceSource.experience);
+      expect(rt.provenance?.timestamp, ts);
+      expect(rt.provenance, equals(original.provenance));
     });
 
     test('type is serialised as camelCase string', () {
@@ -157,14 +172,17 @@ void main() {
     });
 
     test('replaces specified fields', () {
+      final prov = ProvenanceRecord(source: ProvenanceSource.reasoning, timestamp: DateTime(2026));
       final copy = base.copyWith(
         content: 'new content',
         type: EpistemicNodeType.knowledge,
         confidence: 0.9,
+        provenance: prov,
       );
       expect(copy.content, 'new content');
       expect(copy.type, EpistemicNodeType.knowledge);
       expect(copy.confidence, 0.9);
+      expect(copy.provenance, prov);
     });
 
     test('updates updatedAt when not specified', () {
@@ -198,6 +216,23 @@ void main() {
     test('two nodes with different ids are not equal', () {
       final a = EpistemicNode(content: 'a', type: EpistemicNodeType.belief);
       final b = EpistemicNode(content: 'a', type: EpistemicNodeType.belief);
+      expect(a, isNot(equals(b)));
+    });
+  });
+
+  // ── ProvenanceRecord Equality ───────────────────────────────────────────────
+
+  group('ProvenanceRecord equality', () {
+    test('records with same values are equal', () {
+      final a = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
+      final b = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
+      expect(a, equals(b));
+      expect(a.hashCode, b.hashCode);
+    });
+
+    test('records with different values are not equal', () {
+      final a = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
+      final b = ProvenanceRecord(source: ProvenanceSource.reasoning, timestamp: DateTime(2026));
       expect(a, isNot(equals(b)));
     });
   });
