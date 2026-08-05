@@ -19,7 +19,7 @@ EOM/
 │   ├── main.dart              # Application entry point & theme initialization
 │   │
 │   ├── models/
-│   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType enum (EOM-T1)
+│   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_relationship.dart # EpistemicRelationship model + type enum (EOM-T4)
 │   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view
@@ -46,7 +46,8 @@ EOM/
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
-    ├── epistemic_node_test.dart   # Model round-trip, type enum, copyWith, equality (EOM-T1)
+    ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
+    ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
     ├── settings_service_test.dart # Gateway-origin normalization
     └── thought_node_test.dart     # Logic tests for tree structure management

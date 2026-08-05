@@ -7,8 +7,8 @@ import '../models/epistemic_relationship.dart';
 
 /// SQLite-backed service for the epistemic graph.
 ///
-/// Owns the `epistemic_nodes` table.  Relationship tables (EOM-T4) and the
-/// domain-query API (EOM-T17) will be added to this service in later tasks.
+/// Owns the `epistemic_nodes` and `epistemic_edges` tables.
+/// Domain-query API (EOM-T17) will be added in a later task.
 ///
 /// **Thread safety:** [sqflite] serialises writes internally; no additional
 /// locking is required from callers.
@@ -36,7 +36,12 @@ class EpistemicService {
     if (_db != null) return;
     final dbPath = await getDatabasesPath();
     final path = '$dbPath/$_dbFileName';
-    _db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    _db = await openDatabase(
+      path,
+      version: 2,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+    );
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -51,6 +56,9 @@ class EpistemicService {
                            CHECK(confidence BETWEEN 0.0 AND 1.0),
         source_type      TEXT,
         source_timestamp TEXT,
+        category         TEXT CHECK(category IN (
+                           'empirical','rational','intuitive',
+                           'abductive','revelatory')),
         created_at       TEXT NOT NULL,
         updated_at       TEXT NOT NULL
       )
@@ -67,6 +75,18 @@ class EpistemicService {
         FOREIGN KEY (target_id) REFERENCES $_tableNodes (id) ON DELETE CASCADE
       )
     ''');
+  }
+
+  /// Handles in-place database schema upgrades.
+  ///
+  /// Version 1 → 2: adds the nullable `category` column to `epistemic_nodes`.
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute(
+        'ALTER TABLE $_tableNodes ADD COLUMN category TEXT '
+        "CHECK(category IN ('empirical','rational','intuitive','abductive','revelatory'))",
+      );
+    }
   }
 
   Database get _requireDb {
@@ -115,6 +135,19 @@ class EpistemicService {
     return rows.map(EpistemicNode.fromJson).toList();
   }
 
+  /// Returns all nodes of the given [category], ordered by creation time.
+  ///
+  /// Nodes with a null category are not included.
+  Future<List<EpistemicNode>> byCategory(EpistemicCategory category) async {
+    final rows = await _requireDb.query(
+      _tableNodes,
+      where: 'category = ?',
+      whereArgs: [category.name],
+      orderBy: 'created_at ASC',
+    );
+    return rows.map(EpistemicNode.fromJson).toList();
+  }
+
   /// Overwrites the stored node with [node.id] using all fields from [node].
   ///
   /// Throws [StateError] if no row with that ID exists.
@@ -139,7 +172,8 @@ class EpistemicService {
 
   /// Persists [relationship] and returns it unchanged.
   Future<EpistemicRelationship> addRelationship(
-      EpistemicRelationship relationship) async {
+    EpistemicRelationship relationship,
+  ) async {
     await _requireDb.insert(
       _tableEdges,
       relationship.toJson(),
@@ -155,7 +189,8 @@ class EpistemicService {
 
   /// Returns all relationships where [nodeId] is either the source or the target.
   Future<List<EpistemicRelationship>> getRelationshipsForNode(
-      String nodeId) async {
+    String nodeId,
+  ) async {
     final rows = await _requireDb.query(
       _tableEdges,
       where: 'source_id = ? OR target_id = ?',

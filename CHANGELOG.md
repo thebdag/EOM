@@ -8,6 +8,9 @@ All notable changes to the EOM project will be documented in this file.
 - **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
 
 ### Added
+- **Models**: Added `EpistemicCategory` enum (`empirical`, `rational`, `intuitive`, `abductive`, `revelatory`) and `epistemicCategoryFromString` helper (EOM-T5). Added nullable `category` field to `EpistemicNode` with full JSON round-trip, `copyWith`, and `toString` support.
+- **Services**: Updated `EpistemicService` to version 2 — adds nullable `category` column to `epistemic_nodes` DDL, `onUpgrade` migration (`ALTER TABLE`) for existing installs, and new `byCategory()` query method (EOM-T5).
+- **Tests**: Added `test/epistemic_category_test.dart` covering enum parsing, field construction, JSON round-trip, `copyWith`, and `toString` (EOM-T5).
 - **Models**: Added `EpistemicRelationship` class and `EpistemicRelationshipType` enum (EOM-T4). Added `relationships` stub field to `EpistemicNode`.
 - **Services**: Updated `EpistemicService` to persist relationships in a new `epistemic_edges` table with cascade deletion. Added edge CRUD methods.
 - **Models**: Added `ProvenanceRecord` class and `ProvenanceSource` enum to track epistemic provenance (EOM-T3). Replaced `sourceType` and `sourceTimestamp` stub fields on `EpistemicNode`.
