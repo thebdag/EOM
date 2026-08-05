@@ -13,6 +13,20 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-05 — SonarQube CI fails on compile/test, not scan rules** —
+  The "SonarQube" GitHub check runs `flutter test --coverage` first. A
+  broken `lib/` compile or any failing test fails the job before Sonar
+  analyzes code. Two failures that bit PR #5: (1) a duplicated
+  `return …firstWhere(` line in `epistemicNodeTypeFromString` (bad merge /
+  edit artifact — Dart still parses oddly enough that only CI/tests catch
+  it if you skip local `flutter test`); (2) the template
+  `test/widget_test.dart` still pumped `MyApp` / counter UI after the app
+  became `EomApp`. Prevent it by: after any `lib/` or `test/` edit, run
+  `flutter test` (or at least the touched suite) before push; never leave
+  Flutter counter-template assertions in `widget_test.dart`; treat a red
+  SonarQube check as "tests/coverage first," not only Cloud issues.
+  (`9e6b80a`, PR #5)
+
 - **2026-08-04 — `package:path` is a transitive dep, not a direct one** —
   Using `import 'package:path/path.dart'` in a service triggers the
   `depend_on_referenced_packages` lint because `path` is not listed in
@@ -32,6 +46,16 @@ when relevant.
 ---
 
 ## Best Practices
+
+- **2026-08-05 — EpistemicCategory is orthogonal to NodeType and ProvenanceSource** —
+  When adding EOM-T5, it became clear the three epistemic metadata axes serve
+  completely different roles: `EpistemicNodeType` = *what kind* of proposition;
+  `ProvenanceSource` = *from where* the input came; `EpistemicCategory` = *how
+  the mind processed it* (empirical, rational, intuitive, abductive, revelatory).
+  Keep these separate — they are not redundant. Model `category` as nullable so
+  pre-existing nodes remain valid without migration data loss. Pattern: nullable
+  field + null-safe serialisation (`category?.name`) + guard in `fromJson`
+  (`if (raw != null) parse else null`). (EOM-T5)
 
 - **2026-08-02 — LiteLLM slot** — Settings label is **LiteLLM** (prefs id
   `LOCAL`). Store Gateway Origin without `/v1` (normalize pasted
