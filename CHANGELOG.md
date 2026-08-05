@@ -4,6 +4,9 @@ All notable changes to the EOM project will be documented in this file.
 
 ## [Unreleased] - 2026-05-11
 
+### Changed
+- **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
+
 ### Added
 - **Flutter Scaffolding**: Initialized Flutter project with macOS deployment support.
 - **Design System**: Created `EomColors` and `EomTheme` to implement the "Epistemic Calm" dark mode vault aesthetic (no shadows, subtle borders, slate backgrounds).
@@ -15,7 +18,7 @@ All notable changes to the EOM project will be documented in this file.
   - `ResponseCard`: Fade-in text response widget with basic markdown bold support.
 - **LLM Integration Engine**:
   - Abstract `LlmProvider` interface.
-  - Concrete implementations for **OpenAI** (GPT-4o), **Anthropic** (Claude 3.5), **Google Gemini** (Gemini 1.5 Pro), and **Ollama** (local models).
+  - Concrete implementations for **OpenAI** (GPT-4o), **Anthropic** (Claude 3.5), **Google Gemini** (Gemini 1.5 Pro), and **Local Provider** (LiteLLM OpenAI-compatible proxy).
   - Configured system prompts for each of the 5 cognitive intents.
 - **In-App Settings**: 
   - Added `shared_preferences` for secure, persistent on-device storage.
@@ -23,6 +26,7 @@ All notable changes to the EOM project will be documented in this file.
 
 ### Changed
 - Migrated away from `.env` files to on-device `shared_preferences` to allow dynamic UI configuration.
+- **LiteLLM** settings (provider id `LOCAL`): Master Key required; default model `qwen-smart`; Gateway Origin normalized if `/v1` is pasted. Direct OpenAI / Anthropic / Gemini providers unchanged.
 
 ### Fixed
 - Resolved Flutter class name collision by renaming the `Intent` enum to `CognitiveIntent`.
