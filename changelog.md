@@ -39,6 +39,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   OpenAI-compatible `/v1/chat/completions` (default host
   `http://127.0.0.1:4000`). Legacy `OLLAMA` preference migrates to `LOCAL`.
 
+### Fixed
+- Duplicate `firstWhere` return in `epistemicNodeTypeFromString` that broke
+  compilation (and the SonarQube CI coverage step).
+- Stale Flutter counter `widget_test` referencing missing `MyApp`; replaced
+  with an `EomApp` smoke test.
+
 ### Added
 - `learnings.md` — running log of bugs to avoid and best practices.
 - `changelog.md` — this agent-maintained development log (separate from the

@@ -8,6 +8,8 @@ All notable changes to the EOM project will be documented in this file.
 - **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
 
 ### Added
+- **Models**: Added `EpistemicRelationship` class and `EpistemicRelationshipType` enum (EOM-T4). Added `relationships` stub field to `EpistemicNode`.
+- **Services**: Updated `EpistemicService` to persist relationships in a new `epistemic_edges` table with cascade deletion. Added edge CRUD methods.
 - **Models**: Added `ProvenanceRecord` class and `ProvenanceSource` enum to track epistemic provenance (EOM-T3). Replaced `sourceType` and `sourceTimestamp` stub fields on `EpistemicNode`.
 - **Flutter Scaffolding**: Initialized Flutter project with macOS deployment support.
 - **Design System**: Created `EomColors` and `EomTheme` to implement the "Epistemic Calm" dark mode vault aesthetic (no shadows, subtle borders, slate backgrounds).

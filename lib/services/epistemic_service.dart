@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/epistemic_node.dart';
+import '../models/epistemic_relationship.dart';
 
 /// SQLite-backed service for the epistemic graph.
 ///
@@ -23,6 +24,7 @@ import '../models/epistemic_node.dart';
 class EpistemicService {
   static const _dbFileName = 'epistemic.db';
   static const _tableNodes = 'epistemic_nodes';
+  static const _tableEdges = 'epistemic_edges';
 
   Database? _db;
 
@@ -51,6 +53,18 @@ class EpistemicService {
         source_timestamp TEXT,
         created_at       TEXT NOT NULL,
         updated_at       TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS $_tableEdges (
+        id               TEXT PRIMARY KEY,
+        source_id        TEXT NOT NULL,
+        target_id        TEXT NOT NULL,
+        type             TEXT NOT NULL,
+        created_at       TEXT NOT NULL,
+        FOREIGN KEY (source_id) REFERENCES $_tableNodes (id) ON DELETE CASCADE,
+        FOREIGN KEY (target_id) REFERENCES $_tableNodes (id) ON DELETE CASCADE
       )
     ''');
   }
@@ -119,6 +133,36 @@ class EpistemicService {
   /// Deletes the node with [id]. No-op if it does not exist.
   Future<void> delete(String id) async {
     await _requireDb.delete(_tableNodes, where: 'id = ?', whereArgs: [id]);
+  }
+
+  // ── Relationships ───────────────────────────────────────────────────────────
+
+  /// Persists [relationship] and returns it unchanged.
+  Future<EpistemicRelationship> addRelationship(
+      EpistemicRelationship relationship) async {
+    await _requireDb.insert(
+      _tableEdges,
+      relationship.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
+    return relationship;
+  }
+
+  /// Deletes the relationship edge with [id]. No-op if it does not exist.
+  Future<void> removeRelationship(String id) async {
+    await _requireDb.delete(_tableEdges, where: 'id = ?', whereArgs: [id]);
+  }
+
+  /// Returns all relationships where [nodeId] is either the source or the target.
+  Future<List<EpistemicRelationship>> getRelationshipsForNode(
+      String nodeId) async {
+    final rows = await _requireDb.query(
+      _tableEdges,
+      where: 'source_id = ? OR target_id = ?',
+      whereArgs: [nodeId, nodeId],
+      orderBy: 'created_at ASC',
+    );
+    return rows.map(EpistemicRelationship.fromJson).toList();
   }
 
   /// Closes the database connection.  Call in tests or when shutting down.

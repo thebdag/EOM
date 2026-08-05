@@ -1,5 +1,7 @@
 import 'package:uuid/uuid.dart';
 
+import 'epistemic_relationship.dart';
+
 /// The six canonical epistemic node types.
 ///
 /// - [belief]     — A proposition held as true without certain proof.
@@ -24,19 +26,13 @@ enum EpistemicNodeType {
 /// Throws [ArgumentError] if [value] is not a valid type name.
 EpistemicNodeType epistemicNodeTypeFromString(String value) {
   return EpistemicNodeType.values.firstWhere(
-  return EpistemicNodeType.values.firstWhere(
     (e) => e.name == value,
     orElse: () => throw ArgumentError('Unknown EpistemicNodeType: "$value"'),
   );
 }
 
 /// The four canonical sources of an epistemic node.
-enum ProvenanceSource {
-  experience,
-  reasoning,
-  testimony,
-  intuition,
-}
+enum ProvenanceSource { experience, reasoning, testimony, intuition }
 
 /// Converts a raw string to the matching [ProvenanceSource].
 ///
@@ -50,10 +46,7 @@ ProvenanceSource provenanceSourceFromString(String value) {
 
 /// Represents the origin of a belief or knowledge claim.
 class ProvenanceRecord {
-  const ProvenanceRecord({
-    required this.source,
-    required this.timestamp,
-  });
+  const ProvenanceRecord({required this.source, required this.timestamp});
 
   /// The category of origin.
   final ProvenanceSource source;
@@ -73,7 +66,8 @@ class ProvenanceRecord {
   int get hashCode => source.hashCode ^ timestamp.hashCode;
 
   @override
-  String toString() => 'ProvenanceRecord(source: ${source.name}, timestamp: $timestamp)';
+  String toString() =>
+      'ProvenanceRecord(source: ${source.name}, timestamp: $timestamp)';
 }
 
 /// An atomic entry in the user's epistemic database.
@@ -95,6 +89,7 @@ class EpistemicNode {
     DateTime? createdAt,
     DateTime? updatedAt,
     this.provenance,
+    this.relationships = const [],
   }) : id = id ?? const Uuid().v4(),
        createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
@@ -127,6 +122,12 @@ class EpistemicNode {
   /// The origin of this belief or knowledge claim.
   final ProvenanceRecord? provenance;
 
+  // ── Relationships ─────────────────────────────────────────────────────────
+
+  /// Outbound and inbound relationships connected to this node.
+  /// Note: These are typically lazy-loaded by EpistemicService.
+  final List<EpistemicRelationship> relationships;
+
   // ── Serialisation ───────────────────────────────────────────────────────────
 
   Map<String, dynamic> toJson() => {
@@ -138,6 +139,7 @@ class EpistemicNode {
     'updated_at': updatedAt.toIso8601String(),
     'source_type': provenance?.source.name,
     'source_timestamp': provenance?.timestamp.toIso8601String(),
+    'relationships': relationships.map((r) => r.toJson()).toList(),
   };
 
   factory EpistemicNode.fromJson(Map<String, dynamic> json) {
@@ -157,6 +159,14 @@ class EpistemicNode {
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       provenance: prov,
+      relationships:
+          (json['relationships'] as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    EpistemicRelationship.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          const [],
     );
   }
 
@@ -167,6 +177,7 @@ class EpistemicNode {
     double? confidence,
     DateTime? updatedAt,
     ProvenanceRecord? provenance,
+    List<EpistemicRelationship>? relationships,
   }) => EpistemicNode(
     id: id,
     content: content ?? this.content,
@@ -175,6 +186,7 @@ class EpistemicNode {
     createdAt: createdAt,
     updatedAt: updatedAt ?? DateTime.now(),
     provenance: provenance ?? this.provenance,
+    relationships: relationships ?? this.relationships,
   );
 
   @override
