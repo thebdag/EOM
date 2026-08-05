@@ -10,10 +10,12 @@ Future<void> main() async {
   await SettingsService.init();
   await HistoryService().init();
   // Lock to dark status bar icons matching our dark theme
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarBrightness: Brightness.dark,
-    statusBarIconBrightness: Brightness.light,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   runApp(const EomApp());
 }
 

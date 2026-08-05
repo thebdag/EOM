@@ -7,7 +7,7 @@
   "5": "settings_screen.dart",
   "6": "eom_colors.dart",
   "7": "ui.js",
-  "8": "response_card.dart",
+  "8": "clarify_operation.dart",
   "9": "manifest.json",
   "10": "Unreleased",
   "11": "EOM Tracker — Database Schema Reference",
@@ -16,7 +16,7 @@
   "14": "epistemic_node.dart",
   "15": "AGENTS.md",
   "16": "EOM Development Workflow & Standards",
-  "17": "epistemic_intent_service_test.dart",
+  "17": "package:flutter_test/flutter_test.dart",
   "18": "[Unreleased] - 2026-05-11",
   "19": "EOM — A Quiet Vault for the Mind",
   "20": "Learnings",
@@ -32,8 +32,6 @@
   "30": "EOM Tracker — TUI Keybindings Reference",
   "31": "0001-local-means-litellm-gateway.md",
   "32": "ai_service.dart",
-  "33": "compress_result.dart",
-  "34": "intent.dart",
-  "35": "_ResponseCardState",
-  "36": "package:flutter/material.dart"
+  "33": "_",
+  "34": "llm_provider.dart"
 }

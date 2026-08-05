@@ -31,7 +31,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
       appBar: AppBar(
         title: const Text(
           'History',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 1.5),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1.5,
+          ),
         ),
         actions: [
           IconButton(

@@ -88,10 +88,12 @@ class _ResponseCardState extends State<ResponseCard>
       if (match.start > lastEnd) {
         spans.add(TextSpan(text: text.substring(lastEnd, match.start)));
       }
-      spans.add(TextSpan(
-        text: match.group(1),
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ));
+      spans.add(
+        TextSpan(
+          text: match.group(1),
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+      );
       lastEnd = match.end;
     }
     if (lastEnd < text.length) {
