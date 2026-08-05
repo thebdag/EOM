@@ -377,7 +377,7 @@
       "_origin": "ast",
       "id": "package_flutter_material_dart",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "package:flutter/material.dart"
     },
     {
@@ -436,6 +436,248 @@
       "norm_label": "../services/history_service.dart"
     },
     {
+      "label": "epistemic_node.dart",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "epistemic_node.dart"
+    },
+    {
+      "label": "EpistemicNodeType",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_epistemicnodetype",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "epistemicnodetype"
+    },
+    {
+      "label": "EpistemicNode",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_epistemicnode",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "epistemicnode"
+    },
+    {
+      "label": "id",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_id",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "id"
+    },
+    {
+      "label": "content",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_content",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "content"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_type",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "type"
+    },
+    {
+      "label": "confidence",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_confidence",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "confidence"
+    },
+    {
+      "label": "createdAt",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_createdat",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "createdat"
+    },
+    {
+      "label": "DateTime",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "datetime",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "datetime"
+    },
+    {
+      "label": "updatedAt",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_updatedat",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "updatedat"
+    },
+    {
+      "label": "sourceType",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_sourcetype",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "sourcetype"
+    },
+    {
+      "label": "String?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "string",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "string?"
+    },
+    {
+      "label": "sourceTimestamp",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_sourcetimestamp",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "sourcetimestamp"
+    },
+    {
+      "label": "operator",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_operator",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "operator"
+    },
+    {
+      "label": "hashCode",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_hashcode",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "hashcode"
+    },
+    {
+      "label": "int get",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "int_get",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "int get"
+    },
+    {
+      "label": "epistemicNodeTypeFromString",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_epistemicnodetypefromstring",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "epistemicnodetypefromstring"
+    },
+    {
+      "label": "toJson",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_tojson",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "tojson"
+    },
+    {
+      "label": "fromJson",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_fromjson",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "fromjson"
+    },
+    {
+      "label": "copyWith",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_copywith",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "copywith"
+    },
+    {
+      "label": "toString",
+      "file_type": "code",
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_epistemic_node_tostring",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "tostring"
+    },
+    {
+      "label": "package:uuid/uuid.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "package_uuid_uuid_dart",
+      "community": 14,
+      "community_name": "epistemic_node.dart",
+      "norm_label": "package:uuid/uuid.dart"
+    },
+    {
       "label": "intent.dart",
       "file_type": "code",
       "source_file": "lib/models/intent.dart",
@@ -443,7 +685,7 @@
       "_origin": "ast",
       "id": "lib_models_intent",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "intent.dart"
     },
     {
@@ -454,7 +696,7 @@
       "_origin": "ast",
       "id": "lib_models_intent_cognitiveintent",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "cognitiveintent"
     },
     {
@@ -465,7 +707,7 @@
       "_origin": "ast",
       "id": "lib_models_intent_label",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "label"
     },
     {
@@ -476,7 +718,7 @@
       "_origin": "ast",
       "id": "lib_models_intent_icon",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "icon"
     },
     {
@@ -487,7 +729,7 @@
       "_origin": "ast",
       "id": "icondata",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "icondata"
     },
     {
@@ -498,7 +740,7 @@
       "_origin": "ast",
       "id": "lib_models_intent_description",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "description"
     },
     {
@@ -509,7 +751,7 @@
       "_origin": "ast",
       "id": "lib_models_intent_color",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "color"
     },
     {
@@ -520,7 +762,7 @@
       "_origin": "ast",
       "id": "color",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "color"
     },
     {
@@ -531,7 +773,7 @@
       "_origin": "ast",
       "id": "theme_eom_colors_dart",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "../theme/eom_colors.dart"
     },
     {
@@ -541,8 +783,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "thought_node.dart"
     },
     {
@@ -552,8 +794,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_thoughtnode",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "thoughtnode"
     },
     {
@@ -563,8 +805,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_label",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "label"
     },
     {
@@ -574,8 +816,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_children",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "children"
     },
     {
@@ -585,8 +827,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "list",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "list"
     },
     {
@@ -596,8 +838,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_isexpanded",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "isexpanded"
     },
     {
@@ -607,8 +849,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_isleaf",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "isleaf"
     },
     {
@@ -618,8 +860,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "bool_get",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "bool get"
     },
     {
@@ -629,8 +871,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_tojson",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "tojson"
     },
     {
@@ -640,8 +882,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_fromjson",
-      "community": 14,
-      "community_name": "thought_node.dart",
+      "community": 1,
+      "community_name": "ai_service.dart",
       "norm_label": "fromjson"
     },
     {
@@ -651,8 +893,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "history_screen.dart"
     },
     {
@@ -662,8 +904,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreen",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "historyscreen"
     },
     {
@@ -673,8 +915,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "statefulwidget",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "statefulwidget"
     },
     {
@@ -684,8 +926,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreenstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_historyscreenstate"
     },
     {
@@ -695,8 +937,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "state",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "state"
     },
     {
@@ -706,8 +948,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyservice",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_historyservice"
     },
     {
@@ -717,8 +959,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_conversations",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_conversations"
     },
     {
@@ -728,8 +970,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_createstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "createstate"
     },
     {
@@ -739,8 +981,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_initstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "initstate"
     },
     {
@@ -750,8 +992,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_loadconversations",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_loadconversations"
     },
     {
@@ -761,8 +1003,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_build",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "build"
     },
     {
@@ -772,8 +1014,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_formatdate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_formatdate"
     },
     {
@@ -794,8 +1036,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreen",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "homescreen"
     },
     {
@@ -805,8 +1047,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreenstate",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 11,
+      "community_name": "history_screen.dart",
       "norm_label": "_homescreenstate"
     },
     {
@@ -1015,7 +1257,7 @@
       "_origin": "ast",
       "id": "models_intent_dart",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "../models/intent.dart"
     },
     {
@@ -1421,9 +1663,207 @@
       "source_location": null,
       "_origin": "ast",
       "id": "settings_service_dart",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "settings_service.dart"
+    },
+    {
+      "label": "epistemic_service.dart",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "epistemic_service.dart"
+    },
+    {
+      "label": "EpistemicService",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_epistemicservice",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "epistemicservice"
+    },
+    {
+      "label": "_dbFileName",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_dbfilename",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "_dbfilename"
+    },
+    {
+      "label": "static const",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "static_const",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "static const"
+    },
+    {
+      "label": "_tableNodes",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_tablenodes",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "_tablenodes"
+    },
+    {
+      "label": "_db",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_db",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "_db"
+    },
+    {
+      "label": "Database?",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "database",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "database?"
+    },
+    {
+      "label": "init",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_init",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "init"
+    },
+    {
+      "label": "_onCreate",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_oncreate",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "_oncreate"
+    },
+    {
+      "label": "create",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_create",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "create"
+    },
+    {
+      "label": "all",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_all",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "all"
+    },
+    {
+      "label": "byType",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_bytype",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "bytype"
+    },
+    {
+      "label": "update",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_update",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "update"
+    },
+    {
+      "label": "delete",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_delete",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "delete"
+    },
+    {
+      "label": "close",
+      "file_type": "code",
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_epistemic_service_close",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "close"
+    },
+    {
+      "label": "dart:async",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "dart_async",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "dart:async"
+    },
+    {
+      "label": "package:sqflite/sqflite.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "package_sqflite_sqflite_dart",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "package:sqflite/sqflite.dart"
+    },
+    {
+      "label": "../models/epistemic_node.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "models_epistemic_node_dart",
+      "community": 23,
+      "community_name": "epistemic_service.dart",
+      "norm_label": "../models/epistemic_node.dart"
     },
     {
       "label": "history_service.dart",
@@ -1531,8 +1971,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "llm_provider.dart"
     },
     {
@@ -1542,8 +1982,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_llmprovider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "llmprovider"
     },
     {
@@ -1553,8 +1993,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_openaiprovider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "openaiprovider"
     },
     {
@@ -1564,8 +2004,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_anthropicprovider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "anthropicprovider"
     },
     {
@@ -1575,8 +2015,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_geminiprovider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "geminiprovider"
     },
     {
@@ -1586,8 +2026,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_localprovider",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "localprovider"
     },
     {
@@ -1597,8 +2037,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_generate",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "generate"
     },
     {
@@ -1608,8 +2048,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_http_http_dart",
-      "community": 1,
-      "community_name": "ai_service.dart",
+      "community": 24,
+      "community_name": "llm_provider.dart",
       "norm_label": "package:http/http.dart"
     },
     {
@@ -2148,7 +2588,7 @@
       "_origin": "ast",
       "id": "lib_theme_eom_theme",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "eom_theme.dart"
     },
     {
@@ -2159,7 +2599,7 @@
       "_origin": "ast",
       "id": "lib_theme_eom_theme_eomtheme",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "eomtheme"
     },
     {
@@ -2170,7 +2610,7 @@
       "_origin": "ast",
       "id": "eom_colors_dart",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "eom_colors.dart"
     },
     {
@@ -2181,7 +2621,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "intent_button.dart"
     },
     {
@@ -2203,7 +2643,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button_intent",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "intent"
     },
     {
@@ -2214,7 +2654,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button_onpressed",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "onpressed"
     },
     {
@@ -2225,7 +2665,7 @@
       "_origin": "ast",
       "id": "voidcallback",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "voidcallback"
     },
     {
@@ -2236,7 +2676,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button_isloading",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "isloading"
     },
     {
@@ -2247,7 +2687,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button_isselected",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "isselected"
     },
     {
@@ -2258,7 +2698,7 @@
       "_origin": "ast",
       "id": "lib_widgets_intent_button_build",
       "community": 0,
-      "community_name": "intent_button.dart",
+      "community_name": "response_card.dart",
       "norm_label": "build"
     },
     {
@@ -2268,7 +2708,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "response_card.dart"
     },
@@ -2280,7 +2720,7 @@
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecard",
       "community": 11,
-      "community_name": "response_card.dart",
+      "community_name": "history_screen.dart",
       "norm_label": "responsecard"
     },
     {
@@ -2291,7 +2731,7 @@
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecardstate",
       "community": 11,
-      "community_name": "response_card.dart",
+      "community_name": "history_screen.dart",
       "norm_label": "_responsecardstate"
     },
     {
@@ -2302,7 +2742,7 @@
       "_origin": "ast",
       "id": "singletickerproviderstatemixin",
       "community": 11,
-      "community_name": "response_card.dart",
+      "community_name": "history_screen.dart",
       "norm_label": "singletickerproviderstatemixin"
     },
     {
@@ -2312,7 +2752,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_text",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "text"
     },
@@ -2323,7 +2763,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_accentcolor",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "accentcolor"
     },
@@ -2334,7 +2774,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_controller",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "_controller"
     },
@@ -2345,7 +2785,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "animationcontroller",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "animationcontroller"
     },
@@ -2356,7 +2796,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_fadein",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "_fadein"
     },
@@ -2367,7 +2807,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "animation",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "animation"
     },
@@ -2378,7 +2818,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_slideup",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "_slideup"
     },
@@ -2389,7 +2829,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_createstate",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "createstate"
     },
@@ -2400,7 +2840,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_initstate",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "initstate"
     },
@@ -2411,7 +2851,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_dispose",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "dispose"
     },
@@ -2422,7 +2862,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_build",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "build"
     },
@@ -2433,7 +2873,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_buildrichtext",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "_buildrichtext"
     },
@@ -2444,7 +2884,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "offset",
-      "community": 11,
+      "community": 0,
       "community_name": "response_card.dart",
       "norm_label": "offset"
     },
@@ -2585,10 +3025,22 @@
       "norm_label": "shared_preferences_foundation"
     },
     {
+      "label": "sqflite_darwin",
+      "file_type": "code",
+      "type": "module",
+      "source_file": "macos/Flutter/GeneratedPluginRegistrant.swift",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "sqflite_darwin",
+      "community": 2,
+      "community_name": "GeneratedPluginRegistrant.swift",
+      "norm_label": "sqflite_darwin"
+    },
+    {
       "label": "RegisterGeneratedPlugins()",
       "file_type": "code",
       "source_file": "macos/Flutter/GeneratedPluginRegistrant.swift",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "macos_flutter_generatedpluginregistrant_registergeneratedplugins",
       "community": 2,
@@ -2916,25 +3368,25 @@
       "norm_label": "opencode-auto-resume"
     },
     {
-      "label": "settings_service_test.dart",
+      "label": "epistemic_node_test.dart",
       "file_type": "code",
-      "source_file": "test/settings_service_test.dart",
+      "source_file": "test/epistemic_node_test.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "test_settings_service_test",
+      "id": "test_epistemic_node_test",
       "community": 17,
-      "community_name": "widget_test.dart",
-      "norm_label": "settings_service_test.dart"
+      "community_name": "package:flutter_test/flutter_test.dart",
+      "norm_label": "epistemic_node_test.dart"
     },
     {
       "label": "main",
       "file_type": "code",
-      "source_file": "test/settings_service_test.dart",
+      "source_file": "test/epistemic_node_test.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "test_settings_service_test_main",
+      "id": "test_epistemic_node_test_main",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -2945,8 +3397,52 @@
       "_origin": "ast",
       "id": "package_flutter_test_flutter_test_dart",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:flutter_test/flutter_test.dart"
+    },
+    {
+      "label": "package:eom/models/epistemic_node.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "package_eom_models_epistemic_node_dart",
+      "community": 17,
+      "community_name": "package:flutter_test/flutter_test.dart",
+      "norm_label": "package:eom/models/epistemic_node.dart"
+    },
+    {
+      "label": "ArgumentError",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "argumenterror",
+      "community": 17,
+      "community_name": "package:flutter_test/flutter_test.dart",
+      "norm_label": "argumenterror"
+    },
+    {
+      "label": "settings_service_test.dart",
+      "file_type": "code",
+      "source_file": "test/settings_service_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_settings_service_test",
+      "community": 17,
+      "community_name": "package:flutter_test/flutter_test.dart",
+      "norm_label": "settings_service_test.dart"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/settings_service_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_settings_service_test_main",
+      "community": 17,
+      "community_name": "package:flutter_test/flutter_test.dart",
+      "norm_label": "main"
     },
     {
       "label": "package:eom/services/settings_service.dart",
@@ -2956,7 +3452,7 @@
       "_origin": "ast",
       "id": "package_eom_services_settings_service_dart",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/services/settings_service.dart"
     },
     {
@@ -2967,7 +3463,7 @@
       "_origin": "ast",
       "id": "test_thought_node_test",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "thought_node_test.dart"
     },
     {
@@ -2978,7 +3474,7 @@
       "_origin": "ast",
       "id": "test_thought_node_test_main",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -2989,7 +3485,7 @@
       "_origin": "ast",
       "id": "package_eom_models_thought_node_dart",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/models/thought_node.dart"
     },
     {
@@ -3000,7 +3496,7 @@
       "_origin": "ast",
       "id": "test_widget_test",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "widget_test.dart"
     },
     {
@@ -3011,7 +3507,7 @@
       "_origin": "ast",
       "id": "test_widget_test_main",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -3022,7 +3518,7 @@
       "_origin": "ast",
       "id": "package_eom_main_dart",
       "community": 17,
-      "community_name": "widget_test.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/main.dart"
     },
     {
@@ -3356,10 +3852,21 @@
       "norm_label": "[unreleased] - 2026-05-11"
     },
     {
-      "label": "Added",
+      "label": "Changed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
       "source_location": "L7",
+      "_origin": "ast",
+      "id": "changelog_md_changelog_changed_ab0901",
+      "community": 18,
+      "community_name": "[Unreleased] - 2026-05-11",
+      "norm_label": "changed"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "changelog_md_changelog_added_ab0901",
       "community": 18,
@@ -3370,9 +3877,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L24",
+      "source_location": "L27",
       "_origin": "ast",
-      "id": "changelog_md_changelog_changed_ab0901",
+      "id": "changelog_changed_27",
       "community": 18,
       "community_name": "[Unreleased] - 2026-05-11",
       "norm_label": "changed"
@@ -3381,7 +3888,7 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "changelog_md_changelog_fixed_ab0901",
       "community": 18,
@@ -3395,8 +3902,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "context",
-      "community": 30,
-      "community_name": "EOM",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "context.md"
     },
     {
@@ -3406,8 +3913,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "context_eom",
-      "community": 30,
-      "community_name": "EOM",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "eom"
     },
     {
@@ -3417,8 +3924,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "context_language",
-      "community": 30,
-      "community_name": "EOM",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "language"
     },
     {
@@ -3428,31 +3935,130 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "readme",
-      "community": 23,
-      "community_name": "eom",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "readme.md"
     },
     {
-      "label": "eom",
+      "label": "EOM \u2014 A Quiet Vault for the Mind",
       "file_type": "document",
       "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "readme_eom",
-      "community": 23,
-      "community_name": "eom",
-      "norm_label": "eom"
+      "id": "readme_eom_a_quiet_vault_for_the_mind",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "eom \u2014 a quiet vault for the mind"
+    },
+    {
+      "label": "What EOM Helps You Do",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "readme_what_eom_helps_you_do",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "what eom helps you do"
+    },
+    {
+      "label": "The Design Philosophy: Epistemic Calm",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "readme_the_design_philosophy_epistemic_calm",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "the design philosophy: epistemic calm"
+    },
+    {
+      "label": "Privacy First",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "readme_privacy_first",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "privacy first"
+    },
+    {
+      "label": "AI Providers \u2014 Your Choice",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "readme_ai_providers_your_choice",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "ai providers \u2014 your choice"
     },
     {
       "label": "Getting Started",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L5",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "readme_getting_started",
-      "community": 23,
-      "community_name": "eom",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "getting started"
+    },
+    {
+      "label": "What You Need",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "readme_what_you_need",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "what you need"
+    },
+    {
+      "label": "Run the App",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "readme_run_the_app",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "run the app"
+    },
+    {
+      "label": "Session History",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L100",
+      "_origin": "ast",
+      "id": "readme_session_history",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "session history"
+    },
+    {
+      "label": "Project Documentation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "readme_project_documentation",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "project documentation"
+    },
+    {
+      "label": "License",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L119",
+      "_origin": "ast",
+      "id": "readme_license",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "license"
     },
     {
       "label": "changelog.md",
@@ -3502,7 +4108,7 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L20",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "changelog_md_changelog_changed_4c23f3",
       "community": 10,
@@ -3513,9 +4119,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L30",
+      "source_location": "L42",
       "_origin": "ast",
-      "id": "changelog_added_30",
+      "id": "changelog_added_42",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -3524,7 +4130,7 @@
       "label": "Added / Changed / Fixed / Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L37",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "changelog_added_changed_fixed_removed",
       "community": 10,
@@ -3535,7 +4141,7 @@
       "label": "[1.0.0+1] \u2014 2026-05-11",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L41",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "changelog_1_0_0_1_2026_05_11",
       "community": 10,
@@ -3546,9 +4152,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L43",
+      "source_location": "L60",
       "_origin": "ast",
-      "id": "changelog_added_43",
+      "id": "changelog_added_60",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -3557,9 +4163,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L52",
+      "source_location": "L69",
       "_origin": "ast",
-      "id": "changelog_changed_52",
+      "id": "changelog_changed_69",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -3568,7 +4174,7 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L55",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "changelog_md_changelog_fixed_4c23f3",
       "community": 10,
@@ -3582,8 +4188,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_repomap",
-      "community": 24,
-      "community_name": "REPOMAP.md",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "repomap.md"
     },
     {
@@ -3593,8 +4199,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_repomap_repository_map",
-      "community": 24,
-      "community_name": "REPOMAP.md",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "repository map"
     },
     {
@@ -3627,7 +4233,7 @@
       "_origin": "ast",
       "id": "docs_design_spec",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "design_spec.md"
     },
     {
@@ -3638,7 +4244,7 @@
       "_origin": "ast",
       "id": "docs_design_spec_eom_ai_agent_design_specification_design_spec_md",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "eom - ai agent design specification (`design_spec.md`)"
     },
     {
@@ -3649,7 +4255,7 @@
       "_origin": "ast",
       "id": "docs_design_spec_1_core_design_philosophy",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "1. core design philosophy"
     },
     {
@@ -3660,7 +4266,7 @@
       "_origin": "ast",
       "id": "docs_design_spec_2_visual_identity_styling_flutter_material_3_cupertino",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "2. visual identity & styling (flutter / material 3 / cupertino)"
     },
     {
@@ -3671,7 +4277,7 @@
       "_origin": "ast",
       "id": "docs_design_spec_3_component_guidelines",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "3. component guidelines"
     },
     {
@@ -3682,7 +4288,7 @@
       "_origin": "ast",
       "id": "docs_design_spec_4_animation_motion",
       "community": 19,
-      "community_name": "EOM - AI Agent Design Specification (`design_spec.md`)",
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "4. animation & motion"
     },
     {
@@ -3744,7 +4350,7 @@
       "label": "Best Practices",
       "file_type": "document",
       "source_file": "learnings.md",
-      "source_location": "L28",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "learnings_best_practices",
       "community": 20,
@@ -3755,7 +4361,7 @@
       "label": "Gotchas",
       "file_type": "document",
       "source_file": "learnings.md",
-      "source_location": "L60",
+      "source_location": "L66",
       "_origin": "ast",
       "id": "learnings_gotchas",
       "community": 20,
@@ -4347,6 +4953,241 @@
       "_origin": "ast",
       "source": "lib_screens_home_screen",
       "target": "services_history_service_dart"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "datetime"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "int_get"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_confidence"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_content"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_copywith"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_createdat"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_epistemicnode"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "context": "variable_type",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_epistemicnodetype"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_epistemicnodetypefromstring"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_fromjson"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_hashcode"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_id"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_operator"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_sourcetimestamp"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_sourcetype"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_tojson"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_tostring"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_type"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "lib_models_epistemic_node_updatedat"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "package_uuid_uuid_dart"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/epistemic_node.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_models_epistemic_node",
+      "target": "string"
     },
     {
       "relation": "references",
@@ -5617,6 +6458,195 @@
       "target": "settings_service_dart"
     },
     {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "dart_async"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "database"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_all"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_bytype"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_close"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_create"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_db"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_dbfilename"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_delete"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_epistemicservice"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_init"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_oncreate"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_tablenodes"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "lib_services_epistemic_service_update"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "models_epistemic_node_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "package_sqflite_sqflite_dart"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/epistemic_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_services_epistemic_service",
+      "target": "static_const"
+    },
+    {
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -6731,7 +7761,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "macos/Flutter/GeneratedPluginRegistrant.swift",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "macos_flutter_generatedpluginregistrant",
@@ -6760,6 +7790,18 @@
       "_origin": "ast",
       "source": "macos_flutter_generatedpluginregistrant",
       "target": "shared_preferences_foundation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "macos/Flutter/GeneratedPluginRegistrant.swift",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "macos_flutter_generatedpluginregistrant",
+      "target": "sqflite_darwin",
       "confidence_score": 1.0
     },
     {
@@ -6802,7 +7844,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "macos/Flutter/GeneratedPluginRegistrant.swift",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0,
       "context": "parameter_type",
       "_origin": "ast",
@@ -7128,15 +8170,49 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/epistemic_node_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "test_epistemic_node_test",
+      "target": "argumenterror"
+    },
+    {
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "test/settings_service_test.dart",
+      "source_file": "test/epistemic_node_test.dart",
       "source_location": null,
       "weight": 1.0,
       "_origin": "ast",
-      "source": "test_settings_service_test",
-      "target": "package_eom_services_settings_service_dart"
+      "source": "test_epistemic_node_test",
+      "target": "package_eom_models_epistemic_node_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/epistemic_node_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_epistemic_node_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/epistemic_node_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_epistemic_node_test",
+      "target": "test_epistemic_node_test_main"
     },
     {
       "relation": "imports",
@@ -7148,17 +8224,6 @@
       "_origin": "ast",
       "source": "test_settings_service_test",
       "target": "package_flutter_test_flutter_test_dart"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/settings_service_test.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_settings_service_test",
-      "target": "test_settings_service_test_main"
     },
     {
       "relation": "imports",
@@ -7181,6 +8246,28 @@
       "_origin": "ast",
       "source": "test_widget_test",
       "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/settings_service_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_settings_service_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/settings_service_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_settings_service_test",
+      "target": "test_settings_service_test_main"
     },
     {
       "relation": "imports",
@@ -7516,7 +8603,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L7",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_unreleased_2026_05_11",
+      "target": "changelog_changed_27",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased_2026_05_11",
@@ -7527,7 +8625,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L24",
+      "source_location": "L7",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased_2026_05_11",
@@ -7538,7 +8636,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CHANGELOG.md",
-      "source_location": "L27",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased_2026_05_11",
@@ -7557,6 +8655,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme",
+      "target": "context",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTEXT.md",
@@ -7568,6 +8677,28 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme",
+      "target": "docs_design_spec",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme",
+      "target": "docs_repomap",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
@@ -7575,18 +8706,117 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
-      "target": "readme_eom",
+      "target": "readme_eom_a_quiet_vault_for_the_mind",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L5",
+      "source_location": "L57",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "readme_eom",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_ai_providers_your_choice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
       "target": "readme_getting_started",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L119",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_privacy_first",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_project_documentation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_session_history",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_the_design_philosophy_epistemic_calm",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_eom_a_quiet_vault_for_the_mind",
+      "target": "readme_what_eom_helps_you_do",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_getting_started",
+      "target": "readme_run_the_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_getting_started",
+      "target": "readme_what_you_need",
       "confidence_score": 1.0
     },
     {
@@ -7604,7 +8834,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L41",
+      "source_location": "L58",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog_dev_log",
@@ -7626,18 +8856,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L30",
+      "source_location": "L42",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_added_30",
+      "target": "changelog_added_42",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L37",
+      "source_location": "L54",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -7659,7 +8889,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L20",
+      "source_location": "L32",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -7670,29 +8900,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L43",
+      "source_location": "L60",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_added_43",
+      "target": "changelog_added_60",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L52",
+      "source_location": "L69",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_changed_52",
+      "target": "changelog_changed_69",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L55",
+      "source_location": "L72",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
@@ -7802,7 +9032,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "learnings.md",
-      "source_location": "L28",
+      "source_location": "L34",
       "weight": 1.0,
       "_origin": "ast",
       "source": "learnings_learnings",
@@ -7824,7 +9054,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "learnings.md",
-      "source_location": "L60",
+      "source_location": "L66",
       "weight": 1.0,
       "_origin": "ast",
       "source": "learnings_learnings",
@@ -7833,5 +9063,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1fead9a0fcae3ccdbafc4ae02661dd23f174aef5"
+  "built_at_commit": "c554811004d39b7ba7a27551c6b99ae95daf4261"
 }
