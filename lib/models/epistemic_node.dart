@@ -26,19 +26,13 @@ enum EpistemicNodeType {
 /// Throws [ArgumentError] if [value] is not a valid type name.
 EpistemicNodeType epistemicNodeTypeFromString(String value) {
   return EpistemicNodeType.values.firstWhere(
-  return EpistemicNodeType.values.firstWhere(
     (e) => e.name == value,
     orElse: () => throw ArgumentError('Unknown EpistemicNodeType: "$value"'),
   );
 }
 
 /// The four canonical sources of an epistemic node.
-enum ProvenanceSource {
-  experience,
-  reasoning,
-  testimony,
-  intuition,
-}
+enum ProvenanceSource { experience, reasoning, testimony, intuition }
 
 /// Converts a raw string to the matching [ProvenanceSource].
 ///
@@ -52,10 +46,7 @@ ProvenanceSource provenanceSourceFromString(String value) {
 
 /// Represents the origin of a belief or knowledge claim.
 class ProvenanceRecord {
-  const ProvenanceRecord({
-    required this.source,
-    required this.timestamp,
-  });
+  const ProvenanceRecord({required this.source, required this.timestamp});
 
   /// The category of origin.
   final ProvenanceSource source;
@@ -75,7 +66,8 @@ class ProvenanceRecord {
   int get hashCode => source.hashCode ^ timestamp.hashCode;
 
   @override
-  String toString() => 'ProvenanceRecord(source: ${source.name}, timestamp: $timestamp)';
+  String toString() =>
+      'ProvenanceRecord(source: ${source.name}, timestamp: $timestamp)';
 }
 
 /// An atomic entry in the user's epistemic database.
@@ -167,8 +159,12 @@ class EpistemicNode {
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       provenance: prov,
-      relationships: (json['relationships'] as List<dynamic>?)
-              ?.map((e) => EpistemicRelationship.fromJson(e as Map<String, dynamic>))
+      relationships:
+          (json['relationships'] as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    EpistemicRelationship.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
     );
