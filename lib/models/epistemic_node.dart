@@ -21,6 +21,32 @@ enum EpistemicNodeType {
   unknown,
 }
 
+/// The five canonical epistemic categories (EOM-T5).
+///
+/// A category describes *how the mind epistemically produced* a node — the
+/// origin mode of cognition, not what the proposition is or how confident
+/// the user is.  This is orthogonal to [EpistemicNodeType] and
+/// [ProvenanceSource]:
+///
+/// - [empirical]   — Grounded in direct observation or sensory experience.
+/// - [rational]    — Derived through logic, deduction, or formal reasoning.
+/// - [intuitive]   — Pre-reflective; a felt sense without explicit reasoning.
+/// - [abductive]   — Best-explanation inference (inference to the most likely
+///                   cause or explanation).
+/// - [revelatory]  — Received via insight, sudden understanding, or a
+///                   qualitatively distinct moment of knowing.
+enum EpistemicCategory { empirical, rational, intuitive, abductive, revelatory }
+
+/// Converts a raw string to the matching [EpistemicCategory].
+///
+/// Throws [ArgumentError] if [value] is not a valid category name.
+EpistemicCategory epistemicCategoryFromString(String value) {
+  return EpistemicCategory.values.firstWhere(
+    (e) => e.name == value,
+    orElse: () => throw ArgumentError('Unknown EpistemicCategory: "$value"'),
+  );
+}
+
 /// Converts a raw string to the matching [EpistemicNodeType].
 ///
 /// Throws [ArgumentError] if [value] is not a valid type name.
@@ -74,8 +100,8 @@ class ProvenanceRecord {
 ///
 /// Each node represents a single proposition, question, or acknowledged gap in
 /// the user's understanding. Nodes are typed ([EpistemicNodeType]), carry a
-/// [confidence] score, and include stub fields for provenance (EOM-T3) and
-/// relationships (EOM-T4) that downstream tasks will populate.
+/// [confidence] score, and include fields for provenance (EOM-T3),
+/// relationships (EOM-T4), and epistemic category (EOM-T5).
 class EpistemicNode {
   /// Creates an [EpistemicNode] with the given fields.
   ///
@@ -90,6 +116,7 @@ class EpistemicNode {
     DateTime? updatedAt,
     this.provenance,
     this.relationships = const [],
+    this.category,
   }) : id = id ?? const Uuid().v4(),
        createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
@@ -128,6 +155,13 @@ class EpistemicNode {
   /// Note: These are typically lazy-loaded by EpistemicService.
   final List<EpistemicRelationship> relationships;
 
+  // ── Category ───────────────────────────────────────────────────────────────
+
+  /// The epistemic origin mode of this node (EOM-T5).
+  ///
+  /// Null means uncategorised — existing nodes without a category remain valid.
+  final EpistemicCategory? category;
+
   // ── Serialisation ───────────────────────────────────────────────────────────
 
   Map<String, dynamic> toJson() => {
@@ -140,6 +174,7 @@ class EpistemicNode {
     'source_type': provenance?.source.name,
     'source_timestamp': provenance?.timestamp.toIso8601String(),
     'relationships': relationships.map((r) => r.toJson()).toList(),
+    'category': category?.name,
   };
 
   factory EpistemicNode.fromJson(Map<String, dynamic> json) {
@@ -150,6 +185,8 @@ class EpistemicNode {
         timestamp: DateTime.parse(json['source_timestamp'] as String),
       );
     }
+
+    final categoryRaw = json['category'] as String?;
 
     return EpistemicNode(
       id: json['id'] as String,
@@ -167,6 +204,9 @@ class EpistemicNode {
               )
               .toList() ??
           const [],
+      category: categoryRaw != null
+          ? epistemicCategoryFromString(categoryRaw)
+          : null,
     );
   }
 
@@ -178,6 +218,7 @@ class EpistemicNode {
     DateTime? updatedAt,
     ProvenanceRecord? provenance,
     List<EpistemicRelationship>? relationships,
+    EpistemicCategory? category,
   }) => EpistemicNode(
     id: id,
     content: content ?? this.content,
@@ -187,12 +228,13 @@ class EpistemicNode {
     updatedAt: updatedAt ?? DateTime.now(),
     provenance: provenance ?? this.provenance,
     relationships: relationships ?? this.relationships,
+    category: category ?? this.category,
   );
 
   @override
   String toString() =>
       'EpistemicNode(id: $id, type: ${type.name}, confidence: $confidence, '
-      'content: "$content")';
+      'category: ${category?.name ?? "null"}, content: "$content")';
 
   @override
   bool operator ==(Object other) =>
