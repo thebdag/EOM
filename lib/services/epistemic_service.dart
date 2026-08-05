@@ -5,6 +5,16 @@ import 'package:sqflite/sqflite.dart';
 import '../models/epistemic_node.dart';
 import '../models/epistemic_relationship.dart';
 
+/// Read/write surface of the epistemic graph used by intent-integration
+/// services (EOM-T7). Implemented by [EpistemicService]; faked in tests.
+abstract class EpistemicGraphStore {
+  Future<EpistemicNode> create(EpistemicNode node);
+  Future<List<EpistemicNode>> all();
+  Future<EpistemicRelationship> addRelationship(
+    EpistemicRelationship relationship,
+  );
+}
+
 /// SQLite-backed service for the epistemic graph.
 ///
 /// Owns the `epistemic_nodes` and `epistemic_edges` tables.
@@ -21,7 +31,7 @@ import '../models/epistemic_relationship.dart';
 ///   EpistemicNode(content: 'I believe kindness is fundamental.', type: EpistemicNodeType.belief),
 /// );
 /// ```
-class EpistemicService {
+class EpistemicService implements EpistemicGraphStore {
   static const _dbFileName = 'epistemic.db';
   static const _tableNodes = 'epistemic_nodes';
   static const _tableEdges = 'epistemic_edges';
@@ -97,6 +107,7 @@ class EpistemicService {
   // ── CRUD ────────────────────────────────────────────────────────────────────
 
   /// Persists [node] and returns it unchanged.
+  @override
   Future<EpistemicNode> create(EpistemicNode node) async {
     await _requireDb.insert(
       _tableNodes,
@@ -119,6 +130,7 @@ class EpistemicService {
   }
 
   /// Returns all nodes, ordered by creation time (oldest first).
+  @override
   Future<List<EpistemicNode>> all() async {
     final rows = await _requireDb.query(_tableNodes, orderBy: 'created_at ASC');
     return rows.map(EpistemicNode.fromJson).toList();
@@ -171,6 +183,7 @@ class EpistemicService {
   // ── Relationships ───────────────────────────────────────────────────────────
 
   /// Persists [relationship] and returns it unchanged.
+  @override
   Future<EpistemicRelationship> addRelationship(
     EpistemicRelationship relationship,
   ) async {

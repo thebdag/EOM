@@ -23,10 +23,14 @@ class IntentButton extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeOut,
       decoration: BoxDecoration(
-        color: isSelected ? intent.color.withValues(alpha: 0.15) : EomColors.intentIdle,
+        color: isSelected
+            ? intent.color.withValues(alpha: 0.15)
+            : EomColors.intentIdle,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
-          color: isSelected ? intent.color.withValues(alpha: 0.4) : EomColors.surfaceBorder,
+          color: isSelected
+              ? intent.color.withValues(alpha: 0.4)
+              : EomColors.surfaceBorder,
           width: 0.5,
         ),
       ),

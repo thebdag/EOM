@@ -1,4 +1,8 @@
 {
+  "name": "eom",
+  "scripts": {
+    "tracker": "node dev/tracker/tracker.js"
+  },
   "dependencies": {
     "opencode-auto-resume": "^1.0.10"
   }

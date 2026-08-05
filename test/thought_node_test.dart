@@ -12,12 +12,9 @@ void main() {
 
     test('descendantCount', () {
       final child = ThoughtNode(label: 'Child');
-      final root = ThoughtNode(
-        label: 'Root',
-        children: [child],
-      );
+      final root = ThoughtNode(label: 'Root', children: [child]);
       expect(root.descendantCount, 1);
-      
+
       final grandchild = ThoughtNode(label: 'Grandchild');
       child.children.add(grandchild);
       expect(root.descendantCount, 2);

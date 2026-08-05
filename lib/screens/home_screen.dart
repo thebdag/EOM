@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../models/intent.dart';
 import '../services/ai_service.dart';
@@ -7,6 +9,8 @@ import '../widgets/response_card.dart';
 import '../widgets/thought_tree_view.dart';
 import 'settings_screen.dart';
 import 'history_screen.dart';
+import '../services/epistemic_intent_service.dart';
+import '../services/epistemic_service.dart';
 import '../services/history_service.dart';
 
 /// Main screen — the "vault" where thoughts are processed.
@@ -27,6 +31,30 @@ class _HomeScreenState extends State<HomeScreen> {
   AiResponse? _response;
   bool _isProcessing = false;
   final List<Map<String, String>> _history = [];
+  EpistemicIntentService? _epistemicIntents;
+
+  Future<EpistemicIntentService> _getEpistemicIntents() async {
+    final existing = _epistemicIntents;
+    if (existing != null) return existing;
+    final store = EpistemicService();
+    await store.init();
+    return _epistemicIntents = EpistemicIntentService(store);
+  }
+
+  /// Persists Compress extractions to the epistemic graph without blocking
+  /// the UI — failures stay silent so the prose UX is never affected.
+  void _persistExtraction(AiResponse response) {
+    final extraction = response.epistemicExtraction;
+    if (extraction == null) return;
+    unawaited(() async {
+      try {
+        final service = await _getEpistemicIntents();
+        await service.processCompressResult(extraction);
+      } catch (_) {
+        // Non-blocking by design — a graph failure must never break the UX.
+      }
+    }());
+  }
 
   @override
   void dispose() {
@@ -47,7 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      final response = await _aiService.process(input, intent, history: _history);
+      final response = await _aiService.process(
+        input,
+        intent,
+        history: _history,
+      );
       if (mounted) {
         setState(() {
           _response = response;
@@ -55,12 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
           _history.add({'role': 'user', 'content': input});
           _history.add({'role': 'assistant', 'content': response.text});
         });
-        
+
         await HistoryService().saveConversation(
           initialInput: input,
           intent: intent.name,
           response: response.text,
         );
+
+        _persistExtraction(response);
 
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));
@@ -259,10 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 10),
           Text(
             '${_activeIntent?.description ?? 'Processing'}…',
-            style: const TextStyle(
-              color: EomColors.textTertiary,
-              fontSize: 13,
-            ),
+            style: const TextStyle(color: EomColors.textTertiary, fontSize: 13),
           ),
         ],
       ),

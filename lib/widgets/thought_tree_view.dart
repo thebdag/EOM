@@ -7,15 +7,14 @@ import '../theme/eom_colors.dart';
 /// Clean directory-tree visualization for the "Map" intent.
 /// Uses 1px muted grey connecting lines per design spec.
 class ThoughtTreeView extends StatelessWidget {
-  const ThoughtTreeView({
-    super.key,
-    required this.root,
-  });
+  const ThoughtTreeView({super.key, required this.root});
 
   final ThoughtNode root;
 
   Future<void> _exportMap(BuildContext context) async {
-    final jsonString = const JsonEncoder.withIndent('  ').convert(root.toJson());
+    final jsonString = const JsonEncoder.withIndent(
+      '  ',
+    ).convert(root.toJson());
     final box = context.findRenderObject() as RenderBox?;
     await Share.share(
       jsonString,
@@ -83,7 +82,9 @@ class ThoughtTreeView extends StatelessWidget {
               child: Text(
                 node.label,
                 style: TextStyle(
-                  color: isRoot ? EomColors.textPrimary : EomColors.textSecondary,
+                  color: isRoot
+                      ? EomColors.textPrimary
+                      : EomColors.textSecondary,
                   fontSize: isRoot ? 15 : 14,
                   fontWeight: isRoot ? FontWeight.w500 : FontWeight.w400,
                   height: 1.4,
@@ -98,7 +99,11 @@ class ThoughtTreeView extends StatelessWidget {
             final child = entry.value;
             final isLast = i == node.children.length - 1;
             final connector = isLast ? '└── ' : '├── ';
-            final childPrefix = isRoot ? '' : (prefix.replaceAll('├── ', '│   ').replaceAll('└── ', '    '));
+            final childPrefix = isRoot
+                ? ''
+                : (prefix
+                      .replaceAll('├── ', '│   ')
+                      .replaceAll('└── ', '    '));
             final newPrefix = '$childPrefix$connector';
             return _buildNode(context, child, newPrefix, false);
           }),

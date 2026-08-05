@@ -47,6 +47,19 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-05 — Intent→graph integration pattern (EOM-T7)** — To wire an
+  intent to the epistemic graph: (1) augment the intent prompt with a
+  `---EPISTEMIC---` JSON epilogue rather than a second LLM call (halves API
+  cost and latency); (2) parse the epilogue in `AiService` into a result
+  model with tolerant `fromJson` defaults — a missing/malformed epilogue must
+  never break the prose UX; (3) keep graph persistence in a dedicated
+  `EpistemicIntentService` that depends on the `EpistemicGraphStore`
+  interface so tests fake storage in memory (no sqflite_common_ffi needed);
+  (4) call it from the screen fire-and-forget with a silent catch. Edge
+  semantics for Compress: prior abstractions (reasoning provenance) get
+  `refines` from the new principle; everything else gets `isExampleOf`
+  pointing at it. Reuse for EOM-T8 through T10. (EOM-T7)
+
 - **2026-08-05 — EpistemicCategory is orthogonal to NodeType and ProvenanceSource** —
   When adding EOM-T5, it became clear the three epistemic metadata axes serve
   completely different roles: `EpistemicNodeType` = *what kind* of proposition;

@@ -25,14 +25,18 @@ class HistoryService {
 
   List<Map<String, dynamic>> getConversations() {
     final box = Hive.box<Map<dynamic, dynamic>>(_boxName);
-    return box.values.map((e) {
-      return {
-        'timestamp': e['timestamp'] as String,
-        'initialInput': e['initialInput'] as String,
-        'intent': e['intent'] as String,
-        'response': e['response'] as String,
-      };
-    }).toList().reversed.toList();
+    return box.values
+        .map((e) {
+          return {
+            'timestamp': e['timestamp'] as String,
+            'initialInput': e['initialInput'] as String,
+            'intent': e['intent'] as String,
+            'response': e['response'] as String,
+          };
+        })
+        .toList()
+        .reversed
+        .toList();
   }
 
   Future<void> clearHistory() async {

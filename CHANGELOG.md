@@ -4,6 +4,9 @@ All notable changes to the EOM project will be documented in this file.
 
 ## [Unreleased] - 2026-05-11
 
+### Added
+- **Compress → Epistemic Graph**: Compressing a thought now silently saves the abstracted principle to your epistemic graph and links it to related past thoughts (EOM-T7). The prose response is unchanged.
+
 ### Changed
 - **README.md**: Full rewrite for a non-technical audience — leads with the five cognitive intents, explains the "Epistemic Calm" design philosophy in plain language, and foregrounds privacy.
 

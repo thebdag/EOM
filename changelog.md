@@ -12,6 +12,37 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T7** `lib/models/compress_result.dart` — `CompressResult` data class
+  for the structured epistemic extraction the Compress intent appends to its
+  prose response (principle, node type, category, confidence, keywords).
+  Tolerant `fromJson` with defaults (type `knowledge`, confidence `0.6`) and
+  `FormatException` only on a missing/blank principle.
+- **EOM-T7** `lib/services/epistemic_intent_service.dart` —
+  `EpistemicIntentService`: persists Compress-derived principles as
+  `EpistemicNode`s and auto-links keyword-matching existing nodes —
+  `refines` for prior Compress abstractions (reasoning provenance),
+  `isExampleOf` for everything else. First intent→graph integration; the
+  pattern for EOM-T8 through T10.
+- **EOM-T7** `test/compress_result_test.dart` — 8 unit tests (JSON
+  round-trip, defaults, validation, clamping, keyword filtering).
+- **EOM-T7** `test/epistemic_intent_service_test.dart` — 8 unit tests with an
+  in-memory `EpistemicGraphStore` fake (node creation, edge semantics,
+  case-insensitive matching, no-match / empty-keyword / self-link guards).
+
+### Changed
+- **EOM-T7** `lib/services/ai_service.dart` — Compress prompt now requests a
+  `---EPISTEMIC---` JSON epilogue; `process()` splits it off the prose and
+  parses it into `AiResponse.epistemicExtraction` (null on missing/malformed
+  epilogue — prose UX never breaks).
+- **EOM-T7** `lib/services/epistemic_service.dart` — new
+  `EpistemicGraphStore` abstract interface (create/all/addRelationship),
+  implemented by `EpistemicService`, so intent-integration services are
+  testable without SQLite.
+- **EOM-T7** `lib/screens/home_screen.dart` — after a Compress response,
+  persists `epistemicExtraction` to the epistemic graph fire-and-forget
+  (silent failure, non-blocking).
+
+### Added
 - **EOM-T1** `lib/models/epistemic_node.dart` — `EpistemicNode` model with
   `EpistemicNodeType` enum (belief, knowledge, hypothesis, intuition, question,
   unknown), `double confidence` (0.0–1.0, default 0.5), T3 provenance stubs

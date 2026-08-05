@@ -121,7 +121,10 @@ void main() {
         id: 'prov-id',
         content: 'I experienced this.',
         type: EpistemicNodeType.belief,
-        provenance: ProvenanceRecord(source: ProvenanceSource.experience, timestamp: ts),
+        provenance: ProvenanceRecord(
+          source: ProvenanceSource.experience,
+          timestamp: ts,
+        ),
       );
       final rt = EpistemicNode.fromJson(original.toJson());
       expect(rt.provenance?.source, ProvenanceSource.experience);
@@ -172,7 +175,10 @@ void main() {
     });
 
     test('replaces specified fields', () {
-      final prov = ProvenanceRecord(source: ProvenanceSource.reasoning, timestamp: DateTime(2026));
+      final prov = ProvenanceRecord(
+        source: ProvenanceSource.reasoning,
+        timestamp: DateTime(2026),
+      );
       final copy = base.copyWith(
         content: 'new content',
         type: EpistemicNodeType.knowledge,
@@ -224,15 +230,27 @@ void main() {
 
   group('ProvenanceRecord equality', () {
     test('records with same values are equal', () {
-      final a = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
-      final b = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
+      final a = ProvenanceRecord(
+        source: ProvenanceSource.intuition,
+        timestamp: DateTime(2026),
+      );
+      final b = ProvenanceRecord(
+        source: ProvenanceSource.intuition,
+        timestamp: DateTime(2026),
+      );
       expect(a, equals(b));
       expect(a.hashCode, b.hashCode);
     });
 
     test('records with different values are not equal', () {
-      final a = ProvenanceRecord(source: ProvenanceSource.intuition, timestamp: DateTime(2026));
-      final b = ProvenanceRecord(source: ProvenanceSource.reasoning, timestamp: DateTime(2026));
+      final a = ProvenanceRecord(
+        source: ProvenanceSource.intuition,
+        timestamp: DateTime(2026),
+      );
+      final b = ProvenanceRecord(
+        source: ProvenanceSource.reasoning,
+        timestamp: DateTime(2026),
+      );
       expect(a, isNot(equals(b)));
     });
   });

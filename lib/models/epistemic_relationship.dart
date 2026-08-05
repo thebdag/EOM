@@ -16,7 +16,8 @@ enum EpistemicRelationshipType {
 EpistemicRelationshipType epistemicRelationshipTypeFromString(String value) {
   return EpistemicRelationshipType.values.firstWhere(
     (e) => e.name == value,
-    orElse: () => throw ArgumentError('Unknown EpistemicRelationshipType: "$value"'),
+    orElse: () =>
+        throw ArgumentError('Unknown EpistemicRelationshipType: "$value"'),
   );
 }
 
