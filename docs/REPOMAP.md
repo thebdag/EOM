@@ -19,6 +19,7 @@ EOM/
 │   ├── main.dart              # Application entry point & theme initialization
 │   │
 │   ├── models/
+│   │   ├── compress_result.dart # Structured Compress extraction (principle, type, category, confidence, keywords) (EOM-T7)
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_relationship.dart # EpistemicRelationship model + type enum (EOM-T4)
 │   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
@@ -31,7 +32,8 @@ EOM/
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router and prompt management
-│   │   ├── epistemic_service.dart # SQLite CRUD for the epistemic graph (EOM-T1)
+│   │   ├── epistemic_intent_service.dart # Bridges intent responses → epistemic graph (EOM-T7)
+│   │   ├── epistemic_service.dart # SQLite CRUD for the epistemic graph + EpistemicGraphStore interface (EOM-T1, EOM-T7)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
 │   │   └── settings_service.dart# SharedPreferences wrapper for persistent storage
@@ -46,7 +48,9 @@ EOM/
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
+    ├── compress_result_test.dart      # CompressResult JSON round-trip, defaults, validation (EOM-T7)
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
+    ├── epistemic_intent_service_test.dart # Intent→graph node creation + edge semantics, in-memory fake (EOM-T7)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
     ├── settings_service_test.dart # Gateway-origin normalization

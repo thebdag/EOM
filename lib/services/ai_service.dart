@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../models/compress_result.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
 import 'llm_provider.dart';
@@ -45,7 +46,13 @@ class AiService {
         intentContext =
             'You are an epistemic agent. The user will provide a thought. '
             'Aim to use metaphor and simile that a child would understand, to reduce and simplify to bare essence. '
-            'Provide "**Core:**" followed by a summary, then "**In one line:**" followed by the emotional weight.';
+            'Provide "**Core:**" followed by a summary, then "**In one line:**" followed by the emotional weight. '
+            'After the prose, on a new line, output exactly "$compressExtractionMarker" followed by a single JSON object '
+            'capturing the abstracted principle: {"principle": "the higher-order abstraction", '
+            '"type": "knowledge"|"belief"|"hypothesis", '
+            '"category": "empirical"|"rational"|"intuitive"|"abductive"|"revelatory", '
+            '"confidence": 0.0-1.0, "keywords": ["concept", "keywords"]}. '
+            'No markdown fences around the JSON.';
         break;
       case CognitiveIntent.map:
         intentContext =
@@ -90,6 +97,10 @@ class AiService {
         );
       }
 
+      if (intent == CognitiveIntent.compress) {
+        return _parseCompressResponse(textResponse, intent);
+      }
+
       return AiResponse(text: textResponse.trim(), intent: intent);
     } catch (e) {
       return AiResponse(
@@ -98,6 +109,42 @@ class AiService {
         intent: intent,
       );
     }
+  }
+
+  /// Delimiter between the prose Compress response and its JSON epilogue.
+  static const compressExtractionMarker = '---EPISTEMIC---';
+
+  /// Splits a Compress response into prose and its epistemic JSON epilogue.
+  ///
+  /// A missing or malformed epilogue never fails the intent — the user still
+  /// gets the prose, and [AiResponse.epistemicExtraction] stays null.
+  AiResponse _parseCompressResponse(String raw, CognitiveIntent intent) {
+    final markerIndex = raw.indexOf(compressExtractionMarker);
+    if (markerIndex == -1) {
+      return AiResponse(text: raw.trim(), intent: intent);
+    }
+
+    final prose = raw.substring(0, markerIndex).trim();
+    final jsonBlock = raw
+        .substring(markerIndex + compressExtractionMarker.length)
+        .replaceAll('```json', '')
+        .replaceAll('```', '')
+        .trim();
+
+    CompressResult? extraction;
+    try {
+      extraction = CompressResult.fromJson(
+        jsonDecode(jsonBlock) as Map<String, dynamic>,
+      );
+    } catch (_) {
+      extraction = null;
+    }
+
+    return AiResponse(
+      text: prose,
+      intent: intent,
+      epistemicExtraction: extraction,
+    );
   }
 
   ThoughtNode _parseNode(Map<String, dynamic> json) {
@@ -114,9 +161,18 @@ class AiService {
 
 /// Response from the AI service.
 class AiResponse {
-  const AiResponse({required this.text, required this.intent, this.tree});
+  const AiResponse({
+    required this.text,
+    required this.intent,
+    this.tree,
+    this.epistemicExtraction,
+  });
 
   final String text;
   final CognitiveIntent intent;
   final ThoughtNode? tree;
+
+  /// Structured epistemic extraction from a Compress response (EOM-T7).
+  /// Null for other intents, or when the LLM omitted/malformed the epilogue.
+  final CompressResult? epistemicExtraction;
 }
