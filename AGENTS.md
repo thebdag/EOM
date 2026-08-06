@@ -65,23 +65,57 @@ not as an afterthought.** Stale tracker state is a known recurring problem.
 
 - **When to update:** as soon as a subtask, story, or epic changes status.
   Do not wait until the PR checklist.
-- **How to update programmatically** (preferred for agents doing bulk work):
-  ```bash
-  cd dev/tracker
-  node -e "
-  const { initDb, Subtasks } = require('./db');
-  initDb().then(() => {
-    // resolve id first if needed:
-    // const t = Subtasks.forStory(storyId).find(x => x.key === 'EOM-T7');
-    Subtasks.update(id, { status: 'done' });
-  });
-  "
-  ```
+
+### Path 1 — commit message (automatic)
+
+Include tracker key tokens anywhere in the commit message. The `post-commit`
+hook reads them and updates the DB automatically:
+
+```
+[EOM-T7 done]         marks subtask EOM-T7 as done
+[EOM-T7 wip]          marks subtask EOM-T7 as in_progress
+[EOM-S3 done]         marks story EOM-S3 as done
+[EOM-E2 in_progress]  marks epic EOM-E2 as in_progress
+```
+
+Example commit message:
+```
+feat: implement Clarify intent epistemic operation [EOM-T6 done] [EOM-T7 wip]
+```
+
+### Path 2 — mark CLI (immediate, no commit needed)
+
+```bash
+node dev/tracker/mark.js EOM-T7 done   # done | wip | todo
+node dev/tracker/mark.js EOM-S3 wip
+```
+
+Or from the repo root via npm:
+```bash
+npm run mark EOM-T7 done
+```
+
+### Path 3 — programmatic (bulk operations)
+
+```bash
+cd dev/tracker
+node -e "
+const { initDb, Subtasks } = require('./db');
+initDb().then(() => {
+  // resolve id first if needed:
+  // const t = Subtasks.forStory(storyId).find(x => x.key === 'EOM-T7');
+  Subtasks.update(id, { status: 'done' });
+});
+"
+```
+
 - **Must `await initDb()`** before calling any helper — writes are lost
   otherwise. The DB auto-saves on every write and on process exit.
 - **Keys:** epics = `EOM-E{n}`, stories = `EOM-S{n}`, subtasks = `EOM-T{n}`.
 - See `.agents/skills/eom-tracker/SKILL.md` for the full procedure and
   `.agents/skills/eom-tracker/references/schema.md` for the JS helper API.
+- After a fresh clone, run `node dev/tracker/install-hooks.js` once to
+  re-install the post-commit hook.
 
 ## 6. Pre-PR checklist (do this LAST, every time)
 

@@ -13,7 +13,8 @@ EOM/
 │   ├── REPOMAP.md             # This file
 │   ├── design_spec.md         # Original design philosophy and component spec
 │   └── adr/
-│       └── 0001-local-means-litellm-gateway.md
+│       ├── 0001-local-means-litellm-gateway.md
+│       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
@@ -32,7 +33,7 @@ EOM/
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
-│   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7)
+│   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
 │   │   ├── epistemic_service.dart # SQLite CRUD for the epistemic graph + EpistemicGraphStore interface (EOM-T1, EOM-T7)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
@@ -49,7 +50,7 @@ EOM/
 │
 └── test/                      # Unit and widget tests
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
-    ├── epistemic_intent_service_test.dart # Intent→graph node creation + edge semantics, in-memory fake (EOM-T7)
+    ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
