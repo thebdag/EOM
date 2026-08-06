@@ -44,13 +44,15 @@
   "42": "epistemic_intent_service.dart",
   "43": "main.dart",
   "44": "epistemic_query_result.dart",
-  "45": "epistemic_gap_service.dart",
+  "45": "thought_tree_view.dart",
   "46": "in_memory_epistemic_store.dart",
-  "47": "package:flutter_test/flutter_test.dart",
+  "47": "package:eom/models/epistemic_node.dart",
   "48": "epistemic_gap_test.dart",
   "49": "epistemic_query_test.dart",
   "50": "epistemic_drift_test.dart",
-  "51": "EpistemicGraphStore",
-  "52": "thought_node_test.dart",
-  "54": "settings_service_test.dart"
+  "51": "thought_node.dart",
+  "52": "package:flutter_test/flutter_test.dart",
+  "53": "llm_provider.dart",
+  "54": "epistemic_export_test.dart",
+  "55": "_buildTopBar"
 }

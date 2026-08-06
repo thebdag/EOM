@@ -12,6 +12,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T18** `lib/widgets/epistemic_graph_view.dart` — Map intent overlay:
+  deterministic radial BFS layout (root centre, depth rings), nodes
+  coloured by confidence (error → tertiary → sage lerp), 0.5px border
+  edges, 300ms easeOut fade-in. `home_screen` traverses from the Map
+  root concept after `processMap` and renders beneath the tree view.
 - **EOM-T19** `lib/services/epistemic_export_service.dart` — full-map
   export: `toJsonGraph()`/`toJson()` (versioned metadata + all nodes and
   edges, re-importable) and `toMarkdown()` (grouped by type, confidence

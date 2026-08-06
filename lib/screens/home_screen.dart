@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../models/epistemic_operation.dart';
+import '../models/epistemic_query_result.dart';
 import '../models/intent.dart';
 import '../services/ai_service.dart';
 import '../theme/eom_colors.dart';
+import '../widgets/epistemic_graph_view.dart';
 import '../widgets/intent_button.dart';
 import '../widgets/response_card.dart';
 import '../widgets/thought_tree_view.dart';
@@ -33,13 +35,22 @@ class _HomeScreenState extends State<HomeScreen> {
   AiResponse? _response;
   bool _isProcessing = false;
   final List<Map<String, String>> _history = [];
+  EpistemicService? _epistemicStore;
   EpistemicIntentService? _epistemicIntents;
+  EpistemicQueryResult? _mapOverlay;
+
+  Future<EpistemicService> _getEpistemicStore() async {
+    final existing = _epistemicStore;
+    if (existing != null) return existing;
+    final store = EpistemicService();
+    await store.init();
+    return _epistemicStore = store;
+  }
 
   Future<EpistemicIntentService> _getEpistemicIntents() async {
     final existing = _epistemicIntents;
     if (existing != null) return existing;
-    final store = EpistemicService();
-    await store.init();
+    final store = await _getEpistemicStore();
     return _epistemicIntents = EpistemicIntentService(
       store,
       gapDetector: EpistemicGapService(store),
@@ -62,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             await service.processCompress(operation);
           case MapOperation():
             await service.processMap(operation);
+            await _loadMapOverlay(operation);
           case ReflectOperation():
             await service.processReflect(operation);
           case ActOperation():
@@ -71,6 +83,25 @@ class _HomeScreenState extends State<HomeScreen> {
         // Non-blocking by design — a graph failure must never break the UX.
       }
     }());
+  }
+
+  /// Loads the epistemic subgraph around a Map session's root concept and
+  /// renders it as the confidence-coloured overlay (EOM-T18).
+  Future<void> _loadMapOverlay(MapOperation operation) async {
+    final store = await _getEpistemicStore();
+    final label = operation.rootLabel.trim().toLowerCase();
+    final hits = await store.search(operation.rootLabel);
+    String? rootId;
+    for (final hit in hits) {
+      if (hit.content.toLowerCase() == label) {
+        rootId = hit.id;
+        break;
+      }
+    }
+    rootId ??= hits.isNotEmpty ? hits.first.id : null;
+    if (rootId == null || !mounted) return;
+    final graph = await store.traverse(rootId, depth: 2);
+    if (mounted) setState(() => _mapOverlay = graph);
   }
 
   @override
@@ -140,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _response = null;
       _isProcessing = false;
       _history.clear();
+      _mapOverlay = null;
     });
     _focusNode.requestFocus();
   }
@@ -186,6 +218,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (_response?.tree != null) ...[
                       const SizedBox(height: 16),
                       ThoughtTreeView(root: _response!.tree!),
+                    ],
+
+                    // Epistemic graph overlay (for Map intent, EOM-T18)
+                    if (_mapOverlay != null) ...[
+                      const SizedBox(height: 16),
+                      EpistemicGraphView(graph: _mapOverlay!),
                     ],
 
                     // Processing indicator

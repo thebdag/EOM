@@ -50,6 +50,7 @@ EOM/
 │   │   └── eom_theme.dart     # Material 3 global ThemeData definition
 │   │
 │   └── widgets/
+│       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18)
 │       ├── intent_button.dart   # Interactive pill button for cognitive intents
 │       ├── response_card.dart   # Fade-in markdown container for text responses
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
@@ -59,6 +60,7 @@ EOM/
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
     ├── epistemic_export_test.dart     # JSON round-trip + Markdown grouping/snippets (EOM-T19)
     ├── epistemic_gap_test.dart        # Explicit + inferred gap detection, coverage heuristics (EOM-T14)
+    ├── epistemic_graph_view_test.dart # Confidence colour lerp + overlay widget render/fade (EOM-T18)
     ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11, T14)
     ├── epistemic_maturity_test.dart   # Domain grouping, thresholds, score ratio (EOM-T16)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
