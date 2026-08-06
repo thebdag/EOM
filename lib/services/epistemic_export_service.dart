@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../models/epistemic_node.dart';
-import 'epistemic_service.dart';
+import 'sqlite_epistemic_graph_store.dart';
 
 /// Read surface for epistemic-map export (EOM-T19).
 abstract class EpistemicExporter {

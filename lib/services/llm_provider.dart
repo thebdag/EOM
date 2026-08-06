@@ -1,13 +1,103 @@
 import 'dart:convert';
+import '../models/llm_provider_kind.dart';
 import 'settings_service.dart';
 import 'package:http/http.dart' as http;
+
+/// Builds the concrete [LlmProvider] for a [LlmProviderKind]. Lives in the
+/// service layer so `lib/models/` stays free of provider dependencies.
+extension LlmProviderKindFactory on LlmProviderKind {
+  LlmProvider createProvider() {
+    switch (this) {
+      case LlmProviderKind.openai:
+        return OpenAiProvider();
+      case LlmProviderKind.anthropic:
+        return AnthropicProvider();
+      case LlmProviderKind.local:
+        return LocalProvider();
+      case LlmProviderKind.gemini:
+        return GeminiProvider();
+    }
+  }
+}
+
+/// One turn in a conversation, owned by the provider layer (EOM-S11).
+///
+/// Replaces the `Map<String, String>` role/content maps that used to flow
+/// through the history plumbing untyped.
+class ChatMessage {
+  const ChatMessage({required this.role, required this.content});
+
+  factory ChatMessage.user(String content) =>
+      ChatMessage(role: 'user', content: content);
+
+  factory ChatMessage.assistant(String content) =>
+      ChatMessage(role: 'assistant', content: content);
+
+  /// `user`, `assistant`, or `system`.
+  final String role;
+  final String content;
+
+  /// OpenAI-compatible chat-completions shape, also used by the LiteLLM
+  /// gateway.
+  Map<String, String> toJson() => {'role': role, 'content': content};
+}
 
 abstract class LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   });
+}
+
+/// Shared OpenAI-compatible chat-completions client (EOM-S13). Both
+/// [OpenAiProvider] and [LocalProvider] repeat the same request shape —
+/// POST → status-check → decode → extract — so it lives here once.
+Future<String> _postChatCompletion({
+  required Uri url,
+  required String apiKey,
+  required String model,
+  required String systemPrompt,
+  required String userMessage,
+  required List<ChatMessage> history,
+  required String errorPrefix,
+  Map<String, dynamic> extraBody = const {},
+}) async {
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $apiKey',
+    },
+    body: jsonEncode({
+      'model': model,
+      'messages': [
+        {'role': 'system', 'content': systemPrompt},
+        ...history.map((m) => m.toJson()),
+        {'role': 'user', 'content': userMessage},
+      ],
+      ...extraBody,
+    }),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception('$errorPrefix: ${response.body}');
+  }
+  return _extractChatContent(jsonDecode(response.body), errorPrefix);
+}
+
+/// Extracts the assistant message from a chat-completions payload, throwing
+/// a descriptive [Exception] for unexpected shapes (EOM-S4).
+String _extractChatContent(dynamic data, String errorPrefix) {
+  if (data is Map) {
+    final choices = data['choices'];
+    if (choices is List && choices.isNotEmpty) {
+      final message = choices[0] is Map ? choices[0]['message'] : null;
+      final content = message is Map ? message['content'] : null;
+      if (content is String && content.isNotEmpty) return content;
+    }
+  }
+  throw Exception('$errorPrefix: unexpected response shape');
 }
 
 class OpenAiProvider implements LlmProvider {
@@ -15,33 +105,22 @@ class OpenAiProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async {
     final apiKey = SettingsService.openAiKey;
     if (apiKey.isEmpty) {
       throw Exception('OPENAI_API_KEY is missing');
     }
 
-    final response = await http.post(
-      Uri.parse('https://api.openai.com/v1/chat/completions'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
-      },
-      body: jsonEncode({
-        'model': 'gpt-4o', // or gpt-4o-mini
-        'messages': [
-          {'role': 'system', 'content': systemPrompt},
-          ...history,
-          {'role': 'user', 'content': userMessage},
-        ],
-      }),
+    return _postChatCompletion(
+      url: Uri.parse('https://api.openai.com/v1/chat/completions'),
+      apiKey: apiKey,
+      model: 'gpt-4o', // or gpt-4o-mini
+      systemPrompt: systemPrompt,
+      userMessage: userMessage,
+      history: history,
+      errorPrefix: 'OpenAI Error',
     );
-
-    if (response.statusCode != 200) {
-      throw Exception('OpenAI Error: ${response.body}');
-    }
-    return extractContent(jsonDecode(response.body));
   }
 
   /// Extracts the assistant message from a chat-completions payload.
@@ -49,17 +128,8 @@ class OpenAiProvider implements LlmProvider {
   /// Throws a descriptive [Exception] for unexpected shapes — e.g. an
   /// empty `choices` list under rate limiting — instead of leaking a raw
   /// RangeError/TypeError (EOM-S4).
-  static String extractContent(dynamic data) {
-    if (data is Map) {
-      final choices = data['choices'];
-      if (choices is List && choices.isNotEmpty) {
-        final message = choices[0] is Map ? choices[0]['message'] : null;
-        final content = message is Map ? message['content'] : null;
-        if (content is String && content.isNotEmpty) return content;
-      }
-    }
-    throw Exception('OpenAI Error: unexpected response shape');
-  }
+  static String extractContent(dynamic data) =>
+      _extractChatContent(data, 'OpenAI Error');
 }
 
 class AnthropicProvider implements LlmProvider {
@@ -67,7 +137,7 @@ class AnthropicProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async {
     final apiKey = SettingsService.anthropicKey;
     if (apiKey.isEmpty) {
@@ -86,7 +156,7 @@ class AnthropicProvider implements LlmProvider {
         'system': systemPrompt,
         'max_tokens': 1024,
         'messages': [
-          ...history,
+          ...history.map((m) => m.toJson()),
           {'role': 'user', 'content': userMessage},
         ],
       }),
@@ -118,7 +188,7 @@ class GeminiProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async {
     final apiKey = SettingsService.geminiKey;
     if (apiKey.isEmpty) {
@@ -139,9 +209,9 @@ class GeminiProvider implements LlmProvider {
         'contents': [
           ...history.map(
             (m) => {
-              'role': m['role'] == 'assistant' ? 'model' : 'user',
+              'role': m.role == 'assistant' ? 'model' : 'user',
               'parts': [
-                {'text': m['content']},
+                {'text': m.content},
               ],
             },
           ),
@@ -190,7 +260,7 @@ class LocalProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async {
     final host = SettingsService.localHost;
     final model = SettingsService.localModel;
@@ -203,31 +273,15 @@ class LocalProvider implements LlmProvider {
       throw Exception('LiteLLM Model Alias is missing');
     }
 
-    final response = await http.post(
-      Uri.parse('$host/v1/chat/completions'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
-      },
-      body: jsonEncode({
-        'model': model,
-        'stream': false,
-        'messages': [
-          {'role': 'system', 'content': systemPrompt},
-          ...history,
-          {'role': 'user', 'content': userMessage},
-        ],
-      }),
+    return _postChatCompletion(
+      url: Uri.parse('$host/v1/chat/completions'),
+      apiKey: apiKey,
+      model: model,
+      systemPrompt: systemPrompt,
+      userMessage: userMessage,
+      history: history,
+      errorPrefix: 'LiteLLM Error',
+      extraBody: const {'stream': false},
     );
-
-    if (response.statusCode != 200) {
-      throw Exception('LiteLLM Error: ${response.body}');
-    }
-    final data = jsonDecode(response.body);
-
-    if (data['choices'] != null && data['choices'].isNotEmpty) {
-      return data['choices'][0]['message']['content'];
-    }
-    throw Exception('LiteLLM Error: unexpected response shape');
   }
 }

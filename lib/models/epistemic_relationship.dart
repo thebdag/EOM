@@ -14,11 +14,27 @@ enum EpistemicRelationshipType {
 ///
 /// Throws [ArgumentError] if [value] is not a valid type name.
 EpistemicRelationshipType epistemicRelationshipTypeFromString(String value) {
-  return EpistemicRelationshipType.values.firstWhere(
-    (e) => e.name == value,
-    orElse: () =>
-        throw ArgumentError('Unknown EpistemicRelationshipType: "$value"'),
+  final parsed = epistemicRelationshipTypeTryParse(value);
+  if (parsed == null) {
+    throw ArgumentError('Unknown EpistemicRelationshipType: "$value"');
+  }
+  return parsed;
+}
+
+/// Tolerant variant of [epistemicRelationshipTypeFromString] (EOM-S14).
+///
+/// Also accepts kebab-case names as produced by LLMs — e.g.
+/// `is-example-of` maps to [EpistemicRelationshipType.isExampleOf].
+/// Returns null for unknown values instead of throwing.
+EpistemicRelationshipType? epistemicRelationshipTypeTryParse(String value) {
+  final camel = value.replaceAllMapped(
+    RegExp(r'-([a-z])'),
+    (m) => m.group(1)!.toUpperCase(),
   );
+  for (final t in EpistemicRelationshipType.values) {
+    if (t.name == value || t.name == camel) return t;
+  }
+  return null;
 }
 
 /// Represents a directed edge between two [EpistemicNode]s.

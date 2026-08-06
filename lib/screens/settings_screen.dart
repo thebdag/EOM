@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
 
@@ -10,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _activeProvider = 'GEMINI';
+  LlmProviderKind _activeProvider = LlmProviderKind.fallback;
   final _openAiController = TextEditingController();
   final _anthropicController = TextEditingController();
   final _geminiController = TextEditingController();
@@ -143,19 +144,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
+        child: DropdownButton<LlmProviderKind>(
           value: _activeProvider,
           isExpanded: true,
           dropdownColor: EomColors.surface,
-          items: const [
-            DropdownMenuItem(value: 'OPENAI', child: Text('OpenAI')),
-            DropdownMenuItem(
-              value: 'ANTHROPIC',
-              child: Text('Anthropic Claude'),
-            ),
-            DropdownMenuItem(value: 'GEMINI', child: Text('Google Gemini')),
-            DropdownMenuItem(value: 'LOCAL', child: Text('LiteLLM')),
-          ],
+          items: LlmProviderKind.values
+              .map(
+                (kind) =>
+                    DropdownMenuItem(value: kind, child: Text(kind.label)),
+              )
+              .toList(),
           onChanged: (val) {
             if (val != null) setState(() => _activeProvider = val);
           },

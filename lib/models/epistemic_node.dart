@@ -152,7 +152,7 @@ class EpistemicNode {
   // ── Relationships ─────────────────────────────────────────────────────────
 
   /// Outbound and inbound relationships connected to this node.
-  /// Note: These are typically lazy-loaded by EpistemicService.
+  /// Note: These are typically lazy-loaded by SqliteEpistemicGraphStore.
   final List<EpistemicRelationship> relationships;
 
   // ── Category ───────────────────────────────────────────────────────────────

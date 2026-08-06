@@ -4,6 +4,9 @@ All notable changes to the EOM project will be documented in this file.
 
 ## [Unreleased] - 2026-05-11
 
+### Changed
+- **Codebase health pass (EOM-E3)**: internal refactor with no behaviour change — provider identity is now a single `LlmProviderKind` enum, chat history and saved conversations travel as typed models (`ChatMessage`, `Conversation`), per-intent prompts/parsing live beside the intent definitions, duplicated provider/parsing/graph-persistence code is deduplicated, and `HomeScreen` services are constructor-injected behind the `EpistemicGraphStore` interface (`EpistemicService` renamed `SqliteEpistemicGraphStore`). Map graph overlay border aligned to the 0.5px design spec.
+
 ### Added
 - **Every session now builds your epistemic graph**: Clarify, Compress, Map, Reflect, and Act all silently upsert what they learn — beliefs, principles, concept relationships, contradictions — into a personal knowledge graph on your device (EOM-T11). Repeat sessions merge rather than duplicate.
 - **Ask "what do I know about X?"**: the graph now has a full-text search and relationship-traversal API (EOM-T17), the foundation for the features below.

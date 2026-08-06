@@ -11,7 +11,36 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+- **EOM-S10** Provider identity is now the `LlmProviderKind` enum
+  (`lib/models/llm_provider_kind.dart`) with the `OLLAMA`→`LOCAL` legacy
+  mapping in one `fromString`; `SettingsService.activeProvider` returns the
+  enum, `AiService` dispatches via a `createProvider()` extension, and the
+  settings dropdown is generated from the enum values.
+- **EOM-S11** Chat history travels as `List<ChatMessage>` (owned by the
+  provider layer) instead of `List<Map<String, String>>`; Hive history
+  flows as the new `Conversation` model (`fromMap`/`toMap`) instead of
+  string-keyed maps. Malformed timestamps arrive null and render as no
+  date (EOM-S9 behaviour preserved).
+- **EOM-S14** Per-intent prompt text and epilogue JSON→operation routing
+  moved to a `CognitiveIntentOps` extension in
+  `lib/services/intent_config.dart`; recursive tree decoding moved to
+  `ThoughtNode.fromJson`/`ThoughtNode.tryParseRaw`; kebab-tolerant
+  relationship parsing moved to `epistemicRelationshipTypeTryParse` on the
+  model.
+- **EOM-S13** Deduplicated: both epilogue parsers share `_splitEpilogue`;
+  OpenAI/LiteLLM share a `_postChatCompletion` client and content
+  extractor; `processCompress`/`processClarify`/`processAct` share the
+  `_persistDerivedNode` skeleton.
+- **EOM-S12** `HomeScreen` services are constructor-injected
+  (`AiService`, `HistoryService`, `Future<EpistemicGraphStore>` factory —
+  typed as the interface) instead of hand-rolled lazy singletons and
+  per-call construction. `EpistemicService` renamed to
+  `SqliteEpistemicGraphStore` (file renamed to match).
+
 ### Fixed
+- **EOM-S15** `epistemic_graph_view` container border is 0.5px per the
+  design spec (was 1px).
 - **EOM-S2** Graph persistence was silently broken: `EpistemicNode.toJson()`
   carried a `relationships` key with no matching column, so every sqflite
   insert/update on `epistemic_nodes` threw and the on-device graph never

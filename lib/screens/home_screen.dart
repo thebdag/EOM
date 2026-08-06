@@ -14,12 +14,30 @@ import 'settings_screen.dart';
 import 'history_screen.dart';
 import '../services/epistemic_gap_service.dart';
 import '../services/epistemic_intent_service.dart';
-import '../services/epistemic_service.dart';
+import '../services/sqlite_epistemic_graph_store.dart';
 import '../services/history_service.dart';
+import '../services/llm_provider.dart';
 
 /// Main screen — the "vault" where thoughts are processed.
+///
+/// Services are constructor-injected (EOM-S12) instead of hand-rolled in
+/// the state: [aiService] and [historyService] default to production
+/// instances, and [epistemicStoreFactory] defaults to opening the SQLite
+/// store. Tests inject fakes through the same seams.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    this.aiService,
+    this.historyService,
+    this.epistemicStoreFactory,
+  });
+
+  final AiService? aiService;
+  final HistoryService? historyService;
+
+  /// Builds an initialized [EpistemicGraphStore]. Typed as the interface so
+  /// the screen never depends on the SQLite implementation (EOM-S12).
+  final Future<EpistemicGraphStore> Function()? epistemicStoreFactory;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -28,27 +46,31 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
-  final _aiService = AiService();
   final _focusNode = FocusNode();
+  late final AiService _aiService = widget.aiService ?? AiService();
+  late final HistoryService _historyService =
+      widget.historyService ?? HistoryService();
 
   CognitiveIntent? _activeIntent;
   AiResponse? _response;
   bool _isProcessing = false;
-  final List<Map<String, String>> _history = [];
-  Future<EpistemicService>? _epistemicStoreFuture;
+  final List<ChatMessage> _history = [];
+  Future<EpistemicGraphStore>? _epistemicStoreFuture;
   EpistemicIntentService? _epistemicIntents;
   EpistemicQueryResult? _mapOverlay;
 
   /// Caches the initialization *future*, not the instance (EOM-S8) —
   /// concurrent callers otherwise both pass the null check, init two
-  /// [EpistemicService]s, and leak a Database.
-  Future<EpistemicService> _getEpistemicStore() {
+  /// stores, and leak a Database.
+  Future<EpistemicGraphStore> _getEpistemicStore() {
     return _epistemicStoreFuture ??= _initEpistemicStore();
   }
 
-  Future<EpistemicService> _initEpistemicStore() async {
+  Future<EpistemicGraphStore> _initEpistemicStore() async {
     try {
-      final store = EpistemicService();
+      final factory = widget.epistemicStoreFactory;
+      if (factory != null) return await factory();
+      final store = SqliteEpistemicGraphStore();
       await store.init();
       return store;
     } catch (_) {
@@ -148,8 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // Error responses are shown but never enter history (EOM-S5) —
           // they would pollute future prompts and the history library.
           if (!response.isError) {
-            _history.add({'role': 'user', 'content': input});
-            _history.add({'role': 'assistant', 'content': response.text});
+            _history.add(ChatMessage.user(input));
+            _history.add(ChatMessage.assistant(response.text));
           }
         });
 
@@ -158,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // a Hive failure must not abort graph persistence, and neither
           // may clear the intent as if the LLM itself had failed.
           try {
-            await HistoryService().saveConversation(
+            await _historyService.saveConversation(
               initialInput: input,
               intent: intent.name,
               response: response.text,

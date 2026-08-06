@@ -1,6 +1,6 @@
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_relationship.dart';
-import 'package:eom/services/epistemic_service.dart';
+import 'package:eom/services/sqlite_epistemic_graph_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -15,12 +15,12 @@ void main() {
     databaseFactory = databaseFactoryFfi;
   });
 
-  late EpistemicService service;
+  late SqliteEpistemicGraphStore service;
 
   setUp(() async {
     final path = '${await getDatabasesPath()}/epistemic.db';
     await databaseFactory.deleteDatabase(path);
-    service = EpistemicService();
+    service = SqliteEpistemicGraphStore();
     await service.init();
   });
 

@@ -1,6 +1,6 @@
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_relationship.dart';
-import 'package:eom/services/epistemic_service.dart';
+import 'package:eom/services/sqlite_epistemic_graph_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'helpers/in_memory_epistemic_store.dart';
