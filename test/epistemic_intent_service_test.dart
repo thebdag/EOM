@@ -1,6 +1,7 @@
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_operation.dart';
 import 'package:eom/models/epistemic_relationship.dart';
+import 'package:eom/services/epistemic_gap_service.dart';
 import 'package:eom/services/epistemic_intent_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -227,6 +228,60 @@ void main() {
       expect(store.edges.single.type, EpistemicRelationshipType.contradicts);
       expect(store.edges.single.sourceId, newStmt.id);
       expect(store.edges.single.targetId, existing.id);
+    });
+  });
+
+  group('gap detection wiring (EOM-T14)', () {
+    late EpistemicIntentService wired;
+
+    setUp(() {
+      wired = EpistemicIntentService(
+        store,
+        gapDetector: EpistemicGapService(store),
+      );
+    });
+
+    test('is inert when no detector is injected', () async {
+      await service.processClarify(
+        const ClarifyOperation(
+          clarified: 'Clarity needs space.',
+          keywords: ['solitude'],
+        ),
+      );
+      expect(service.lastDetectedGaps, isEmpty);
+    });
+
+    test('surfaces keywords with no covering node after Clarify', () async {
+      seedNode('Stillness restores me.'); // covers "stillness"
+      await wired.processClarify(
+        const ClarifyOperation(
+          clarified: 'Clarity needs space.',
+          keywords: ['stillness', 'monastic silence'],
+        ),
+      );
+      expect(wired.lastDetectedGaps.map((g) => g.concept), [
+        'monastic silence',
+      ]);
+    });
+
+    test('surfaces low-confidence statements after Reflect', () async {
+      await wired.processReflect(
+        const ReflectOperation(lowConfidenceNodes: ['I might be a fraud']),
+      );
+      expect(wired.lastDetectedGaps.single.concept, 'I might be a fraud');
+    });
+
+    test('does not create nodes for detected gaps', () async {
+      final before = store.nodes.length;
+      await wired.processAct(
+        const ActOperation(
+          actionable: 'Ship the small thing.',
+          keywords: ['unmapped concept'],
+        ),
+      );
+      // Only the actionable node itself was persisted.
+      expect(store.nodes.length, before + 1);
+      expect(wired.lastDetectedGaps.single.concept, 'unmapped concept');
     });
   });
 }

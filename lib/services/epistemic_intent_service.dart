@@ -1,6 +1,8 @@
+import '../models/epistemic_gap.dart';
 import '../models/epistemic_node.dart';
 import '../models/epistemic_operation.dart';
 import '../models/epistemic_relationship.dart';
+import 'epistemic_gap_service.dart';
 import 'epistemic_service.dart';
 
 /// Bridges intent responses to the epistemic graph (EOM-T7, EOM-T11).
@@ -9,10 +11,31 @@ import 'epistemic_service.dart';
 /// focused on storage. Every thought session upserts the nodes derived
 /// from its operation; repeat sessions merge into existing nodes rather
 /// than duplicating them.
+///
+/// When an [EpistemicGapDetector] is supplied (EOM-T14), each session also
+/// scans its surfaced concepts (keywords, low-confidence statements) for
+/// gaps and exposes them via [lastDetectedGaps] — read-only surfacing; no
+/// nodes are created for gaps.
 class EpistemicIntentService {
-  EpistemicIntentService(this._store);
+  EpistemicIntentService(this._store, {EpistemicGapDetector? gapDetector})
+    : _gapDetector = gapDetector;
 
   final EpistemicGraphStore _store;
+  final EpistemicGapDetector? _gapDetector;
+
+  List<EpistemicGap> _lastGaps = const [];
+
+  /// Gaps detected while persisting the most recent session (EOM-T14).
+  ///
+  /// Empty when no detector is injected or the last session surfaced no
+  /// unmapped concepts.
+  List<EpistemicGap> get lastDetectedGaps => _lastGaps;
+
+  Future<void> _detectGaps(Iterable<String> concepts) async {
+    final detector = _gapDetector;
+    if (detector == null) return;
+    _lastGaps = await detector.detectGaps(concepts);
+  }
 
   /// Persists the abstracted principle from a Compress operation and links
   /// it to related existing nodes.
@@ -41,6 +64,7 @@ class EpistemicIntentService {
     );
     await _store.upsert(principle);
     await _linkKeywords(principle, operation.keywords);
+    await _detectGaps(operation.keywords);
     return principle;
   }
 
@@ -83,6 +107,7 @@ class EpistemicIntentService {
     );
     final saved = await _store.upsert(node);
     await _linkKeywords(saved, operation.keywords);
+    await _detectGaps(operation.keywords);
     return saved;
   }
 
@@ -98,6 +123,7 @@ class EpistemicIntentService {
     );
     final saved = await _store.upsert(node);
     await _linkKeywords(saved, operation.keywords);
+    await _detectGaps(operation.keywords);
     return saved;
   }
 
@@ -167,6 +193,7 @@ class EpistemicIntentService {
         }
       }
     }
+    await _detectGaps(operation.lowConfidenceNodes);
   }
 
   EpistemicRelationshipType? _parseRelType(String typeStr) {

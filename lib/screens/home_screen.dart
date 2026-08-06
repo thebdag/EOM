@@ -10,6 +10,7 @@ import '../widgets/response_card.dart';
 import '../widgets/thought_tree_view.dart';
 import 'settings_screen.dart';
 import 'history_screen.dart';
+import '../services/epistemic_gap_service.dart';
 import '../services/epistemic_intent_service.dart';
 import '../services/epistemic_service.dart';
 import '../services/history_service.dart';
@@ -39,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
     if (existing != null) return existing;
     final store = EpistemicService();
     await store.init();
-    return _epistemicIntents = EpistemicIntentService(store);
+    return _epistemicIntents = EpistemicIntentService(
+      store,
+      gapDetector: EpistemicGapService(store),
+    );
   }
 
   /// Persists epistemic operations to the graph without blocking the UI —
