@@ -35,16 +35,27 @@ class _HomeScreenState extends State<HomeScreen> {
   AiResponse? _response;
   bool _isProcessing = false;
   final List<Map<String, String>> _history = [];
-  EpistemicService? _epistemicStore;
+  Future<EpistemicService>? _epistemicStoreFuture;
   EpistemicIntentService? _epistemicIntents;
   EpistemicQueryResult? _mapOverlay;
 
-  Future<EpistemicService> _getEpistemicStore() async {
-    final existing = _epistemicStore;
-    if (existing != null) return existing;
-    final store = EpistemicService();
-    await store.init();
-    return _epistemicStore = store;
+  /// Caches the initialization *future*, not the instance (EOM-S8) —
+  /// concurrent callers otherwise both pass the null check, init two
+  /// [EpistemicService]s, and leak a Database.
+  Future<EpistemicService> _getEpistemicStore() {
+    return _epistemicStoreFuture ??= _initEpistemicStore();
+  }
+
+  Future<EpistemicService> _initEpistemicStore() async {
+    try {
+      final store = EpistemicService();
+      await store.init();
+      return store;
+    } catch (_) {
+      // Do not cache a failed init — the next call retries.
+      _epistemicStoreFuture = null;
+      rethrow;
+    }
   }
 
   Future<EpistemicIntentService> _getEpistemicIntents() async {
@@ -143,11 +154,18 @@ class _HomeScreenState extends State<HomeScreen> {
         });
 
         if (!response.isError) {
-          await HistoryService().saveConversation(
-            initialInput: input,
-            intent: intent.name,
-            response: response.text,
-          );
+          // History save and graph persist fail independently (EOM-S8) —
+          // a Hive failure must not abort graph persistence, and neither
+          // may clear the intent as if the LLM itself had failed.
+          try {
+            await HistoryService().saveConversation(
+              initialInput: input,
+              intent: intent.name,
+              response: response.text,
+            );
+          } catch (e, st) {
+            debugPrint('EOM: history save failed: $e\n$st');
+          }
 
           _persistOperation(response);
         }

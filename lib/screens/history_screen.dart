@@ -42,6 +42,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             icon: const Icon(Icons.delete_outline, size: 20),
             onPressed: () async {
               await _historyService.clearHistory();
+              if (!mounted) return;
               _loadConversations();
             },
             tooltip: 'Clear History',
