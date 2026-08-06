@@ -12,6 +12,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T17** query API on `EpistemicGraphStore`: `search(query)` (FTS5
+  index `epistemic_nodes_fts`, schema v3, sanitised MATCH input via
+  `sanitizeFtsQuery`) and `traverse(nodeId, depth)` (cycle-safe BFS,
+  concrete default on the interface so SQLite and in-memory stores share
+  semantics). New `EpistemicQueryResult` model; test fake extracted to
+  `test/helpers/in_memory_epistemic_store.dart`.
 - **EOM-T12** `docs/adr/0002-delta-update-model.md` — delta-update design:
   canonical node + `node_observations` log, three match tiers
   (exact / refine / novel), confidence by recency-weighted nudge instead
