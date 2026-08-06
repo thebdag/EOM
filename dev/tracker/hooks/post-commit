@@ -1,0 +1,99 @@
+#!/usr/bin/env node
+// .git/hooks/post-commit (installed via npm run install-hooks)
+//
+// Scans the HEAD commit message for EOM tracker key references and
+// auto-updates their status in dev/tracker/eom-tracker.db.
+//
+// Supported commit message patterns (anywhere in the message):
+//   [EOM-T7 done]         → marks subtask EOM-T7 as done
+//   [EOM-T7 wip]          → marks subtask EOM-T7 as in_progress
+//   [EOM-T7 todo]         → marks subtask EOM-T7 as todo
+//   [EOM-S3 done]         → marks story EOM-S3 as done
+//   [EOM-E2 in_progress]  → marks epic EOM-E2 as in_progress
+//
+// Multiple references in a single commit message are all processed.
+'use strict';
+
+const { execSync } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
+// Locate repo root (this script runs from the repo root by git)
+const repoRoot = process.cwd();
+const trackerDir = path.join(repoRoot, 'dev', 'tracker');
+const dbPath = path.join(trackerDir, 'eom-tracker.db');
+
+// Skip silently if tracker not installed yet
+if (!fs.existsSync(dbPath)) process.exit(0);
+if (!fs.existsSync(path.join(trackerDir, 'node_modules'))) process.exit(0);
+
+const STATUS_ALIASES = { done: 'done', wip: 'in_progress', todo: 'todo', in_progress: 'in_progress' };
+
+// Get the HEAD commit message
+let commitMsg;
+try {
+  commitMsg = execSync('git log -1 --pretty=%B', { cwd: repoRoot }).toString();
+} catch {
+  process.exit(0);
+}
+
+// Extract all [EOM-Xn status] tokens
+const pattern = /\[EOM-([EST]\d+)\s+(done|wip|todo|in_progress)\]/gi;
+const matches = [...commitMsg.matchAll(pattern)];
+
+if (!matches.length) process.exit(0);
+
+// Load tracker db
+const { initDb, Epics, Stories, Subtasks } = require(path.join(trackerDir, 'db'));
+
+initDb().then(() => {
+  for (const m of matches) {
+    const key = `EOM-${m[1].toUpperCase()}`;
+    const status = STATUS_ALIASES[m[2].toLowerCase()];
+    if (!status) continue;
+
+    try {
+      if (key.startsWith('EOM-T')) {
+        const epics = Epics.all();
+        let found = null;
+        outer: for (const e of epics) {
+          for (const s of Stories.forEpic(e.id)) {
+            const t = Subtasks.forStory(s.id).find(x => x.key === key);
+            if (t) { found = t; break outer; }
+          }
+        }
+        if (found) {
+          Subtasks.update(found.id, { status });
+          console.log(`[tracker] ${key} → ${status}`);
+        } else {
+          console.log(`[tracker] ${key} not found — skipped`);
+        }
+
+      } else if (key.startsWith('EOM-S')) {
+        const epics = Epics.all();
+        let found = null;
+        for (const e of epics) {
+          const s = Stories.forEpic(e.id).find(x => x.key === key);
+          if (s) { found = s; break; }
+        }
+        if (found) {
+          Stories.update(found.id, { status });
+          console.log(`[tracker] ${key} → ${status}`);
+        } else {
+          console.log(`[tracker] ${key} not found — skipped`);
+        }
+
+      } else if (key.startsWith('EOM-E')) {
+        const epic = Epics.all().find(e => e.key === key);
+        if (epic) {
+          Epics.update(epic.id, { status });
+          console.log(`[tracker] ${key} → ${status}`);
+        } else {
+          console.log(`[tracker] ${key} not found — skipped`);
+        }
+      }
+    } catch (err) {
+      console.error(`[tracker] failed to update ${key}:`, err.message);
+    }
+  }
+}).catch(() => process.exit(0)); // never block the commit

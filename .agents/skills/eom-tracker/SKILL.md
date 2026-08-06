@@ -1,15 +1,20 @@
 ---
 name: eom-tracker
-description: Manages epics, stories, and subtasks in the EOM project's local SQLite issue tracker via a blessed TUI. Use when creating, editing, or querying tracker items (epics, stories, subtasks), cycling status, linking git branches to stories, or teaching an agent how to interact with the tracker programmatically. Don't use for Flutter app development, LLM integration, or any task unrelated to the dev/tracker tooling.
+description: Manages epics, stories, and subtasks in the EOM project's local SQLite issue tracker. Use when creating, editing, or querying tracker items (epics, stories, subtasks), cycling status via the mark CLI or post-commit hook, linking git branches to stories, or teaching an agent how to interact with the tracker programmatically. Don't use for Flutter app development, LLM integration, or any task unrelated to the dev/tracker tooling.
 ---
 
 # EOM Tracker
 
 The EOM tracker is a local SQLite-backed issue tracker at `dev/tracker/` inside
 the EOM repository. It has three hierarchy levels: **Epic → Story → Subtask**.
-The TUI is launched interactively; programmatic access goes through `db.js` directly.
 
-Read `references/schema.md` for the full database schema.
+Three interfaces are available:
+- **Post-commit hook** — include `[EOM-T7 done]` in any commit message; status updates automatically.
+- **mark CLI** — `node dev/tracker/mark.js EOM-T7 done` for immediate updates without a commit.
+- **Blessed TUI** — `npm run tracker` for interactive browsing, creating, and editing.
+- **db.js helpers** — direct programmatic access for bulk operations.
+
+Read `references/schema.md` for the full database schema and JS helper API.
 Read `references/keybindings.md` for the complete TUI key reference.
 
 ---
@@ -69,15 +74,37 @@ If the agent or user needs to add a new epic, story, or subtask:
 
 Status cycles in one direction only: `todo → in_progress → done`.
 
-**Via TUI:** Focus the item, press `d` to advance to the next status.
+**Path 1 — commit message (automatic, zero extra effort):**
 
-**Via script:**
+Include key tokens anywhere in the commit message; the `post-commit` hook
+updates the DB automatically after every commit:
+
+```
+feat: wire Clarify intent [EOM-T6 done] [EOM-T7 wip]
+```
+
+Supported tokens: `[EOM-Tn done]`, `[EOM-Tn wip]`, `[EOM-Tn todo]`,
+`[EOM-Sn done]`, `[EOM-En in_progress]`, etc.
+
+**Path 2 — mark CLI (immediate, no commit needed):**
+
+```bash
+node dev/tracker/mark.js EOM-T7 done   # done | wip | todo
+node dev/tracker/mark.js EOM-S3 wip
+```
+
+**Path 3 — via TUI:** Focus the item, press `d` to advance status.
+
+**Via script (Path 3 — programmatic):**
 ```js
 Stories.update(id, { status: 'in_progress' }); // or 'done'
 Subtasks.update(id, { status: 'done' });
 ```
-Valid status values: `todo`, `in_progress`, `done`. Any other value will be
-rejected by the CHECK constraint.
+
+Valid status values: `todo`, `in_progress`, `done`.
+
+> After a fresh clone, run `node dev/tracker/install-hooks.js` once to
+> install the `post-commit` hook into `.git/hooks/`.
 
 ---
 
@@ -153,17 +180,23 @@ Refer to `references/schema.md` for all available helper methods.
 
 ---
 
-## Decision tree: TUI vs. script
+## Decision tree: which update path to use
 
 ```
-Agent needs to modify tracker data
+Need to update tracker status?
 │
-├── Single interactive change (one item, status flip, edit)?
-│   └── Instruct user to use TUI keybinding
+├── Updating as part of a commit? (most common for agents)
+│   └── Include [EOM-T7 done] token in the commit message
+│       → post-commit hook fires automatically, no extra step
 │
-└── Bulk insert / programmatic update?
-    ├── Is initDb() already called in scope? → call helpers directly
-    └── New script context?
-        ├── Write inline node -e script in dev/tracker/ dir
-        └── await initDb() before any DB call
+├── Status changed but no commit yet?
+│   └── node dev/tracker/mark.js EOM-T7 done
+│       (or: npm run mark EOM-T7 done)
+│
+├── Bulk insert of new items (seeding, many subtasks)?
+│   └── Write inline node -e script, await initDb(), call helpers
+│       Must run from dev/tracker/ or any dir (path is __dirname-anchored)
+│
+└── Interactive browse / create / edit?
+    └── npm run tracker  (requires real TTY)
 ```

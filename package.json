@@ -1,7 +1,12 @@
 {
   "name": "eom",
   "scripts": {
-    "tracker": "node dev/tracker/tracker.js"
+    "tracker": "node dev/tracker/tracker.js",
+    "done": "node dev/tracker/mark.js $1 done",
+    "wip": "node dev/tracker/mark.js $1 wip",
+    "todo": "node dev/tracker/mark.js $1 todo",
+    "mark": "node dev/tracker/mark.js",
+    "install-hooks": "node dev/tracker/install-hooks.js"
   },
   "dependencies": {
     "opencode-auto-resume": "^1.0.10"
