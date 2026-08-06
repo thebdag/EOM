@@ -12,6 +12,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T15** confidence drift tracking: `confidence_events` log (schema
+  v4, baseline event on create, event on confidence-changing update,
+  baseline backfill for existing nodes). `confidenceHistory(nodeId)` on the
+  store interface + concrete `confidenceDrifts(minAbsDelta)` — biggest
+  movers first. New `ConfidenceEvent`/`ConfidenceDrift` models.
+- **EOM-T14** wiring — `EpistemicIntentService` takes an optional
+  `EpistemicGapDetector`; sessions scan surfaced concepts (keywords,
+  `lowConfidenceNodes`) and expose `lastDetectedGaps` (read-only).
 - **EOM-T14** `lib/services/epistemic_gap_service.dart` — gap detection:
   `explicitGaps()` surfaces `question`/`unknown` nodes; `detectGaps(concepts)`
   flags session concepts with no covering node (exact/FTS/substring

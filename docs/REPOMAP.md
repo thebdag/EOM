@@ -20,6 +20,7 @@ EOM/
 │   ├── main.dart              # Application entry point & theme initialization
 │   │
 │   ├── models/
+│   │   ├── confidence_event.dart # ConfidenceEvent + ConfidenceDrift models (EOM-T15)
 │   │   ├── epistemic_gap.dart   # EpistemicGap model + EpistemicGapKind enum (EOM-T14)
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_operation.dart # Sealed EpistemicOperation + Clarify/Compress/Map/Reflect/Act payloads (EOM-T6–T10)
@@ -37,7 +38,7 @@ EOM/
 │   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
 │   │   ├── epistemic_gap_service.dart # Gap detection: explicit question/unknown nodes + unmapped concepts (EOM-T14)
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
-│   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + EpistemicGraphStore interface (EOM-T1, T7, T17)
+│   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
 │   │   └── settings_service.dart# SharedPreferences wrapper for persistent storage
@@ -53,6 +54,7 @@ EOM/
 │
 └── test/                      # Unit and widget tests
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
+    ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
     ├── epistemic_gap_test.dart        # Explicit + inferred gap detection, coverage heuristics (EOM-T14)
     ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)

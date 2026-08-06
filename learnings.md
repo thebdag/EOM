@@ -13,6 +13,15 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-05 — sqflite never enforces `ON DELETE CASCADE` by default** —
+  SQLite foreign keys are off unless `PRAGMA foreign_keys = ON` runs per
+  connection, and sqflite does not do this for you. The `epistemic_edges`
+  (and later `confidence_events`) cascades were silently dead code —
+  deleting a node orphaned its edges/events. Fix: delete child rows
+  explicitly in `EpistemicService.delete()` (or pass `onConfigure` to
+  `openDatabase` and enable the pragma). When adding a new FK with cascade,
+  do not trust it to fire.
+
 - **2026-08-05 — SonarQube CI fails on compile/test, not scan rules** —
   The "SonarQube" GitHub check runs `flutter test --coverage` first. A
   broken `lib/` compile or any failing test fails the job before Sonar

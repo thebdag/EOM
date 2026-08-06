@@ -70,7 +70,7 @@
     "semantic_hash": ""
   },
   "lib/screens/home_screen.dart": {
-    "mtime": 1785978105.4987187,
+    "mtime": 1785985544.3298764,
     "ast_hash": "cadc1ff9cac6c5caad3437678f823f31",
     "semantic_hash": ""
   },
@@ -80,7 +80,7 @@
     "semantic_hash": ""
   },
   "lib/services/ai_service.dart": {
-    "mtime": 1785974808.6698766,
+    "mtime": 1785985544.329986,
     "ast_hash": "0836872a4c0424248baf1386909a4416",
     "semantic_hash": ""
   },
@@ -155,7 +155,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1785973848.490154,
+    "mtime": 1785985544.3302622,
     "ast_hash": "9ede4e1ddec242d62221a81e7815f9f6",
     "semantic_hash": ""
   },
@@ -185,12 +185,12 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1785973879.4547994,
+    "mtime": 1785985544.3258364,
     "ast_hash": "8970f4159f8eab782b2d26f86a6c86ef",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1785974956.1787667,
+    "mtime": 1785985544.325917,
     "ast_hash": "07bdd82376bb8c8571b0fccc3436273c",
     "semantic_hash": ""
   },
@@ -205,13 +205,13 @@
     "semantic_hash": ""
   },
   "changelog.md": {
-    "mtime": 1785980474.2381172,
-    "ast_hash": "4d18f5b94ce1c439b8a372191bdb3d95",
+    "mtime": 1785985753.0417209,
+    "ast_hash": "708ea7aaded5f021365c414f61d7742e",
     "semantic_hash": ""
   },
   "docs/REPOMAP.md": {
-    "mtime": 1785980468.1856189,
-    "ast_hash": "8fc4253fb85784a15a026c6c49cb636d",
+    "mtime": 1785985750.4702535,
+    "ast_hash": "2f07b010da2cb1906b1edb4a548d669d",
     "semantic_hash": ""
   },
   "docs/design_spec.md": {
@@ -225,7 +225,7 @@
     "semantic_hash": ""
   },
   "learnings.md": {
-    "mtime": 1785974963.4029083,
+    "mtime": 1785985544.329692,
     "ast_hash": "c0d45a82369433a26047ff9d349b2cce",
     "semantic_hash": ""
   },
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "lib/services/epistemic_service.dart": {
-    "mtime": 1785980418.7847805,
-    "ast_hash": "77d2bf8b46b14c4909d1e7ed66f5a2ca",
+    "mtime": 1785985708.9278464,
+    "ast_hash": "371ef937b4ff3226d8f39d1f8fe6030e",
     "semantic_hash": ""
   },
   "test/epistemic_node_test.dart": {
@@ -485,7 +485,7 @@
     "semantic_hash": ""
   },
   ".agents/skills/eom-tracker/SKILL.md": {
-    "mtime": 1785974092.402237,
+    "mtime": 1785985544.3257241,
     "ast_hash": "3cb1a4c4af4aaedf845b976dfb710098",
     "semantic_hash": ""
   },
@@ -500,63 +500,78 @@
     "semantic_hash": ""
   },
   "test/epistemic_category_test.dart": {
-    "mtime": 1785974896.2855933,
+    "mtime": 1785985544.3303335,
     "ast_hash": "6a2f32d59423f71fe96e0832381dad15",
     "semantic_hash": ""
   },
   "lib/services/epistemic_intent_service.dart": {
-    "mtime": 1785978102.8206663,
+    "mtime": 1785985544.3300736,
     "ast_hash": "f011c4cff742f83da786ced9196c7ce1",
     "semantic_hash": ""
   },
   "test/epistemic_intent_service_test.dart": {
-    "mtime": 1785980382.0320504,
+    "mtime": 1785985630.1919928,
     "ast_hash": "5bffdbef0632c725bc45c1331e006d00",
     "semantic_hash": ""
   },
   "dev/tracker/hooks/post-commit": {
-    "mtime": 1785973830.8937874,
+    "mtime": 1785985544.3262222,
     "ast_hash": "71cdebcaeec489b3e15c94a3bdb355ff",
     "semantic_hash": ""
   },
   "dev/tracker/install-hooks.js": {
-    "mtime": 1785973840.4059856,
+    "mtime": 1785985544.3263009,
     "ast_hash": "47cf3aa299495ac747760ff6d7806e77",
     "semantic_hash": ""
   },
   "dev/tracker/mark.js": {
-    "mtime": 1785973813.0064147,
+    "mtime": 1785985544.3263512,
     "ast_hash": "381205ee2e04e0ce5e71855526c7573d",
     "semantic_hash": ""
   },
   "lib/models/epistemic_operation.dart": {
-    "mtime": 1785974907.033867,
+    "mtime": 1785985544.3297806,
     "ast_hash": "9910729e9328e6838f8f88cca2ce40e0",
     "semantic_hash": ""
   },
   "test/epistemic_operation_test.dart": {
-    "mtime": 1785974896.2965934,
+    "mtime": 1785985544.3304818,
     "ast_hash": "58e62978baeb4be00b742dbec9b6c7b8",
     "semantic_hash": ""
   },
   "lib/models/epistemic_query_result.dart": {
-    "mtime": 1785980155.8945572,
+    "mtime": 1785985630.1917205,
     "ast_hash": "92c5ebbfae3fbe37d63ed49d5def821b",
     "semantic_hash": ""
   },
   "test/epistemic_query_test.dart": {
-    "mtime": 1785980445.2923074,
+    "mtime": 1785985630.1920693,
     "ast_hash": "1b486768019a0bea267392439be25b0c",
     "semantic_hash": ""
   },
   "test/helpers/in_memory_epistemic_store.dart": {
-    "mtime": 1785980417.832955,
-    "ast_hash": "095ef1ef51e8aac22cf602fa5ef6910b",
+    "mtime": 1785985709.0238366,
+    "ast_hash": "84a1d2f38452d465879d001e7e60571d",
     "semantic_hash": ""
   },
   "docs/adr/0002-delta-update-model.md": {
-    "mtime": 1785979709.1343853,
+    "mtime": 1785985544.3264885,
     "ast_hash": "8ab37b0ff5e11614480bdd6aa6144a9b",
+    "semantic_hash": ""
+  },
+  "lib/models/epistemic_gap.dart": {
+    "mtime": 1785985679.1492982,
+    "ast_hash": "166e07cbc2049cb83cd88b21f4773fea",
+    "semantic_hash": ""
+  },
+  "lib/services/epistemic_gap_service.dart": {
+    "mtime": 1785985731.8263004,
+    "ast_hash": "4f2452c1537bc5f48a4c5eb9e207f769",
+    "semantic_hash": ""
+  },
+  "test/epistemic_gap_test.dart": {
+    "mtime": 1785985731.8333004,
+    "ast_hash": "e897e0c6fd562b911290fcedfcdcdf21",
     "semantic_hash": ""
   }
 }

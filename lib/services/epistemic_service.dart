@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 
+import '../models/confidence_event.dart';
 import '../models/epistemic_node.dart';
 import '../models/epistemic_query_result.dart';
 import '../models/epistemic_relationship.dart';
@@ -38,6 +39,37 @@ abstract class EpistemicGraphStore {
     EpistemicRelationship relationship,
   );
   Future<List<EpistemicRelationship>> getRelationshipsForNode(String nodeId);
+
+  /// All recorded confidence values for [nodeId], oldest first (EOM-T15).
+  Future<List<ConfidenceEvent>> confidenceHistory(String nodeId);
+
+  /// Confidence movement per node, biggest movers first (EOM-T15).
+  ///
+  /// Nodes with fewer than two recorded values (no drift yet) are excluded,
+  /// as are nodes whose absolute movement is below [minAbsDelta].
+  ///
+  /// Concrete default built on [all] and [confidenceHistory] so the SQLite
+  /// service and in-memory test fakes share identical semantics.
+  Future<List<ConfidenceDrift>> confidenceDrifts({
+    double minAbsDelta = 0.0,
+  }) async {
+    final drifts = <ConfidenceDrift>[];
+    for (final node in await all()) {
+      final history = await confidenceHistory(node.id);
+      if (history.length < 2) continue;
+      final drift = ConfidenceDrift(
+        nodeId: node.id,
+        from: history.first.confidence,
+        to: history.last.confidence,
+        eventCount: history.length,
+        firstRecordedAt: history.first.recordedAt,
+        lastRecordedAt: history.last.recordedAt,
+      );
+      if (drift.absDelta >= minAbsDelta) drifts.add(drift);
+    }
+    drifts.sort((a, b) => b.absDelta.compareTo(a.absDelta));
+    return drifts;
+  }
 
   /// Full-text search over node content, best match first (EOM-T17).
   ///
@@ -84,8 +116,9 @@ abstract class EpistemicGraphStore {
 
 /// SQLite-backed service for the epistemic graph.
 ///
-/// Owns the `epistemic_nodes` and `epistemic_edges` tables plus an FTS5
-/// index (`epistemic_nodes_fts`) backing the EOM-T17 query API.
+/// Owns the `epistemic_nodes` and `epistemic_edges` tables, the FTS5 index
+/// (`epistemic_nodes_fts`) backing the EOM-T17 query API, and the
+/// `confidence_events` log backing EOM-T15 drift tracking.
 ///
 /// **Thread safety:** [sqflite] serialises writes internally; no additional
 /// locking is required from callers.
@@ -103,6 +136,7 @@ class EpistemicService extends EpistemicGraphStore {
   static const _tableNodes = 'epistemic_nodes';
   static const _tableEdges = 'epistemic_edges';
   static const _tableFts = 'epistemic_nodes_fts';
+  static const _tableConfidenceEvents = 'confidence_events';
 
   Database? _db;
 
@@ -116,7 +150,7 @@ class EpistemicService extends EpistemicGraphStore {
     final path = '$dbPath/$_dbFileName';
     _db = await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -155,6 +189,24 @@ class EpistemicService extends EpistemicGraphStore {
     ''');
 
     await _createFts(db);
+    await _createConfidenceEvents(db);
+  }
+
+  /// Creates the confidence-event log backing drift tracking (EOM-T15).
+  static Future<void> _createConfidenceEvents(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS $_tableConfidenceEvents (
+        id          TEXT PRIMARY KEY,
+        node_id     TEXT NOT NULL,
+        confidence  REAL NOT NULL CHECK(confidence BETWEEN 0.0 AND 1.0),
+        recorded_at TEXT NOT NULL,
+        FOREIGN KEY (node_id) REFERENCES $_tableNodes (id) ON DELETE CASCADE
+      )
+    ''');
+    await db.execute(
+      'CREATE INDEX IF NOT EXISTS idx_confidence_events_node '
+      'ON $_tableConfidenceEvents (node_id, recorded_at)',
+    );
   }
 
   /// Creates the FTS5 index over node content plus the triggers that keep
@@ -191,6 +243,8 @@ class EpistemicService extends EpistemicGraphStore {
   ///
   /// Version 1 → 2: adds the nullable `category` column to `epistemic_nodes`.
   /// Version 2 → 3: adds the FTS5 index and backfills it from existing rows.
+  /// Version 3 → 4: adds the confidence-event log and backfills one baseline
+  /// event per existing node.
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
       await db.execute(
@@ -205,6 +259,13 @@ class EpistemicService extends EpistemicGraphStore {
         'SELECT id, content FROM $_tableNodes',
       );
     }
+    if (oldVersion < 4) {
+      await _createConfidenceEvents(db);
+      await db.execute(
+        'INSERT INTO $_tableConfidenceEvents (id, node_id, confidence, recorded_at) '
+        "SELECT id || '-baseline', id, confidence, updated_at FROM $_tableNodes",
+      );
+    }
   }
 
   Database get _requireDb {
@@ -215,6 +276,8 @@ class EpistemicService extends EpistemicGraphStore {
   // ── CRUD ────────────────────────────────────────────────────────────────────
 
   /// Persists [node] and returns it unchanged.
+  ///
+  /// Also records the node's baseline [ConfidenceEvent] (EOM-T15).
   @override
   Future<EpistemicNode> create(EpistemicNode node) async {
     await _requireDb.insert(
@@ -222,6 +285,7 @@ class EpistemicService extends EpistemicGraphStore {
       node.toJson(),
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
+    await _recordConfidence(node.id, node.confidence);
     return node;
   }
 
@@ -300,21 +364,61 @@ class EpistemicService extends EpistemicGraphStore {
 
   /// Overwrites the stored node with [node.id] using all fields from [node].
   ///
+  /// Records a [ConfidenceEvent] when the confidence actually changed
+  /// (EOM-T15).
+  ///
   /// Throws [StateError] if no row with that ID exists.
   Future<void> update(EpistemicNode node) async {
-    final count = await _requireDb.update(
+    final existing = await get(node.id);
+    if (existing == null) {
+      throw StateError('EpistemicNode "${node.id}" not found — cannot update.');
+    }
+    await _requireDb.update(
       _tableNodes,
       node.toJson(),
       where: 'id = ?',
       whereArgs: [node.id],
     );
-    if (count == 0) {
-      throw StateError('EpistemicNode "${node.id}" not found — cannot update.');
+    if (existing.confidence != node.confidence) {
+      await _recordConfidence(node.id, node.confidence);
     }
   }
 
-  /// Deletes the node with [id]. No-op if it does not exist.
+  Future<void> _recordConfidence(String nodeId, double confidence) async {
+    await _requireDb.insert(
+      _tableConfidenceEvents,
+      ConfidenceEvent(nodeId: nodeId, confidence: confidence).toJson(),
+    );
+  }
+
+  /// All recorded confidence values for [nodeId], oldest first (EOM-T15).
+  @override
+  Future<List<ConfidenceEvent>> confidenceHistory(String nodeId) async {
+    final rows = await _requireDb.query(
+      _tableConfidenceEvents,
+      where: 'node_id = ?',
+      whereArgs: [nodeId],
+      orderBy: 'recorded_at ASC, rowid ASC',
+    );
+    return rows.map(ConfidenceEvent.fromJson).toList();
+  }
+
+  /// Deletes the node with [id] and its confidence events. No-op if the
+  /// node does not exist.
   Future<void> delete(String id) async {
+    // sqflite does not enable PRAGMA foreign_keys by default, so the
+    // ON DELETE CASCADE on confidence_events/epistemic_edges never fires —
+    // clean up explicitly.
+    await _requireDb.delete(
+      _tableConfidenceEvents,
+      where: 'node_id = ?',
+      whereArgs: [id],
+    );
+    await _requireDb.delete(
+      _tableEdges,
+      where: 'source_id = ? OR target_id = ?',
+      whereArgs: [id, id],
+    );
     await _requireDb.delete(_tableNodes, where: 'id = ?', whereArgs: [id]);
   }
 

@@ -1,3 +1,4 @@
+import 'package:eom/models/confidence_event.dart';
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_relationship.dart';
 import 'package:eom/services/epistemic_service.dart';
@@ -10,10 +11,14 @@ import 'package:eom/services/epistemic_service.dart';
 class InMemoryStore extends EpistemicGraphStore {
   final List<EpistemicNode> nodes = [];
   final List<EpistemicRelationship> edges = [];
+  final List<ConfidenceEvent> confidenceEvents = [];
 
   @override
   Future<EpistemicNode> create(EpistemicNode node) async {
     nodes.add(node);
+    confidenceEvents.add(
+      ConfidenceEvent(nodeId: node.id, confidence: node.confidence),
+    );
     return node;
   }
 
@@ -32,9 +37,17 @@ class InMemoryStore extends EpistemicGraphStore {
         provenance: node.provenance,
       );
       nodes[index] = merged;
+      if (merged.confidence != existing.confidence) {
+        confidenceEvents.add(
+          ConfidenceEvent(nodeId: merged.id, confidence: merged.confidence),
+        );
+      }
       return merged;
     } else {
       nodes.add(node);
+      confidenceEvents.add(
+        ConfidenceEvent(nodeId: node.id, confidence: node.confidence),
+      );
       return node;
     }
   }
@@ -70,6 +83,10 @@ class InMemoryStore extends EpistemicGraphStore {
         .where((e) => e.sourceId == nodeId || e.targetId == nodeId)
         .toList();
   }
+
+  @override
+  Future<List<ConfidenceEvent>> confidenceHistory(String nodeId) async =>
+      confidenceEvents.where((e) => e.nodeId == nodeId).toList();
 
   @override
   Future<List<EpistemicNode>> search(String query) async {
