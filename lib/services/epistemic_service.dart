@@ -33,6 +33,7 @@ abstract class EpistemicGraphStore {
   Future<EpistemicNode> upsert(EpistemicNode node);
   Future<EpistemicNode?> get(String id);
   Future<List<EpistemicNode>> all();
+  Future<List<EpistemicNode>> byType(EpistemicNodeType type);
   Future<EpistemicRelationship> addRelationship(
     EpistemicRelationship relationship,
   );
@@ -273,6 +274,7 @@ class EpistemicService extends EpistemicGraphStore {
   }
 
   /// Returns all nodes of the given [type].
+  @override
   Future<List<EpistemicNode>> byType(EpistemicNodeType type) async {
     final rows = await _requireDb.query(
       _tableNodes,

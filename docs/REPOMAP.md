@@ -20,6 +20,7 @@ EOM/
 │   ├── main.dart              # Application entry point & theme initialization
 │   │
 │   ├── models/
+│   │   ├── epistemic_gap.dart   # EpistemicGap model + EpistemicGapKind enum (EOM-T14)
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_operation.dart # Sealed EpistemicOperation + Clarify/Compress/Map/Reflect/Act payloads (EOM-T6–T10)
 │   │   ├── epistemic_query_result.dart # BFS traversal result: root + nodes + unique edges (EOM-T17)
@@ -34,6 +35,7 @@ EOM/
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
+│   │   ├── epistemic_gap_service.dart # Gap detection: explicit question/unknown nodes + unmapped concepts (EOM-T14)
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
 │   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + EpistemicGraphStore interface (EOM-T1, T7, T17)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
@@ -51,6 +53,7 @@ EOM/
 │
 └── test/                      # Unit and widget tests
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
+    ├── epistemic_gap_test.dart        # Explicit + inferred gap detection, coverage heuristics (EOM-T14)
     ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)

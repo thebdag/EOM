@@ -51,6 +51,10 @@ class InMemoryStore extends EpistemicGraphStore {
   Future<List<EpistemicNode>> all() async => List.unmodifiable(nodes);
 
   @override
+  Future<List<EpistemicNode>> byType(EpistemicNodeType type) async =>
+      nodes.where((n) => n.type == type).toList();
+
+  @override
   Future<EpistemicRelationship> addRelationship(
     EpistemicRelationship relationship,
   ) async {

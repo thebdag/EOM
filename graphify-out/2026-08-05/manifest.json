@@ -205,13 +205,13 @@
     "semantic_hash": ""
   },
   "changelog.md": {
-    "mtime": 1785978197.008913,
-    "ast_hash": "53c247a13ed88dc530e67e4c7517e33d",
+    "mtime": 1785980474.2381172,
+    "ast_hash": "4d18f5b94ce1c439b8a372191bdb3d95",
     "semantic_hash": ""
   },
   "docs/REPOMAP.md": {
-    "mtime": 1785978222.6569705,
-    "ast_hash": "b99d78ad3aff63f6ea423d00e667626a",
+    "mtime": 1785980468.1856189,
+    "ast_hash": "8fc4253fb85784a15a026c6c49cb636d",
     "semantic_hash": ""
   },
   "docs/design_spec.md": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "lib/services/epistemic_service.dart": {
-    "mtime": 1785976261.1954207,
-    "ast_hash": "c7227b9d804e3334d4e7a458cfbe54c9",
+    "mtime": 1785980418.7847805,
+    "ast_hash": "77d2bf8b46b14c4909d1e7ed66f5a2ca",
     "semantic_hash": ""
   },
   "test/epistemic_node_test.dart": {
@@ -510,8 +510,8 @@
     "semantic_hash": ""
   },
   "test/epistemic_intent_service_test.dart": {
-    "mtime": 1785978152.2816343,
-    "ast_hash": "61dda78b50aec6de76552821951e7f9d",
+    "mtime": 1785980382.0320504,
+    "ast_hash": "5bffdbef0632c725bc45c1331e006d00",
     "semantic_hash": ""
   },
   "dev/tracker/hooks/post-commit": {
@@ -537,6 +537,26 @@
   "test/epistemic_operation_test.dart": {
     "mtime": 1785974896.2965934,
     "ast_hash": "58e62978baeb4be00b742dbec9b6c7b8",
+    "semantic_hash": ""
+  },
+  "lib/models/epistemic_query_result.dart": {
+    "mtime": 1785980155.8945572,
+    "ast_hash": "92c5ebbfae3fbe37d63ed49d5def821b",
+    "semantic_hash": ""
+  },
+  "test/epistemic_query_test.dart": {
+    "mtime": 1785980445.2923074,
+    "ast_hash": "1b486768019a0bea267392439be25b0c",
+    "semantic_hash": ""
+  },
+  "test/helpers/in_memory_epistemic_store.dart": {
+    "mtime": 1785980417.832955,
+    "ast_hash": "095ef1ef51e8aac22cf602fa5ef6910b",
+    "semantic_hash": ""
+  },
+  "docs/adr/0002-delta-update-model.md": {
+    "mtime": 1785979709.1343853,
+    "ast_hash": "8ab37b0ff5e11614480bdd6aa6144a9b",
     "semantic_hash": ""
   }
 }

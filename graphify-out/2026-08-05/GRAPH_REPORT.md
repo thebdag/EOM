@@ -1,16 +1,16 @@
 # Graph Report - EOM  (2026-08-05)
 
 ## Corpus Check
-- 69 files · ~33,475 words
+- 73 files · ~35,000 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 643 nodes · 721 edges · 35 communities (32 shown, 3 thin omitted)
+- 671 nodes · 756 edges · 41 communities (38 shown, 3 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 6 edges (avg confidence: 0.55)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fdefc62a`
+- Built from commit: `d5375443`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -32,7 +32,7 @@
 - epistemic_node.dart
 - AGENTS.md
 - EOM Development Workflow & Standards
-- epistemic_intent_service_test.dart
+- in_memory_epistemic_store.dart
 - [Unreleased] - 2026-05-11
 - EOM — A Quiet Vault for the Mind
 - Learnings
@@ -45,7 +45,13 @@
 - 0001-local-means-litellm-gateway.md
 - ai_service.dart
 - epistemic_operation.dart
+- epistemic_query_result.dart
 - install-hooks.js
+- intent_button.dart
+- intent.dart
+- _ResponseCardState
+- Delta updates refine, never overwrite (EOM-T12)
+- package:flutter/material.dart
 
 ## God Nodes (most connected - your core abstractions)
 1. `Unreleased` - 11 edges
@@ -60,8 +66,8 @@
 10. `Epics` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `InMemoryStore` --implements--> `EpistemicGraphStore`  [EXTRACTED]
-  test/epistemic_intent_service_test.dart → lib/services/epistemic_service.dart
+- `InMemoryStore` --inherits--> `EpistemicGraphStore`  [EXTRACTED]
+  test/helpers/in_memory_epistemic_store.dart → lib/services/epistemic_service.dart
 - `epicProgress()` --references--> `Stories`  [EXTRACTED]
   dev/tracker/ui.js → dev/tracker/db.js
 - `main()` --calls--> `initDb()`  [EXTRACTED]
@@ -74,11 +80,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (35 total, 3 thin omitted)
+## Communities (41 total, 3 thin omitted)
 
 ### Community 0 - "history_screen.dart"
-Cohesion: 0.09
-Nodes (24): bool get, List, children, fromJson, isExpanded, isLeaf, label, toJson (+16 more)
+Cohesion: 0.22
+Nodes (9): build, _conversations, createState, _formatDate, HistoryScreen, _HistoryScreenState, _historyService, initState (+1 more)
 
 ### Community 1 - "post-commit"
 Cohesion: 0.20
@@ -109,8 +115,8 @@ Cohesion: 0.08
 Nodes (38): DB_PATH, Epics, fs, get(), getDb(), initDb(), migrate(), nextKey() (+30 more)
 
 ### Community 8 - "response_card.dart"
-Cohesion: 0.06
-Nodes (31): Animation, AnimationController, Color, eom_colors.dart, IconData, CognitiveIntent, color, description (+23 more)
+Cohesion: 0.14
+Nodes (13): Animation, AnimationController, accentColor, build, _buildRichText, _controller, createState, dispose (+5 more)
 
 ### Community 9 - "manifest.json"
 Cohesion: 0.18
@@ -134,7 +140,7 @@ Nodes (12): blessed, dependencies, blessed, sql.js, description, main, name, scr
 
 ### Community 14 - "epistemic_node.dart"
 Cohesion: 0.05
-Nodes (43): DateTime, epistemic_relationship.dart, int get, category, confidence, content, copyWith, createdAt (+35 more)
+Nodes (42): DateTime, int get, category, confidence, content, copyWith, createdAt, EpistemicCategory (+34 more)
 
 ### Community 15 - "AGENTS.md"
 Cohesion: 0.17
@@ -144,9 +150,9 @@ Nodes (10): 1. Orient yourself first, 2. Use the repomap (`docs/REPOMAP.md`), 3.
 Cohesion: 0.25
 Nodes (7): Directory Overview, EOM Development Workflow & Standards, Step 1: Context & Navigation, Step 2: Architecture & Service Layer, Step 3: UI Development & Design System, Step 4: Stability & Error Handling, Step 5: Quality & Formatting
 
-### Community 17 - "epistemic_intent_service_test.dart"
-Cohesion: 0.06
-Nodes (28): ArgumentError, EpistemicIntentService, package:eom/main.dart, package:eom/models/epistemic_node.dart, package:eom/models/epistemic_operation.dart, package:eom/models/epistemic_relationship.dart, package:eom/models/thought_node.dart, package:eom/services/epistemic_intent_service.dart (+20 more)
+### Community 17 - "in_memory_epistemic_store.dart"
+Cohesion: 0.05
+Nodes (34): ArgumentError, helpers/in_memory_epistemic_store.dart, EpistemicIntentService, package:eom/main.dart, package:eom/models/epistemic_node.dart, package:eom/models/epistemic_operation.dart, package:eom/models/epistemic_relationship.dart, package:eom/models/thought_node.dart (+26 more)
 
 ### Community 18 - "[Unreleased] - 2026-05-11"
 Cohesion: 0.25
@@ -165,8 +171,8 @@ Cohesion: 0.17
 Nodes (11): opencode-auto-resume, dependencies, opencode-auto-resume, name, scripts, done, install-hooks, mark (+3 more)
 
 ### Community 23 - "epistemic_service.dart"
-Cohesion: 0.05
-Nodes (39): dart:async, Database?, epistemic_service.dart, _hasOverlap, _linkKeywords, _parseCategory, _parseNodeType, _parseRelType (+31 more)
+Cohesion: 0.04
+Nodes (47): dart:async, Database?, epistemic_service.dart, _hasOverlap, _linkKeywords, _parseCategory, _parseNodeType, _parseRelType (+39 more)
 
 ### Community 24 - "EOM Tracker"
 Cohesion: 0.18
@@ -178,35 +184,59 @@ Nodes (7): App, CRUD, EOM Tracker — TUI Keybindings Reference, Navigation, Pan
 
 ### Community 32 - "ai_service.dart"
 Cohesion: 0.07
-Nodes (31): dart:convert, ThoughtNode, AiResponse, AiService, epistemicMarker, _getProvider, intent, operation (+23 more)
+Nodes (30): dart:convert, AiResponse, AiService, epistemicMarker, _getProvider, intent, operation, _parseEpistemicResponse (+22 more)
 
 ### Community 33 - "epistemic_operation.dart"
 Cohesion: 0.06
 Nodes (39): actionable, ActOperation, category, clarified, ClarifyOperation, CompressOperation, confidence, conflictsWith (+31 more)
 
+### Community 34 - "epistemic_query_result.dart"
+Cohesion: 0.11
+Nodes (17): bool get, epistemic_node.dart, epistemic_relationship.dart, List, edges, EpistemicQueryResult, isEmpty, nodes (+9 more)
+
 ### Community 35 - "install-hooks.js"
 Cohesion: 0.29
 Nodes (6): fs, hooks, hooksDest, hooksSource, path, repoRoot
 
+### Community 36 - "intent_button.dart"
+Cohesion: 0.22
+Nodes (8): CognitiveIntent, build, intent, isLoading, isSelected, onPressed, ../models/intent.dart, VoidCallback
+
+### Community 37 - "intent.dart"
+Cohesion: 0.25
+Nodes (7): Color, IconData, color, description, icon, label, ../theme/eom_colors.dart
+
+### Community 38 - "_ResponseCardState"
+Cohesion: 0.33
+Nodes (7): HomeScreen, _HomeScreenState, ResponseCard, _ResponseCardState, SingleTickerProviderStateMixin, State, StatefulWidget
+
+### Community 39 - "Delta updates refine, never overwrite (EOM-T12)"
+Cohesion: 0.50
+Nodes (3): Consequences, Decision, Delta updates refine, never overwrite (EOM-T12)
+
+### Community 40 - "package:flutter/material.dart"
+Cohesion: 0.50
+Nodes (3): eom_colors.dart, EomTheme, package:flutter/material.dart
+
 ## Knowledge Gaps
-- **386 isolated node(s):** `path`, `fs`, `DB_PATH`, `fs`, `path` (+381 more)
+- **406 isolated node(s):** `path`, `fs`, `DB_PATH`, `fs`, `path` (+401 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `List` connect `history_screen.dart` to `epistemic_operation.dart`, `home_screen.dart`, `epistemic_node.dart`, `epistemic_intent_service_test.dart`?**
-  _High betweenness centrality (0.128) - this node is a cross-community bridge._
-- **Why does `EpistemicIntentService` connect `epistemic_intent_service_test.dart` to `home_screen.dart`, `epistemic_service.dart`?**
-  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Why does `List` connect `epistemic_query_result.dart` to `history_screen.dart`, `epistemic_operation.dart`, `home_screen.dart`, `epistemic_node.dart`, `in_memory_epistemic_store.dart`?**
+  _High betweenness centrality (0.131) - this node is a cross-community bridge._
+- **Why does `EpistemicIntentService` connect `in_memory_epistemic_store.dart` to `home_screen.dart`, `epistemic_service.dart`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **Why does `EpistemicOperation` connect `epistemic_operation.dart` to `ai_service.dart`?**
   _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **What connects `path`, `fs`, `DB_PATH` to the rest of the system?**
-  _386 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `history_screen.dart` be split into smaller, more focused modules?**
-  _Cohesion score 0.08615384615384615 - nodes in this community are weakly interconnected._
+  _406 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `GeneratedPluginRegistrant.swift` be split into smaller, more focused modules?**
   _Cohesion score 0.05807200929152149 - nodes in this community are weakly interconnected._
 - **Should `home_screen.dart` be split into smaller, more focused modules?**
   _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
+- **Should `settings_service.dart` be split into smaller, more focused modules?**
+  _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._

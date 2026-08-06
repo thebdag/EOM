@@ -12,6 +12,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T14** `lib/services/epistemic_gap_service.dart` — gap detection:
+  `explicitGaps()` surfaces `question`/`unknown` nodes; `detectGaps(concepts)`
+  flags session concepts with no covering node (exact/FTS/substring
+  coverage, deduped). New `EpistemicGap` model; `byType` promoted onto the
+  `EpistemicGraphStore` interface.
 - **EOM-T17** query API on `EpistemicGraphStore`: `search(query)` (FTS5
   index `epistemic_nodes_fts`, schema v3, sanitised MATCH input via
   `sanitizeFtsQuery`) and `traverse(nodeId, depth)` (cycle-safe BFS,
