@@ -33,6 +33,7 @@
   "31": "0001-local-means-litellm-gateway.md",
   "32": "ai_service.dart",
   "33": "epistemic_operation.dart",
+  "34": "epistemic_maturity.dart",
   "35": "install-hooks.js",
   "36": "intent_button.dart",
   "37": "intent.dart",
@@ -42,11 +43,14 @@
   "41": "confidence_event.dart",
   "42": "epistemic_intent_service.dart",
   "43": "main.dart",
+  "44": "epistemic_query_result.dart",
+  "45": "epistemic_gap_service.dart",
   "46": "in_memory_epistemic_store.dart",
   "47": "package:flutter_test/flutter_test.dart",
   "48": "epistemic_gap_test.dart",
   "49": "epistemic_query_test.dart",
   "50": "epistemic_drift_test.dart",
-  "51": "widget_test.dart",
+  "51": "EpistemicGraphStore",
+  "52": "thought_node_test.dart",
   "54": "settings_service_test.dart"
 }

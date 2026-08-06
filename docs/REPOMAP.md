@@ -22,6 +22,7 @@ EOM/
 │   ├── models/
 │   │   ├── confidence_event.dart # ConfidenceEvent + ConfidenceDrift models (EOM-T15)
 │   │   ├── epistemic_gap.dart   # EpistemicGap model + EpistemicGapKind enum (EOM-T14)
+│   │   ├── epistemic_maturity.dart # Per-domain maturity score + computeMaturityByDomain (EOM-T16)
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_operation.dart # Sealed EpistemicOperation + Clarify/Compress/Map/Reflect/Act payloads (EOM-T6–T10)
 │   │   ├── epistemic_query_result.dart # BFS traversal result: root + nodes + unique edges (EOM-T17)
@@ -56,7 +57,8 @@ EOM/
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
     ├── epistemic_gap_test.dart        # Explicit + inferred gap detection, coverage heuristics (EOM-T14)
-    ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11)
+    ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11, T14)
+    ├── epistemic_maturity_test.dart   # Domain grouping, thresholds, score ratio (EOM-T16)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)
     ├── epistemic_query_test.dart      # FTS sanitiser + BFS traverse semantics (EOM-T17)

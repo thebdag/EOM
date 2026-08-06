@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/confidence_event.dart';
+import '../models/epistemic_maturity.dart';
 import '../models/epistemic_node.dart';
 import '../models/epistemic_query_result.dart';
 import '../models/epistemic_relationship.dart';
@@ -69,6 +70,22 @@ abstract class EpistemicGraphStore {
     }
     drifts.sort((a, b) => b.absDelta.compareTo(a.absDelta));
     return drifts;
+  }
+
+  /// Maturity score per domain across the whole graph (EOM-T16).
+  ///
+  /// Domains are [EpistemicCategory] values; uncategorised nodes group
+  /// under the `null` key. Concrete default over [all] so all store
+  /// implementations share semantics.
+  Future<Map<EpistemicCategory?, EpistemicMaturity>> maturityByDomain({
+    double highThreshold = kMaturityHighThreshold,
+    double uncertainThreshold = kMaturityUncertainThreshold,
+  }) async {
+    return computeMaturityByDomain(
+      await all(),
+      highThreshold: highThreshold,
+      uncertainThreshold: uncertainThreshold,
+    );
   }
 
   /// Full-text search over node content, best match first (EOM-T17).

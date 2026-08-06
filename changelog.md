@@ -12,6 +12,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T16** `lib/models/epistemic_maturity.dart` — per-domain maturity:
+  domains = `EpistemicCategory` (v1, no schema change), score =
+  high / (high + uncertain) with neutral-band nodes excluded from the
+  ratio (null score = insufficient signal). Thresholds 0.7 / 0.4 as
+  constants; concrete `maturityByDomain()` on `EpistemicGraphStore`.
 - **EOM-T15** confidence drift tracking: `confidence_events` log (schema
   v4, baseline event on create, event on confidence-changing update,
   baseline backfill for existing nodes). `confidenceHistory(nodeId)` on the

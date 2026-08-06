@@ -205,13 +205,13 @@
     "semantic_hash": ""
   },
   "changelog.md": {
-    "mtime": 1785986163.1287384,
-    "ast_hash": "7ea3c4415cf9d836bf39345a10aafdb1",
+    "mtime": 1785986884.3910756,
+    "ast_hash": "beb9adc0f1178abaf5a5d5151f206682",
     "semantic_hash": ""
   },
   "docs/REPOMAP.md": {
-    "mtime": 1785986158.0337288,
-    "ast_hash": "801608ed54cb494be5bdfa1f9142f399",
+    "mtime": 1785986877.0469108,
+    "ast_hash": "b788a9f8994abe31a7f381a33caf2b6b",
     "semantic_hash": ""
   },
   "docs/design_spec.md": {
@@ -435,8 +435,8 @@
     "semantic_hash": ""
   },
   "lib/services/epistemic_service.dart": {
-    "mtime": 1785986095.9675047,
-    "ast_hash": "0779c56ef7a8d3cba3737019c877a1eb",
+    "mtime": 1785986819.815782,
+    "ast_hash": "eec9504d2396aaa62c9a5c0ec1e8363f",
     "semantic_hash": ""
   },
   "test/epistemic_node_test.dart": {
@@ -582,6 +582,16 @@
   "test/epistemic_drift_test.dart": {
     "mtime": 1785986135.1062768,
     "ast_hash": "4ce6912619342107741cab4136c45474",
+    "semantic_hash": ""
+  },
+  "lib/models/epistemic_maturity.dart": {
+    "mtime": 1785986798.3253582,
+    "ast_hash": "d224f5c294a43bc7cbff502d80179cbc",
+    "semantic_hash": ""
+  },
+  "test/epistemic_maturity_test.dart": {
+    "mtime": 1785986853.0964384,
+    "ast_hash": "34363c831ab4c318b651e7a0dc616863",
     "semantic_hash": ""
   }
 }
