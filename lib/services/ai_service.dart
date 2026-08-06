@@ -6,7 +6,15 @@ import 'llm_provider.dart';
 import 'settings_service.dart';
 
 class AiService {
+  AiService({LlmProvider? provider}) : _providerOverride = provider;
+
+  /// Test seam — when set, [_getProvider] returns this instead of reading
+  /// the active provider from settings.
+  final LlmProvider? _providerOverride;
+
   LlmProvider _getProvider() {
+    final override = _providerOverride;
+    if (override != null) return override;
     final provider = SettingsService.activeProvider.toUpperCase();
     switch (provider) {
       case 'OPENAI':
@@ -209,12 +217,21 @@ class AiService {
       );
     }
 
-    return AiResponse(
-      text: prose.isEmpty ? 'Here is how your thought maps out:' : prose,
-      intent: intent,
-      tree: _parseNode(data),
-      operation: MapOperation.fromJson(data),
-    );
+    try {
+      return AiResponse(
+        text: prose.isEmpty ? 'Here is how your thought maps out:' : prose,
+        intent: intent,
+        tree: _parseNode(data),
+        operation: MapOperation.fromJson(data),
+      );
+    } catch (_) {
+      // Valid JSON with an unexpected shape (e.g. `children` is not a
+      // list) must not hard-fail the intent (EOM-S4) — degrade to prose.
+      return AiResponse(
+        text: prose.isEmpty ? raw.trim() : prose,
+        intent: intent,
+      );
+    }
   }
 
   ThoughtNode? _tryParseTree(String raw) {

@@ -41,8 +41,24 @@ class OpenAiProvider implements LlmProvider {
     if (response.statusCode != 200) {
       throw Exception('OpenAI Error: ${response.body}');
     }
-    final data = jsonDecode(response.body);
-    return data['choices'][0]['message']['content'];
+    return extractContent(jsonDecode(response.body));
+  }
+
+  /// Extracts the assistant message from a chat-completions payload.
+  ///
+  /// Throws a descriptive [Exception] for unexpected shapes — e.g. an
+  /// empty `choices` list under rate limiting — instead of leaking a raw
+  /// RangeError/TypeError (EOM-S4).
+  static String extractContent(dynamic data) {
+    if (data is Map) {
+      final choices = data['choices'];
+      if (choices is List && choices.isNotEmpty) {
+        final message = choices[0] is Map ? choices[0]['message'] : null;
+        final content = message is Map ? message['content'] : null;
+        if (content is String && content.isNotEmpty) return content;
+      }
+    }
+    throw Exception('OpenAI Error: unexpected response shape');
   }
 }
 
@@ -79,8 +95,21 @@ class AnthropicProvider implements LlmProvider {
     if (response.statusCode != 200) {
       throw Exception('Anthropic Error: ${response.body}');
     }
-    final data = jsonDecode(response.body);
-    return data['content'][0]['text'];
+    return extractContent(jsonDecode(response.body));
+  }
+
+  /// Extracts the text block from a messages payload. Throws a descriptive
+  /// [Exception] when the content list is missing or holds no text block
+  /// (EOM-S4).
+  static String extractContent(dynamic data) {
+    if (data is Map) {
+      final content = data['content'];
+      if (content is List && content.isNotEmpty) {
+        final text = content[0] is Map ? content[0]['text'] : null;
+        if (text is String && text.isNotEmpty) return text;
+      }
+    }
+    throw Exception('Anthropic Error: unexpected response shape');
   }
 }
 
@@ -129,8 +158,28 @@ class GeminiProvider implements LlmProvider {
     if (response.statusCode != 200) {
       throw Exception('Gemini Error: ${response.body}');
     }
-    final data = jsonDecode(response.body);
-    return data['candidates'][0]['content']['parts'][0]['text'];
+    return extractContent(jsonDecode(response.body));
+  }
+
+  /// Extracts the first candidate's text from a generateContent payload.
+  /// Safety-blocked responses arrive with no `content` on the candidate —
+  /// throws a descriptive [Exception] instead of a RangeError (EOM-S4).
+  static String extractContent(dynamic data) {
+    if (data is Map) {
+      final candidates = data['candidates'];
+      if (candidates is List && candidates.isNotEmpty) {
+        final first = candidates[0];
+        final content = first is Map ? first['content'] : null;
+        final parts = content is Map ? content['parts'] : null;
+        if (parts is List && parts.isNotEmpty) {
+          final text = parts[0] is Map ? parts[0]['text'] : null;
+          if (text is String && text.isNotEmpty) return text;
+        }
+      }
+    }
+    throw Exception(
+      'Gemini Error: unexpected response shape (possibly safety-blocked)',
+    );
   }
 }
 
