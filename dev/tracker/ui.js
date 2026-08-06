@@ -2,7 +2,7 @@
 'use strict';
 
 const blessed = require('blessed');
-const { Epics, Stories, Subtasks } = require('./db');
+const { Epics, Stories, Subtasks, Comments } = require('./db');
 
 // ── Palette (matches EOM's Epistemic Calm design) ────────────────────────────
 const COLORS = {
@@ -183,7 +183,7 @@ function launchTUI({ branch }) {
       ` {bold}EOM Tracker{/bold}   ` +
       colorTag(COLORS.textDim, `branch: ${branch || '(none)'}`) +
       `   {right}` +
-      colorTag(COLORS.textDim, `[Tab] focus  [n] new  [e] edit  [d] cycle status  [b] link branch  [D] delete  [q] quit `) ,
+      colorTag(COLORS.textDim, `[Tab] focus  [n] new  [e] edit  [d] cycle  [b] branch  [c] comment  [v] view  [D] delete  [q] quit `) ,
     tags: true,
     style: { bg: COLORS.surface, fg: COLORS.text },
   });
@@ -352,7 +352,11 @@ function launchTUI({ branch }) {
     const DETAIL_HEADER_LINES = lines.length + 2;
     const subtaskItems = state.subtasks.map(t => {
       const check = t.status === 'done' ? colorTag(COLORS.done, '✓') : colorTag(COLORS.textDim, '·');
-      return ` ${check}  ${statusTag(t.status)}  ${t.key}  ${t.title}`;
+      const nComments = Comments.count(t.id);
+      const commentTag = nComments > 0
+        ? ' ' + colorTag(COLORS.accent, `💬${nComments}`)
+        : '';
+      return ` ${check}  ${statusTag(t.status)}  ${t.key}  ${t.title}${commentTag}`;
     });
 
     if (state.subtasks.length > 0) {
@@ -592,6 +596,73 @@ function launchTUI({ branch }) {
     });
   }
 
+  // ── Subtask comments ──────────────────────────────────────────────────────────
+
+  function addComment() {
+    if (state.focus !== 'subtasks') {
+      setStatus('Focus the subtask pane to comment', COLORS.p1);
+      return;
+    }
+    const subtask = state.subtasks[state.subtaskIdx];
+    if (!subtask) { setStatus('Select a subtask first', COLORS.p1); return; }
+    prompt(screen, `Comment — ${subtask.key} ${subtask.title}`, [
+      { key: 'body',    label: 'Comment', default: '' },
+      { key: 'author',  label: 'Author',  default: 'agent' },
+    ], data => {
+      if (!data || !data.body.trim()) return;
+      const author = data.author.trim() || 'agent';
+      Comments.create({ subtaskId: subtask.id, body: data.body.trim(), author });
+      setStatus('Comment added', COLORS.done);
+      loadDetail();
+    });
+  }
+
+  function viewComments() {
+    if (state.focus !== 'subtasks') {
+      setStatus('Focus the subtask pane to view comments', COLORS.p1);
+      return;
+    }
+    const subtask = state.subtasks[state.subtaskIdx];
+    if (!subtask) { setStatus('Select a subtask first', COLORS.p1); return; }
+
+    const list = Comments.forSubtask(subtask.id);
+    const box = blessed.box({
+      parent: screen,
+      top: 'center',
+      left: 'center',
+      width: '70%',
+      height: Math.max(10, Math.min(list.length * 3 + 8, screen.height - 4)),
+      border: { type: 'line', fg: COLORS.accent },
+      label: ` Comments — ${subtask.key} ${subtask.title} `,
+      tags: true,
+      scrollable: true,
+      alwaysScroll: true,
+      keys: true,
+      vi: true,
+      mouse: true,
+      style: { bg: COLORS.surface, fg: COLORS.text },
+    });
+
+    if (!list.length) {
+      box.setContent(colorTag(COLORS.textDim, '\n  (no comments)'));
+    } else {
+      const lines = [];
+      list.forEach((c, i) => {
+        if (i > 0) lines.push(colorTag(COLORS.border, '  ' + '─'.repeat(60)));
+        lines.push(`  ${colorTag(COLORS.accent, '#' + (i + 1))} ${colorTag(COLORS.textDim, c.created_at)}  ${colorTag(COLORS.text, '[' + c.author + ']')}`);
+        lines.push(`  ${c.body}`);
+      });
+      box.setContent(lines.join('\n'));
+    }
+
+    box.key(['escape', 'q', 'enter', 'space'], () => {
+      box.destroy();
+      screen.render();
+    });
+    box.focus();
+    screen.render();
+  }
+
   // ── List selection events ─────────────────────────────────────────────────────
 
   epicPanel.on('select item', (_, idx) => {
@@ -620,6 +691,8 @@ function launchTUI({ branch }) {
   screen.key(['d'], () => cycleStatus());
   screen.key(['D'], () => deleteCurrent());
   screen.key(['b'], () => linkBranch());
+  screen.key(['c'], () => addComment());
+  screen.key(['v'], () => viewComments());
   screen.key(['q', 'C-c'], () => process.exit(0));
 
   // ── Init ──────────────────────────────────────────────────────────────────────

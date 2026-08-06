@@ -76,11 +76,12 @@ hook reads them and updates the DB automatically:
 [EOM-T7 wip]          marks subtask EOM-T7 as in_progress
 [EOM-S3 done]         marks story EOM-S3 as done
 [EOM-E2 in_progress]  marks epic EOM-E2 as in_progress
+[EOM-T7 note: <text>] appends a comment to subtask EOM-T7 (attributed to commit author)
 ```
 
 Example commit message:
 ```
-feat: implement Clarify intent epistemic operation [EOM-T6 done] [EOM-T7 wip]
+feat: implement Clarify intent epistemic operation [EOM-T6 done] [EOM-T7 wip] [EOM-T6 note: Routed via IntentRouter with system prompt]
 ```
 
 ### Path 2 — mark CLI (immediate, no commit needed)
@@ -93,6 +94,18 @@ node dev/tracker/mark.js EOM-S3 wip
 Or from the repo root via npm:
 ```bash
 npm run mark EOM-T7 done
+```
+
+### Path 2b — comment CLI (immediate, no commit needed)
+
+```bash
+node dev/tracker/comment.js EOM-T7 "Wired Clarify intent into AiService."
+node dev/tracker/comment.js EOM-T7 "Reused existing router." --author cursor
+```
+
+Or from the repo root via npm:
+```bash
+npm run comment EOM-T7 "Wired Clarify intent into AiService."
 ```
 
 ### Path 3 — programmatic (bulk operations)

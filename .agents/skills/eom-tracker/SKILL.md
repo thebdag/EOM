@@ -108,6 +108,51 @@ Valid status values: `todo`, `in_progress`, `done`.
 
 ---
 
+## Step 4b: Leave a comment on a subtask
+
+Agents (or humans) can append free-text comments to a subtask to report what
+was done, justify a decision, or note a blocker. Comments are append-only;
+deleting a subtask cascades to its comments.
+
+**Path 1 — commit message (automatic):**
+
+Add a `[EOM-Tn note: <text>]` token anywhere in the commit message. The
+`post-commit` hook appends the text as a comment attributed to the commit
+author. Multiple comment tokens are processed in order.
+
+```
+feat: wire Clarify intent [EOM-T6 done] [EOM-T6 note: Routed via IntentRouter, added system prompt]
+```
+
+**Path 2 — comment CLI (immediate, no commit needed):**
+
+```bash
+node dev/tracker/comment.js EOM-T7 "Fixed null guard in router."
+node dev/tracker/comment.js EOM-T7 "Reused existing AiService path." --author cursor
+```
+
+Or from the repo root via npm:
+```bash
+npm run comment EOM-T7 "Fixed null guard in router."
+```
+
+**Path 3 — via TUI:** Focus the subtask pane, select a subtask, press `c`.
+Enter the comment body and author (defaults to `agent`). Press `v` to view all
+comments on the focused subtask.
+
+**Via script (programmatic):**
+```js
+const { initDb, Subtasks, Comments } = require('./db');
+initDb().then(() => {
+  const t = /* resolve subtask id by key, see "Resolving a key to an id" */;
+  Comments.create({ subtaskId: t.id, body: 'Wired Clarify intent.', author: 'agent' });
+});
+```
+
+Comment rows: `id`, `subtask_id`, `body`, `author`, `created_at`.
+
+---
+
 ## Step 5: Link a git branch to a story
 
 Linking a branch is optional but recommended for traceability.
@@ -192,6 +237,18 @@ Need to update tracker status?
 ├── Status changed but no commit yet?
 │   └── node dev/tracker/mark.js EOM-T7 done
 │       (or: npm run mark EOM-T7 done)
+│
+├── Want to leave a comment on a subtask (report what was done)?
+│   ├── As part of a commit?
+│   │   └── Add [EOM-T7 note: <text>] to the commit message
+│   │       → post-commit hook appends it, attributed to the commit author
+│   │
+│   ├── No commit yet?
+│   │   └── node dev/tracker/comment.js EOM-T7 "<text>" [--author <name>]
+│   │       (or: npm run comment EOM-T7 "<text>")
+│   │
+│   └── Interactive?
+│       └── In the TUI, focus the subtask pane, press `c` to add, `v` to view
 │
 ├── Bulk insert of new items (seeding, many subtasks)?
 │   └── Write inline node -e script, await initDb(), call helpers

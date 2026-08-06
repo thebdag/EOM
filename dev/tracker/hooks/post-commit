@@ -10,8 +10,10 @@
 //   [EOM-T7 todo]         → marks subtask EOM-T7 as todo
 //   [EOM-S3 done]         → marks story EOM-S3 as done
 //   [EOM-E2 in_progress]  → marks epic EOM-E2 as in_progress
+//   [EOM-T7 note: <text>] → appends a comment to subtask EOM-T7
 //
 // Multiple references in a single commit message are all processed.
+// Comment tokens are attributed to the commit author.
 'use strict';
 
 const { execSync } = require('child_process');
@@ -37,14 +39,34 @@ try {
   process.exit(0);
 }
 
-// Extract all [EOM-Xn status] tokens
+// Status tokens: [EOM-Xn <status>]
 const pattern = /\[EOM-([EST]\d+)\s+(done|wip|todo|in_progress)\]/gi;
 const matches = [...commitMsg.matchAll(pattern)];
 
-if (!matches.length) process.exit(0);
+// Comment tokens: [EOM-Tn note: <text>]  (subtasks only)
+const commentPattern = /\[EOM-(T\d+)\s+note:\s*([^\]]+)\]/gi;
+const commentMatches = [...commitMsg.matchAll(commentPattern)];
+
+if (!matches.length && !commentMatches.length) process.exit(0);
+
+// Attribute comments to the commit author (fall back to 'agent')
+let commitAuthor = 'agent';
+try {
+  commitAuthor = execSync('git log -1 --pretty=%an', { cwd: repoRoot }).toString().trim() || 'agent';
+} catch { /* keep default */ }
 
 // Load tracker db
-const { initDb, Epics, Stories, Subtasks } = require(path.join(trackerDir, 'db'));
+const { initDb, Epics, Stories, Subtasks, Comments } = require(path.join(trackerDir, 'db'));
+
+function findSubtask(key) {
+  for (const e of Epics.all()) {
+    for (const s of Stories.forEpic(e.id)) {
+      const t = Subtasks.forStory(s.id).find(x => x.key === key);
+      if (t) return t;
+    }
+  }
+  return null;
+}
 
 initDb().then(() => {
   for (const m of matches) {
@@ -54,14 +76,7 @@ initDb().then(() => {
 
     try {
       if (key.startsWith('EOM-T')) {
-        const epics = Epics.all();
-        let found = null;
-        outer: for (const e of epics) {
-          for (const s of Stories.forEpic(e.id)) {
-            const t = Subtasks.forStory(s.id).find(x => x.key === key);
-            if (t) { found = t; break outer; }
-          }
-        }
+        const found = findSubtask(key);
         if (found) {
           Subtasks.update(found.id, { status });
           console.log(`[tracker] ${key} → ${status}`);
@@ -96,4 +111,22 @@ initDb().then(() => {
       console.error(`[tracker] failed to update ${key}:`, err.message);
     }
   }
+
+  for (const m of commentMatches) {
+    const key = `EOM-${m[1].toUpperCase()}`;
+    const body = m[2].trim();
+    if (!body) continue;
+    try {
+      const found = findSubtask(key);
+      if (found) {
+        Comments.create({ subtaskId: found.id, body, author: commitAuthor });
+        console.log(`[tracker] +comment on ${key}: ${body.slice(0, 80)}`);
+      } else {
+        console.log(`[tracker] ${key} not found — comment skipped`);
+      }
+    } catch (err) {
+      console.error(`[tracker] failed to comment on ${key}:`, err.message);
+    }
+  }
 }).catch(() => process.exit(0)); // never block the commit
+

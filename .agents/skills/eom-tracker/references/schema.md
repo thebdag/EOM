@@ -53,6 +53,20 @@ The tracker uses `sql.js` (pure-JS SQLite) persisted to `dev/tracker/eom-tracker
 | `created_at` | TEXT | |
 | `updated_at` | TEXT | |
 
+### `subtask_comments`
+
+Append-only free-text reports left on a subtask (typically by an agent
+describing what was done, why a decision was made, or what blocked progress).
+Deleting a subtask cascades to its comments.
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | INTEGER PK | Auto-increment |
+| `subtask_id` | INTEGER | FK → `subtasks.id` (cascades on delete) |
+| `body` | TEXT | The comment text |
+| `author` | TEXT | Defaults to `agent`; commit-hook uses the git author |
+| `created_at` | TEXT | ISO datetime |
+
 ### `meta`
 
 Stores auto-increment counters for key generation.
@@ -96,8 +110,19 @@ Subtasks.forStory(storyId)         // → Subtask[]
 Subtasks.get(id)                   // → Subtask | null
 Subtasks.create({ storyId, title }) // → Subtask
 Subtasks.update(id, { title?, status? })
-Subtasks.delete(id)
+Subtasks.delete(id)                // cascades comments
 ```
+
+### Comments (subtask comments)
+
+```js
+Comments.forSubtask(subtaskId)                          // → Comment[]
+Comments.count(subtaskId)                                // → number
+Comments.create({ subtaskId, body, author = 'agent' })   // → Comment
+Comments.delete(id)
+```
+
+Each `Comment` row has: `id`, `subtask_id`, `body`, `author`, `created_at`.
 
 ---
 

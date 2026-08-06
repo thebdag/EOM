@@ -5,7 +5,8 @@
   "main": "tracker.js",
   "scripts": {
     "start": "node tracker.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "comment": "node comment.js"
   },
   "dependencies": {
     "sql.js": "^1.12.0",
