@@ -11,6 +11,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+- Coverage tests for the EOM-E3 refactor after the SonarCloud quality
+  gate failed on new-code coverage (73.3% < 80%): `conversation_test`,
+  `llm_provider_kind_test`, `intent_config_test`, `history_service_test`
+  (Hive temp-dir), `home_screen_test` (injected-service widget flows),
+  plus `thought_node`, `epistemic_relationship`, and `settings_service`
+  extensions.
+
 ### Changed
 - **EOM-S10** Provider identity is now the `LlmProviderKind` enum
   (`lib/models/llm_provider_kind.dart`) with the `OLLAMA`→`LOCAL` legacy
