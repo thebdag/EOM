@@ -140,6 +140,37 @@ void main() {
       expect(store.nodes, [node]);
       expect(store.edges, isEmpty);
     });
+
+    test('repeat sessions link edges to the persisted node id', () async {
+      final related = seedNode('My focus drifts when I skip morning walks.');
+
+      final first = await service.processCompress(
+        const CompressOperation(
+          principle: 'Attention needs rhythm.',
+          keywords: ['focus'],
+        ),
+      );
+      // Repeat session: case-insensitive match merges into the stored row.
+      final repeated = await service.processCompress(
+        const CompressOperation(
+          principle: 'attention NEEDS rhythm.',
+          keywords: ['focus'],
+        ),
+      );
+
+      expect(repeated.id, first.id);
+      expect(store.nodes, hasLength(2));
+      expect(store.edges, hasLength(2));
+      for (final edge in store.edges) {
+        expect(await store.get(edge.sourceId), isNotNull);
+        expect(await store.get(edge.targetId), isNotNull);
+        expect(
+          {edge.sourceId, edge.targetId}.contains(related.id),
+          isTrue,
+          reason: 'every edge should connect the related node',
+        );
+      }
+    });
   });
   group('processClarify', () {
     test('creates a belief node and links keywords', () async {

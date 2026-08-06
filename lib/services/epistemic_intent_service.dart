@@ -62,10 +62,10 @@ class EpistemicIntentService {
         timestamp: DateTime.now(),
       ),
     );
-    await _store.upsert(principle);
-    await _linkKeywords(principle, operation.keywords);
+    final saved = await _store.upsert(principle);
+    await _linkKeywords(saved, operation.keywords);
     await _detectGaps(operation.keywords);
-    return principle;
+    return saved;
   }
 
   Future<void> _linkKeywords(
