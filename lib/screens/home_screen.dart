@@ -134,17 +134,23 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _response = response;
           _isProcessing = false;
-          _history.add({'role': 'user', 'content': input});
-          _history.add({'role': 'assistant', 'content': response.text});
+          // Error responses are shown but never enter history (EOM-S5) —
+          // they would pollute future prompts and the history library.
+          if (!response.isError) {
+            _history.add({'role': 'user', 'content': input});
+            _history.add({'role': 'assistant', 'content': response.text});
+          }
         });
 
-        await HistoryService().saveConversation(
-          initialInput: input,
-          intent: intent.name,
-          response: response.text,
-        );
+        if (!response.isError) {
+          await HistoryService().saveConversation(
+            initialInput: input,
+            intent: intent.name,
+            response: response.text,
+          );
 
-        _persistOperation(response);
+          _persistOperation(response);
+        }
 
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));

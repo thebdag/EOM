@@ -1,7 +1,9 @@
 import 'package:eom/models/intent.dart';
 import 'package:eom/services/ai_service.dart';
 import 'package:eom/services/llm_provider.dart';
+import 'package:eom/services/settings_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class _FakeProvider implements LlmProvider {
   _FakeProvider(this.payload);
@@ -14,6 +16,15 @@ class _FakeProvider implements LlmProvider {
     String userMessage, {
     List<Map<String, String>> history = const [],
   }) async => payload;
+}
+
+class _ThrowingProvider implements LlmProvider {
+  @override
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<Map<String, String>> history = const [],
+  }) async => throw Exception('provider exploded');
 }
 
 void main() {
@@ -63,6 +74,36 @@ void main() {
 
       expect(response.text, 'Prose survives.');
       expect(response.tree, isNull);
+    });
+  });
+
+  group('error responses (EOM-S5)', () {
+    setUp(() async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+    });
+
+    test(
+      'provider failures are flagged isError with a readable message',
+      () async {
+        final service = AiService(provider: _ThrowingProvider());
+
+        final response = await service.process('input', CognitiveIntent.act);
+
+        expect(response.isError, isTrue);
+        expect(response.text, contains('provider exploded'));
+        expect(response.operation, isNull);
+        expect(response.tree, isNull);
+      },
+    );
+
+    test('successful responses are not flagged isError', () async {
+      final service = AiService(provider: _FakeProvider('plain prose'));
+
+      final response = await service.process('input', CognitiveIntent.act);
+
+      expect(response.isError, isFalse);
+      expect(response.text, 'plain prose');
     });
   });
 

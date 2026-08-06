@@ -130,6 +130,7 @@ class AiService {
         text:
             'Error processing intent with ${SettingsService.activeProvider}: $e',
         intent: intent,
+        isError: true,
       );
     }
   }
@@ -265,6 +266,7 @@ class AiResponse {
     required this.intent,
     this.tree,
     this.operation,
+    this.isError = false,
   });
 
   final String text;
@@ -275,4 +277,9 @@ class AiResponse {
   /// (EOM-T6 through EOM-T10). Null when the LLM omitted or malformed the
   /// epilogue — the prose UX is unaffected either way.
   final EpistemicOperation? operation;
+
+  /// True when [text] is a provider/parsing error message rather than a
+  /// real answer (EOM-S5). Error responses must not be appended to the
+  /// conversation history or persisted to Hive.
+  final bool isError;
 }
