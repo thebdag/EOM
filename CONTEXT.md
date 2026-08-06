@@ -23,3 +23,23 @@ _Avoid_: LITELLM_BASE (that includes `/v1`), base URL (ambiguous)
 **Model Alias**:
 A LiteLLM `model_name` from the gateway config (e.g. `qwen-smart`, `auto`, `claude-haiku`), not a raw vendor model id like `ollama/llama3.1`.
 _Avoid_: Ollama model tag, vendor model id (when speaking of Local/LiteLLM)
+
+**Epistemic Graph**:
+The user's personal knowledge base in SQLite (`epistemic_nodes` + `epistemic_edges`), built silently from every thought session. Nodes are typed (`belief`, `knowledge`, `hypothesis`, `intuition`, `question`, `unknown`), carry a `confidence` in [0, 1], and a nullable `EpistemicCategory`.
+_Avoid_: knowledge base (generic), belief network
+
+**Gap**:
+Something the user does not yet have a node for (EOM-T14). *Explicit gap* = an articulated `question`/`unknown` node. *Unmapped concept* = a concept surfaced by a session (keywords, low-confidence statements) with no covering node. Gaps are surfaced read-only; detection never creates nodes.
+_Avoid_: missing node, hole
+
+**Confidence Drift**:
+How a node's confidence moves across sessions (EOM-T15), tracked in the `confidence_events` log — one baseline event at creation plus an event per confidence-changing update. `ConfidenceDrift` = movement from baseline to latest, signed.
+_Avoid_: confidence history (that is the raw event list), score change
+
+**Domain**:
+The axis maturity is scored per (EOM-T16): the `EpistemicCategory` of a node (`empirical`, `rational`, `intuitive`, `abductive`, `revelatory`); uncategorised nodes group under the `null` domain. Not a free-form topic field — v1 deliberately reuses category.
+_Avoid_: topic, subject area
+
+**Maturity Score**:
+Per-domain ratio `high-confidence / (high-confidence + uncertain)` nodes (thresholds 0.7 / 0.4), normalised to [0, 1]. Neutral-band nodes count toward totals only; `null` score means insufficient signal, not 0%.
+_Avoid_: expertise score, certainty average

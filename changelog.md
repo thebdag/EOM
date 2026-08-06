@@ -11,6 +11,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+- Supporting docs sweep for the EOM-S1 completion: `README.md` (Epistemic
+  Map section), `CONTEXT.md` (glossary: Epistemic Graph, Gap, Confidence
+  Drift, Domain, Maturity Score), `docs/design_spec.md` (graph overlay
+  component spec), `.agents/workflows/CODING-STANDARDS.md` (interface
+  default-method pattern, migrations, storage testing), `learnings.md`
+  (FTS5 safety, CustomPaint finder scoping), `docs/REPOMAP.md` (tracker
+  tooling + top-level docs), `CHANGELOG.md` (user-facing EOM-T11–T19
+  entries).
+
 ### Added
 - **EOM-T18** `lib/widgets/epistemic_graph_view.dart` — Map intent overlay:
   deterministic radial BFS layout (root centre, depth rings), nodes

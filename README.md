@@ -105,6 +105,26 @@ trains of thought whenever you need them.
 
 ---
 
+## The Epistemic Map
+
+Beneath the surface, every session quietly builds a personal knowledge
+graph — your beliefs, questions, and acknowledged unknowns, with typed
+relationships between them. It lives entirely on your device.
+
+- **Map sessions** render a graph overlay beneath the concept tree: nodes
+  are coloured by confidence, so you can see at a glance what you stand on
+  firmly and what's still shaky.
+- **Gap detection** surfaces what you don't yet have a node for — open
+  questions and concepts your sessions reference but never captured.
+- **Confidence drift** tracks how your beliefs shift across sessions.
+- **Maturity scores** summarise each domain (empirical, rational,
+  intuitive, abductive, revelatory) as the balance of high-confidence to
+  uncertain nodes.
+- **Export**: the whole map can be exported as structured JSON (full
+  fidelity, re-importable) or as a readable Markdown document.
+
+---
+
 ## Project Documentation
 
 | Document | What it covers |

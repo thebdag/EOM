@@ -5,6 +5,13 @@ All notable changes to the EOM project will be documented in this file.
 ## [Unreleased] - 2026-05-11
 
 ### Added
+- **Every session now builds your epistemic graph**: Clarify, Compress, Map, Reflect, and Act all silently upsert what they learn — beliefs, principles, concept relationships, contradictions — into a personal knowledge graph on your device (EOM-T11). Repeat sessions merge rather than duplicate.
+- **Ask "what do I know about X?"**: the graph now has a full-text search and relationship-traversal API (EOM-T17), the foundation for the features below.
+- **Gap detection**: EOM surfaces what you don't yet have a node for — your articulated questions and unknowns, plus concepts your sessions reference but never captured (EOM-T14).
+- **Confidence drift**: every belief's confidence is now logged over time, so you can see which beliefs are strengthening or fading across sessions (EOM-T15).
+- **Maturity scores**: each epistemic domain (empirical, rational, intuitive, abductive, revelatory) gets a score summarising the balance of high-confidence to uncertain nodes (EOM-T16).
+- **Map graph overlay**: Map sessions now render a quiet radial graph beneath the concept tree, with nodes coloured by confidence (EOM-T18).
+- **Export**: your full epistemic map can be exported as structured JSON (re-importable) or a readable Markdown document (EOM-T19).
 - **All intents now capture epistemic structure**: Clarify, Map, Reflect, and Act join Compress in appending a small structured summary to their responses (EOM-T6 through EOM-T10). Clarify records the sharpened belief, Map records how concepts relate, Reflect records contradictions and shaky claims, and Act records the belief your next step rests on. Map responses now include a one-or-two-sentence explanation alongside the tree. Your prose answers look and behave exactly as before.
 - **Compress → Epistemic Graph**: Compressing a thought now silently saves the abstracted principle to your epistemic graph and links it to related past thoughts (EOM-T7). The prose response is unchanged.
 

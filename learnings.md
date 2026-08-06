@@ -56,6 +56,26 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-05 — Derived read APIs live as concrete defaults on the store
+  interface (EOM-T15–T17)** — `EpistemicGraphStore` keeps only primitive
+  operations abstract (`get`, `all`, `byType`, `search`,
+  `getRelationshipsForNode`, `confidenceHistory`, …); everything derived
+  (`traverse` BFS, `confidenceDrifts`, `maturityByDomain`) is a *concrete
+  method on the abstract class* built from those primitives. SQLite and the
+  in-memory fake then share identical semantics for free, and tests exercise
+  the real logic with no database. Two consequences: (1) implementations
+  must use `extends`, not `implements` — `implements` drops the concrete
+  members and the analyzer (rightly) complains; (2) analytics stay pure and
+  testable without `sqflite_common_ffi`.
+
+- **2026-08-05 — FTS5 search the safe way (EOM-T17)** — (1) Never pass user
+  text to `MATCH` raw: strip non-alphanumerics per token and double-quote
+  each token (`sanitizeFtsQuery`) so `OR`/`NEAR`/parens can't break the
+  query or change its meaning; blank-after-strip ⇒ skip the query. (2) Keep
+  the index in sync with `AFTER INSERT/DELETE/UPDATE OF content` triggers,
+  and backfill existing rows in the same migration. (3) Rank with
+  `ORDER BY bm25(fts_table)` — lower is better, so ascending is best-first.
+
 - **2026-08-05 — Unified `---EPISTEMIC---` epilogue for all intents
   (EOM-T6–T10)** — One marker + one parser beats per-intent formats:
   `AiService._parseEpistemicResponse` splits prose/epilogue once and
@@ -124,6 +144,11 @@ when relevant.
 ---
 
 ## Gotchas
+
+- **Widget tests: `MaterialApp`/`Scaffold` render their own `CustomPaint`s** —
+  asserting `find.byType(CustomPaint)` against a custom-painter widget
+  matches framework internals too. Scope the finder:
+  `find.descendant(of: find.byType(MyWidget), matching: find.byType(CustomPaint))`.
 
 - **`.env` is still listed as a Flutter asset** in `pubspec.yaml` even though
   runtime config moved to `shared_preferences`. Don't reintroduce `.env`

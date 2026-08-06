@@ -4,8 +4,11 @@ An overview of the EOM application structure.
 
 ```text
 EOM/
+├── AGENTS.md                  # Operating instructions for AI agents working in this repo
 ├── CHANGELOG.md               # Version history and notable changes
+├── changelog.md               # Agent-maintained dev log (lower-case; see also CHANGELOG.md)
 ├── CONTEXT.md                 # Domain glossary (ubiquitous language)
+├── learnings.md               # Running log of bugs to avoid, gotchas, and best practices
 ├── README.md                  # Project overview and setup instructions
 ├── pubspec.yaml               # Flutter package dependencies and assets
 │
@@ -73,10 +76,13 @@ EOM/
 
 dev/
 └── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
-    ├── package.json           # Tracker dependencies (better-sqlite3, blessed)
+    ├── package.json           # Tracker dependencies (sql.js, blessed)
     ├── db.js                  # SQLite schema, migrations, and CRUD helpers
     ├── tracker.js             # Entry point (git branch detection, DB init, TUI launch)
     ├── ui.js                  # blessed TUI — three-pane Epics/Stories/Detail layout
+    ├── mark.js                # Status CLI: `node dev/tracker/mark.js EOM-T7 done`
+    ├── install-hooks.js       # One-time installer for the post-commit hook
+    ├── hooks/post-commit      # Reads [EOM-Tn done]-style tokens from commit messages
     └── seed.js                # One-time seed script: 7 epics from the existing codebase
 ```
 
