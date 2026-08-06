@@ -2,6 +2,32 @@ import 'package:eom/models/epistemic_relationship.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  group('epistemicRelationshipTypeTryParse (EOM-S14)', () {
+    test('parses exact enum names', () {
+      for (final type in EpistemicRelationshipType.values) {
+        expect(epistemicRelationshipTypeTryParse(type.name), type);
+      }
+    });
+
+    test('parses kebab-case LLM output', () {
+      expect(
+        epistemicRelationshipTypeTryParse('is-example-of'),
+        EpistemicRelationshipType.isExampleOf,
+      );
+    });
+
+    test('returns null for unknown values', () {
+      expect(epistemicRelationshipTypeTryParse('nope'), isNull);
+    });
+
+    test('fromString throws ArgumentError for unknown values', () {
+      expect(
+        () => epistemicRelationshipTypeFromString('nope'),
+        throwsArgumentError,
+      );
+    });
+  });
+
   group('EpistemicRelationship', () {
     test('constructs with a generated UUID if omitted', () {
       final rel = EpistemicRelationship(
