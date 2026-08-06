@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../services/ai_service.dart';
 import '../theme/eom_colors.dart';
@@ -41,15 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return _epistemicIntents = EpistemicIntentService(store);
   }
 
-  /// Persists Compress extractions to the epistemic graph without blocking
-  /// the UI — failures stay silent so the prose UX is never affected.
-  void _persistExtraction(AiResponse response) {
-    final extraction = response.epistemicExtraction;
-    if (extraction == null) return;
+  /// Persists epistemic operations to the graph without blocking the UI —
+  /// failures stay silent so the prose UX is never affected. Only Compress
+  /// is applied so far; the other intents follow with EOM-T11+.
+  void _persistOperation(AiResponse response) {
+    final operation = response.operation;
+    if (operation is! CompressOperation) return;
     unawaited(() async {
       try {
         final service = await _getEpistemicIntents();
-        await service.processCompressResult(extraction);
+        await service.processCompress(operation);
       } catch (_) {
         // Non-blocking by design — a graph failure must never break the UX.
       }
@@ -94,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
           response: response.text,
         );
 
-        _persistExtraction(response);
+        _persistOperation(response);
 
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));

@@ -1,5 +1,5 @@
-import 'package:eom/models/compress_result.dart';
 import 'package:eom/models/epistemic_node.dart';
+import 'package:eom/models/epistemic_operation.dart';
 import 'package:eom/models/epistemic_relationship.dart';
 import 'package:eom/services/epistemic_intent_service.dart';
 import 'package:eom/services/epistemic_service.dart';
@@ -49,12 +49,12 @@ void main() {
     return node;
   }
 
-  group('processCompressResult', () {
+  group('processCompress', () {
     test(
       'creates a node with the parsed type, confidence, and category',
       () async {
-        final node = await service.processCompressResult(
-          const CompressResult(
+        final node = await service.processCompress(
+          const CompressOperation(
             principle: 'Clarity comes from subtraction.',
             nodeType: 'belief',
             category: 'rational',
@@ -72,8 +72,8 @@ void main() {
     );
 
     test('falls back to knowledge / null category for unknown names', () async {
-      final node = await service.processCompressResult(
-        const CompressResult(
+      final node = await service.processCompress(
+        const CompressOperation(
           principle: 'p',
           nodeType: 'gibberish',
           category: 'nonsense',
@@ -88,8 +88,8 @@ void main() {
       final related = seedNode('My focus drifts when I skip morning walks.');
       seedNode('Unrelated grocery list.');
 
-      final principle = await service.processCompressResult(
-        const CompressResult(
+      final principle = await service.processCompress(
+        const CompressOperation(
           principle: 'Attention needs rhythm.',
           keywords: ['focus'],
         ),
@@ -105,8 +105,8 @@ void main() {
     test('matches keywords case-insensitively', () async {
       seedNode('FOCUS is fragile.');
 
-      await service.processCompressResult(
-        const CompressResult(principle: 'p', keywords: ['focus']),
+      await service.processCompress(
+        const CompressOperation(principle: 'p', keywords: ['focus']),
       );
 
       expect(store.edges, hasLength(1));
@@ -120,8 +120,8 @@ void main() {
           source: ProvenanceSource.reasoning,
         );
 
-        final principle = await service.processCompressResult(
-          const CompressResult(
+        final principle = await service.processCompress(
+          const CompressOperation(
             principle: 'All stability is rhythmic.',
             keywords: ['attention'],
           ),
@@ -138,8 +138,8 @@ void main() {
     test('creates no edges when nothing matches', () async {
       seedNode('Completely different topic.');
 
-      await service.processCompressResult(
-        const CompressResult(principle: 'p', keywords: ['zzz-absent']),
+      await service.processCompress(
+        const CompressOperation(principle: 'p', keywords: ['zzz-absent']),
       );
 
       expect(store.edges, isEmpty);
@@ -148,14 +148,14 @@ void main() {
     test('creates no edges when keywords are empty', () async {
       seedNode('Anything at all.');
 
-      await service.processCompressResult(const CompressResult(principle: 'p'));
+      await service.processCompress(const CompressOperation(principle: 'p'));
 
       expect(store.edges, isEmpty);
     });
 
     test('never links the principle to itself', () async {
-      final node = await service.processCompressResult(
-        const CompressResult(principle: 'focus', keywords: ['focus']),
+      final node = await service.processCompress(
+        const CompressOperation(principle: 'focus', keywords: ['focus']),
       );
 
       expect(store.nodes, [node]);

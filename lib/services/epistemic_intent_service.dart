@@ -1,13 +1,14 @@
-import '../models/compress_result.dart';
 import '../models/epistemic_node.dart';
+import '../models/epistemic_operation.dart';
 import '../models/epistemic_relationship.dart';
 import 'epistemic_service.dart';
 
 /// Bridges intent responses to the epistemic graph (EOM-T7).
 ///
 /// Keeps [AiService] focused on LLM interaction and [EpistemicService]
-/// focused on storage. Future intents (EOM-T8 through T10) add their own
-/// `process*` methods here.
+/// focused on storage. Operations for the other intents (EOM-T6, T8–T10)
+/// get their own `process*` methods here when the graph layer learns to
+/// apply them (EOM-T11 onward).
 class EpistemicIntentService {
   EpistemicIntentService(this._store);
 
@@ -27,12 +28,12 @@ class EpistemicIntentService {
   ///
   /// Returns the created principle node. Storage errors propagate to the
   /// caller, which is expected to treat persistence as non-blocking.
-  Future<EpistemicNode> processCompressResult(CompressResult result) async {
+  Future<EpistemicNode> processCompress(CompressOperation operation) async {
     final principle = EpistemicNode(
-      content: result.principle,
-      type: _parseNodeType(result.nodeType),
-      confidence: result.confidence,
-      category: _parseCategory(result.category),
+      content: operation.principle,
+      type: _parseNodeType(operation.nodeType),
+      confidence: operation.confidence,
+      category: _parseCategory(operation.category),
       provenance: ProvenanceRecord(
         source: ProvenanceSource.reasoning,
         timestamp: DateTime.now(),
@@ -40,7 +41,7 @@ class EpistemicIntentService {
     );
     await _store.create(principle);
 
-    final keywords = result.keywords.map((k) => k.toLowerCase()).toSet();
+    final keywords = operation.keywords.map((k) => k.toLowerCase()).toSet();
     if (keywords.isEmpty) return principle;
 
     final existing = await _store.all();
