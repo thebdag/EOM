@@ -38,6 +38,7 @@ EOM/
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
 │   │   ├── epistemic_gap_service.dart # Gap detection: explicit question/unknown nodes + unmapped concepts (EOM-T14)
+│   │   ├── epistemic_export_service.dart # Full-map export as structured JSON / Markdown (EOM-T19)
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
 │   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
@@ -56,6 +57,7 @@ EOM/
 └── test/                      # Unit and widget tests
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
+    ├── epistemic_export_test.dart     # JSON round-trip + Markdown grouping/snippets (EOM-T19)
     ├── epistemic_gap_test.dart        # Explicit + inferred gap detection, coverage heuristics (EOM-T14)
     ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11, T14)
     ├── epistemic_maturity_test.dart   # Domain grouping, thresholds, score ratio (EOM-T16)

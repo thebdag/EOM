@@ -41,6 +41,9 @@ abstract class EpistemicGraphStore {
   );
   Future<List<EpistemicRelationship>> getRelationshipsForNode(String nodeId);
 
+  /// Every relationship edge in the graph (EOM-T19 export).
+  Future<List<EpistemicRelationship>> allRelationships();
+
   /// All recorded confidence values for [nodeId], oldest first (EOM-T15).
   Future<List<ConfidenceEvent>> confidenceHistory(String nodeId);
 
@@ -478,6 +481,13 @@ class EpistemicService extends EpistemicGraphStore {
   /// Deletes the relationship edge with [id]. No-op if it does not exist.
   Future<void> removeRelationship(String id) async {
     await _requireDb.delete(_tableEdges, where: 'id = ?', whereArgs: [id]);
+  }
+
+  /// Returns every relationship edge, ordered by creation time.
+  @override
+  Future<List<EpistemicRelationship>> allRelationships() async {
+    final rows = await _requireDb.query(_tableEdges, orderBy: 'created_at ASC');
+    return rows.map(EpistemicRelationship.fromJson).toList();
   }
 
   /// Returns all relationships where [nodeId] is either the source or the target.

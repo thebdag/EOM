@@ -12,6 +12,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T19** `lib/services/epistemic_export_service.dart` — full-map
+  export: `toJsonGraph()`/`toJson()` (versioned metadata + all nodes and
+  edges, re-importable) and `toMarkdown()` (grouped by type, confidence
+  shown, relationships resolved to content snippets). `allRelationships()`
+  added to `EpistemicGraphStore`.
 - **EOM-T16** `lib/models/epistemic_maturity.dart` — per-domain maturity:
   domains = `EpistemicCategory` (v1, no schema change), score =
   high / (high + uncertain) with neutral-band nodes excluded from the

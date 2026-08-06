@@ -76,6 +76,10 @@ class InMemoryStore extends EpistemicGraphStore {
   }
 
   @override
+  Future<List<EpistemicRelationship>> allRelationships() async =>
+      List.unmodifiable(edges);
+
+  @override
   Future<List<EpistemicRelationship>> getRelationshipsForNode(
     String nodeId,
   ) async {
