@@ -22,6 +22,7 @@ EOM/
 │   ├── models/
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
 │   │   ├── epistemic_operation.dart # Sealed EpistemicOperation + Clarify/Compress/Map/Reflect/Act payloads (EOM-T6–T10)
+│   │   ├── epistemic_query_result.dart # BFS traversal result: root + nodes + unique edges (EOM-T17)
 │   │   ├── epistemic_relationship.dart # EpistemicRelationship model + type enum (EOM-T4)
 │   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view
@@ -34,7 +35,7 @@ EOM/
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
-│   │   ├── epistemic_service.dart # SQLite CRUD for the epistemic graph + EpistemicGraphStore interface (EOM-T1, EOM-T7)
+│   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + EpistemicGraphStore interface (EOM-T1, T7, T17)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
 │   │   └── settings_service.dart# SharedPreferences wrapper for persistent storage
@@ -53,7 +54,9 @@ EOM/
     ├── epistemic_intent_service_test.dart # Intent→graph upserts + edge semantics, in-memory fake (EOM-T7, T11)
     ├── epistemic_node_test.dart       # Model round-trip, type enum, copyWith, equality (EOM-T1)
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)
+    ├── epistemic_query_test.dart      # FTS sanitiser + BFS traverse semantics (EOM-T17)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
+    ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── settings_service_test.dart # Gateway-origin normalization
     └── thought_node_test.dart     # Logic tests for tree structure management
 

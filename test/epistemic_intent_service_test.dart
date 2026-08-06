@@ -2,53 +2,9 @@ import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_operation.dart';
 import 'package:eom/models/epistemic_relationship.dart';
 import 'package:eom/services/epistemic_intent_service.dart';
-import 'package:eom/services/epistemic_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// In-memory [EpistemicGraphStore] so tests need no SQLite.
-class InMemoryStore implements EpistemicGraphStore {
-  final List<EpistemicNode> nodes = [];
-  final List<EpistemicRelationship> edges = [];
-
-  @override
-  Future<EpistemicNode> create(EpistemicNode node) async {
-    nodes.add(node);
-    return node;
-  }
-
-  @override
-  Future<EpistemicNode> upsert(EpistemicNode node) async {
-    final lowerContent = node.content.toLowerCase();
-    final index = nodes.indexWhere(
-      (n) => n.content.toLowerCase() == lowerContent,
-    );
-    if (index != -1) {
-      final existing = nodes[index];
-      final merged = existing.copyWith(
-        type: node.type,
-        confidence: node.confidence,
-        category: node.category,
-        provenance: node.provenance,
-      );
-      nodes[index] = merged;
-      return merged;
-    } else {
-      nodes.add(node);
-      return node;
-    }
-  }
-
-  @override
-  Future<List<EpistemicNode>> all() async => List.unmodifiable(nodes);
-
-  @override
-  Future<EpistemicRelationship> addRelationship(
-    EpistemicRelationship relationship,
-  ) async {
-    edges.add(relationship);
-    return relationship;
-  }
-}
+import 'helpers/in_memory_epistemic_store.dart';
 
 void main() {
   late InMemoryStore store;
