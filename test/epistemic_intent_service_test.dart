@@ -234,6 +234,27 @@ void main() {
       expect(store.edges, hasLength(1));
       expect(store.edges.single.type, EpistemicRelationshipType.supports);
     });
+
+    test(
+      'labels differing only by case resolve to one node, no self-loop',
+      () async {
+        await service.processMap(
+          const MapOperation(
+            rootLabel: 'You',
+            relationships: [
+              MappedRelationship(
+                source: 'Focus',
+                target: 'focus',
+                type: 'supports',
+              ),
+            ],
+          ),
+        );
+
+        expect(store.nodes, hasLength(1));
+        expect(store.edges, isEmpty);
+      },
+    );
   });
 
   group('processReflect', () {
@@ -259,6 +280,22 @@ void main() {
       expect(store.edges.single.type, EpistemicRelationshipType.contradicts);
       expect(store.edges.single.sourceId, newStmt.id);
       expect(store.edges.single.targetId, existing.id);
+    });
+
+    test('skips a statement that contradicts itself', () async {
+      await service.processReflect(
+        const ReflectOperation(
+          contradictions: [
+            Contradiction(
+              statement: 'I never rest.',
+              conflictsWith: 'i NEVER rest.',
+            ),
+          ],
+        ),
+      );
+
+      expect(store.nodes, hasLength(1));
+      expect(store.edges, isEmpty);
     });
   });
 
