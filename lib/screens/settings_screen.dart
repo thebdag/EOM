@@ -41,7 +41,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
-  Future<void> _saveSettings() async {
+  /// Settings persist on *any* route pop (EOM-S6) — AppBar back, Android
+  /// system back, and iOS swipe-back all route through the [PopScope].
+  bool _allowPop = false;
+
+  Future<void> _persistSettings() async {
     await SettingsService.setActiveProvider(_activeProvider);
     await SettingsService.setOpenAiKey(_openAiController.text);
     await SettingsService.setAnthropicKey(_anthropicController.text);
@@ -49,61 +53,68 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await SettingsService.setLocalHost(_localHostController.text);
     await SettingsService.setLocalModel(_localModelController.text);
     await SettingsService.setLocalApiKey(_localApiKeyController.text);
-    if (mounted) {
-      Navigator.of(context).pop();
-    }
+  }
+
+  Future<void> _onPopInvoked(bool didPop) async {
+    if (didPop) return;
+    await _persistSettings();
+    if (!mounted) return;
+    setState(() => _allowPop = true);
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AI Configuration'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: _saveSettings,
+    return PopScope(
+      canPop: _allowPop,
+      onPopInvokedWithResult: (didPop, _) => _onPopInvoked(didPop),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('AI Configuration')),
+        body: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            _buildSectionTitle('Active Provider'),
+            _buildDropdown(),
+            const SizedBox(height: 32),
+
+            _buildSectionTitle('OpenAI'),
+            _buildTextField(
+              'API Key (sk-...)',
+              _openAiController,
+              obscure: true,
+            ),
+            const SizedBox(height: 24),
+
+            _buildSectionTitle('Anthropic'),
+            _buildTextField(
+              'API Key (sk-ant-...)',
+              _anthropicController,
+              obscure: true,
+            ),
+            const SizedBox(height: 24),
+
+            _buildSectionTitle('Google Gemini'),
+            _buildTextField('API Key', _geminiController, obscure: true),
+            const SizedBox(height: 24),
+
+            _buildSectionTitle('LiteLLM'),
+            _buildTextField(
+              'Master Key (required)',
+              _localApiKeyController,
+              obscure: true,
+            ),
+            const SizedBox(height: 12),
+            _buildTextField(
+              'Gateway Origin (e.g., http://127.0.0.1:4000)',
+              _localHostController,
+            ),
+            const SizedBox(height: 12),
+            _buildTextField(
+              'Model Alias (e.g., qwen-smart)',
+              _localModelController,
+            ),
+          ],
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          _buildSectionTitle('Active Provider'),
-          _buildDropdown(),
-          const SizedBox(height: 32),
-
-          _buildSectionTitle('OpenAI'),
-          _buildTextField('API Key (sk-...)', _openAiController, obscure: true),
-          const SizedBox(height: 24),
-
-          _buildSectionTitle('Anthropic'),
-          _buildTextField(
-            'API Key (sk-ant-...)',
-            _anthropicController,
-            obscure: true,
-          ),
-          const SizedBox(height: 24),
-
-          _buildSectionTitle('Google Gemini'),
-          _buildTextField('API Key', _geminiController, obscure: true),
-          const SizedBox(height: 24),
-
-          _buildSectionTitle('LiteLLM'),
-          _buildTextField(
-            'Master Key (required)',
-            _localApiKeyController,
-            obscure: true,
-          ),
-          const SizedBox(height: 12),
-          _buildTextField(
-            'Gateway Origin (e.g., http://127.0.0.1:4000)',
-            _localHostController,
-          ),
-          const SizedBox(height: 12),
-          _buildTextField(
-            'Model Alias (e.g., qwen-smart)',
-            _localModelController,
-          ),
-        ],
       ),
     );
   }
