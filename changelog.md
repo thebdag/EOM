@@ -11,7 +11,51 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+- Supporting docs sweep for the EOM-S1 completion: `README.md` (Epistemic
+  Map section), `CONTEXT.md` (glossary: Epistemic Graph, Gap, Confidence
+  Drift, Domain, Maturity Score), `docs/design_spec.md` (graph overlay
+  component spec), `.agents/workflows/CODING-STANDARDS.md` (interface
+  default-method pattern, migrations, storage testing), `learnings.md`
+  (FTS5 safety, CustomPaint finder scoping), `docs/REPOMAP.md` (tracker
+  tooling + top-level docs), `CHANGELOG.md` (user-facing EOM-T11–T19
+  entries).
+
 ### Added
+- **EOM-T18** `lib/widgets/epistemic_graph_view.dart` — Map intent overlay:
+  deterministic radial BFS layout (root centre, depth rings), nodes
+  coloured by confidence (error → tertiary → sage lerp), 0.5px border
+  edges, 300ms easeOut fade-in. `home_screen` traverses from the Map
+  root concept after `processMap` and renders beneath the tree view.
+- **EOM-T19** `lib/services/epistemic_export_service.dart` — full-map
+  export: `toJsonGraph()`/`toJson()` (versioned metadata + all nodes and
+  edges, re-importable) and `toMarkdown()` (grouped by type, confidence
+  shown, relationships resolved to content snippets). `allRelationships()`
+  added to `EpistemicGraphStore`.
+- **EOM-T16** `lib/models/epistemic_maturity.dart` — per-domain maturity:
+  domains = `EpistemicCategory` (v1, no schema change), score =
+  high / (high + uncertain) with neutral-band nodes excluded from the
+  ratio (null score = insufficient signal). Thresholds 0.7 / 0.4 as
+  constants; concrete `maturityByDomain()` on `EpistemicGraphStore`.
+- **EOM-T15** confidence drift tracking: `confidence_events` log (schema
+  v4, baseline event on create, event on confidence-changing update,
+  baseline backfill for existing nodes). `confidenceHistory(nodeId)` on the
+  store interface + concrete `confidenceDrifts(minAbsDelta)` — biggest
+  movers first. New `ConfidenceEvent`/`ConfidenceDrift` models.
+- **EOM-T14** wiring — `EpistemicIntentService` takes an optional
+  `EpistemicGapDetector`; sessions scan surfaced concepts (keywords,
+  `lowConfidenceNodes`) and expose `lastDetectedGaps` (read-only).
+- **EOM-T14** `lib/services/epistemic_gap_service.dart` — gap detection:
+  `explicitGaps()` surfaces `question`/`unknown` nodes; `detectGaps(concepts)`
+  flags session concepts with no covering node (exact/FTS/substring
+  coverage, deduped). New `EpistemicGap` model; `byType` promoted onto the
+  `EpistemicGraphStore` interface.
+- **EOM-T17** query API on `EpistemicGraphStore`: `search(query)` (FTS5
+  index `epistemic_nodes_fts`, schema v3, sanitised MATCH input via
+  `sanitizeFtsQuery`) and `traverse(nodeId, depth)` (cycle-safe BFS,
+  concrete default on the interface so SQLite and in-memory stores share
+  semantics). New `EpistemicQueryResult` model; test fake extracted to
+  `test/helpers/in_memory_epistemic_store.dart`.
 - **EOM-T12** `docs/adr/0002-delta-update-model.md` — delta-update design:
   canonical node + `node_observations` log, three match tiers
   (exact / refine / novel), confidence by recency-weighted nudge instead

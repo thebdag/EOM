@@ -1,54 +1,11 @@
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_operation.dart';
 import 'package:eom/models/epistemic_relationship.dart';
+import 'package:eom/services/epistemic_gap_service.dart';
 import 'package:eom/services/epistemic_intent_service.dart';
-import 'package:eom/services/epistemic_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// In-memory [EpistemicGraphStore] so tests need no SQLite.
-class InMemoryStore implements EpistemicGraphStore {
-  final List<EpistemicNode> nodes = [];
-  final List<EpistemicRelationship> edges = [];
-
-  @override
-  Future<EpistemicNode> create(EpistemicNode node) async {
-    nodes.add(node);
-    return node;
-  }
-
-  @override
-  Future<EpistemicNode> upsert(EpistemicNode node) async {
-    final lowerContent = node.content.toLowerCase();
-    final index = nodes.indexWhere(
-      (n) => n.content.toLowerCase() == lowerContent,
-    );
-    if (index != -1) {
-      final existing = nodes[index];
-      final merged = existing.copyWith(
-        type: node.type,
-        confidence: node.confidence,
-        category: node.category,
-        provenance: node.provenance,
-      );
-      nodes[index] = merged;
-      return merged;
-    } else {
-      nodes.add(node);
-      return node;
-    }
-  }
-
-  @override
-  Future<List<EpistemicNode>> all() async => List.unmodifiable(nodes);
-
-  @override
-  Future<EpistemicRelationship> addRelationship(
-    EpistemicRelationship relationship,
-  ) async {
-    edges.add(relationship);
-    return relationship;
-  }
-}
+import 'helpers/in_memory_epistemic_store.dart';
 
 void main() {
   late InMemoryStore store;
@@ -271,6 +228,60 @@ void main() {
       expect(store.edges.single.type, EpistemicRelationshipType.contradicts);
       expect(store.edges.single.sourceId, newStmt.id);
       expect(store.edges.single.targetId, existing.id);
+    });
+  });
+
+  group('gap detection wiring (EOM-T14)', () {
+    late EpistemicIntentService wired;
+
+    setUp(() {
+      wired = EpistemicIntentService(
+        store,
+        gapDetector: EpistemicGapService(store),
+      );
+    });
+
+    test('is inert when no detector is injected', () async {
+      await service.processClarify(
+        const ClarifyOperation(
+          clarified: 'Clarity needs space.',
+          keywords: ['solitude'],
+        ),
+      );
+      expect(service.lastDetectedGaps, isEmpty);
+    });
+
+    test('surfaces keywords with no covering node after Clarify', () async {
+      seedNode('Stillness restores me.'); // covers "stillness"
+      await wired.processClarify(
+        const ClarifyOperation(
+          clarified: 'Clarity needs space.',
+          keywords: ['stillness', 'monastic silence'],
+        ),
+      );
+      expect(wired.lastDetectedGaps.map((g) => g.concept), [
+        'monastic silence',
+      ]);
+    });
+
+    test('surfaces low-confidence statements after Reflect', () async {
+      await wired.processReflect(
+        const ReflectOperation(lowConfidenceNodes: ['I might be a fraud']),
+      );
+      expect(wired.lastDetectedGaps.single.concept, 'I might be a fraud');
+    });
+
+    test('does not create nodes for detected gaps', () async {
+      final before = store.nodes.length;
+      await wired.processAct(
+        const ActOperation(
+          actionable: 'Ship the small thing.',
+          keywords: ['unmapped concept'],
+        ),
+      );
+      // Only the actionable node itself was persisted.
+      expect(store.nodes.length, before + 1);
+      expect(wired.lastDetectedGaps.single.concept, 'unmapped concept');
     });
   });
 }
