@@ -79,8 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
           case ActOperation():
             await service.processAct(operation);
         }
-      } catch (_) {
-        // Non-blocking by design — a graph failure must never break the UX.
+      } catch (e, st) {
+        // Non-blocking by design — a graph failure must never break the UX,
+        // but it must not be silent either (EOM-S2).
+        debugPrint('EOM: graph persistence failed: $e\n$st');
       }
     }());
   }
