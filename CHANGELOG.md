@@ -5,6 +5,7 @@ All notable changes to the EOM project will be documented in this file.
 ## [Unreleased] - 2026-05-11
 
 ### Added
+- **All intents now capture epistemic structure**: Clarify, Map, Reflect, and Act join Compress in appending a small structured summary to their responses (EOM-T6 through EOM-T10). Clarify records the sharpened belief, Map records how concepts relate, Reflect records contradictions and shaky claims, and Act records the belief your next step rests on. Map responses now include a one-or-two-sentence explanation alongside the tree. Your prose answers look and behave exactly as before.
 - **Compress → Epistemic Graph**: Compressing a thought now silently saves the abstracted principle to your epistemic graph and links it to related past thoughts (EOM-T7). The prose response is unchanged.
 
 ### Changed

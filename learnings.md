@@ -47,6 +47,20 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-05 — Unified `---EPISTEMIC---` epilogue for all intents
+  (EOM-T6–T10)** — One marker + one parser beats per-intent formats:
+  `AiService._parseEpistemicResponse` splits prose/epilogue once and
+  dispatches to a sealed `EpistemicOperation` subclass per intent. Three
+  rules that kept it robust: (1) shared tolerant helpers (`requiredText`
+  throws only on blank core content; lists and confidence degrade to
+  defaults); (2) malformed JSON → `operation = null`, never an error — the
+  prose UX is untouchable; (3) Map needed two fallbacks because small local
+  models still answer pure JSON: whole-body tree parse when the marker is
+  missing, prose-only when the epilogue is garbage. Keep graph persistence
+  (`EpistemicIntentService.process*`) behind type checks so unwired intents
+  pass through harmlessly until their `process*` methods land (EOM-T11+).
+  (EOM-T6–T10, T20–T23)
+
 - **2026-08-05 — Intent→graph integration pattern (EOM-T7)** — To wire an
   intent to the epistemic graph: (1) augment the intent prompt with a
   `---EPISTEMIC---` JSON epilogue rather than a second LLM call (halves API

@@ -12,6 +12,41 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T6–T10** `lib/models/epistemic_operation.dart` — sealed
+  `EpistemicOperation` with one payload per intent: `ClarifyOperation`
+  (disambiguated belief, raised confidence), `CompressOperation`
+  (higher-order principle), `MapOperation` (concept relationships),
+  `ReflectOperation` (contradictions + low-confidence flags),
+  `ActOperation` (highest-confidence actionable belief). Shared tolerant
+  parsers; `FormatException` only when the core content field is blank.
+- **EOM-T23** `test/epistemic_operation_test.dart` — 25 unit tests covering
+  JSON parsing, defaults, validation, clamping, and round-trips for all five
+  operation types (subsumes the old `compress_result_test.dart` cases).
+
+### Changed
+- **EOM-T6–T10** `lib/services/ai_service.dart` — all five intents now
+  request a `---EPISTEMIC---` JSON epilogue (previously Compress only).
+  `_parseCompressResponse` generalised to `_parseEpistemicResponse`, which
+  dispatches on intent to the matching `EpistemicOperation` subclass.
+  `AiResponse.epistemicExtraction` replaced by
+  `AiResponse.operation` (`EpistemicOperation?`). Map switched from pure-JSON
+  to prose + epilogue (tree + relationships in one payload), with a legacy
+  pure-JSON fallback for small local models and a prose-only degradation
+  path — the intent never hard-fails.
+- **EOM-T7** `lib/services/epistemic_intent_service.dart` —
+  `processCompressResult(CompressResult)` renamed to
+  `processCompress(CompressOperation)`; behaviour unchanged.
+- **EOM-T6–T10** `lib/screens/home_screen.dart` — `_persistExtraction` →
+  `_persistOperation`, now driven by `AiResponse.operation` (Compress is
+  still the only intent applied to the graph; the rest follow with EOM-T11+).
+
+### Removed
+- **EOM-T22** `lib/models/compress_result.dart` — superseded by
+  `CompressOperation` in `epistemic_operation.dart`.
+- **EOM-T22** `test/compress_result_test.dart` — cases folded into
+  `test/epistemic_operation_test.dart`.
+
+### Added
 - **EOM-T7** `lib/models/compress_result.dart` — `CompressResult` data class
   for the structured epistemic extraction the Compress intent appends to its
   prose response (principle, node type, category, confidence, keywords).
