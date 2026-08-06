@@ -11,6 +11,42 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Fixed
+- **EOM-S2** Graph persistence was silently broken: `EpistemicNode.toJson()`
+  carried a `relationships` key with no matching column, so every sqflite
+  insert/update on `epistemic_nodes` threw and the on-device graph never
+  persisted (hidden by the in-memory test fake and a swallowed catch).
+  Added `toDbMap()` as the explicit column map for sqflite writes
+  (`toJson()` remains the export serialisation), logged `_persistOperation`
+  failures via `debugPrint`, and added real-store regression tests via
+  `sqflite_common_ffi`.
+- **EOM-S3** `processCompress` discarded the `upsert` return value, so
+  repeat sessions wrote `refines`/`isExampleOf` edges pointing at an
+  unpersisted UUID; it now links via the persisted node id.
+- **EOM-S7** `processMap` keyed node identity by exact label while `upsert`
+  matches case-insensitively, producing self-loop edges; the identity map
+  is keyed by lowercase label and same-node relationships are skipped
+  (including Reflect self-contradictions).
+- **EOM-S4** `_parseMapResponse` built the tree/operation outside
+  `try/catch`, so valid JSON with a wrong shape hard-failed the intent —
+  it now degrades to prose-only. OpenAI/Anthropic/Gemini providers extract
+  content null-safely and throw descriptive errors instead of `RangeError`
+  (e.g. empty `choices`, safety-blocked candidates).
+- **EOM-S5** Provider/parse failures were returned as normal responses and
+  saved into `_history` and Hive; `AiResponse.isError` now flags them and
+  HomeScreen skips the history append, Hive save, and graph persist.
+- **EOM-S6** Settings saved only via the AppBar back button; Android system
+  back and iOS swipe-back discarded all edits. A `PopScope` now persists
+  on any route pop.
+- **EOM-S8** `_getEpistemicStore` cached the instance with a check-then-act
+  race (two inits, leaked `Database`) — it caches the init future with
+  retry on failure. History save and graph persist now fail independently.
+  The clear-history handler guards `mounted` after the await.
+- **EOM-S9** `_formatDate` crashed the history screen on malformed
+  timestamps (`DateTime.tryParse` + raw fallback); export headings use an
+  explicit per-type map ("Hypotheses", "Knowledge" — no more
+  "Hypothesiss"/"Knowledges").
+
 ### Changed
 - Supporting docs sweep for the EOM-S1 completion: `README.md` (Epistemic
   Map section), `CONTEXT.md` (glossary: Epistemic Graph, Gap, Confidence
