@@ -14,7 +14,7 @@ class _FakeProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async => payload;
 }
 
@@ -23,7 +23,7 @@ class _ThrowingProvider implements LlmProvider {
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async => throw Exception('provider exploded');
 }
 

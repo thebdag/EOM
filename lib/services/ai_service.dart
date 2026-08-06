@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
+import 'intent_config.dart';
 import 'llm_provider.dart';
 import 'settings_service.dart';
 
@@ -15,19 +16,7 @@ class AiService {
   LlmProvider _getProvider() {
     final override = _providerOverride;
     if (override != null) return override;
-    final provider = SettingsService.activeProvider.toUpperCase();
-    switch (provider) {
-      case 'OPENAI':
-        return OpenAiProvider();
-      case 'ANTHROPIC':
-        return AnthropicProvider();
-      case 'LOCAL':
-      case 'OLLAMA': // legacy preference value
-        return LocalProvider();
-      case 'GEMINI':
-      default:
-        return GeminiProvider();
-    }
+    return SettingsService.activeProvider.createProvider();
   }
 
   /// Delimiter between an intent's prose response and its epistemic JSON
@@ -37,7 +26,7 @@ class AiService {
   Future<AiResponse> process(
     String input,
     CognitiveIntent intent, {
-    List<Map<String, String>> history = const [],
+    List<ChatMessage> history = const [],
   }) async {
     final provider = _getProvider();
 
@@ -45,73 +34,8 @@ class AiService {
     const defaultContext =
         'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language. detect sentiment from user input: if more chaotic, encourage toward balanced order. If too ordlery, encourage toward balanced chaos';
 
-    const categoryValues =
-        '"empirical"|"rational"|"intuitive"|"abductive"|"revelatory"';
-
-    String intentContext = '';
-
-    switch (intent) {
-      case CognitiveIntent.clarify:
-        intentContext =
-            'You are an epistemic agent helping the user clarify their thoughts. '
-            'Ensure your questions are inquisitive and delicate. '
-            'Analyze the input, point out the surface concern and deeper current, and end with a clarifying question. '
-            'After the prose, on a new line, output exactly "$epistemicMarker" followed by a single JSON object '
-            'capturing the disambiguated belief: {"clarified": "the sharpened belief in one sentence", '
-            '"type": "belief"|"knowledge"|"hypothesis", '
-            '"category": $categoryValues, '
-            '"confidence": 0.0-1.0 (raised, since the belief is now sharper), '
-            '"keywords": ["concept", "keywords"]}. '
-            'No markdown fences around the JSON.';
-        break;
-      case CognitiveIntent.compress:
-        intentContext =
-            'You are an epistemic agent. The user will provide a thought. '
-            'Aim to use metaphor and simile that a child would understand, to reduce and simplify to bare essence. '
-            'Provide "**Core:**" followed by a summary, then "**In one line:**" followed by the emotional weight. '
-            'After the prose, on a new line, output exactly "$epistemicMarker" followed by a single JSON object '
-            'capturing the abstracted principle: {"principle": "the higher-order abstraction", '
-            '"type": "knowledge"|"belief"|"hypothesis", '
-            '"category": $categoryValues, '
-            '"confidence": 0.0-1.0, "keywords": ["concept", "keywords"]}. '
-            'No markdown fences around the JSON.';
-        break;
-      case CognitiveIntent.map:
-        intentContext =
-            'You are an epistemic agent. Bridge the gap between independent thoughts or ideas presented by the user. '
-            'Write one or two sentences of prose summarizing how the ideas connect, '
-            'then on a new line output exactly "$epistemicMarker" followed by a single JSON object '
-            'representing a thought tree mapping their ideas together: '
-            '{"label": "You", "children": [{"label": "Category", "children": [{"label": "Concept"}]}], '
-            '"relationships": [{"source": "Concept", "target": "Concept", '
-            '"type": "supports"|"contradicts"|"refines"|"is-example-of"}]}. '
-            'Use an empty relationships list if none are clear. '
-            'No markdown fences around the JSON.';
-        break;
-      case CognitiveIntent.reflect:
-        intentContext =
-            'You are an epistemic agent. Help the user look at their thought differently. '
-            'Offer a brief perspective shift, and directly encourage more journaling input to explore this further. '
-            'After the prose, on a new line, output exactly "$epistemicMarker" followed by a single JSON object '
-            'capturing what the reflection surfaced: {"contradictions": [{"statement": "the tense statement", '
-            '"conflicts_with": "the belief it conflicts with"}], '
-            '"low_confidence": ["statements that seem uncertain or under-examined"]}. '
-            'Use empty lists when nothing surfaces. '
-            'No markdown fences around the JSON.';
-        break;
-      case CognitiveIntent.act:
-        intentContext =
-            'You are an epistemic agent. Turn the user\'s thought into action. '
-            'Engineer your responses aimed toward action and remediation. Arc upward. '
-            'Provide exactly three concrete steps: 1. Right now (10 mins), 2. Today, 3. This week. '
-            'After the steps, on a new line, output exactly "$epistemicMarker" followed by a single JSON object '
-            'identifying the belief the action rests on: {"actionable": "the highest-confidence belief to act on", '
-            '"confidence": 0.0-1.0, "keywords": ["concept", "keywords"]}. '
-            'No markdown fences around the JSON.';
-        break;
-    }
-
-    final systemPrompt = '$defaultContext\n\n$intentContext';
+    final systemPrompt =
+        '$defaultContext\n\n${intent.buildPrompt(epistemicMarker)}';
 
     try {
       final textResponse = await provider.generate(
@@ -120,7 +44,7 @@ class AiService {
         history: history,
       );
 
-      if (intent == CognitiveIntent.map) {
+      if (intent.producesTree) {
         return _parseMapResponse(textResponse, intent);
       }
 
@@ -128,73 +52,20 @@ class AiService {
     } catch (e) {
       return AiResponse(
         text:
-            'Error processing intent with ${SettingsService.activeProvider}: $e',
+            'Error processing intent with ${SettingsService.activeProvider.label}: $e',
         intent: intent,
         isError: true,
       );
     }
   }
 
-  /// Splits an intent response into prose and its epistemic JSON epilogue,
-  /// parsing the epilogue into the [EpistemicOperation] for [intent].
-  ///
-  /// A missing or malformed epilogue never fails the intent — the user still
-  /// gets the prose, and [AiResponse.operation] stays null.
-  AiResponse _parseEpistemicResponse(String raw, CognitiveIntent intent) {
+  /// Splits an intent response into trimmed prose and the decoded epilogue
+  /// JSON (EOM-S13). Returns null when the marker is absent; the epilogue
+  /// half is null when the JSON block is malformed. Fence-stripping and
+  /// decoding used to be copy-pasted between both parsers.
+  (String, Map<String, dynamic>?)? _splitEpilogue(String raw) {
     final markerIndex = raw.indexOf(epistemicMarker);
-    if (markerIndex == -1) {
-      return AiResponse(text: raw.trim(), intent: intent);
-    }
-
-    final prose = raw.substring(0, markerIndex).trim();
-    final jsonBlock = raw
-        .substring(markerIndex + epistemicMarker.length)
-        .replaceAll('```json', '')
-        .replaceAll('```', '')
-        .trim();
-
-    EpistemicOperation? operation;
-    try {
-      final data = jsonDecode(jsonBlock) as Map<String, dynamic>;
-      operation = switch (intent) {
-        CognitiveIntent.clarify => ClarifyOperation.fromJson(data),
-        CognitiveIntent.compress => CompressOperation.fromJson(data),
-        CognitiveIntent.reflect => ReflectOperation.fromJson(data),
-        CognitiveIntent.act => ActOperation.fromJson(data),
-        CognitiveIntent.map => throw const FormatException(
-          'Map is parsed by _parseMapResponse.',
-        ),
-      };
-    } catch (_) {
-      operation = null;
-    }
-
-    return AiResponse(text: prose, intent: intent, operation: operation);
-  }
-
-  /// Parses a Map response: prose, then a `$epistemicMarker` JSON block
-  /// holding both the concept tree (rendered by the tree view) and the
-  /// epistemic relationships between concepts.
-  ///
-  /// Falls back gracefully: a missing marker retries the whole body as a
-  /// bare tree (the pre-T8 pure-JSON contract), and unparseable JSON returns
-  /// the raw text as plain prose. The intent never hard-fails.
-  AiResponse _parseMapResponse(String raw, CognitiveIntent intent) {
-    final markerIndex = raw.indexOf(epistemicMarker);
-
-    if (markerIndex == -1) {
-      // Legacy pure-JSON response (small local models may ignore the prose
-      // instruction). Treat the whole body as the tree payload.
-      final tree = _tryParseTree(raw);
-      if (tree != null) {
-        return AiResponse(
-          text: 'Here is how your thought maps out:',
-          intent: intent,
-          tree: tree,
-        );
-      }
-      return AiResponse(text: raw.trim(), intent: intent);
-    }
+    if (markerIndex == -1) return null;
 
     final prose = raw.substring(0, markerIndex).trim();
     final jsonBlock = raw
@@ -209,6 +80,57 @@ class AiService {
     } catch (_) {
       data = null;
     }
+    return (prose, data);
+  }
+
+  /// Splits an intent response into prose and its epistemic JSON epilogue,
+  /// parsing the epilogue into the [EpistemicOperation] for [intent].
+  ///
+  /// A missing or malformed epilogue never fails the intent — the user still
+  /// gets the prose, and [AiResponse.operation] stays null.
+  AiResponse _parseEpistemicResponse(String raw, CognitiveIntent intent) {
+    final split = _splitEpilogue(raw);
+    if (split == null) {
+      return AiResponse(text: raw.trim(), intent: intent);
+    }
+    final (prose, data) = split;
+
+    EpistemicOperation? operation;
+    if (data != null) {
+      try {
+        operation = intent.parseOperation(data);
+      } catch (_) {
+        operation = null;
+      }
+    }
+
+    return AiResponse(text: prose, intent: intent, operation: operation);
+  }
+
+  /// Parses a Map response: prose, then a `$epistemicMarker` JSON block
+  /// holding both the concept tree (rendered by the tree view) and the
+  /// epistemic relationships between concepts.
+  ///
+  /// Falls back gracefully: a missing marker retries the whole body as a
+  /// bare tree (the pre-T8 pure-JSON contract), and unparseable JSON returns
+  /// the raw text as plain prose. The intent never hard-fails.
+  AiResponse _parseMapResponse(String raw, CognitiveIntent intent) {
+    final split = _splitEpilogue(raw);
+
+    if (split == null) {
+      // Legacy pure-JSON response (small local models may ignore the prose
+      // instruction). Treat the whole body as the tree payload.
+      final tree = ThoughtNode.tryParseRaw(raw);
+      if (tree != null) {
+        return AiResponse(
+          text: 'Here is how your thought maps out:',
+          intent: intent,
+          tree: tree,
+        );
+      }
+      return AiResponse(text: raw.trim(), intent: intent);
+    }
+    final (prose, data) = split;
 
     if (data == null) {
       // Prose survived but the epilogue is malformed — degrade to prose only.
@@ -222,8 +144,8 @@ class AiService {
       return AiResponse(
         text: prose.isEmpty ? 'Here is how your thought maps out:' : prose,
         intent: intent,
-        tree: _parseNode(data),
-        operation: MapOperation.fromJson(data),
+        tree: ThoughtNode.fromJson(data),
+        operation: intent.parseOperation(data),
       );
     } catch (_) {
       // Valid JSON with an unexpected shape (e.g. `children` is not a
@@ -233,29 +155,6 @@ class AiService {
         intent: intent,
       );
     }
-  }
-
-  ThoughtNode? _tryParseTree(String raw) {
-    try {
-      final cleaned = raw
-          .replaceAll('```json', '')
-          .replaceAll('```', '')
-          .trim();
-      return _parseNode(jsonDecode(cleaned) as Map<String, dynamic>);
-    } catch (_) {
-      return null;
-    }
-  }
-
-  ThoughtNode _parseNode(Map<String, dynamic> json) {
-    final childrenList = json['children'] as List<dynamic>? ?? [];
-    final children = childrenList
-        .map((c) => _parseNode(c as Map<String, dynamic>))
-        .toList();
-    return ThoughtNode(
-      label: json['label'] as String? ?? 'Node',
-      children: children,
-    );
   }
 }
 

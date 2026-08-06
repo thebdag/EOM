@@ -1,6 +1,6 @@
 import '../models/epistemic_gap.dart';
 import '../models/epistemic_node.dart';
-import 'epistemic_service.dart';
+import 'sqlite_epistemic_graph_store.dart';
 
 /// Read surface for epistemic gap detection (EOM-T14). Implemented by
 /// [EpistemicGapService]; fakeable via [EpistemicGraphStore] test doubles.

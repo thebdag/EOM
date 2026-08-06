@@ -29,7 +29,7 @@ String sanitizeFtsQuery(String raw) {
 
 /// Read/write surface of the epistemic graph used by intent-integration
 /// services (EOM-T7) and domain queries (EOM-T17).
-/// Implemented by [EpistemicService]; faked in tests.
+/// Implemented by [SqliteEpistemicGraphStore]; faked in tests.
 abstract class EpistemicGraphStore {
   Future<EpistemicNode> create(EpistemicNode node);
   Future<EpistemicNode> upsert(EpistemicNode node);
@@ -145,13 +145,13 @@ abstract class EpistemicGraphStore {
 ///
 /// Usage:
 /// ```dart
-/// final service = EpistemicService();
+/// final service = SqliteEpistemicGraphStore();
 /// await service.init();
 /// final node = await service.create(
 ///   EpistemicNode(content: 'I believe kindness is fundamental.', type: EpistemicNodeType.belief),
 /// );
 /// ```
-class EpistemicService extends EpistemicGraphStore {
+class SqliteEpistemicGraphStore extends EpistemicGraphStore {
   static const _dbFileName = 'epistemic.db';
   static const _tableNodes = 'epistemic_nodes';
   static const _tableEdges = 'epistemic_edges';
@@ -289,7 +289,10 @@ class EpistemicService extends EpistemicGraphStore {
   }
 
   Database get _requireDb {
-    assert(_db != null, 'EpistemicService.init() must be called first.');
+    assert(
+      _db != null,
+      'SqliteEpistemicGraphStore.init() must be called first.',
+    );
     return _db!;
   }
 

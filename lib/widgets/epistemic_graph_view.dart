@@ -52,7 +52,7 @@ class EpistemicGraphView extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: EomColors.surface,
-          border: Border.all(color: EomColors.surfaceBorder, width: 1),
+          border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
           borderRadius: BorderRadius.circular(8),
         ),
         clipBehavior: Clip.antiAlias,

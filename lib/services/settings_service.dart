@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/llm_provider_kind.dart';
 
 class SettingsService {
   static const String _kProvider = 'active_provider';
@@ -31,15 +32,17 @@ class SettingsService {
     return origin;
   }
 
-  // Active Provider — migrate legacy OLLAMA → LOCAL
-  static String get activeProvider {
-    final raw = _prefs.getString(_kProvider) ?? 'GEMINI';
-    return raw.toUpperCase() == 'OLLAMA' ? 'LOCAL' : raw;
+  // Active Provider — legacy OLLAMA → LOCAL mapping lives in
+  // LlmProviderKind.fromString (EOM-S10).
+  static LlmProviderKind get activeProvider {
+    final raw = _prefs.getString(_kProvider);
+    return raw == null
+        ? LlmProviderKind.fallback
+        : LlmProviderKind.fromString(raw);
   }
 
-  static Future<void> setActiveProvider(String provider) async {
-    final normalized = provider.toUpperCase() == 'OLLAMA' ? 'LOCAL' : provider;
-    await _prefs.setString(_kProvider, normalized);
+  static Future<void> setActiveProvider(LlmProviderKind provider) async {
+    await _prefs.setString(_kProvider, provider.id);
   }
 
   // OpenAI Key

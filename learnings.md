@@ -73,6 +73,18 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-06 — Attach per-intent behaviour via a service-layer extension,
+  not the model enum (EOM-S10–S14)** — when a `CognitiveIntent`-style enum
+  already carries UI data (label/icon/color) and needs *behaviour* (prompt
+  text, JSON routing), put the behaviour in an extension in the service
+  layer (`intent_config.dart`), not on the enum: the model file stays free
+  of prompt-engineering and parsing concerns, yet the dispatch lives in one
+  file instead of N parallel switches. Same pattern for identity enums:
+  `LlmProviderKind` (model, pure data + `fromString`) +
+  `createProvider()` extension (service, constructs clients) — adding a
+  provider now touches exactly two adjacent spots, and `lib/models/` never
+  imports `lib/services/`.
+
 - **2026-08-05 — Derived read APIs live as concrete defaults on the store
   interface (EOM-T15–T17)** — `EpistemicGraphStore` keeps only primitive
   operations abstract (`get`, `all`, `byType`, `search`,

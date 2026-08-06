@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/conversation.dart';
 import '../services/history_service.dart';
 import '../theme/eom_colors.dart';
 
@@ -11,7 +12,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   final _historyService = HistoryService();
-  List<Map<String, dynamic>> _conversations = [];
+  List<Conversation> _conversations = [];
 
   @override
   void initState() {
@@ -68,7 +69,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     Row(
                       children: [
                         Text(
-                          item['intent'],
+                          item.intent,
                           style: const TextStyle(
                             color: EomColors.accent,
                             fontSize: 12,
@@ -78,7 +79,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ),
                         const Spacer(),
                         Text(
-                          _formatDate(item['timestamp']),
+                          _formatDate(item.timestamp),
                           style: const TextStyle(
                             color: EomColors.textTertiary,
                             fontSize: 12,
@@ -88,7 +89,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      item['initialInput'],
+                      item.initialInput,
                       style: const TextStyle(
                         color: EomColors.textPrimary,
                         fontSize: 15,
@@ -97,7 +98,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      item['response'],
+                      item.response,
                       style: const TextStyle(
                         color: EomColors.textSecondary,
                         fontSize: 14,
@@ -113,11 +114,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  String _formatDate(String isoString) {
-    // Malformed timestamps fall back to the raw string instead of
-    // crashing the build (EOM-S9).
-    final date = DateTime.tryParse(isoString);
-    if (date == null) return isoString;
+  String _formatDate(DateTime? date) {
+    // Malformed timestamps arrive null (EOM-S9) and render as no date
+    // rather than crashing the build.
+    if (date == null) return '';
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }
 }

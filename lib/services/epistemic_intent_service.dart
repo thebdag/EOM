@@ -3,11 +3,11 @@ import '../models/epistemic_node.dart';
 import '../models/epistemic_operation.dart';
 import '../models/epistemic_relationship.dart';
 import 'epistemic_gap_service.dart';
-import 'epistemic_service.dart';
+import 'sqlite_epistemic_graph_store.dart';
 
 /// Bridges intent responses to the epistemic graph (EOM-T7, EOM-T11).
 ///
-/// Keeps [AiService] focused on LLM interaction and [EpistemicService]
+/// Keeps [AiService] focused on LLM interaction and [SqliteEpistemicGraphStore]
 /// focused on storage. Every thought session upserts the nodes derived
 /// from its operation; repeat sessions merge into existing nodes rather
 /// than duplicating them.
@@ -37,6 +37,32 @@ class EpistemicIntentService {
     _lastGaps = await detector.detectGaps(concepts);
   }
 
+  /// Shared skeleton of processCompress/processClarify/processAct
+  /// (EOM-S13): build the derived node, upsert it, link keyword-overlapping
+  /// nodes, then scan the surfaced concepts for gaps.
+  Future<EpistemicNode> _persistDerivedNode({
+    required String content,
+    required EpistemicNodeType type,
+    required double confidence,
+    EpistemicCategory? category,
+    required List<String> keywords,
+  }) async {
+    final node = EpistemicNode(
+      content: content,
+      type: type,
+      confidence: confidence,
+      category: category,
+      provenance: ProvenanceRecord(
+        source: ProvenanceSource.reasoning,
+        timestamp: DateTime.now(),
+      ),
+    );
+    final saved = await _store.upsert(node);
+    await _linkKeywords(saved, keywords);
+    await _detectGaps(keywords);
+    return saved;
+  }
+
   /// Persists the abstracted principle from a Compress operation and links
   /// it to related existing nodes.
   ///
@@ -51,21 +77,14 @@ class EpistemicIntentService {
   ///
   /// Returns the upserted principle node. Storage errors propagate to the
   /// caller, which is expected to treat persistence as non-blocking.
-  Future<EpistemicNode> processCompress(CompressOperation operation) async {
-    final principle = EpistemicNode(
+  Future<EpistemicNode> processCompress(CompressOperation operation) {
+    return _persistDerivedNode(
       content: operation.principle,
       type: _parseNodeType(operation.nodeType),
       confidence: operation.confidence,
       category: _parseCategory(operation.category),
-      provenance: ProvenanceRecord(
-        source: ProvenanceSource.reasoning,
-        timestamp: DateTime.now(),
-      ),
+      keywords: operation.keywords,
     );
-    final saved = await _store.upsert(principle);
-    await _linkKeywords(saved, operation.keywords);
-    await _detectGaps(operation.keywords);
-    return saved;
   }
 
   Future<void> _linkKeywords(
@@ -94,37 +113,23 @@ class EpistemicIntentService {
     }
   }
 
-  Future<EpistemicNode> processClarify(ClarifyOperation operation) async {
-    final node = EpistemicNode(
+  Future<EpistemicNode> processClarify(ClarifyOperation operation) {
+    return _persistDerivedNode(
       content: operation.clarified,
       type: _parseNodeType(operation.nodeType),
       confidence: operation.confidence,
       category: _parseCategory(operation.category),
-      provenance: ProvenanceRecord(
-        source: ProvenanceSource.reasoning,
-        timestamp: DateTime.now(),
-      ),
+      keywords: operation.keywords,
     );
-    final saved = await _store.upsert(node);
-    await _linkKeywords(saved, operation.keywords);
-    await _detectGaps(operation.keywords);
-    return saved;
   }
 
-  Future<EpistemicNode> processAct(ActOperation operation) async {
-    final node = EpistemicNode(
+  Future<EpistemicNode> processAct(ActOperation operation) {
+    return _persistDerivedNode(
       content: operation.actionable,
       type: EpistemicNodeType.knowledge,
       confidence: operation.confidence,
-      provenance: ProvenanceRecord(
-        source: ProvenanceSource.reasoning,
-        timestamp: DateTime.now(),
-      ),
+      keywords: operation.keywords,
     );
-    final saved = await _store.upsert(node);
-    await _linkKeywords(saved, operation.keywords);
-    await _detectGaps(operation.keywords);
-    return saved;
   }
 
   Future<void> processMap(MapOperation operation) async {
@@ -151,7 +156,7 @@ class EpistemicIntentService {
     }
 
     for (final rel in operation.relationships) {
-      final type = _parseRelType(rel.type);
+      final type = epistemicRelationshipTypeTryParse(rel.type);
       if (type == null) continue;
 
       final sourceNode = await getOrCreateNode(rel.source);
@@ -200,21 +205,6 @@ class EpistemicIntentService {
       }
     }
     await _detectGaps(operation.lowConfidenceNodes);
-  }
-
-  EpistemicRelationshipType? _parseRelType(String typeStr) {
-    for (final t in EpistemicRelationshipType.values) {
-      if (t.name == typeStr) return t;
-    }
-    // Handle kebab-case map from LLM, e.g. is-example-of -> isExampleOf
-    final camel = typeStr.replaceAllMapped(
-      RegExp(r'-([a-z])'),
-      (m) => m.group(1)!.toUpperCase(),
-    );
-    for (final t in EpistemicRelationshipType.values) {
-      if (t.name == camel) return t;
-    }
-    return null;
   }
 
   bool _hasOverlap(String content, Set<String> keywords) {

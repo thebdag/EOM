@@ -1,7 +1,7 @@
 import 'package:eom/models/confidence_event.dart';
 import 'package:eom/models/epistemic_node.dart';
 import 'package:eom/models/epistemic_relationship.dart';
-import 'package:eom/services/epistemic_service.dart';
+import 'package:eom/services/sqlite_epistemic_graph_store.dart';
 
 /// In-memory [EpistemicGraphStore] so tests need no SQLite.
 ///

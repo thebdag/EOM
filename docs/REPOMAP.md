@@ -24,6 +24,7 @@ EOM/
 │   │
 │   ├── models/
 │   │   ├── confidence_event.dart # ConfidenceEvent + ConfidenceDrift models (EOM-T15)
+│   │   ├── conversation.dart    # Conversation model for the history library (EOM-S11)
 │   │   ├── epistemic_gap.dart   # EpistemicGap model + EpistemicGapKind enum (EOM-T14)
 │   │   ├── epistemic_maturity.dart # Per-domain maturity score + computeMaturityByDomain (EOM-T16)
 │   │   ├── epistemic_node.dart  # EpistemicNode model + EpistemicNodeType + EpistemicCategory enums (EOM-T1, EOM-T5)
@@ -31,7 +32,8 @@ EOM/
 │   │   ├── epistemic_query_result.dart # BFS traversal result: root + nodes + unique edges (EOM-T17)
 │   │   ├── epistemic_relationship.dart # EpistemicRelationship model + type enum (EOM-T4)
 │   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
-│   │   └── thought_node.dart    # Recursive node structure for the Map tree view
+│   │   ├── llm_provider_kind.dart # LlmProviderKind enum: provider identity + OLLAMA→LOCAL legacy mapping (EOM-S10)
+│   │   └── thought_node.dart    # Recursive node structure for the Map tree view (+ fromJson/tryParseRaw, EOM-S14)
 │   │
 │   ├── screens/
 │   │   ├── history_screen.dart  # Library of saved thought sessions
@@ -39,14 +41,15 @@ EOM/
 │   │   └── settings_screen.dart # API Key / LiteLLM / Provider configuration UI
 │   │
 │   ├── services/
-│   │   ├── ai_service.dart      # Intent router, prompt management, ---EPISTEMIC--- epilogue parsing (all 5 intents)
+│   │   ├── ai_service.dart      # Intent router + ---EPISTEMIC--- epilogue splitting (prompts/parsing live in intent_config.dart)
 │   │   ├── epistemic_gap_service.dart # Gap detection: explicit question/unknown nodes + unmapped concepts (EOM-T14)
 │   │   ├── epistemic_export_service.dart # Full-map export as structured JSON / Markdown (EOM-T19)
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
-│   │   ├── epistemic_service.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
-│   │   ├── llm_provider.dart    # Abstract interface and concrete LLM API clients
-│   │   └── settings_service.dart# SharedPreferences wrapper for persistent storage
+│   │   ├── intent_config.dart   # Per-intent prompt builder + epilogue JSON→operation routing (EOM-S14)
+│   │   ├── llm_provider.dart    # LlmProvider interface, ChatMessage, provider clients, shared chat-completions helper (EOM-S11, S13)
+│   │   ├── settings_service.dart# SharedPreferences wrapper for persistent storage
+│   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
 │   │
 │   ├── theme/
 │   │   ├── eom_colors.dart    # Strict color palette tokens
@@ -71,7 +74,7 @@ EOM/
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)
     ├── epistemic_query_test.dart      # FTS sanitiser + BFS traverse semantics (EOM-T17)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
-    ├── epistemic_service_sqflite_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
+    ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization
