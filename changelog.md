@@ -12,6 +12,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T11** `lib/services/epistemic_intent_service.dart` — every thought
+  session now upserts its derived epistemic nodes: `processClarify`,
+  `processAct` (belief/knowledge nodes with keyword linking),
+  `processMap` (low-confidence concept nodes + typed edges, unknown
+  relationship types skipped), `processReflect` (statement nodes +
+  `contradicts` edges to matched existing nodes). `processCompress` now
+  upserts instead of inserting, so repeat sessions merge rather than
+  duplicate. `home_screen._persistOperation` dispatches all five
+  operation types.
 - **EOM-T6–T10** `lib/models/epistemic_operation.dart` — sealed
   `EpistemicOperation` with one payload per intent: `ClarifyOperation`
   (disambiguated belief, raised confidence), `CompressOperation`

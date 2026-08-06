@@ -3,12 +3,12 @@ import '../models/epistemic_operation.dart';
 import '../models/epistemic_relationship.dart';
 import 'epistemic_service.dart';
 
-/// Bridges intent responses to the epistemic graph (EOM-T7).
+/// Bridges intent responses to the epistemic graph (EOM-T7, EOM-T11).
 ///
 /// Keeps [AiService] focused on LLM interaction and [EpistemicService]
-/// focused on storage. Operations for the other intents (EOM-T6, T8–T10)
-/// get their own `process*` methods here when the graph layer learns to
-/// apply them (EOM-T11 onward).
+/// focused on storage. Every thought session upserts the nodes derived
+/// from its operation; repeat sessions merge into existing nodes rather
+/// than duplicating them.
 class EpistemicIntentService {
   EpistemicIntentService(this._store);
 
@@ -26,7 +26,7 @@ class EpistemicIntentService {
   /// - All other related nodes are *examples of* the new principle
   ///   (`isExampleOf` edge: related → principle).
   ///
-  /// Returns the created principle node. Storage errors propagate to the
+  /// Returns the upserted principle node. Storage errors propagate to the
   /// caller, which is expected to treat persistence as non-blocking.
   Future<EpistemicNode> processCompress(CompressOperation operation) async {
     final principle = EpistemicNode(
@@ -39,33 +39,151 @@ class EpistemicIntentService {
         timestamp: DateTime.now(),
       ),
     );
-    await _store.create(principle);
+    await _store.upsert(principle);
+    await _linkKeywords(principle, operation.keywords);
+    return principle;
+  }
 
-    final keywords = operation.keywords.map((k) => k.toLowerCase()).toSet();
-    if (keywords.isEmpty) return principle;
+  Future<void> _linkKeywords(
+    EpistemicNode node,
+    List<String> keywordsRaw,
+  ) async {
+    final keywords = keywordsRaw.map((k) => k.toLowerCase()).toSet();
+    if (keywords.isEmpty) return;
 
     final existing = await _store.all();
     for (final other in existing) {
-      if (other.id == principle.id) continue;
+      if (other.id == node.id) continue;
       if (!_hasOverlap(other.content, keywords)) continue;
 
       final isPriorAbstraction =
           other.provenance?.source == ProvenanceSource.reasoning;
       await _store.addRelationship(
         EpistemicRelationship(
-          sourceId: isPriorAbstraction ? principle.id : other.id,
-          targetId: isPriorAbstraction ? other.id : principle.id,
+          sourceId: isPriorAbstraction ? node.id : other.id,
+          targetId: isPriorAbstraction ? other.id : node.id,
           type: isPriorAbstraction
               ? EpistemicRelationshipType.refines
               : EpistemicRelationshipType.isExampleOf,
         ),
       );
     }
-
-    return principle;
   }
 
-  /// Whole-word, case-insensitive keyword match against node content.
+  Future<EpistemicNode> processClarify(ClarifyOperation operation) async {
+    final node = EpistemicNode(
+      content: operation.clarified,
+      type: _parseNodeType(operation.nodeType),
+      confidence: operation.confidence,
+      category: _parseCategory(operation.category),
+      provenance: ProvenanceRecord(
+        source: ProvenanceSource.reasoning,
+        timestamp: DateTime.now(),
+      ),
+    );
+    final saved = await _store.upsert(node);
+    await _linkKeywords(saved, operation.keywords);
+    return saved;
+  }
+
+  Future<EpistemicNode> processAct(ActOperation operation) async {
+    final node = EpistemicNode(
+      content: operation.actionable,
+      type: EpistemicNodeType.knowledge,
+      confidence: operation.confidence,
+      provenance: ProvenanceRecord(
+        source: ProvenanceSource.reasoning,
+        timestamp: DateTime.now(),
+      ),
+    );
+    final saved = await _store.upsert(node);
+    await _linkKeywords(saved, operation.keywords);
+    return saved;
+  }
+
+  Future<void> processMap(MapOperation operation) async {
+    final nodesByLabel = <String, EpistemicNode>{};
+
+    Future<EpistemicNode> getOrCreateNode(String label) async {
+      if (nodesByLabel.containsKey(label)) return nodesByLabel[label]!;
+      final node = EpistemicNode(
+        content: label,
+        type: EpistemicNodeType.belief,
+        confidence: 0.3,
+        provenance: ProvenanceRecord(
+          source: ProvenanceSource.reasoning,
+          timestamp: DateTime.now(),
+        ),
+      );
+      final saved = await _store.upsert(node);
+      nodesByLabel[label] = saved;
+      return saved;
+    }
+
+    for (final rel in operation.relationships) {
+      final type = _parseRelType(rel.type);
+      if (type == null) continue;
+
+      final sourceNode = await getOrCreateNode(rel.source);
+      final targetNode = await getOrCreateNode(rel.target);
+
+      await _store.addRelationship(
+        EpistemicRelationship(
+          sourceId: sourceNode.id,
+          targetId: targetNode.id,
+          type: type,
+        ),
+      );
+    }
+  }
+
+  Future<void> processReflect(ReflectOperation operation) async {
+    for (final contradiction in operation.contradictions) {
+      final statementNode = EpistemicNode(
+        content: contradiction.statement,
+        type: EpistemicNodeType.belief,
+        confidence: 0.5,
+        provenance: ProvenanceRecord(
+          source: ProvenanceSource.reasoning,
+          timestamp: DateTime.now(),
+        ),
+      );
+      final savedStatement = await _store.upsert(statementNode);
+
+      if (contradiction.conflictsWith.isNotEmpty) {
+        final lowerConflictsWith = contradiction.conflictsWith.toLowerCase();
+        final existing = await _store.all();
+        for (final other in existing) {
+          if (other.content.toLowerCase() == lowerConflictsWith) {
+            await _store.addRelationship(
+              EpistemicRelationship(
+                sourceId: savedStatement.id,
+                targetId: other.id,
+                type: EpistemicRelationshipType.contradicts,
+              ),
+            );
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  EpistemicRelationshipType? _parseRelType(String typeStr) {
+    for (final t in EpistemicRelationshipType.values) {
+      if (t.name == typeStr) return t;
+    }
+    // Handle kebab-case map from LLM, e.g. is-example-of -> isExampleOf
+    final camel = typeStr.replaceAllMapped(
+      RegExp(r'-([a-z])'),
+      (m) => m.group(1)!.toUpperCase(),
+    );
+    for (final t in EpistemicRelationshipType.values) {
+      if (t.name == camel) return t;
+    }
+    return null;
+  }
+
   bool _hasOverlap(String content, Set<String> keywords) {
     final lower = content.toLowerCase();
     return keywords.any((k) => lower.contains(k));

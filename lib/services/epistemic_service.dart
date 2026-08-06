@@ -9,6 +9,7 @@ import '../models/epistemic_relationship.dart';
 /// services (EOM-T7). Implemented by [EpistemicService]; faked in tests.
 abstract class EpistemicGraphStore {
   Future<EpistemicNode> create(EpistemicNode node);
+  Future<EpistemicNode> upsert(EpistemicNode node);
   Future<List<EpistemicNode>> all();
   Future<EpistemicRelationship> addRelationship(
     EpistemicRelationship relationship,
@@ -115,6 +116,34 @@ class EpistemicService implements EpistemicGraphStore {
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
     return node;
+  }
+
+  /// Upserts [node] based on exact case-insensitive content match.
+  /// If a node with matching content exists, it updates that node with new fields
+  /// and returns the merged node (keeping the old ID). Otherwise, inserts it.
+  @override
+  Future<EpistemicNode> upsert(EpistemicNode node) async {
+    final lowerContent = node.content.toLowerCase();
+    final rows = await _requireDb.query(
+      _tableNodes,
+      where: 'LOWER(content) = ?',
+      whereArgs: [lowerContent],
+      limit: 1,
+    );
+
+    if (rows.isNotEmpty) {
+      final existing = EpistemicNode.fromJson(rows.first);
+      final merged = existing.copyWith(
+        type: node.type,
+        confidence: node.confidence,
+        category: node.category,
+        provenance: node.provenance,
+      );
+      await update(merged);
+      return merged;
+    } else {
+      return await create(node);
+    }
   }
 
   /// Returns the node with [id], or `null` if not found.

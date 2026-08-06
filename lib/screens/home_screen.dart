@@ -43,15 +43,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Persists epistemic operations to the graph without blocking the UI —
-  /// failures stay silent so the prose UX is never affected. Only Compress
-  /// is applied so far; the other intents follow with EOM-T11+.
+  /// failures stay silent so the prose UX is never affected. All five
+  /// intent operations are applied (EOM-T11).
   void _persistOperation(AiResponse response) {
     final operation = response.operation;
-    if (operation is! CompressOperation) return;
+    if (operation == null) return;
     unawaited(() async {
       try {
         final service = await _getEpistemicIntents();
-        await service.processCompress(operation);
+        switch (operation) {
+          case ClarifyOperation():
+            await service.processClarify(operation);
+          case CompressOperation():
+            await service.processCompress(operation);
+          case MapOperation():
+            await service.processMap(operation);
+          case ReflectOperation():
+            await service.processReflect(operation);
+          case ActOperation():
+            await service.processAct(operation);
+        }
       } catch (_) {
         // Non-blocking by design — a graph failure must never break the UX.
       }
