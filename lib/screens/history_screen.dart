@@ -114,7 +114,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   String _formatDate(String isoString) {
-    final date = DateTime.parse(isoString);
+    // Malformed timestamps fall back to the raw string instead of
+    // crashing the build (EOM-S9).
+    final date = DateTime.tryParse(isoString);
+    if (date == null) return isoString;
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }
 }

@@ -96,8 +96,18 @@ class EpistemicExportService implements EpistemicExporter {
     return buffer.toString().trimRight();
   }
 
-  static String _typeHeading(EpistemicNodeType type) =>
-      '${type.name[0].toUpperCase()}${type.name.substring(1)}s';
+  /// Explicit per-type headings — naive pluralisation produced
+  /// "Hypothesiss" and "Knowledges" (EOM-S9).
+  static const _typeHeadings = {
+    EpistemicNodeType.belief: 'Beliefs',
+    EpistemicNodeType.knowledge: 'Knowledge',
+    EpistemicNodeType.hypothesis: 'Hypotheses',
+    EpistemicNodeType.intuition: 'Intuitions',
+    EpistemicNodeType.question: 'Questions',
+    EpistemicNodeType.unknown: 'Unknowns',
+  };
+
+  static String _typeHeading(EpistemicNodeType type) => _typeHeadings[type]!;
 
   static String _snippet(String? content, {int max = 60}) {
     if (content == null) return '_(missing node)_';
