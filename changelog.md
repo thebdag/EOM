@@ -12,6 +12,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-T12** `docs/adr/0002-delta-update-model.md` — delta-update design:
+  canonical node + `node_observations` log, three match tiers
+  (exact / refine / novel), confidence by recency-weighted nudge instead
+  of overwrite. Unblocks confidence-drift tracking (EOM-T15).
 - **EOM-T11** `lib/services/epistemic_intent_service.dart` — every thought
   session now upserts its derived epistemic nodes: `processClarify`,
   `processAct` (belief/knowledge nodes with keyword linking),

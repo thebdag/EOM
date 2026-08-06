@@ -13,7 +13,8 @@ EOM/
 │   ├── REPOMAP.md             # This file
 │   ├── design_spec.md         # Original design philosophy and component spec
 │   └── adr/
-│       └── 0001-local-means-litellm-gateway.md
+│       ├── 0001-local-means-litellm-gateway.md
+│       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
