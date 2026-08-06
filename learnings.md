@@ -13,6 +13,23 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-06 — Export `toJson()` is not a sqflite column map** — passing a
+  model's full `toJson()` to `insert`/`update` throws as soon as the
+  serialisation gains a derived key (e.g. `relationships`), because sqflite
+  rejects unknown columns. Worse, in-memory test fakes accept any map, so
+  the failure only appears on device. Keep an explicit `toDbMap()` with
+  exactly the table's columns for writes, and cover at least one write
+  path with the real sqflite-backed store (`sqflite_common_ffi`) so column
+  drift cannot hide behind the fake (EOM-S2).
+
+- **2026-08-06 — `catch (_) {}` without logging turns bugs into silent
+  feature death** — the graph-persistence catch in `_persistOperation`
+  swallowed every `DatabaseException`, so "the on-device graph works" was
+  believed for a whole review cycle while nothing ever wrote. Non-blocking
+  error handling still needs a `debugPrint` (or equivalent) — silence is
+  only acceptable when someone has deliberately confirmed the failure is
+  harmless (EOM-S2).
+
 - **2026-08-05 — sqflite never enforces `ON DELETE CASCADE` by default** —
   SQLite foreign keys are off unless `PRAGMA foreign_keys = ON` runs per
   connection, and sqflite does not do this for you. The `epistemic_edges`

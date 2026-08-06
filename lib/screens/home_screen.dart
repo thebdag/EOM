@@ -35,16 +35,27 @@ class _HomeScreenState extends State<HomeScreen> {
   AiResponse? _response;
   bool _isProcessing = false;
   final List<Map<String, String>> _history = [];
-  EpistemicService? _epistemicStore;
+  Future<EpistemicService>? _epistemicStoreFuture;
   EpistemicIntentService? _epistemicIntents;
   EpistemicQueryResult? _mapOverlay;
 
-  Future<EpistemicService> _getEpistemicStore() async {
-    final existing = _epistemicStore;
-    if (existing != null) return existing;
-    final store = EpistemicService();
-    await store.init();
-    return _epistemicStore = store;
+  /// Caches the initialization *future*, not the instance (EOM-S8) —
+  /// concurrent callers otherwise both pass the null check, init two
+  /// [EpistemicService]s, and leak a Database.
+  Future<EpistemicService> _getEpistemicStore() {
+    return _epistemicStoreFuture ??= _initEpistemicStore();
+  }
+
+  Future<EpistemicService> _initEpistemicStore() async {
+    try {
+      final store = EpistemicService();
+      await store.init();
+      return store;
+    } catch (_) {
+      // Do not cache a failed init — the next call retries.
+      _epistemicStoreFuture = null;
+      rethrow;
+    }
   }
 
   Future<EpistemicIntentService> _getEpistemicIntents() async {
@@ -79,8 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
           case ActOperation():
             await service.processAct(operation);
         }
-      } catch (_) {
-        // Non-blocking by design — a graph failure must never break the UX.
+      } catch (e, st) {
+        // Non-blocking by design — a graph failure must never break the UX,
+        // but it must not be silent either (EOM-S2).
+        debugPrint('EOM: graph persistence failed: $e\n$st');
       }
     }());
   }
@@ -132,17 +145,30 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _response = response;
           _isProcessing = false;
-          _history.add({'role': 'user', 'content': input});
-          _history.add({'role': 'assistant', 'content': response.text});
+          // Error responses are shown but never enter history (EOM-S5) —
+          // they would pollute future prompts and the history library.
+          if (!response.isError) {
+            _history.add({'role': 'user', 'content': input});
+            _history.add({'role': 'assistant', 'content': response.text});
+          }
         });
 
-        await HistoryService().saveConversation(
-          initialInput: input,
-          intent: intent.name,
-          response: response.text,
-        );
+        if (!response.isError) {
+          // History save and graph persist fail independently (EOM-S8) —
+          // a Hive failure must not abort graph persistence, and neither
+          // may clear the intent as if the LLM itself had failed.
+          try {
+            await HistoryService().saveConversation(
+              initialInput: input,
+              intent: intent.name,
+              response: response.text,
+            );
+          } catch (e, st) {
+            debugPrint('EOM: history save failed: $e\n$st');
+          }
 
-        _persistOperation(response);
+          _persistOperation(response);
+        }
 
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));

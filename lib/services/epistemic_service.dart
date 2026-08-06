@@ -302,7 +302,7 @@ class EpistemicService extends EpistemicGraphStore {
   Future<EpistemicNode> create(EpistemicNode node) async {
     await _requireDb.insert(
       _tableNodes,
-      node.toJson(),
+      node.toDbMap(),
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
     await _recordConfidence(node.id, node.confidence);
@@ -395,7 +395,7 @@ class EpistemicService extends EpistemicGraphStore {
     }
     await _requireDb.update(
       _tableNodes,
-      node.toJson(),
+      node.toDbMap(),
       where: 'id = ?',
       whereArgs: [node.id],
     );

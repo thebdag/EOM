@@ -59,6 +59,7 @@ EOM/
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
+    ├── ai_service_test.dart           # Map parse degradation + provider content extraction, isError flag (EOM-S4, S5)
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
     ├── epistemic_export_test.dart     # JSON round-trip + Markdown grouping/snippets (EOM-T19)
@@ -70,7 +71,9 @@ EOM/
     ├── epistemic_operation_test.dart  # JSON parsing for all 5 EpistemicOperation types (EOM-T6–T10)
     ├── epistemic_query_test.dart      # FTS sanitiser + BFS traverse semantics (EOM-T17)
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
+    ├── epistemic_service_sqflite_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
+    ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization
     └── thought_node_test.dart     # Logic tests for tree structure management
 

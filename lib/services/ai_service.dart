@@ -6,7 +6,15 @@ import 'llm_provider.dart';
 import 'settings_service.dart';
 
 class AiService {
+  AiService({LlmProvider? provider}) : _providerOverride = provider;
+
+  /// Test seam — when set, [_getProvider] returns this instead of reading
+  /// the active provider from settings.
+  final LlmProvider? _providerOverride;
+
   LlmProvider _getProvider() {
+    final override = _providerOverride;
+    if (override != null) return override;
     final provider = SettingsService.activeProvider.toUpperCase();
     switch (provider) {
       case 'OPENAI':
@@ -122,6 +130,7 @@ class AiService {
         text:
             'Error processing intent with ${SettingsService.activeProvider}: $e',
         intent: intent,
+        isError: true,
       );
     }
   }
@@ -209,12 +218,21 @@ class AiService {
       );
     }
 
-    return AiResponse(
-      text: prose.isEmpty ? 'Here is how your thought maps out:' : prose,
-      intent: intent,
-      tree: _parseNode(data),
-      operation: MapOperation.fromJson(data),
-    );
+    try {
+      return AiResponse(
+        text: prose.isEmpty ? 'Here is how your thought maps out:' : prose,
+        intent: intent,
+        tree: _parseNode(data),
+        operation: MapOperation.fromJson(data),
+      );
+    } catch (_) {
+      // Valid JSON with an unexpected shape (e.g. `children` is not a
+      // list) must not hard-fail the intent (EOM-S4) — degrade to prose.
+      return AiResponse(
+        text: prose.isEmpty ? raw.trim() : prose,
+        intent: intent,
+      );
+    }
   }
 
   ThoughtNode? _tryParseTree(String raw) {
@@ -248,6 +266,7 @@ class AiResponse {
     required this.intent,
     this.tree,
     this.operation,
+    this.isError = false,
   });
 
   final String text;
@@ -258,4 +277,9 @@ class AiResponse {
   /// (EOM-T6 through EOM-T10). Null when the LLM omitted or malformed the
   /// epilogue — the prose UX is unaffected either way.
   final EpistemicOperation? operation;
+
+  /// True when [text] is a provider/parsing error message rather than a
+  /// real answer (EOM-S5). Error responses must not be appended to the
+  /// conversation history or persisted to Hive.
+  final bool isError;
 }

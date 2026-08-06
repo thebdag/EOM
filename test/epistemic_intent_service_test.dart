@@ -140,6 +140,37 @@ void main() {
       expect(store.nodes, [node]);
       expect(store.edges, isEmpty);
     });
+
+    test('repeat sessions link edges to the persisted node id', () async {
+      final related = seedNode('My focus drifts when I skip morning walks.');
+
+      final first = await service.processCompress(
+        const CompressOperation(
+          principle: 'Attention needs rhythm.',
+          keywords: ['focus'],
+        ),
+      );
+      // Repeat session: case-insensitive match merges into the stored row.
+      final repeated = await service.processCompress(
+        const CompressOperation(
+          principle: 'attention NEEDS rhythm.',
+          keywords: ['focus'],
+        ),
+      );
+
+      expect(repeated.id, first.id);
+      expect(store.nodes, hasLength(2));
+      expect(store.edges, hasLength(2));
+      for (final edge in store.edges) {
+        expect(await store.get(edge.sourceId), isNotNull);
+        expect(await store.get(edge.targetId), isNotNull);
+        expect(
+          {edge.sourceId, edge.targetId}.contains(related.id),
+          isTrue,
+          reason: 'every edge should connect the related node',
+        );
+      }
+    });
   });
   group('processClarify', () {
     test('creates a belief node and links keywords', () async {
@@ -203,6 +234,27 @@ void main() {
       expect(store.edges, hasLength(1));
       expect(store.edges.single.type, EpistemicRelationshipType.supports);
     });
+
+    test(
+      'labels differing only by case resolve to one node, no self-loop',
+      () async {
+        await service.processMap(
+          const MapOperation(
+            rootLabel: 'You',
+            relationships: [
+              MappedRelationship(
+                source: 'Focus',
+                target: 'focus',
+                type: 'supports',
+              ),
+            ],
+          ),
+        );
+
+        expect(store.nodes, hasLength(1));
+        expect(store.edges, isEmpty);
+      },
+    );
   });
 
   group('processReflect', () {
@@ -228,6 +280,22 @@ void main() {
       expect(store.edges.single.type, EpistemicRelationshipType.contradicts);
       expect(store.edges.single.sourceId, newStmt.id);
       expect(store.edges.single.targetId, existing.id);
+    });
+
+    test('skips a statement that contradicts itself', () async {
+      await service.processReflect(
+        const ReflectOperation(
+          contradictions: [
+            Contradiction(
+              statement: 'I never rest.',
+              conflictsWith: 'i NEVER rest.',
+            ),
+          ],
+        ),
+      );
+
+      expect(store.nodes, hasLength(1));
+      expect(store.edges, isEmpty);
     });
   });
 

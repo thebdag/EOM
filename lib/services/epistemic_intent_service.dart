@@ -62,10 +62,10 @@ class EpistemicIntentService {
         timestamp: DateTime.now(),
       ),
     );
-    await _store.upsert(principle);
-    await _linkKeywords(principle, operation.keywords);
+    final saved = await _store.upsert(principle);
+    await _linkKeywords(saved, operation.keywords);
     await _detectGaps(operation.keywords);
-    return principle;
+    return saved;
   }
 
   Future<void> _linkKeywords(
@@ -131,7 +131,11 @@ class EpistemicIntentService {
     final nodesByLabel = <String, EpistemicNode>{};
 
     Future<EpistemicNode> getOrCreateNode(String label) async {
-      if (nodesByLabel.containsKey(label)) return nodesByLabel[label]!;
+      // upsert matches content case-insensitively, so the identity map must
+      // too — otherwise "Focus"/"focus" resolve to one stored row and
+      // produce self-loop edges (EOM-S7).
+      final key = label.toLowerCase();
+      if (nodesByLabel.containsKey(key)) return nodesByLabel[key]!;
       final node = EpistemicNode(
         content: label,
         type: EpistemicNodeType.belief,
@@ -142,7 +146,7 @@ class EpistemicIntentService {
         ),
       );
       final saved = await _store.upsert(node);
-      nodesByLabel[label] = saved;
+      nodesByLabel[key] = saved;
       return saved;
     }
 
@@ -152,6 +156,7 @@ class EpistemicIntentService {
 
       final sourceNode = await getOrCreateNode(rel.source);
       final targetNode = await getOrCreateNode(rel.target);
+      if (sourceNode.id == targetNode.id) continue;
 
       await _store.addRelationship(
         EpistemicRelationship(
@@ -180,6 +185,7 @@ class EpistemicIntentService {
         final lowerConflictsWith = contradiction.conflictsWith.toLowerCase();
         final existing = await _store.all();
         for (final other in existing) {
+          if (other.id == savedStatement.id) continue;
           if (other.content.toLowerCase() == lowerConflictsWith) {
             await _store.addRelationship(
               EpistemicRelationship(

@@ -90,6 +90,17 @@ void main() {
       expect(md, isNot(contains('## Relationships')));
     });
 
+    test('pluralises type headings correctly (EOM-S9)', () async {
+      await store.create(node('A hunch', type: EpistemicNodeType.hypothesis));
+      await store.create(node('A fact', type: EpistemicNodeType.knowledge));
+
+      final md = await exporter.toMarkdown();
+      expect(md, contains('## Hypotheses (1)'));
+      expect(md, isNot(contains('Hypothesiss')));
+      expect(md, contains('## Knowledge (1)'));
+      expect(md, isNot(contains('Knowledges')));
+    });
+
     test('lists relationships with resolved content snippets', () async {
       final a = await store.create(node('Courage is learnable'));
       final b = await store.create(node('Fear can be faced'));

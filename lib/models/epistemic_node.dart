@@ -164,6 +164,27 @@ class EpistemicNode {
 
   // ── Serialisation ───────────────────────────────────────────────────────────
 
+  /// Column map for sqflite writes to the `epistemic_nodes` table.
+  ///
+  /// Contains exactly the table's columns — nothing more. [toJson] is the
+  /// *export* serialisation and adds derived keys (e.g. `relationships`)
+  /// that have no matching column; passing it to insert/update throws a
+  /// [DatabaseException].
+  Map<String, dynamic> toDbMap() => {
+    'id': id,
+    'content': content,
+    'type': type.name,
+    'confidence': confidence,
+    'created_at': createdAt.toIso8601String(),
+    'updated_at': updatedAt.toIso8601String(),
+    'source_type': provenance?.source.name,
+    'source_timestamp': provenance?.timestamp.toIso8601String(),
+    'category': category?.name,
+  };
+
+  /// Full export serialisation, including the lazy-loaded [relationships].
+  ///
+  /// Not safe for sqflite writes — use [toDbMap] for those.
   Map<String, dynamic> toJson() => {
     'id': id,
     'content': content,
