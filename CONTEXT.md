@@ -43,3 +43,11 @@ _Avoid_: topic, subject area
 **Maturity Score**:
 Per-domain ratio `high-confidence / (high-confidence + uncertain)` nodes (thresholds 0.7 / 0.4), normalised to [0, 1]. Neutral-band nodes count toward totals only; `null` score means insufficient signal, not 0%.
 _Avoid_: expertise score, certainty average
+
+**DB Column Map**:
+The *only* serialisation allowed into sqflite writes: `EpistemicNode.toDbMap()` carries exactly the `epistemic_nodes` columns — nothing more. `toJson()` is the **export serialisation** (adds derived keys like `relationships`) and throws `DatabaseException` if passed to insert/update (EOM-S2).
+_Avoid_: toJson for DB writes, "the map" (ambiguous)
+
+**Error Response**:
+An `AiResponse` with `isError = true` — provider/parse failure text shown to the user but never appended to conversation history, saved to Hive, or persisted to the graph (EOM-S5).
+_Avoid_: error message (that is just prose), failed intent

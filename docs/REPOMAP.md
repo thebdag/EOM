@@ -75,7 +75,8 @@ EOM/
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization
-    └── thought_node_test.dart     # Logic tests for tree structure management
+    ├── thought_node_test.dart     # Logic tests for tree structure management
+    └── widget_test.dart           # EomApp smoke test (brand + input prompt)
 
 dev/
 └── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
