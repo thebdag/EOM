@@ -13,6 +13,11 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-06 — `AnimatedCrossFade` still builds both children** — a
+  collapsed graph under CrossFade still matched `find.byType(EpistemicGraphView)`.
+  Prefer mounting the heavy child only when expanded (`AnimatedSize` +
+  conditional), or assert with `skipOffstage: true` (EOM-S24 / F11).
+
 - **2026-08-06 — Export `toJson()` is not a sqflite column map** — passing a
   model's full `toJson()` to `insert`/`update` throws as soon as the
   serialisation gains a derived key (e.g. `relationships`), because sqflite

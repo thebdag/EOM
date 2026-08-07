@@ -68,6 +68,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
     _loadConversations();
   }
 
+  void _openConversation(Conversation item) {
+    // F8 — return the row to Home so the session can continue.
+    Navigator.pop(context, item);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,51 +143,61 @@ class _HistoryScreenState extends State<HistoryScreen> {
               separatorBuilder: (context, index) => const Divider(height: 32),
               itemBuilder: (context, index) {
                 final item = _conversations[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          item.intent,
-                          style: const TextStyle(
-                            color: EomColors.accent,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 1.2,
+                return Material(
+                  color: EomColors.transparent,
+                  child: InkWell(
+                    onTap: () => _openConversation(item),
+                    borderRadius: BorderRadius.circular(8),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                item.intent,
+                                style: const TextStyle(
+                                  color: EomColors.accent,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                _formatDate(item.timestamp),
+                                style: const TextStyle(
+                                  color: EomColors.textTertiary,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          _formatDate(item.timestamp),
-                          style: const TextStyle(
-                            color: EomColors.textTertiary,
-                            fontSize: 12,
+                          const SizedBox(height: 8),
+                          Text(
+                            item.initialInput,
+                            style: const TextStyle(
+                              color: EomColors.textPrimary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      item.initialInput,
-                      style: const TextStyle(
-                        color: EomColors.textPrimary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+                          const SizedBox(height: 8),
+                          Text(
+                            item.response,
+                            style: const TextStyle(
+                              color: EomColors.textSecondary,
+                              fontSize: 14,
+                              height: 1.5,
+                            ),
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      item.response,
-                      style: const TextStyle(
-                        color: EomColors.textSecondary,
-                        fontSize: 14,
-                        height: 1.5,
-                      ),
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                  ),
                 );
               },
             ),

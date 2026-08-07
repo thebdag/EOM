@@ -12,6 +12,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-S24** structural UX: History reopen (F8), multi-turn prior turns (F10),
+  Map “Your map” + collapsible Connections (F11), New-thought confirm (F16).
+  Covered by `test/ux_eom_s24_structural_test.dart`.
+- **EOM-S22 / S23** live beta UX walks: five-intent LiteLLM session +
+  returning-user multi-turn / History / New thought
+  (`test/ux_eom_s22_live_provider_test.dart`,
+  `test/ux_eom_s22_session_ux_test.dart`,
+  `test/ux_eom_s23_returning_user_test.dart`). Findings appended to
+  `docs/ux_findings_eom_e4.md` — confirms F8/F10/F11/F16 (later closed by
+  S24); F9 still mitigated by S19.
 - **EOM-S18 / S19 / S20** UX quick wins from EOM-E4 findings: calm
   intent-error copy with Open Settings recovery (`IntentError`,
   `ResponseCard`); History empty-state CTA + clear confirmation; intent

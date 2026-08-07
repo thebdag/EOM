@@ -61,17 +61,22 @@ Rank ≈ severity × frequency × (inverse fix-cost).
 | **F7 / F9** | EOM-S19 | History empty CTA (“Capture a thought”) + clear confirmation |
 | **F6** | EOM-S20 | Intent pill subtitle + tooltip from `CognitiveIntent.description` |
 
-### Top 3 structural fixes (still open)
+### Structural fixes — resolved (EOM-S24, 2026-08-06)
+
+| Finding | Fix |
+|---------|-----|
+| **F8** | History row `InkWell` pops `Conversation`; Home restores input + response + seeded `_history` |
+| **F10** | “Earlier in this session” lists prior turns above the latest `ResponseCard` |
+| **F11** | “Your map” label on tree; “Connections” collapsible (collapsed by default) for the graph |
+| **F16** | “Start a new thought?” confirm before clearing a non-empty session |
+
+### Still open (next iteration)
 
 1. **F1 / F5** — First-run provider gate: soft prompt or blocking sheet until a usable key/provider is set.
-2. **F8 / F10** — Session continuity: open history items into Home; show thread or last turns on screen.
-3. **F4** — Settings redesign: active-provider-only fields; plain-language labels; defer LiteLLM advanced fields.
+2. **F4** — Settings redesign: active-provider-only fields; plain-language labels; defer LiteLLM advanced fields.
+3. **F12–F15** — tertiary contrast, blank-input hint, intent casing, nav badges.
 
-### Also worth next iteration
-
-- F11: Map overlay framing ("Your map" / collapse graph).
-- F12: bump tertiary text or use secondary for empty states.
-- F13–F16: affordance polish (blank-input hint, intent label casing, nav badges, New-thought confirm).
+Tests: `test/ux_eom_s24_structural_test.dart` (+ updated `home_screen_test`, S22/S23 walks).
 
 ---
 
@@ -87,3 +92,48 @@ Rank ≈ severity × frequency × (inverse fix-cost).
 | EOM-T60 tone | F4, F2; calm home canvas noted |
 | EOM-T61 gestures / flow | F8, F9, F10, F13, F16 |
 | EOM-T62 compile / prioritize | this document |
+
+---
+
+## Live beta — EOM-S22 (five intents)
+
+Date: 2026-08-06. Provider: LiteLLM → `qwen-smart` @ `127.0.0.1:4000`.
+Tests: `test/ux_eom_s22_live_provider_test.dart`, `test/ux_eom_s22_session_ux_test.dart`.
+
+Prompt: *I keep switching projects and never finish anything; I am not sure if that is fear or boredom.*
+
+| Task | Result |
+|------|--------|
+| T86 Clarify | OK · 62s · 544 chars · no clinical lexicon · calm prose |
+| T87 Compress | OK · 89s · 725 chars / 3 lines · single ResponseCard, scannable |
+| T88 Map | OK · 58s · tree present (2 children) · UI stacks ThoughtTreeView + EpistemicGraphView with **no framing** → **F11 confirmed** |
+| T89 Reflect | OK · 50s · 415 chars · no clinical lexicon · provisional lexicon weak (`might/perhaps/…` absent in this sample) |
+| T90 Act | OK · 53s · 676 chars · sage accent on IntentButton + ResponseCard readable |
+| T91 | Friction notes below; no new finding IDs beyond F11 soft-confirm |
+
+### Live session notes
+
+- All five intents returned usable Epistemic Calm prose against a real model; chrome (one card, Act sage, Compress without tree) holds.
+- **F11** was the main intent-UX gap (two competing structures). **Closed in EOM-S24** with “Your map” + collapsible Connections.
+- Reflect tone was non-clinical but not strongly provisional in this run — watch in EOM-E5 alignment pressure, not a new Home chrome bug.
+- Latency ~50–90s/intent on local gateway — acceptable for beta, not for “instant” feel.
+
+---
+
+## Live beta — EOM-S23 (returning user)
+
+Date: 2026-08-06.
+Tests: `test/ux_eom_s23_returning_user_test.dart`.
+
+| Task | Result |
+|------|--------|
+| T92 Multi-turn | 3 follow-ups; model history grows `[0,2,4]`; **UI shows only latest ResponseCard** → **F10 confirmed** |
+| T93 History | Entries list; row tap does nothing → **F8 confirmed** |
+| T94 Clear | Confirm dialog present (Cancel safe / Clear empties) → **F9 mitigated by S19**; residual: still clears *all* |
+| T95 New thought | Resets input/response with **no confirm** → **F16 confirmed** |
+| T96 | No new stories beyond S18–S20 for chrome. Structural remain **F8 / F10 / F11 / F16** → closed by **EOM-S24** |
+
+### Returning-user notes
+
+- Session continuity (**F8/F10**) was the highest-value returning-user gap. **Closed in EOM-S24** (History reopen + prior-turn thread).
+- New thought (**F16**) now confirms before clearing (S24).
