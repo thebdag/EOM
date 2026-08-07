@@ -73,6 +73,29 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-06 — Map provider exceptions to calm UX copy once (EOM-S18)** —
+  never render `Exception: …` in a response card. Keep a single mapper
+  (`IntentError.from`) that turns missing keys / provider HTTP failures
+  into blame-free prose plus an `offerSettings` flag, then thread that
+  through `AiResponse` → `ResponseCard`. Cover the mapper and the Home
+  Open Settings path with unit/widget tests so a future raw `$e` dump
+  fails CI.
+
+- **2026-08-06 — `dart run` against a Flutter package crashes the FFI
+  build-hook transformer; reuse `package:eom` from `test/` instead
+  (EOM-E5)** — running a dev script that imports `package:eom/...` via
+  `dart run` fails with `type 'InvalidType' is not a subtype of type
+  'FunctionType'` inside `_FfiUseSiteTransformer`, because transitive
+  Flutter plugin deps (`share_plus`, `path_provider_*`) ship FFI build
+  hooks the Dart 3.11 compiler can't compile. `flutter test` compiles the
+  same imports cleanly (the whole suite already does). So dev tooling that
+  needs the app's own models/services lives under `test/<tool>/` and is
+  invoked via `flutter test test/<tool>/entry_test.dart`, guarded by an env
+  var so normal `flutter test` and CI skip the live (network/cost) path.
+  Keep the prompt-builder/parser reuse exact (no duplicated strings) and
+  add a drift-guard test (`test/beta_drift_test.dart`) that asserts the
+  tool's system prompt matches `AiService`'s for every intent — that way a  copied constant can never silently test a stale prompt. (EOM-T67)
+
 - **2026-08-06 — Attach per-intent behaviour via a service-layer extension,
   not the model enum (EOM-S10–S14)** — when a `CognitiveIntent`-style enum
   already carries UI data (label/icon/color) and needs *behaviour* (prompt

@@ -84,6 +84,14 @@ function migrate() {
       updated_at  TEXT    NOT NULL DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS subtask_comments (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      subtask_id  INTEGER NOT NULL,
+      body        TEXT    NOT NULL,
+      author      TEXT    NOT NULL DEFAULT 'agent',
+      created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+    );
+
     CREATE TABLE IF NOT EXISTS meta (
       k TEXT PRIMARY KEY,
       v TEXT NOT NULL
@@ -215,8 +223,40 @@ const Subtasks = {
     run(`UPDATE subtasks SET ${sets} WHERE id = ?`, [...vals, id]);
   },
   delete(id) {
+    // Cascade comments
+    const comments = Comments.forSubtask(id);
+    for (const c of comments) Comments.delete(c.id);
     run(`DELETE FROM subtasks WHERE id = ?`, [id]);
   },
 };
 
-module.exports = { initDb, getDb, saveDb, Epics, Stories, Subtasks };
+// ── Subtask comments ──────────────────────────────────────────────────────────
+//
+// Agents append free-text reports to a subtask to describe what was done,
+// why a decision was made, or what blocked progress. Comments are append-only
+// from the CLI / post-commit hook; the TUI can also add and view them.
+
+const Comments = {
+  forSubtask(subtaskId) {
+    return all(`SELECT * FROM subtask_comments WHERE subtask_id = ? ORDER BY id`, [subtaskId]);
+  },
+  count(subtaskId) {
+    const row = get(`SELECT COUNT(*) AS n FROM subtask_comments WHERE subtask_id = ?`, [subtaskId]);
+    return row ? Number(row.n) : 0;
+  },
+  create({ subtaskId, body, author = 'agent' }) {
+    // Insert and capture last_insert_rowid() BEFORE saveDb() — db.export()
+    // (called inside saveDb) resets the last-insert-rowid counter to 0.
+    _db.run(`INSERT INTO subtask_comments (subtask_id, body, author) VALUES (?, ?, ?)`,
+        [subtaskId, body, author]);
+    const idRow = _db.exec(`SELECT last_insert_rowid() AS id`);
+    const id = idRow[0]?.values[0][0];
+    saveDb();
+    return get(`SELECT * FROM subtask_comments WHERE id = ?`, [id]);
+  },
+  delete(id) {
+    run(`DELETE FROM subtask_comments WHERE id = ?`, [id]);
+  },
+};
+
+module.exports = { initDb, getDb, saveDb, Epics, Stories, Subtasks, Comments };

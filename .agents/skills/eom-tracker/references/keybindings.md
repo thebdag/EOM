@@ -26,10 +26,21 @@ except where noted.
 | `d` | Cycle status forward: `todo → in_progress → done` |
 | `b` | Link a git branch to the focused **story** (pre-fills current branch) |
 
+## Comments (subtasks only)
+
+| Key | Action |
+|---|---|
+| `c` | **Add** a comment to the focused **subtask** (prompts for body + author) |
+| `v` | **View** all comments on the focused **subtask** (popup; `q`/`Esc` to close) |
+
+Subtasks with comments show a `💬N` badge (indigo) next to their title in the
+subtask list, where `N` is the comment count.
+
 ## App
 
 | Key | Action |
 |---|---|
+| `r` | **Reload** all panes from the DB (pick up external writes from the CLI or post-commit hook) |
 | `q` | Quit |
 | `Ctrl+C` | Force quit |
 
@@ -47,7 +58,7 @@ except where noted.
 │             │                              │                           │
 │             │                              │  ── Subtasks ──           │
 │             │                              │  · EOM-T1 …              │
-│             │                              │  ✓ EOM-T2 …              │
+│             │                              │  ✓ EOM-T2 … 💬3          │
 └─────────────┴──────────────────────────────┴───────────────────────────┘
   [Tab focus]        [Tab focus]                   [Tab focus]
 ```

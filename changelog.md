@@ -12,6 +12,35 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-S18 / S19 / S20** UX quick wins from EOM-E4 findings: calm
+  intent-error copy with Open Settings recovery (`IntentError`,
+  `ResponseCard`); History empty-state CTA + clear confirmation; intent
+  pill descriptions (subtitle + tooltip). Covered by
+  `intent_error_test`, `ux_eom_e4_quick_wins_test`, and updated
+  `home_screen_test` / `ai_service_test`. Findings doc marks F2/F3/F6/F7/F9
+  resolved; structural fixes (F1/F4/F5/F8/F10) remain open for live beta
+  stories EOM-S21–S23.
+- **EOM-E4 / EOM-S16** UX walkthrough findings report
+  (`docs/ux_findings_eom_e4.md`): 16 friction points across Home, Settings,
+  and History (first-run + returning passes), with severity, heuristics, and
+  prioritized quick wins / structural fixes for the next iteration.
+- Tracker TUI **reload** (`r`) so panes refresh after CLI / post-commit
+  writes without restarting.
+- **EOM-E5** Beta epistemic alignment pressure tests: a curated prompt
+  library (`dev/beta/prompts/`) covering all five cognitive intents with
+  baseline + edge cases (ambiguous, contradictory, multi-intent, adversarial)
+  tagged with metadata and grading expectations (EOM-T64/T65/T66); an
+  epistemic alignment scoring rubric (`dev/beta/rubric.md`) with eight
+  criteria, a 0–2 scale, weights, hard-fail verdicts, and finding severities
+  (EOM-T63); a batch runner that exercises every prompt against a real
+  provider and captures responses with prompt id, provider, model, and
+  timestamp (EOM-T67/T68); a scorer that grades captured responses against
+  the rubric (EOM-T69); and a misalignment report emitter with roll-up stats
+  and per-finding transcripts (EOM-T70). Runner code lives under `test/beta/`
+  and reuses the real `CognitiveIntent.buildPrompt`, `AiService` constants,
+  and `EpistemicOperation`/`ThoughtNode` parsers (zero drift, guarded by
+  `test/beta_drift_test.dart`); scorer logic is unit-tested in CI without
+  network. See `dev/beta/README.md`.
 - Coverage tests for the EOM-E3 refactor after the SonarCloud quality
   gate failed on new-code coverage (73.3% < 80%): `conversation_test`,
   `llm_provider_kind_test`, `intent_config_test`, `history_service_test`
@@ -20,6 +49,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   extensions.
 
 ### Changed
+- **EOM-T67** `AiService.defaultContext` is now a public `static const`
+  (was a local inside `process`) so the beta runner can reuse the exact
+  global preamble and a drift-guard test can assert alignment.
 - **EOM-S10** Provider identity is now the `LlmProviderKind` enum
   (`lib/models/llm_provider_kind.dart`) with the `OLLAMA`→`LOCAL` legacy
   mapping in one `fromString`; `SettingsService.activeProvider` returns the

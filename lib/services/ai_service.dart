@@ -3,8 +3,43 @@ import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
 import 'intent_config.dart';
+import 'intent_error.dart';
 import 'llm_provider.dart';
 import 'settings_service.dart';
+
+/// Extracts the first balanced `{ ... }` object from [text], ignoring any
+/// prose the model emits after the JSON epilogue. Returns null when no
+/// balanced object is found. Strings (`"..."`) are skipped so a `}` inside
+/// a string value cannot close the object early.
+String? _extractFirstJsonObject(String text) {
+  final start = text.indexOf('{');
+  if (start == -1) return null;
+  var depth = 0;
+  var inString = false;
+  var escape = false;
+  for (var i = start; i < text.length; i++) {
+    final ch = text[i];
+    if (inString) {
+      if (escape) {
+        escape = false;
+      } else if (ch == '\\') {
+        escape = true;
+      } else if (ch == '"') {
+        inString = false;
+      }
+      continue;
+    }
+    if (ch == '"') {
+      inString = true;
+    } else if (ch == '{') {
+      depth++;
+    } else if (ch == '}') {
+      depth--;
+      if (depth == 0) return text.substring(start, i + 1);
+    }
+  }
+  return null;
+}
 
 class AiService {
   AiService({LlmProvider? provider}) : _providerOverride = provider;
@@ -23,16 +58,18 @@ class AiService {
   /// epilogue. All five intents use the same marker.
   static const epistemicMarker = '---EPISTEMIC---';
 
+  /// Global context prepended to every intent's system prompt. Exposed so
+  /// the beta pressure-test runner (`test/beta/`) can reuse the exact string
+  /// and a drift-guard test can assert they stay in sync.
+  static const defaultContext =
+      'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language. detect sentiment from user input: if more chaotic, encourage toward balanced order. If too ordlery, encourage toward balanced chaos';
+
   Future<AiResponse> process(
     String input,
     CognitiveIntent intent, {
     List<ChatMessage> history = const [],
   }) async {
     final provider = _getProvider();
-
-    // Global context applied to all intents
-    const defaultContext =
-        'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language. detect sentiment from user input: if more chaotic, encourage toward balanced order. If too ordlery, encourage toward balanced chaos';
 
     final systemPrompt =
         '$defaultContext\n\n${intent.buildPrompt(epistemicMarker)}';
@@ -50,35 +87,41 @@ class AiService {
 
       return _parseEpistemicResponse(textResponse, intent);
     } catch (e) {
+      final mapped = IntentError.from(e);
       return AiResponse(
-        text:
-            'Error processing intent with ${SettingsService.activeProvider.label}: $e',
+        text: mapped.message,
         intent: intent,
         isError: true,
+        offerSettings: mapped.offerSettings,
       );
     }
   }
 
   /// Splits an intent response into trimmed prose and the decoded epilogue
   /// JSON (EOM-S13). Returns null when the marker is absent; the epilogue
-  /// half is null when the JSON block is malformed. Fence-stripping and
-  /// decoding used to be copy-pasted between both parsers.
+  /// half is null when the JSON block is malformed.
+  ///
+  /// Models sometimes emit trailing prose after the JSON epilogue (e.g.
+  /// a closing question). We isolate the first balanced `{ ... }` object
+  /// after the marker so that trailing text no longer breaks `jsonDecode`.
   (String, Map<String, dynamic>?)? _splitEpilogue(String raw) {
     final markerIndex = raw.indexOf(epistemicMarker);
     if (markerIndex == -1) return null;
 
     final prose = raw.substring(0, markerIndex).trim();
-    final jsonBlock = raw
+    final afterMarker = raw
         .substring(markerIndex + epistemicMarker.length)
         .replaceAll('```json', '')
-        .replaceAll('```', '')
-        .trim();
+        .replaceAll('```', '');
+    final jsonBlock = _extractFirstJsonObject(afterMarker);
 
     Map<String, dynamic>? data;
-    try {
-      data = jsonDecode(jsonBlock) as Map<String, dynamic>;
-    } catch (_) {
-      data = null;
+    if (jsonBlock != null) {
+      try {
+        data = jsonDecode(jsonBlock) as Map<String, dynamic>;
+      } catch (_) {
+        data = null;
+      }
     }
     return (prose, data);
   }
@@ -166,6 +209,7 @@ class AiResponse {
     this.tree,
     this.operation,
     this.isError = false,
+    this.offerSettings = false,
   });
 
   final String text;
@@ -181,4 +225,7 @@ class AiResponse {
   /// real answer (EOM-S5). Error responses must not be appended to the
   /// conversation history or persisted to Hive.
   final bool isError;
+
+  /// When true with [isError], the UI should offer Open Settings (EOM-S18).
+  final bool offerSettings;
 }

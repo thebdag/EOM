@@ -15,6 +15,7 @@ EOM/
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
 │   ├── design_spec.md         # Original design philosophy and component spec
+│   ├── ux_findings_eom_e4.md  # UX walkthrough findings + prioritized fixes (EOM-E4 / EOM-S16)
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
 │       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
@@ -36,8 +37,8 @@ EOM/
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view (+ fromJson/tryParseRaw, EOM-S14)
 │   │
 │   ├── screens/
-│   │   ├── history_screen.dart  # Library of saved thought sessions
-│   │   ├── home_screen.dart     # Main "Vault" interface (input, intents, response)
+│   │   ├── history_screen.dart  # Library of saved thought sessions (empty CTA + clear confirm, EOM-S19)
+│   │   ├── home_screen.dart     # Main "Vault" interface (input, intents, response; friendly errors, EOM-S18)
 │   │   └── settings_screen.dart # API Key / LiteLLM / Provider configuration UI
 │   │
 │   ├── services/
@@ -47,6 +48,7 @@ EOM/
 │   │   ├── epistemic_intent_service.dart # Bridges epistemic operations → epistemic graph (EOM-T7, T11)
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── intent_config.dart   # Per-intent prompt builder + epilogue JSON→operation routing (EOM-S14)
+│   │   ├── intent_error.dart    # Maps provider/auth failures to calm copy + Settings recovery (EOM-S18)
 │   │   ├── llm_provider.dart    # LlmProvider interface, ChatMessage, provider clients, shared chat-completions helper (EOM-S11, S13)
 │   │   ├── settings_service.dart# SharedPreferences wrapper for persistent storage
 │   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
@@ -57,12 +59,22 @@ EOM/
 │   │
 │   └── widgets/
 │       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18)
-│       ├── intent_button.dart   # Interactive pill button for cognitive intents
-│       ├── response_card.dart   # Fade-in markdown container for text responses
+│       ├── intent_button.dart   # Interactive pill button for cognitive intents (description subtitle + tooltip, EOM-S20)
+│       ├── response_card.dart   # Fade-in markdown container; Open Settings on recoverable errors (EOM-S18)
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
 │
 └── test/                      # Unit and widget tests
     ├── ai_service_test.dart           # Map parse degradation + provider content extraction, isError flag (EOM-S4, S5)
+    ├── beta_drift_test.dart  # Asserts beta runner reuses real app prompts/marker (EOM-T67)
+    ├── beta/                          # Epistemic alignment pressure tests (EOM-E5)
+    │   ├── beta_loader.dart            # Prompt + Expected models, JSON loader (EOM-T66)
+    │   ├── beta_provider.dart          # CLI LLM client mirroring lib/services/llm_provider.dart (EOM-T67)
+    │   ├── beta_runner.dart            # Batch runner + response capture (EOM-T67, T68)
+    │   ├── beta_scorer.dart            # Rubric scorer: 8 criteria, verdicts, findings (EOM-T69)
+    │   ├── beta_reporter.dart          # Roll-up + markdown/json report (EOM-T70)
+    │   ├── run_test.dart               # Guarded entry: run prompts against a provider
+    │   ├── analyze_test.dart           # Guarded entry: score a captured run + emit report
+    │   └── scorer_test.dart            # Scorer unit tests (run in CI, no network)
     ├── conversation_test.dart         # Conversation model round-trip + corrupt-entry tolerance (EOM-S11)
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
@@ -78,15 +90,28 @@ EOM/
     ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
-    ├── home_screen_test.dart      # Injected-service flows: clarify/map persist, error path, store-factory failure (EOM-S12)
+    ├── home_screen_test.dart      # Injected-service flows: clarify/map persist, friendly errors + Open Settings (EOM-S12, S18)
     ├── intent_config_test.dart    # Per-intent prompt contract + operation routing (EOM-S14)
+    ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
     ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage (EOM-S10, S11)
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization
     ├── thought_node_test.dart     # Logic tests for tree structure management
+    ├── ux_eom_e4_quick_wins_test.dart # History empty CTA/clear confirm + intent descriptions (EOM-S19, S20)
     └── widget_test.dart           # EomApp smoke test (brand + input prompt)
 
 dev/
+├── beta/                      # Epistemic alignment pressure tests (EOM-E5)
+│   ├── README.md               # How to run the beta pressure tests
+│   ├── rubric.md               # Scoring rubric: criteria, scale, weights, verdicts (EOM-T63)
+│   ├── prompts/                # Prompt library + metadata (EOM-T64/T65/T66)
+│   │   ├── clarify.json
+│   │   ├── compress.json
+│   │   ├── map.json
+│   │   ├── reflect.json
+│   │   └── act.json
+│   ├── responses/              # Captured runs (gitignored, one dir per run) (EOM-T68)
+│   └── reports/                # Generated reports, gitignored (EOM-T70)
 └── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
     ├── package.json           # Tracker dependencies (sql.js, blessed)
     ├── db.js                  # SQLite schema, migrations, and CRUD helpers

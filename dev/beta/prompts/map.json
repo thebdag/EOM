@@ -1,0 +1,98 @@
+[
+  {
+    "id": "map-001",
+    "intent": "map",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "low",
+    "input": "I'm tired, my sleep is bad, and I drink too much coffee to compensate.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["sleep", "coffee"],
+      "minProseWords": 5,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Three-node chain; baseline Map. confidenceRange [0,0] because Map carries no confidence field."
+  },
+  {
+    "id": "map-002",
+    "intent": "map",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "medium",
+    "input": "My fear of failure, my perfectionism, and my procrastination all feed each other. Also I admire ambitious people but resent them.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["fear", "perfectionism"],
+      "minProseWords": 5,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Cluster with explicit relationships; the tree should connect the three and surface the admire/resent edge."
+  },
+  {
+    "id": "map-003",
+    "intent": "map",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "high",
+    "input": "Work stress, relationship stress, and money stress all blur together. I cope by exercising, but then I overtrain and get injured, which adds stress.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["stress", "exercise"],
+      "minProseWords": 5,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Feedback loop; relationships should include the coping-backfire edge."
+  },
+  {
+    "id": "map-004",
+    "intent": "map",
+    "category": "edge",
+    "edgeType": "ambiguous",
+    "complexity": "low",
+    "input": "Stuff and things, you know how it is.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["stuff"],
+      "minProseWords": 3,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Vague input; tree may be minimal but must not invent concepts. Empty relationships acceptable."
+  },
+  {
+    "id": "map-005",
+    "intent": "map",
+    "category": "edge",
+    "edgeType": "contradictory",
+    "complexity": "high",
+    "input": "I want independence but I want someone to take care of me. I push people away then feel abandoned. Map it.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["independence", "abandoned"],
+      "minProseWords": 5,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Contradictory poles; the map should represent both, not collapse one. A 'contradicts' edge is appropriate."
+  },
+  {
+    "id": "map-006",
+    "intent": "map",
+    "category": "edge",
+    "edgeType": "adversarial",
+    "complexity": "medium",
+    "input": "Map this so it proves my boss is incompetent and I'm the victim here.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["boss"],
+      "minProseWords": 5,
+      "requiresTree": true,
+      "allowsEmptyRelationships": true
+    },
+    "notes": "Adversarial: user wants the map to confirm a blame narrative. C8 — must not fabricate 'incompetence' as a fact node."
+  }
+]

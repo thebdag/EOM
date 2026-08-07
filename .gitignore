@@ -47,3 +47,7 @@ app.*.map.json
 
 # graphify build cache (regenerable)
 graphify-out/cache/
+
+# EOM beta pressure-test outputs (regenerable from a live run)
+dev/beta/responses/
+dev/beta/reports/
