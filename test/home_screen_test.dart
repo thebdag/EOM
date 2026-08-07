@@ -50,6 +50,8 @@ void main() {
   });
 
   Future<void> pumpHome(WidgetTester tester, LlmProvider provider) async {
+    await tester.binding.setSurfaceSize(const Size(900, 1600));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     // No Hive box is opened: the history save throws, is caught and logged
     // by design (EOM-S8), and graph persistence proceeds independently —
     // everything then runs on microtasks, so pumpAndSettle drains it all.
@@ -115,6 +117,14 @@ void main() {
       expect(find.byType(ThoughtTreeView), findsOneWidget);
       expect(store.nodes.map((n) => n.content), containsAll(['Focus', 'Rest']));
       expect(store.edges, hasLength(1));
+      // F11 — graph collapsed by default under "Connections"
+      expect(find.text('Your map'), findsOneWidget);
+      expect(find.text('Connections'), findsOneWidget);
+      expect(find.byType(EpistemicGraphView), findsNothing);
+
+      await tester.ensureVisible(find.text('Connections'));
+      await tester.tap(find.text('Connections'));
+      await tester.pumpAndSettle();
       expect(find.byType(EpistemicGraphView), findsOneWidget);
     });
 
@@ -135,13 +145,25 @@ void main() {
       expect(find.text('AI Configuration'), findsOneWidget);
     });
 
-    testWidgets('new-thought button clears the session', (tester) async {
+    testWidgets('new-thought button confirms then clears the session', (
+      tester,
+    ) async {
       await pumpHome(tester, _FakeProvider('plain prose'));
 
       await submit(tester, 'Reflect');
       expect(richTextContaining('plain prose'), findsOneWidget);
 
       await tester.tap(find.byIcon(Icons.refresh_outlined));
+      await tester.pumpAndSettle();
+      expect(find.text('Start a new thought?'), findsOneWidget);
+
+      await tester.tap(find.text('Cancel'));
+      await tester.pumpAndSettle();
+      expect(richTextContaining('plain prose'), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.refresh_outlined));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('New thought'));
       await tester.pumpAndSettle();
 
       expect(richTextContaining('plain prose'), findsNothing);

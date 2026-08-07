@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../models/conversation.dart';
 import '../models/epistemic_operation.dart';
 import '../models/epistemic_query_result.dart';
 import '../models/intent.dart';
@@ -59,6 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<EpistemicGraphStore>? _epistemicStoreFuture;
   EpistemicIntentService? _epistemicIntents;
   EpistemicQueryResult? _mapOverlay;
+
+  /// F11 — graph starts collapsed so the tree keeps visual primacy.
+  bool _connectionsExpanded = false;
 
   /// Caches the initialization *future*, not the instance (EOM-S8) —
   /// concurrent callers otherwise both pass the null check, init two
@@ -227,6 +231,80 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> _openHistory() async {
+    final selected = await Navigator.push<Conversation>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => HistoryScreen(historyService: _historyService),
+      ),
+    );
+    if (selected == null || !mounted) return;
+    _restoreConversation(selected);
+  }
+
+  /// F8 — reopen a History row into the Home canvas.
+  void _restoreConversation(Conversation item) {
+    CognitiveIntent? intent;
+    try {
+      intent = CognitiveIntent.values.byName(item.intent);
+    } catch (_) {
+      intent = null;
+    }
+    setState(() {
+      _controller.text = item.initialInput;
+      _activeIntent = intent;
+      _mapOverlay = null;
+      _connectionsExpanded = false;
+      _isProcessing = false;
+      _history
+        ..clear()
+        ..add(ChatMessage.user(item.initialInput))
+        ..add(ChatMessage.assistant(item.response));
+      _response = AiResponse(
+        text: item.response,
+        intent: intent ?? CognitiveIntent.clarify,
+      );
+    });
+  }
+
+  Future<void> _confirmNewThought() async {
+    // F16 — protect multi-turn context the same way Clear History does.
+    final hasSession = _response != null || _history.isNotEmpty;
+    if (!hasSession) {
+      _clearSession();
+      return;
+    }
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: EomColors.surface,
+        title: const Text(
+          'Start a new thought?',
+          style: TextStyle(
+            color: EomColors.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        content: const Text(
+          'This clears the current session on screen. Saved history is kept.',
+          style: TextStyle(color: EomColors.textSecondary, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('New thought'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && mounted) _clearSession();
+  }
+
   void _clearSession() {
     setState(() {
       _controller.clear();
@@ -235,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _isProcessing = false;
       _history.clear();
       _mapOverlay = null;
+      _connectionsExpanded = false;
     });
     _focusNode.requestFocus();
   }
@@ -268,6 +347,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       _buildIntentBar(),
                     ],
 
+                    // F10 — prior turns stay visible above the latest card
+                    if (_priorTurns.isNotEmpty) ...[
+                      const SizedBox(height: 24),
+                      _buildPriorTurns(),
+                    ],
+
                     // Response
                     if (_response != null) ...[
                       const SizedBox(height: 24),
@@ -281,16 +366,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
 
-                    // Tree view (for Map intent)
+                    // Tree view (for Map intent) — F11 framing
                     if (_response?.tree != null) ...[
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Your map',
+                        style: TextStyle(
+                          color: EomColors.textTertiary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       ThoughtTreeView(root: _response!.tree!),
                     ],
 
-                    // Epistemic graph overlay (for Map intent, EOM-T18)
+                    // Epistemic graph overlay — F11 collapsed by default
                     if (_mapOverlay != null) ...[
-                      const SizedBox(height: 16),
-                      EpistemicGraphView(graph: _mapOverlay!),
+                      const SizedBox(height: 12),
+                      _buildConnectionsSection(),
                     ],
 
                     // Processing indicator
@@ -334,16 +429,13 @@ class _HomeScreenState extends State<HomeScreen> {
           const Spacer(),
           if (_response != null)
             IconButton(
-              onPressed: _clearSession,
+              onPressed: _confirmNewThought,
               icon: const Icon(Icons.refresh_outlined, size: 20),
               color: EomColors.textTertiary,
               tooltip: 'New thought',
             ),
           IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HistoryScreen()),
-            ),
+            onPressed: _openHistory,
             icon: const Icon(Icons.history_outlined, size: 20),
             color: EomColors.textTertiary,
             tooltip: 'History',
@@ -416,6 +508,104 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  /// Prior user/assistant pairs excluding the current turn (F10).
+  List<ChatMessage> get _priorTurns {
+    if (_history.length <= 2) return const [];
+    if (_response != null && !_response!.isError) {
+      return _history.sublist(0, _history.length - 2);
+    }
+    return List<ChatMessage>.from(_history);
+  }
+
+  Widget _buildPriorTurns() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Earlier in this session',
+          style: TextStyle(
+            color: EomColors.textTertiary,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 1.0,
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (var i = 0; i < _priorTurns.length; i++) ...[
+          if (i > 0) const SizedBox(height: 10),
+          Text(
+            _priorTurns[i].role == 'user' ? 'You' : 'EOM',
+            style: const TextStyle(
+              color: EomColors.textTertiary,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            _priorTurns[i].content,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: _priorTurns[i].role == 'user'
+                  ? EomColors.textSecondary
+                  : EomColors.textTertiary,
+              fontSize: 13,
+              height: 1.45,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildConnectionsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () =>
+              setState(() => _connectionsExpanded = !_connectionsExpanded),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              children: [
+                const Text(
+                  'Connections',
+                  style: TextStyle(
+                    color: EomColors.textTertiary,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  _connectionsExpanded ? Icons.expand_less : Icons.expand_more,
+                  size: 18,
+                  color: EomColors.textTertiary,
+                ),
+              ],
+            ),
+          ),
+        ),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+          alignment: Alignment.topCenter,
+          child: _connectionsExpanded
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: EpistemicGraphView(graph: _mapOverlay!),
+                )
+              : const SizedBox(width: double.infinity),
+        ),
+      ],
     );
   }
 }

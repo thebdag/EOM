@@ -296,8 +296,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "post-commit"
     },
     {
@@ -307,8 +307,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_execsync",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "{ execsync }"
     },
     {
@@ -318,8 +318,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_path",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "path"
     },
     {
@@ -329,8 +329,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_fs",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "fs"
     },
     {
@@ -340,8 +340,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_reporoot",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "reporoot"
     },
     {
@@ -351,8 +351,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_trackerdir",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "trackerdir"
     },
     {
@@ -362,8 +362,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_dbpath",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "dbpath"
     },
     {
@@ -373,8 +373,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_status_aliases",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "status_aliases"
     },
     {
@@ -384,8 +384,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_matches",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "matches"
     },
     {
@@ -395,8 +395,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_commentmatches",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "commentmatches"
     },
     {
@@ -406,8 +406,8 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_initdb_epics_stories_subtasks_comments",
-      "community": 1,
-      "community_name": "post-commit",
+      "community": 7,
+      "community_name": "ui.js",
       "norm_label": "{ initdb, epics, stories, subtasks, comments }"
     },
     {
@@ -1245,8 +1245,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "main.dart"
     },
     {
@@ -1256,8 +1256,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main_eomapp",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 73,
+      "community_name": "thought_tree_view.dart",
       "norm_label": "eomapp"
     },
     {
@@ -1267,8 +1267,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "statelesswidget",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 73,
+      "community_name": "thought_tree_view.dart",
       "norm_label": "statelesswidget"
     },
     {
@@ -1278,8 +1278,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main_main",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "main"
     },
     {
@@ -1289,8 +1289,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main_init",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "init"
     },
     {
@@ -1300,8 +1300,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main_build",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "build"
     },
     {
@@ -1311,7 +1311,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_flutter_material_dart",
-      "community": 73,
+      "community": 78,
       "community_name": "package:flutter/material.dart",
       "norm_label": "package:flutter/material.dart"
     },
@@ -1322,8 +1322,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_flutter_services_dart",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "package:flutter/services.dart"
     },
     {
@@ -1333,8 +1333,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "screens_home_screen_dart",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "screens/home_screen.dart"
     },
     {
@@ -1344,8 +1344,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "theme_eom_theme_dart",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "theme/eom_theme.dart"
     },
     {
@@ -1355,8 +1355,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "services_settings_service_dart",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "../services/settings_service.dart"
     },
     {
@@ -1366,8 +1366,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "services_history_service_dart",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "../services/history_service.dart"
     },
     {
@@ -1829,7 +1829,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemic_maturity.dart"
     },
     {
@@ -1840,7 +1840,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_epistemicmaturity",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemicmaturity"
     },
     {
@@ -1851,7 +1851,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_kmaturityhighthreshold",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "kmaturityhighthreshold"
     },
     {
@@ -1862,7 +1862,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_kmaturityuncertainthreshold",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "kmaturityuncertainthreshold"
     },
     {
@@ -1873,7 +1873,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_domain",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "domain"
     },
     {
@@ -1884,7 +1884,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_total",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "total"
     },
     {
@@ -1895,7 +1895,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_highconfidence",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "highconfidence"
     },
     {
@@ -1906,7 +1906,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_uncertain",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "uncertain"
     },
     {
@@ -1917,7 +1917,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_highthreshold",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "highthreshold"
     },
     {
@@ -1928,7 +1928,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_uncertainthreshold",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "uncertainthreshold"
     },
     {
@@ -1939,7 +1939,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_totals",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "totals"
     },
     {
@@ -1950,7 +1950,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_highs",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "highs"
     },
     {
@@ -1961,7 +1961,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_uncertains",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "uncertains"
     },
     {
@@ -1972,7 +1972,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_result",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "result"
     },
     {
@@ -1983,7 +1983,7 @@
       "_origin": "ast",
       "id": "return",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "return"
     },
     {
@@ -1994,7 +1994,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_tostring",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "tostring"
     },
     {
@@ -2005,7 +2005,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_maturity_computematuritybydomain",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "computematuritybydomain"
     },
     {
@@ -2015,8 +2015,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "epistemic_node_dart",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemic_node.dart"
     },
     {
@@ -2049,7 +2049,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_node_epistemiccategory",
       "community": 34,
-      "community_name": "epistemic_maturity.dart",
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemiccategory"
     },
     {
@@ -2323,8 +2323,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "epistemic_relationship_dart",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemic_relationship.dart"
     },
     {
@@ -2455,8 +2455,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_operation_list",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 51,
+      "community_name": "List",
       "norm_label": "list"
     },
     {
@@ -2488,7 +2488,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "static_const_double",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "static const double"
     },
@@ -2763,8 +2763,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemic_query_result.dart"
     },
     {
@@ -2774,8 +2774,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_epistemicqueryresult",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemicqueryresult"
     },
     {
@@ -2785,8 +2785,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_rootid",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "rootid"
     },
     {
@@ -2796,8 +2796,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_nodes",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "nodes"
     },
     {
@@ -2807,8 +2807,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_edges",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "edges"
     },
     {
@@ -2818,8 +2818,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_isempty",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "isempty"
     },
     {
@@ -2829,8 +2829,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "bool_get",
-      "community": 51,
-      "community_name": "thought_node.dart",
+      "community": 67,
+      "community_name": "intent_config.dart",
       "norm_label": "bool get"
     },
     {
@@ -2840,8 +2840,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_tostring",
-      "community": 44,
-      "community_name": "epistemic_query_result.dart",
+      "community": 34,
+      "community_name": "epistemic_graph_view.dart",
       "norm_label": "tostring"
     },
     {
@@ -3071,8 +3071,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_cognitiveintent",
-      "community": 74,
-      "community_name": "intent_button.dart",
+      "community": 67,
+      "community_name": "intent_config.dart",
       "norm_label": "cognitiveintent"
     },
     {
@@ -3159,8 +3159,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "llm_provider_kind.dart"
     },
     {
@@ -3170,8 +3170,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind_llmproviderkind",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "llmproviderkind"
     },
     {
@@ -3181,8 +3181,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind_id",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "id"
     },
     {
@@ -3192,8 +3192,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind_label",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "label"
     },
     {
@@ -3203,8 +3203,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind_fallback",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "fallback"
     },
     {
@@ -3214,8 +3214,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "static_const_llmproviderkind",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "static const llmproviderkind"
     },
     {
@@ -3225,8 +3225,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_llm_provider_kind_fromstring",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "fromstring"
     },
     {
@@ -3237,7 +3237,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "thought_node.dart"
     },
     {
@@ -3248,7 +3248,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_thoughtnode",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "thoughtnode"
     },
     {
@@ -3259,7 +3259,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_label",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "label"
     },
     {
@@ -3270,7 +3270,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_children",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "children"
     },
     {
@@ -3281,7 +3281,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_isexpanded",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "isexpanded"
     },
     {
@@ -3292,7 +3292,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_isleaf",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "isleaf"
     },
     {
@@ -3303,7 +3303,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_tojson",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "tojson"
     },
     {
@@ -3314,7 +3314,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_fromjson",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "fromjson"
     },
     {
@@ -3325,7 +3325,7 @@
       "_origin": "ast",
       "id": "lib_models_thought_node_tryparseraw",
       "community": 51,
-      "community_name": "thought_node.dart",
+      "community_name": "List",
       "norm_label": "tryparseraw"
     },
     {
@@ -3346,7 +3346,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "history_screen.dart"
     },
@@ -3357,8 +3357,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreen",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "historyscreen"
     },
     {
@@ -3368,8 +3368,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "statefulwidget",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "statefulwidget"
     },
     {
@@ -3379,8 +3379,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreenstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "_historyscreenstate"
     },
     {
@@ -3390,8 +3390,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "state",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "state"
     },
     {
@@ -3401,7 +3401,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyservice",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "historyservice"
     },
@@ -3412,7 +3412,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_conversations",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "_conversations"
     },
@@ -3423,7 +3423,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_createstate",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "createstate"
     },
@@ -3434,7 +3434,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_initstate",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "initstate"
     },
@@ -3445,7 +3445,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_loadconversations",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "_loadconversations"
     },
@@ -3456,9 +3456,20 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_confirmclear",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "_confirmclear"
+    },
+    {
+      "label": "_openConversation",
+      "file_type": "code",
+      "source_file": "lib/screens/history_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_history_screen_openconversation",
+      "community": 75,
+      "community_name": "history_screen.dart",
+      "norm_label": "_openconversation"
     },
     {
       "label": "build",
@@ -3467,7 +3478,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_build",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "build"
     },
@@ -3478,7 +3489,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_formatdate",
-      "community": 72,
+      "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "_formatdate"
     },
@@ -3489,8 +3500,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_conversation_dart",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "../models/conversation.dart"
     },
     {
@@ -3511,8 +3522,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreen",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 3,
+      "community_name": "home_screen.dart",
       "norm_label": "homescreen"
     },
     {
@@ -3522,8 +3533,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreenstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 3,
+      "community_name": "home_screen.dart",
       "norm_label": "_homescreenstate"
     },
     {
@@ -3670,6 +3681,17 @@
       "norm_label": "_mapoverlay"
     },
     {
+      "label": "_connectionsExpanded",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_connectionsexpanded",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_connectionsexpanded"
+    },
+    {
       "label": "createState",
       "file_type": "code",
       "source_file": "lib/screens/home_screen.dart",
@@ -3764,8 +3786,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_opensettings",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "_opensettings"
     },
     {
@@ -3775,9 +3797,42 @@
       "source_location": null,
       "_origin": "ast",
       "id": "materialpageroute",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
+      "norm_label": "materialpageroute"
+    },
+    {
+      "label": "_openHistory",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_openhistory",
       "community": 3,
       "community_name": "home_screen.dart",
-      "norm_label": "materialpageroute"
+      "norm_label": "_openhistory"
+    },
+    {
+      "label": "_restoreConversation",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_restoreconversation",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_restoreconversation"
+    },
+    {
+      "label": "_confirmNewThought",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_confirmnewthought",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_confirmnewthought"
     },
     {
       "label": "_clearSession",
@@ -3846,6 +3901,28 @@
       "norm_label": "_buildprocessingindicator"
     },
     {
+      "label": "_buildPriorTurns",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_buildpriorturns",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_buildpriorturns"
+    },
+    {
+      "label": "_buildConnectionsSection",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_buildconnectionssection",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_buildconnectionssection"
+    },
+    {
       "label": "dart:async",
       "file_type": "code",
       "source_file": null,
@@ -3874,7 +3951,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_epistemic_query_result_dart",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "../models/epistemic_query_result.dart"
     },
@@ -3885,8 +3962,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_intent_dart",
-      "community": 67,
-      "community_name": "intent_config.dart",
+      "community": 74,
+      "community_name": "intent_button.dart",
       "norm_label": "../models/intent.dart"
     },
     {
@@ -4039,8 +4116,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_settings_screen_settingsscreen",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "settingsscreen"
     },
     {
@@ -4050,8 +4127,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_settings_screen_settingsscreenstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 81,
+      "community_name": "State",
       "norm_label": "_settingsscreenstate"
     },
     {
@@ -4513,7 +4590,7 @@
       "_origin": "ast",
       "id": "models_thought_node_dart",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "../models/thought_node.dart"
     },
     {
@@ -5007,8 +5084,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "history_service.dart"
     },
     {
@@ -5019,7 +5096,7 @@
       "_origin": "ast",
       "id": "lib_services_history_service_historyservice",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "historyservice"
     },
     {
@@ -5029,8 +5106,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_boxname",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "_boxname"
     },
     {
@@ -5040,8 +5117,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "static_const_string",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "static const string"
     },
     {
@@ -5051,8 +5128,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_init",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "init"
     },
     {
@@ -5062,8 +5139,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_saveconversation",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "saveconversation"
     },
     {
@@ -5073,8 +5150,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_getconversations",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "getconversations"
     },
     {
@@ -5084,8 +5161,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_clearhistory",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 4,
+      "community_name": "settings_service.dart",
       "norm_label": "clearhistory"
     },
     {
@@ -5095,8 +5172,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_hive_flutter_hive_flutter_dart",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "package:hive_flutter/hive_flutter.dart"
     },
     {
@@ -5117,8 +5194,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_cognitiveintentops",
-      "community": 74,
-      "community_name": "intent_button.dart",
+      "community": 67,
+      "community_name": "intent_config.dart",
       "norm_label": "cognitiveintentops"
     },
     {
@@ -5337,8 +5414,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_llmproviderkindfactory",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
       "norm_label": "llmproviderkindfactory"
     },
     {
@@ -5799,8 +5876,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_shared_preferences_shared_preferences_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:shared_preferences/shared_preferences.dart"
     },
     {
@@ -5821,8 +5898,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_sqlite_epistemic_graph_store_epistemicgraphstore",
-      "community": 54,
-      "community_name": "epistemic_export_test.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "epistemicgraphstore"
     },
     {
@@ -5832,8 +5909,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_sqlite_epistemic_graph_store_sqliteepistemicgraphstore",
-      "community": 54,
-      "community_name": "epistemic_export_test.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "sqliteepistemicgraphstore"
     },
     {
@@ -6459,7 +6536,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_theme_eom_theme",
-      "community": 73,
+      "community": 78,
       "community_name": "package:flutter/material.dart",
       "norm_label": "eom_theme.dart"
     },
@@ -6470,7 +6547,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_theme_eom_theme_eomtheme",
-      "community": 73,
+      "community": 78,
       "community_name": "package:flutter/material.dart",
       "norm_label": "eomtheme"
     },
@@ -6481,7 +6558,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "eom_colors_dart",
-      "community": 73,
+      "community": 78,
       "community_name": "package:flutter/material.dart",
       "norm_label": "eom_colors.dart"
     },
@@ -6492,7 +6569,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "epistemic_graph_view.dart"
     },
@@ -6503,8 +6580,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_epistemicgraphview",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 73,
+      "community_name": "thought_tree_view.dart",
       "norm_label": "epistemicgraphview"
     },
     {
@@ -6514,7 +6591,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_epistemicgraphpainter",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "_epistemicgraphpainter"
     },
@@ -6525,7 +6602,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "custompainter",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "custompainter"
     },
@@ -6536,7 +6613,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_c",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "c"
     },
@@ -6547,7 +6624,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_graph",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "graph"
     },
@@ -6558,7 +6635,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_height",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "height"
     },
@@ -6569,7 +6646,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_noderadius",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "_noderadius"
     },
@@ -6580,7 +6657,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_labelwidth",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "_labelwidth"
     },
@@ -6591,7 +6668,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_confidencecolor",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "confidencecolor"
     },
@@ -6602,7 +6679,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_lerp",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "lerp"
     },
@@ -6613,7 +6690,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_build",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "build"
     },
@@ -6624,7 +6701,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_depths",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "_depths"
     },
@@ -6635,7 +6712,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_paint",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "paint"
     },
@@ -6646,7 +6723,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_paintlabel",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "_paintlabel"
     },
@@ -6657,7 +6734,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_epistemic_graph_view_shouldrepaint",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "shouldrepaint"
     },
@@ -6668,7 +6745,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "dart_math",
-      "community": 55,
+      "community": 34,
       "community_name": "epistemic_graph_view.dart",
       "norm_label": "dart:math"
     },
@@ -6690,8 +6767,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_intentbutton",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 73,
+      "community_name": "thought_tree_view.dart",
       "norm_label": "intentbutton"
     },
     {
@@ -6778,8 +6855,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecard",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 8,
+      "community_name": "response_card.dart",
       "norm_label": "responsecard"
     },
     {
@@ -6789,8 +6866,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecardstate",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 8,
+      "community_name": "response_card.dart",
       "norm_label": "_responsecardstate"
     },
     {
@@ -6800,8 +6877,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "singletickerproviderstatemixin",
-      "community": 5,
-      "community_name": "settings_screen.dart",
+      "community": 8,
+      "community_name": "response_card.dart",
       "norm_label": "singletickerproviderstatemixin"
     },
     {
@@ -6977,7 +7054,7 @@
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "thought_tree_view.dart"
     },
     {
@@ -6987,8 +7064,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_thoughttreeview",
-      "community": 55,
-      "community_name": "epistemic_graph_view.dart",
+      "community": 73,
+      "community_name": "thought_tree_view.dart",
       "norm_label": "thoughttreeview"
     },
     {
@@ -6999,7 +7076,7 @@
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_root",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "root"
     },
     {
@@ -7010,7 +7087,7 @@
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_exportmap",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "_exportmap"
     },
     {
@@ -7021,7 +7098,7 @@
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_build",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "build"
     },
     {
@@ -7032,7 +7109,7 @@
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_buildnode",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "_buildnode"
     },
     {
@@ -7043,7 +7120,7 @@
       "_origin": "ast",
       "id": "package_share_plus_share_plus_dart",
       "community": 73,
-      "community_name": "package:flutter/material.dart",
+      "community_name": "thought_tree_view.dart",
       "norm_label": "package:share_plus/share_plus.dart"
     },
     {
@@ -7631,7 +7708,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_intent_dart",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/models/intent.dart"
     },
@@ -7642,7 +7719,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_ai_service_dart",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/services/ai_service.dart"
     },
@@ -7664,8 +7741,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_settings_service_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/services/settings_service.dart"
     },
     {
@@ -7851,8 +7928,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "directory",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "directory"
     },
     {
@@ -8302,7 +8379,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_intent_config_dart",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/services/intent_config.dart"
     },
@@ -9050,8 +9127,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_thought_node_dart",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 59,
+      "community_name": "beta_runner.dart",
       "norm_label": "package:eom/models/thought_node.dart"
     },
     {
@@ -9875,7 +9952,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_beta_drift_test",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "beta_drift_test.dart"
     },
@@ -9886,7 +9963,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_beta_drift_test_main",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "main"
     },
@@ -9897,7 +9974,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "beta_beta_provider_dart",
-      "community": 64,
+      "community": 82,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "beta/beta_provider.dart"
     },
@@ -9908,8 +9985,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_conversation_test",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 52,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "conversation_test.dart"
     },
     {
@@ -9919,8 +9996,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_conversation_test_main",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 52,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -9930,8 +10007,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_conversation_dart",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 52,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/models/conversation.dart"
     },
     {
@@ -9974,8 +10051,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test",
-      "community": 50,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "epistemic_drift_test.dart"
     },
     {
@@ -9985,8 +10062,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_store",
-      "community": 50,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "store"
     },
     {
@@ -9996,8 +10073,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_node",
-      "community": 50,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "node"
     },
     {
@@ -10007,8 +10084,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_main",
-      "community": 50,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "main"
     },
     {
@@ -10183,8 +10260,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_graph_view_test",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "epistemic_graph_view_test.dart"
     },
     {
@@ -10194,8 +10271,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_graph_view_test_node",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "node"
     },
     {
@@ -10205,8 +10282,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_graph_view_test_graphof",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "graphof"
     },
     {
@@ -10216,8 +10293,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_graph_view_test_main",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "main"
     },
     {
@@ -10227,8 +10304,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_query_result_dart",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "package:eom/models/epistemic_query_result.dart"
     },
     {
@@ -10238,8 +10315,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_theme_eom_colors_dart",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "package:eom/theme/eom_colors.dart"
     },
     {
@@ -10249,8 +10326,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_widgets_epistemic_graph_view_dart",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "package:eom/widgets/epistemic_graph_view.dart"
     },
     {
@@ -10260,8 +10337,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "opacity",
-      "community": 58,
-      "community_name": "epistemic_graph_view_test.dart",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
       "norm_label": "opacity"
     },
     {
@@ -10326,8 +10403,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_operation_dart",
-      "community": 17,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "package:eom/models/epistemic_operation.dart"
     },
     {
@@ -10425,8 +10502,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_operation_test",
-      "community": 17,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "epistemic_operation_test.dart"
     },
     {
@@ -10436,8 +10513,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_operation_test_main",
-      "community": 17,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "main"
     },
     {
@@ -10535,8 +10612,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_helpers_in_memory_epistemic_store_inmemorystore",
-      "community": 54,
-      "community_name": "epistemic_export_test.dart",
+      "community": 84,
+      "community_name": "InMemoryStore",
       "norm_label": "inmemorystore"
     },
     {
@@ -10689,8 +10766,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "history_service_test.dart"
     },
     {
@@ -10700,8 +10777,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test_tempdir",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "tempdir"
     },
     {
@@ -10711,8 +10788,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test_main",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "main"
     },
     {
@@ -10722,8 +10799,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_history_service_dart",
-      "community": 72,
-      "community_name": "history_screen.dart",
+      "community": 76,
+      "community_name": "dart:io",
       "norm_label": "package:eom/services/history_service.dart"
     },
     {
@@ -10733,8 +10810,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "home_screen_test.dart"
     },
     {
@@ -10766,8 +10843,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_payload",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "payload"
     },
     {
@@ -10777,8 +10854,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_store",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "store"
     },
     {
@@ -10788,8 +10865,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_generate",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "generate"
     },
     {
@@ -10799,8 +10876,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_richtextcontaining",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "richtextcontaining"
     },
     {
@@ -10810,8 +10887,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_main",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "main"
     },
     {
@@ -10821,8 +10898,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_pumphome",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "pumphome"
     },
     {
@@ -10832,8 +10909,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_submit",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "submit"
     },
     {
@@ -10843,8 +10920,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_screens_home_screen_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "package:eom/screens/home_screen.dart"
     },
     {
@@ -10854,8 +10931,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_widgets_thought_tree_view_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 79,
+      "community_name": "home_screen_test.dart",
       "norm_label": "package:eom/widgets/thought_tree_view.dart"
     },
     {
@@ -10942,8 +11019,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_llm_provider_kind_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:eom/models/llm_provider_kind.dart"
     },
     {
@@ -10953,8 +11030,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_screen_test",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "settings_screen_test.dart"
     },
     {
@@ -10964,8 +11041,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_screen_test_main",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "main"
     },
     {
@@ -10975,8 +11052,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_screen_test_pushsettings",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "pushsettings"
     },
     {
@@ -10986,8 +11063,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_screen_test_fieldbyhint",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "fieldbyhint"
     },
     {
@@ -10997,8 +11074,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_screens_settings_screen_dart",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "package:eom/screens/settings_screen.dart"
     },
     {
@@ -11008,8 +11085,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_service_test",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "settings_service_test.dart"
     },
     {
@@ -11019,8 +11096,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_service_test_main",
-      "community": 53,
-      "community_name": "llm_provider.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "main"
     },
     {
@@ -11085,8 +11162,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_thought_node_test",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 59,
+      "community_name": "beta_runner.dart",
       "norm_label": "thought_node_test.dart"
     },
     {
@@ -11096,8 +11173,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_thought_node_test_main",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 59,
+      "community_name": "beta_runner.dart",
       "norm_label": "main"
     },
     {
@@ -11107,8 +11184,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "typeerror",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 59,
+      "community_name": "beta_runner.dart",
       "norm_label": "typeerror"
     },
     {
@@ -11119,7 +11196,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "ux_eom_e4_quick_wins_test.dart"
     },
     {
@@ -11130,7 +11207,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_fakehistory",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_fakehistory"
     },
     {
@@ -11141,7 +11218,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_items",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "items"
     },
     {
@@ -11152,7 +11229,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_clearcalls",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "clearcalls"
     },
     {
@@ -11163,7 +11240,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_getconversations",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "getconversations"
     },
     {
@@ -11174,7 +11251,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_clearhistory",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "clearhistory"
     },
     {
@@ -11184,8 +11261,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_main",
-      "community": 3,
-      "community_name": "home_screen.dart",
+      "community": 78,
+      "community_name": "package:flutter/material.dart",
       "norm_label": "main"
     },
     {
@@ -11196,7 +11273,7 @@
       "_origin": "ast",
       "id": "package_eom_screens_history_screen_dart",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "package:eom/screens/history_screen.dart"
     },
     {
@@ -11207,8 +11284,712 @@
       "_origin": "ast",
       "id": "package_eom_widgets_intent_button_dart",
       "community": 72,
-      "community_name": "history_screen.dart",
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "package:eom/widgets/intent_button.dart"
+    },
+    {
+      "label": "ux_eom_s21_first_run_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "ux_eom_s21_first_run_test.dart"
+    },
+    {
+      "label": "live",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_live",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "live"
+    },
+    {
+      "label": "masterKey",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_masterkey",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "masterkey"
+    },
+    {
+      "label": "host",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_host",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "host"
+    },
+    {
+      "label": "model",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_model",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "model"
+    },
+    {
+      "label": "richTextContaining",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_richtextcontaining",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "richtextcontaining"
+    },
+    {
+      "label": "fieldByHint",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_fieldbyhint",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "fieldbyhint"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_first_run_test_main",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "main"
+    },
+    {
+      "label": "package:eom/theme/eom_theme.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "package_eom_theme_eom_theme_dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
+      "norm_label": "package:eom/theme/eom_theme.dart"
+    },
+    {
+      "label": "ux_eom_s21_live_provider_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "ux_eom_s21_live_provider_test.dart"
+    },
+    {
+      "label": "live",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test_live",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "live"
+    },
+    {
+      "label": "masterKey",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test_masterkey",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "masterkey"
+    },
+    {
+      "label": "host",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test_host",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "host"
+    },
+    {
+      "label": "model",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test_model",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "model"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s21_live_provider_test_main",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "main"
+    },
+    {
+      "label": "ux_eom_s22_live_provider_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "ux_eom_s22_live_provider_test.dart"
+    },
+    {
+      "label": "live",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_live",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "live"
+    },
+    {
+      "label": "masterKey",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_masterkey",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "masterkey"
+    },
+    {
+      "label": "host",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_host",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "host"
+    },
+    {
+      "label": "model",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_model",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "model"
+    },
+    {
+      "label": "prompt",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_prompt",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "prompt"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_live_provider_test_main",
+      "community": 82,
+      "community_name": "package:eom/models/intent.dart",
+      "norm_label": "main"
+    },
+    {
+      "label": "ux_eom_s22_session_ux_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "ux_eom_s22_session_ux_test.dart"
+    },
+    {
+      "label": "_FakeProvider",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_fakeprovider",
+      "community": 53,
+      "community_name": "llm_provider.dart",
+      "norm_label": "_fakeprovider"
+    },
+    {
+      "label": "_NoopHistory",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_noophistory",
+      "community": 72,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
+      "norm_label": "_noophistory"
+    },
+    {
+      "label": "payload",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_payload",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "payload"
+    },
+    {
+      "label": "live",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_live",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "live"
+    },
+    {
+      "label": "store",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_store",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "store"
+    },
+    {
+      "label": "generate",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_generate",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "generate"
+    },
+    {
+      "label": "richTextContaining",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_richtextcontaining",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "richtextcontaining"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_main",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "main"
+    },
+    {
+      "label": "pumpHome",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_pumphome",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "pumphome"
+    },
+    {
+      "label": "submit",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_submit",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "submit"
+    },
+    {
+      "label": "saveConversation",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s22_session_ux_test_saveconversation",
+      "community": 77,
+      "community_name": "ux_eom_s22_session_ux_test.dart",
+      "norm_label": "saveconversation"
+    },
+    {
+      "label": "package:eom/widgets/response_card.dart",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "package_eom_widgets_response_card_dart",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "package:eom/widgets/response_card.dart"
+    },
+    {
+      "label": "ux_eom_s23_returning_user_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "ux_eom_s23_returning_user_test.dart"
+    },
+    {
+      "label": "_ScriptedProvider",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_scriptedprovider",
+      "community": 53,
+      "community_name": "llm_provider.dart",
+      "norm_label": "_scriptedprovider"
+    },
+    {
+      "label": "_FakeHistory",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_fakehistory",
+      "community": 72,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
+      "norm_label": "_fakehistory"
+    },
+    {
+      "label": "replies",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_replies",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "replies"
+    },
+    {
+      "label": "calls",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_calls",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "calls"
+    },
+    {
+      "label": "historyLens",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_historylens",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "historylens"
+    },
+    {
+      "label": "items",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_items",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "items"
+    },
+    {
+      "label": "clearCalls",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_clearcalls",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "clearcalls"
+    },
+    {
+      "label": "live",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_live",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "live"
+    },
+    {
+      "label": "store",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_store",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "store"
+    },
+    {
+      "label": "generate",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_generate",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "generate"
+    },
+    {
+      "label": "getConversations",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_getconversations",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "getconversations"
+    },
+    {
+      "label": "saveConversation",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_saveconversation",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "saveconversation"
+    },
+    {
+      "label": "clearHistory",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_clearhistory",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "clearhistory"
+    },
+    {
+      "label": "richTextContaining",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_richtextcontaining",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "richtextcontaining"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s23_returning_user_test_main",
+      "community": 1,
+      "community_name": "ux_eom_s23_returning_user_test.dart",
+      "norm_label": "main"
+    },
+    {
+      "label": "ux_eom_s24_structural_test.dart",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "ux_eom_s24_structural_test.dart"
+    },
+    {
+      "label": "_ScriptedProvider",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_scriptedprovider",
+      "community": 53,
+      "community_name": "llm_provider.dart",
+      "norm_label": "_scriptedprovider"
+    },
+    {
+      "label": "_FakeHistory",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_fakehistory",
+      "community": 72,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
+      "norm_label": "_fakehistory"
+    },
+    {
+      "label": "replies",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_replies",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "replies"
+    },
+    {
+      "label": "calls",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_calls",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "calls"
+    },
+    {
+      "label": "items",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_items",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "items"
+    },
+    {
+      "label": "store",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_store",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "store"
+    },
+    {
+      "label": "generate",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_generate",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "generate"
+    },
+    {
+      "label": "getConversations",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_getconversations",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "getconversations"
+    },
+    {
+      "label": "saveConversation",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_saveconversation",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "saveconversation"
+    },
+    {
+      "label": "clearHistory",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_clearhistory",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "clearhistory"
+    },
+    {
+      "label": "richTextContaining",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_richtextcontaining",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "richtextcontaining"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s24_structural_test_main",
+      "community": 44,
+      "community_name": "ux_eom_s24_structural_test.dart",
+      "norm_label": "main"
     },
     {
       "label": "widget_test.dart",
@@ -12534,7 +13315,7 @@
       "label": "The Epistemic Map",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L108",
+      "source_location": "L112",
       "_origin": "ast",
       "id": "readme_the_epistemic_map",
       "community": 19,
@@ -12545,7 +13326,7 @@
       "label": "Project Documentation",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L128",
+      "source_location": "L132",
       "_origin": "ast",
       "id": "readme_project_documentation",
       "community": 19,
@@ -12556,7 +13337,7 @@
       "label": "License",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L139",
+      "source_location": "L144",
       "_origin": "ast",
       "id": "readme_license",
       "community": 19,
@@ -12611,7 +13392,7 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L47",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "changelog_md_changelog_changed_4c23f3",
       "community": 10,
@@ -12622,7 +13403,7 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L77",
+      "source_location": "L91",
       "_origin": "ast",
       "id": "changelog_md_changelog_fixed_4c23f3",
       "community": 10,
@@ -12633,9 +13414,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L115",
+      "source_location": "L129",
       "_origin": "ast",
-      "id": "changelog_changed_115",
+      "id": "changelog_changed_129",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -12644,9 +13425,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L125",
+      "source_location": "L139",
       "_origin": "ast",
-      "id": "changelog_added_125",
+      "id": "changelog_added_139",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -12655,9 +13436,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L184",
+      "source_location": "L198",
       "_origin": "ast",
-      "id": "changelog_changed_184",
+      "id": "changelog_changed_198",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -12666,7 +13447,7 @@
       "label": "Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L201",
+      "source_location": "L215",
       "_origin": "ast",
       "id": "changelog_removed",
       "community": 10,
@@ -12677,9 +13458,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L207",
+      "source_location": "L221",
       "_origin": "ast",
-      "id": "changelog_added_207",
+      "id": "changelog_added_221",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -12688,9 +13469,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L225",
+      "source_location": "L239",
       "_origin": "ast",
-      "id": "changelog_changed_225",
+      "id": "changelog_changed_239",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -12699,9 +13480,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L238",
+      "source_location": "L252",
       "_origin": "ast",
-      "id": "changelog_added_238",
+      "id": "changelog_added_252",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -12710,9 +13491,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L256",
+      "source_location": "L270",
       "_origin": "ast",
-      "id": "changelog_changed_256",
+      "id": "changelog_changed_270",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -12721,9 +13502,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L266",
+      "source_location": "L280",
       "_origin": "ast",
-      "id": "changelog_fixed_266",
+      "id": "changelog_fixed_280",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "fixed"
@@ -12732,9 +13513,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L272",
+      "source_location": "L286",
       "_origin": "ast",
-      "id": "changelog_added_272",
+      "id": "changelog_added_286",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -12743,7 +13524,7 @@
       "label": "Added / Changed / Fixed / Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L284",
+      "source_location": "L298",
       "_origin": "ast",
       "id": "changelog_added_changed_fixed_removed",
       "community": 10,
@@ -12754,7 +13535,7 @@
       "label": "[1.0.0+1] \u2014 2026-05-11",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L288",
+      "source_location": "L302",
       "_origin": "ast",
       "id": "changelog_1_0_0_1_2026_05_11",
       "community": 10,
@@ -12765,9 +13546,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L290",
+      "source_location": "L304",
       "_origin": "ast",
-      "id": "changelog_added_290",
+      "id": "changelog_added_304",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -12776,9 +13557,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L299",
+      "source_location": "L313",
       "_origin": "ast",
-      "id": "changelog_changed_299",
+      "id": "changelog_changed_313",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -12787,9 +13568,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L302",
+      "source_location": "L316",
       "_origin": "ast",
-      "id": "changelog_fixed_302",
+      "id": "changelog_fixed_316",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "fixed"
@@ -13164,8 +13945,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "ux_findings_eom_e4.md"
     },
     {
@@ -13175,8 +13956,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_ux_findings_eom_e4_eom_s16",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "ux findings \u2014 eom-e4 / eom-s16"
     },
     {
@@ -13186,8 +13967,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_orient",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "orient"
     },
     {
@@ -13197,8 +13978,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_findings",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "findings"
     },
     {
@@ -13208,8 +13989,8 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_what_works",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "what works"
     },
     {
@@ -13219,53 +14000,97 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_prioritization",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "prioritization"
     },
     {
-      "label": "Top 3 quick wins",
+      "label": "Top 3 quick wins \u2014 resolved (2026-08-06)",
       "file_type": "document",
       "source_file": "docs/ux_findings_eom_e4.md",
       "source_location": "L55",
       "_origin": "ast",
-      "id": "docs_ux_findings_eom_e4_top_3_quick_wins",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
-      "norm_label": "top 3 quick wins"
+      "id": "docs_ux_findings_eom_e4_top_3_quick_wins_resolved_2026_08_06",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "top 3 quick wins \u2014 resolved (2026-08-06)"
     },
     {
-      "label": "Top 3 structural fixes",
+      "label": "Structural fixes \u2014 resolved (EOM-S24, 2026-08-06)",
       "file_type": "document",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L61",
+      "source_location": "L64",
       "_origin": "ast",
-      "id": "docs_ux_findings_eom_e4_top_3_structural_fixes",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
-      "norm_label": "top 3 structural fixes"
+      "id": "docs_ux_findings_eom_e4_structural_fixes_resolved_eom_s24_2026_08_06",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "structural fixes \u2014 resolved (eom-s24, 2026-08-06)"
     },
     {
-      "label": "Also worth next iteration",
+      "label": "Still open (next iteration)",
       "file_type": "document",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L67",
+      "source_location": "L73",
       "_origin": "ast",
-      "id": "docs_ux_findings_eom_e4_also_worth_next_iteration",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
-      "norm_label": "also worth next iteration"
+      "id": "docs_ux_findings_eom_e4_still_open_next_iteration",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "still open (next iteration)"
     },
     {
       "label": "Subtask coverage",
       "file_type": "document",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L75",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "docs_ux_findings_eom_e4_subtask_coverage",
-      "community": 57,
-      "community_name": "UX Findings \u2014 EOM-E4 / EOM-S16",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
       "norm_label": "subtask coverage"
+    },
+    {
+      "label": "Live beta \u2014 EOM-S22 (five intents)",
+      "file_type": "document",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L98",
+      "_origin": "ast",
+      "id": "docs_ux_findings_eom_e4_live_beta_eom_s22_five_intents",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "live beta \u2014 eom-s22 (five intents)"
+    },
+    {
+      "label": "Live session notes",
+      "file_type": "document",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "docs_ux_findings_eom_e4_live_session_notes",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "live session notes"
+    },
+    {
+      "label": "Live beta \u2014 EOM-S23 (returning user)",
+      "file_type": "document",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "docs_ux_findings_eom_e4_live_beta_eom_s23_returning_user",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "live beta \u2014 eom-s23 (returning user)"
+    },
+    {
+      "label": "Returning-user notes",
+      "file_type": "document",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "docs_ux_findings_eom_e4_returning_user_notes",
+      "community": 19,
+      "community_name": "EOM \u2014 A Quiet Vault for the Mind",
+      "norm_label": "returning-user notes"
     },
     {
       "label": "LaunchImage.imageset/README.md",
@@ -13337,7 +14162,7 @@
       "label": "Gotchas",
       "file_type": "document",
       "source_file": "learnings.md",
-      "source_location": "L191",
+      "source_location": "L198",
       "_origin": "ast",
       "id": "learnings_gotchas",
       "community": 20,
@@ -15460,6 +16285,50 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_flutter_material_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_flutter_material_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_flutter_material_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_flutter_material_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "lib/screens/settings_screen.dart",
       "source_location": null,
       "weight": 1.0,
@@ -15916,6 +16785,30 @@
       "_origin": "ast",
       "source": "lib_models_conversation",
       "target": "lib_models_conversation_tomap"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_models_conversation_conversation"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "lib_models_conversation_conversation"
     },
     {
       "relation": "defines",
@@ -17346,6 +18239,30 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "lib_models_epistemic_operation_list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "lib_models_epistemic_operation_list"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "lib/widgets/epistemic_graph_view.dart",
       "source_location": null,
       "weight": 1.0,
@@ -18363,6 +19280,17 @@
       "target": "lib_screens_history_screen_loadconversations"
     },
     {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/history_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_history_screen",
+      "target": "lib_screens_history_screen_openconversation"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -18488,6 +19416,17 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "models_conversation_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "lib/services/history_service.dart",
       "source_location": null,
       "weight": 1.0,
@@ -18571,6 +19510,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_buildconnectionssection"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
       "target": "lib_screens_home_screen_buildinputarea"
     },
     {
@@ -18583,6 +19533,17 @@
       "_origin": "ast",
       "source": "lib_screens_home_screen",
       "target": "lib_screens_home_screen_buildintentbar"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_buildpriorturns"
     },
     {
       "relation": "defines",
@@ -18616,6 +19577,28 @@
       "_origin": "ast",
       "source": "lib_screens_home_screen",
       "target": "lib_screens_home_screen_clearsession"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_confirmnewthought"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_connectionsexpanded"
     },
     {
       "relation": "defines",
@@ -18802,6 +19785,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_openhistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
       "target": "lib_screens_home_screen_opensettings"
     },
     {
@@ -18836,6 +19830,17 @@
       "_origin": "ast",
       "source": "lib_screens_home_screen",
       "target": "lib_screens_home_screen_response"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_restoreconversation"
     },
     {
       "relation": "defines",
@@ -19071,18 +20076,6 @@
       "context": "route_object",
       "_origin": "ast",
       "source": "lib_screens_home_screen_opensettings",
-      "target": "materialpageroute"
-    },
-    {
-      "relation": "navigates",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/home_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "route_object",
-      "_origin": "ast",
-      "source": "lib_screens_home_screen_buildtopbar",
       "target": "materialpageroute"
     },
     {
@@ -20532,6 +21525,39 @@
       "target": "lib_services_history_service_historyservice"
     },
     {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test_noophistory",
+      "target": "lib_services_history_service_historyservice"
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test_fakehistory",
+      "target": "lib_services_history_service_historyservice"
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test_fakehistory",
+      "target": "lib_services_history_service_historyservice"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -21018,6 +22044,39 @@
       "target": "lib_services_llm_provider_llmprovider"
     },
     {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test_fakeprovider",
+      "target": "lib_services_llm_provider_llmprovider"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test_scriptedprovider",
+      "target": "lib_services_llm_provider_llmprovider"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test_scriptedprovider",
+      "target": "lib_services_llm_provider_llmprovider"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -21465,6 +22524,72 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_settings_service_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_shared_preferences_shared_preferences_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "package_shared_preferences_shared_preferences_dart"
     },
     {
@@ -22405,6 +23530,18 @@
       "_origin": "ast",
       "source": "lib_widgets_intent_button",
       "target": "voidcallback"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "lib_widgets_intent_button_intentbutton"
     },
     {
       "relation": "references",
@@ -23467,6 +24604,39 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "package_eom_models_intent_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "package_eom_models_intent_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_models_intent_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/beta/beta_provider.dart",
       "source_location": null,
       "weight": 1.0,
@@ -23511,6 +24681,72 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/home_screen_test.dart",
       "source_location": null,
       "weight": 1.0,
@@ -23527,6 +24763,39 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_llm_provider_kind_test",
+      "target": "package_eom_services_llm_provider_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_services_llm_provider_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_services_llm_provider_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "package_eom_services_llm_provider_dart"
     },
     {
@@ -23560,6 +24829,72 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_settings_service_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_services_settings_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "package_eom_services_settings_service_dart"
     },
     {
@@ -23852,6 +25187,72 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_flutter_test_flutter_test_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/widget_test.dart",
       "source_location": null,
       "weight": 1.0,
@@ -24068,6 +25469,61 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_history_service_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
       "target": "dart_io"
     },
     {
@@ -26259,6 +27715,28 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_models_conversation_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_models_conversation_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/epistemic_category_test.dart",
       "source_location": null,
       "weight": 1.0,
@@ -26507,6 +27985,39 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_home_screen_test",
+      "target": "helpers_in_memory_epistemic_store_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "helpers_in_memory_epistemic_store_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "helpers_in_memory_epistemic_store_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "helpers_in_memory_epistemic_store_dart"
     },
     {
@@ -26824,11 +28335,44 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_theme_eom_colors_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/home_screen_test.dart",
       "source_location": null,
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_home_screen_test",
+      "target": "package_eom_widgets_epistemic_graph_view_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_widgets_epistemic_graph_view_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "package_eom_widgets_epistemic_graph_view_dart"
     },
     {
@@ -27242,6 +28786,42 @@
       "target": "test_helpers_in_memory_epistemic_store_inmemorystore"
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_helpers_in_memory_epistemic_store_inmemorystore"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_helpers_in_memory_epistemic_store_inmemorystore"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_helpers_in_memory_epistemic_store_inmemorystore"
+    },
+    {
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -27294,6 +28874,50 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_ux_eom_e4_quick_wins_test",
+      "target": "package_eom_services_history_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_eom_services_history_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_services_history_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_services_history_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
       "target": "package_eom_services_history_service_dart"
     },
     {
@@ -27418,6 +29042,72 @@
       "target": "test_home_screen_test_submit"
     },
     {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_eom_screens_home_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_screens_home_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_screens_home_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_screens_home_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_widgets_thought_tree_view_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_widgets_thought_tree_view_dart"
+    },
+    {
       "relation": "defines",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -27481,6 +29171,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_settings_service_test",
+      "target": "package_eom_models_llm_provider_kind_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
       "target": "package_eom_models_llm_provider_kind_dart"
     },
     {
@@ -27692,6 +29393,732 @@
       "_origin": "ast",
       "source": "test_ux_eom_e4_quick_wins_test",
       "target": "test_ux_eom_e4_quick_wins_test_main"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_screens_history_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_screens_history_screen_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_widgets_intent_button_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "package_eom_theme_eom_theme_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_fieldbyhint"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_host"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_live"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_masterkey"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_model"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_first_run_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_first_run_test",
+      "target": "test_ux_eom_s21_first_run_test_richtextcontaining"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_theme_eom_theme_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_theme_eom_theme_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_theme_eom_theme_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "test_ux_eom_s21_live_provider_test_host"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "test_ux_eom_s21_live_provider_test_live"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "test_ux_eom_s21_live_provider_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "test_ux_eom_s21_live_provider_test_masterkey"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s21_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s21_live_provider_test",
+      "target": "test_ux_eom_s21_live_provider_test_model"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_host"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_live"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_masterkey"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_model"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_live_provider_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_live_provider_test",
+      "target": "test_ux_eom_s22_live_provider_test_prompt"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "package_eom_widgets_response_card_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_fakeprovider"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_generate"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_live"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_noophistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_payload"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_pumphome"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_richtextcontaining"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_saveconversation"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_store"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s22_session_ux_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s22_session_ux_test",
+      "target": "test_ux_eom_s22_session_ux_test_submit"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "package_eom_widgets_response_card_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "package_eom_widgets_response_card_dart"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_calls"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_clearcalls"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_clearhistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_fakehistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_generate"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_getconversations"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_historylens"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_items"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_live"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_replies"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_richtextcontaining"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_saveconversation"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_scriptedprovider"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s23_returning_user_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s23_returning_user_test",
+      "target": "test_ux_eom_s23_returning_user_test_store"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_calls"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_clearhistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_fakehistory"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_generate"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_getconversations"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_items"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_main"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_replies"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_richtextcontaining"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_saveconversation"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_scriptedprovider"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s24_structural_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s24_structural_test",
+      "target": "test_ux_eom_s24_structural_test_store"
     },
     {
       "relation": "imports",
@@ -28764,7 +31191,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L135",
+      "source_location": "L140",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
@@ -28786,7 +31213,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L132",
+      "source_location": "L136",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
@@ -28797,11 +31224,22 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L133",
+      "source_location": "L137",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme",
       "target": "docs_repomap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme",
+      "target": "docs_ux_findings_eom_e4",
       "confidence_score": 1.0
     },
     {
@@ -28841,7 +31279,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L139",
+      "source_location": "L144",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme_eom_a_quiet_vault_for_the_mind",
@@ -28863,7 +31301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L128",
+      "source_location": "L132",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme_eom_a_quiet_vault_for_the_mind",
@@ -28896,7 +31334,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L108",
+      "source_location": "L112",
       "weight": 1.0,
       "_origin": "ast",
       "source": "readme_eom_a_quiet_vault_for_the_mind",
@@ -28951,7 +31389,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L288",
+      "source_location": "L302",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog_dev_log",
@@ -28973,51 +31411,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L125",
+      "source_location": "L139",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_added_125",
+      "target": "changelog_added_139",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L207",
+      "source_location": "L221",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_added_207",
+      "target": "changelog_added_221",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L238",
+      "source_location": "L252",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_added_238",
+      "target": "changelog_added_252",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L272",
+      "source_location": "L286",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_added_272",
+      "target": "changelog_added_286",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L284",
+      "source_location": "L298",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -29028,55 +31466,55 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L115",
+      "source_location": "L129",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_changed_115",
+      "target": "changelog_changed_129",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L184",
+      "source_location": "L198",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_changed_184",
+      "target": "changelog_changed_198",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L225",
+      "source_location": "L239",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_changed_225",
+      "target": "changelog_changed_239",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L256",
+      "source_location": "L270",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_changed_256",
+      "target": "changelog_changed_270",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L266",
+      "source_location": "L280",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
-      "target": "changelog_fixed_266",
+      "target": "changelog_fixed_280",
       "confidence_score": 1.0
     },
     {
@@ -29094,7 +31532,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L47",
+      "source_location": "L61",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -29105,7 +31543,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L77",
+      "source_location": "L91",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -29116,7 +31554,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L201",
+      "source_location": "L215",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_unreleased",
@@ -29127,33 +31565,33 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L290",
+      "source_location": "L304",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_added_290",
+      "target": "changelog_added_304",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L299",
+      "source_location": "L313",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_changed_299",
+      "target": "changelog_changed_313",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L302",
+      "source_location": "L316",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_fixed_302",
+      "target": "changelog_fixed_316",
       "confidence_score": 1.0
     },
     {
@@ -29479,6 +31917,28 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_ux_findings_eom_e4_ux_findings_eom_e4_eom_s16",
+      "target": "docs_ux_findings_eom_e4_live_beta_eom_s22_five_intents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_ux_findings_eom_e4_ux_findings_eom_e4_eom_s16",
+      "target": "docs_ux_findings_eom_e4_live_beta_eom_s23_returning_user",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/ux_findings_eom_e4.md",
       "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
@@ -29501,7 +31961,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L75",
+      "source_location": "L83",
       "weight": 1.0,
       "_origin": "ast",
       "source": "docs_ux_findings_eom_e4_ux_findings_eom_e4_eom_s16",
@@ -29523,11 +31983,22 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L67",
+      "source_location": "L73",
       "weight": 1.0,
       "_origin": "ast",
       "source": "docs_ux_findings_eom_e4_prioritization",
-      "target": "docs_ux_findings_eom_e4_also_worth_next_iteration",
+      "target": "docs_ux_findings_eom_e4_still_open_next_iteration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_ux_findings_eom_e4_prioritization",
+      "target": "docs_ux_findings_eom_e4_structural_fixes_resolved_eom_s24_2026_08_06",
       "confidence_score": 1.0
     },
     {
@@ -29538,18 +32009,29 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "docs_ux_findings_eom_e4_prioritization",
-      "target": "docs_ux_findings_eom_e4_top_3_quick_wins",
+      "target": "docs_ux_findings_eom_e4_top_3_quick_wins_resolved_2026_08_06",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ux_findings_eom_e4.md",
-      "source_location": "L61",
+      "source_location": "L114",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "docs_ux_findings_eom_e4_prioritization",
-      "target": "docs_ux_findings_eom_e4_top_3_structural_fixes",
+      "source": "docs_ux_findings_eom_e4_live_beta_eom_s22_five_intents",
+      "target": "docs_ux_findings_eom_e4_live_session_notes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_ux_findings_eom_e4_live_beta_eom_s23_returning_user",
+      "target": "docs_ux_findings_eom_e4_returning_user_notes",
       "confidence_score": 1.0
     },
     {
@@ -29600,7 +32082,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "learnings.md",
-      "source_location": "L191",
+      "source_location": "L198",
       "weight": 1.0,
       "_origin": "ast",
       "source": "learnings_learnings",
@@ -29609,5 +32091,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8e35f5e05e431cfa2bdbeaabe57f3ca62baea1c6"
+  "built_at_commit": "bd8988ba0890c4c702356ff6a454322b2238dba4"
 }
