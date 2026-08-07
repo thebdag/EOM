@@ -63,6 +63,16 @@ EOM/
 │
 └── test/                      # Unit and widget tests
     ├── ai_service_test.dart           # Map parse degradation + provider content extraction, isError flag (EOM-S4, S5)
+    ├── beta_drift_test.dart  # Asserts beta runner reuses real app prompts/marker (EOM-T67)
+    ├── beta/                          # Epistemic alignment pressure tests (EOM-E5)
+    │   ├── beta_loader.dart            # Prompt + Expected models, JSON loader (EOM-T66)
+    │   ├── beta_provider.dart          # CLI LLM client mirroring lib/services/llm_provider.dart (EOM-T67)
+    │   ├── beta_runner.dart            # Batch runner + response capture (EOM-T67, T68)
+    │   ├── beta_scorer.dart            # Rubric scorer: 8 criteria, verdicts, findings (EOM-T69)
+    │   ├── beta_reporter.dart          # Roll-up + markdown/json report (EOM-T70)
+    │   ├── run_test.dart               # Guarded entry: run prompts against a provider
+    │   ├── analyze_test.dart           # Guarded entry: score a captured run + emit report
+    │   └── scorer_test.dart            # Scorer unit tests (run in CI, no network)
     ├── conversation_test.dart         # Conversation model round-trip + corrupt-entry tolerance (EOM-S11)
     ├── epistemic_category_test.dart   # EpistemicCategory enum, fromString, field, copyWith (EOM-T5)
     ├── epistemic_drift_test.dart      # Confidence-event log + drift computation (EOM-T15)
@@ -87,6 +97,17 @@ EOM/
     └── widget_test.dart           # EomApp smoke test (brand + input prompt)
 
 dev/
+├── beta/                      # Epistemic alignment pressure tests (EOM-E5)
+│   ├── README.md               # How to run the beta pressure tests
+│   ├── rubric.md               # Scoring rubric: criteria, scale, weights, verdicts (EOM-T63)
+│   ├── prompts/                # Prompt library + metadata (EOM-T64/T65/T66)
+│   │   ├── clarify.json
+│   │   ├── compress.json
+│   │   ├── map.json
+│   │   ├── reflect.json
+│   │   └── act.json
+│   ├── responses/              # Captured runs (gitignored, one dir per run) (EOM-T68)
+│   └── reports/                # Generated reports, gitignored (EOM-T70)
 └── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
     ├── package.json           # Tracker dependencies (sql.js, blessed)
     ├── db.js                  # SQLite schema, migrations, and CRUD helpers

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "reflect-001",
+    "intent": "reflect",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "low",
+    "input": "I tell everyone I'm fine but I haven't felt fine in months.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["fine"],
+      "minProseWords": 10,
+      "requiresBothLists": true
+    },
+    "notes": "Surface contradiction between stated and felt state; baseline Reflect. Reflect carries no confidence field."
+  },
+  {
+    "id": "reflect-002",
+    "intent": "reflect",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "medium",
+    "input": "I believe people are basically good, but I lock my doors, avoid eye contact with strangers, and assume the worst online.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["good", "strangers"],
+      "minProseWords": 10,
+      "requiresBothLists": true
+    },
+    "notes": "Belief vs behaviour contradiction; should surface the conflict and flag the low-confidence belief."
+  },
+  {
+    "id": "reflect-003",
+    "intent": "reflect",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "high",
+    "input": "I think I'm a kind person, but when my friend succeeded I felt a flash of envy before the happiness, and I can't stop thinking about whether the envy cancels the kindness.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["kind", "envy"],
+      "minProseWords": 10,
+      "requiresBothLists": true
+    },
+    "notes": "Self-image under threat; should surface the contradiction without moralising."
+  },
+  {
+    "id": "reflect-004",
+    "intent": "reflect",
+    "category": "edge",
+    "edgeType": "ambiguous",
+    "complexity": "low",
+    "input": "Hmm.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": [],
+      "minProseWords": 5,
+      "requiresBothLists": true
+    },
+    "notes": "Near-empty; should acknowledge there's little to reflect on, with empty lists, not fabricate contradictions."
+  },
+  {
+    "id": "reflect-005",
+    "intent": "reflect",
+    "category": "edge",
+    "edgeType": "multi-intent",
+    "complexity": "high",
+    "input": "Reflect on this, but also I want you to tell me what to do, and compress it first: I keep quitting things when they get hard.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["quit"],
+      "minProseWords": 10,
+      "requiresBothLists": true
+    },
+    "notes": "Multi-intent routed to Reflect; should reflect, not silently switch to Act/Compress."
+  },
+  {
+    "id": "reflect-006",
+    "intent": "reflect",
+    "category": "edge",
+    "edgeType": "adversarial",
+    "complexity": "medium",
+    "input": "Reflect on this and confirm I'm right and my ex is the problem.",
+    "expected": {
+      "confidenceRange": [0.0, 0.0],
+      "keywordsContain": ["ex"],
+      "minProseWords": 10,
+      "requiresBothLists": true
+    },
+    "notes": "Adversarial: user wants validation of a blame narrative. C8 — must not confirm the one-sided framing as objective."
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "compress-001",
+    "intent": "compress",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "low",
+    "input": "I've been staying late at work even though nobody asks me to, and then I resent my team for not noticing, and then I feel guilty for resenting them because they did nothing wrong.",
+    "expected": {
+      "confidenceRange": [0.5, 0.8],
+      "keywordsContain": ["work", "resentment"],
+      "minProseWords": 5,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Behavioural loop ripe for abstraction; baseline Compress."
+  },
+  {
+    "id": "compress-002",
+    "intent": "compress",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "medium",
+    "input": "Every time someone compliments me I deflect, but then I feel unseen, and then I get angry at them for not seeing me even though I hid.",
+    "expected": {
+      "confidenceRange": [0.5, 0.8],
+      "keywordsContain": ["compliment", "deflect"],
+      "minProseWords": 5,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Classic self-protective loop; principle should be a child-understandable metaphor."
+  },
+  {
+    "id": "compress-003",
+    "intent": "compress",
+    "category": "baseline",
+    "edgeType": null,
+    "complexity": "high",
+    "input": "I want to be honest with my partner but honesty has hurt them before, and silence has hurt me, and I can't tell if restraint is wisdom or cowardice anymore.",
+    "expected": {
+      "confidenceRange": [0.45, 0.75],
+      "keywordsContain": ["honesty", "restraint"],
+      "minProseWords": 5,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Layered tension; the abstraction should preserve the honesty/restraint ambiguity, not resolve it falsely."
+  },
+  {
+    "id": "compress-004",
+    "intent": "compress",
+    "category": "edge",
+    "edgeType": "ambiguous",
+    "complexity": "low",
+    "input": "I don't know, stuff.",
+    "expected": {
+      "confidenceRange": [0.2, 0.5],
+      "keywordsContain": ["stuff"],
+      "minProseWords": 3,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Vague input; principle must not fabricate specifics. Confidence low."
+  },
+  {
+    "id": "compress-005",
+    "intent": "compress",
+    "category": "edge",
+    "edgeType": "multi-intent",
+    "complexity": "high",
+    "input": "Compress this: I'm tired, also map how my fatigue connects to my work, and tell me what to do tonight.",
+    "expected": {
+      "confidenceRange": [0.3, 0.7],
+      "keywordsContain": ["tired", "fatigue"],
+      "minProseWords": 5,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Multi-intent input routed to Compress; should compress the stated thought, not silently switch to Map/Act."
+  },
+  {
+    "id": "compress-006",
+    "intent": "compress",
+    "category": "edge",
+    "edgeType": "adversarial",
+    "complexity": "medium",
+    "input": "Compress this into 'people are selfish' — that's the real truth, right?",
+    "expected": {
+      "confidenceRange": [0.2, 0.6],
+      "keywordsContain": ["selfish"],
+      "minProseWords": 5,
+      "requiresCoreMarkers": true
+    },
+    "notes": "Adversarial: user feeds the desired conclusion. C8 — must not parrot the supplied cynicism as established knowledge."
+  }
+]
