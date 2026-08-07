@@ -12,9 +12,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-S25** Phase 0 theme foundation (Family kinship): `gold` /
+  `goldMuted` / `goldSubtle` tokens; bundled Cormorant Garamond orientation
+  serif (`assets/fonts/`); `EomShapes.leaf` + `EomSpacing`;
+  `docs/design_spec.md` revised for dual accent, soft gate, and calm Settings.
 - **EOM-S24** structural UX: History reopen (F8), multi-turn prior turns (F10),
   Map “Your map” + collapsible Connections (F11), New-thought confirm (F16).
   Covered by `test/ux_eom_s24_structural_test.dart`.
+- **EOM-S21** live first-run walk: empty vault → Settings → first Clarify
+  (`test/ux_eom_s21_first_run_test.dart`, `test/ux_eom_s21_live_provider_test.dart`).
 - **EOM-S22 / S23** live beta UX walks: five-intent LiteLLM session +
   returning-user multi-turn / History / New thought
   (`test/ux_eom_s22_live_provider_test.dart`,
@@ -28,10 +34,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   pill descriptions (subtitle + tooltip). Covered by
   `intent_error_test`, `ux_eom_e4_quick_wins_test`, and updated
   `home_screen_test` / `ai_service_test`. Findings doc marks F2/F3/F6/F7/F9
-  resolved; structural fixes (F1/F4/F5/F8/F10) remain open for live beta
-  stories EOM-S21–S23.
+  resolved; F8/F10/F11/F16 later closed by EOM-S24. Still open: F1/F4/F5,
+  F12–F15.
 - **EOM-E4 / EOM-S16** UX walkthrough findings report
   (`docs/ux_findings_eom_e4.md`): 16 friction points across Home, Settings,
+
   and History (first-run + returning passes), with severity, heuristics, and
   prioritized quick wins / structural fixes for the next iteration.
 - Tracker TUI **reload** (`r`) so panes refresh after CLI / post-commit
@@ -59,6 +66,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   extensions.
 
 ### Changed
+- Deeper void background (`#0E0F12`), lifted surfaces, and higher-contrast
+  `textTertiary` (F12 token fix) in `EomColors` / `EomTheme` (EOM-S25).
 - **EOM-T67** `AiService.defaultContext` is now a public `static const`
   (was a local inside `process`) so the beta runner can reuse the exact
   global preamble and a drift-guard test can assert alignment.

@@ -99,10 +99,17 @@ to select your AI provider and enter your credentials.
 
 ## Session History
 
-Every conversation is automatically saved to a local library. You can browse
-past sessions from the **History** screen (the clock icon) to revisit earlier
-trains of thought whenever you need them. An empty library invites you to
-capture a thought; clearing history asks for confirmation first.
+Every conversation is automatically saved to a local library. From **History**
+(the clock icon) you can:
+
+- Browse past sessions and **tap a row to reopen it on Home** — input,
+  response, and session context come back so you can continue.
+- Clear the library with a confirmation first (Cancel keeps everything).
+- Start from an empty library with a calm invitation to capture a thought.
+
+On Home, follow-up intents keep **earlier turns in this session** visible
+above the latest reply. **New thought** asks before clearing the on-screen
+session (saved History is kept).
 
 When a provider or API key is missing, Home shows calm recovery copy with an
 **Open Settings** action instead of a raw exception string.
@@ -115,9 +122,9 @@ Beneath the surface, every session quietly builds a personal knowledge
 graph — your beliefs, questions, and acknowledged unknowns, with typed
 relationships between them. It lives entirely on your device.
 
-- **Map sessions** render a graph overlay beneath the concept tree: nodes
-  are coloured by confidence, so you can see at a glance what you stand on
-  firmly and what's still shaky.
+- **Map sessions** show a labeled **Your map** tree; the confidence-coloured
+  graph sits under a collapsible **Connections** section (collapsed by
+  default so the tree stays primary).
 - **Gap detection** surfaces what you don't yet have a node for — open
   questions and concepts your sessions reference but never captured.
 - **Confidence drift** tracks how your beliefs shift across sessions.
@@ -135,7 +142,7 @@ relationships between them. It lives entirely on your device.
 |---|---|
 | [Design Spec](docs/design_spec.md) | The visual philosophy, color palette, and component guidelines |
 | [Repository Map](docs/REPOMAP.md) | The full directory structure and the role of each file |
-| [UX Findings (EOM-E4)](docs/ux_findings_eom_e4.md) | Beta UX walkthrough friction + prioritized fixes |
+| [UX Findings (EOM-E4)](docs/ux_findings_eom_e4.md) | Beta UX walkthrough, live walks, and structural fixes (through S24) |
 | [Changelog](CHANGELOG.md) | A running log of what has been added, changed, or fixed |
 | [Context / Glossary](CONTEXT.md) | Definitions of domain-specific terms used in the codebase |
 

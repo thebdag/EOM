@@ -10,12 +10,15 @@ EOM/
 ├── CONTEXT.md                 # Domain glossary (ubiquitous language)
 ├── learnings.md               # Running log of bugs to avoid, gotchas, and best practices
 ├── README.md                  # Project overview and setup instructions
-├── pubspec.yaml               # Flutter package dependencies and assets
+├── pubspec.yaml               # Flutter package dependencies and assets (incl. Cormorant Garamond)
+├── assets/
+│   └── fonts/                 # Bundled orientation serif (Cormorant Garamond + OFL)
 │
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
-│   ├── design_spec.md         # Original design philosophy and component spec
-│   ├── ux_findings_eom_e4.md  # UX walkthrough findings + prioritized fixes (EOM-E4 / EOM-S16)
+│   ├── design_spec.md         # Epistemic Calm + Family kinship (dual accent, serif, soft gate)
+│   ├── ux_findings_eom_e4.md  # UX findings (EOM-E4): S16 walk + S21–S23 live beta + S24 structural closes
+│   ├── ui_spirit_enhancement_plan.md  # Epiture-kinship UI/UX spirit plan (Family; soft gate; calm Settings)
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
 │       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
@@ -37,8 +40,8 @@ EOM/
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view (+ fromJson/tryParseRaw, EOM-S14)
 │   │
 │   ├── screens/
-│   │   ├── history_screen.dart  # Library of saved thought sessions (empty CTA + clear confirm, EOM-S19)
-│   │   ├── home_screen.dart     # Main "Vault" interface (input, intents, response; friendly errors, EOM-S18)
+│   │   ├── history_screen.dart  # Saved sessions: empty CTA, clear confirm (S19); row reopen → Home (S24/F8)
+│   │   ├── home_screen.dart     # Vault UI: intents, prior-turn thread (F10), Map framing (F11), New-thought confirm (F16), calm errors (S18)
 │   │   └── settings_screen.dart # API Key / LiteLLM / Provider configuration UI
 │   │
 │   ├── services/
@@ -54,14 +57,15 @@ EOM/
 │   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
 │   │
 │   ├── theme/
-│   │   ├── eom_colors.dart    # Strict color palette tokens
-│   │   └── eom_theme.dart     # Material 3 global ThemeData definition
+│   │   ├── eom_colors.dart    # Palette tokens (gold/indigo/sage; deeper void; F12 tertiary)
+│   │   ├── eom_shapes.dart    # Leaf path/radius helpers for signature moments (EOM-S25)
+│   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing
 │   │
 │   └── widgets/
-│       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18)
+│       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18); shown under collapsible Connections on Home (S24/F11)
 │       ├── intent_button.dart   # Interactive pill button for cognitive intents (description subtitle + tooltip, EOM-S20)
 │       ├── response_card.dart   # Fade-in markdown container; Open Settings on recoverable errors (EOM-S18)
-│       └── thought_tree_view.dart # Custom widget rendering recursive directory trees
+│       └── thought_tree_view.dart # Custom widget rendering recursive directory trees ("Your map" on Home, S24/F11)
 │
 └── test/                      # Unit and widget tests
     ├── ai_service_test.dart           # Map parse degradation + provider content extraction, isError flag (EOM-S4, S5)
@@ -90,7 +94,7 @@ EOM/
     ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
-    ├── home_screen_test.dart      # Injected-service flows: clarify/map persist, friendly errors + Open Settings (EOM-S12, S18)
+    ├── home_screen_test.dart      # Injected-service flows: clarify/map, friendly errors, New-thought confirm, Connections expand (S12, S18, S24)
     ├── intent_config_test.dart    # Per-intent prompt contract + operation routing (EOM-S14)
     ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
     ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage (EOM-S10, S11)
@@ -98,6 +102,12 @@ EOM/
     ├── settings_service_test.dart # Gateway-origin normalization
     ├── thought_node_test.dart     # Logic tests for tree structure management
     ├── ux_eom_e4_quick_wins_test.dart # History empty CTA/clear confirm + intent descriptions (EOM-S19, S20)
+    ├── ux_eom_s21_first_run_test.dart # Live first-run widget walk (guarded by EOM_S21_LIVE)
+    ├── ux_eom_s21_live_provider_test.dart # Live Clarify via real LiteLLM (no testWidgets; EOM_S21_LIVE)
+    ├── ux_eom_s22_live_provider_test.dart # Live five-intent LiteLLM session (EOM-S22)
+    ├── ux_eom_s22_session_ux_test.dart # Map framing + Act sage chrome (EOM-S22)
+    ├── ux_eom_s23_returning_user_test.dart # Multi-turn / History / New thought (EOM-S23)
+    ├── ux_eom_s24_structural_test.dart # F8/F10/F11/F16 structural UX (EOM-S24)
     └── widget_test.dart           # EomApp smoke test (brand + input prompt)
 
 dev/
@@ -114,12 +124,13 @@ dev/
 │   └── reports/                # Generated reports, gitignored (EOM-T70)
 └── tracker/                   # Lightweight issue tracker (SQLite + Node.js TUI)
     ├── package.json           # Tracker dependencies (sql.js, blessed)
-    ├── db.js                  # SQLite schema, migrations, and CRUD helpers
+    ├── db.js                  # SQLite schema, migrations, and CRUD helpers (incl. subtask_comments)
     ├── tracker.js             # Entry point (git branch detection, DB init, TUI launch)
-    ├── ui.js                  # blessed TUI — three-pane Epics/Stories/Detail layout
+    ├── ui.js                  # blessed TUI — three-pane Epics/Stories/Detail; `r` reload, `c`/`v` comments
     ├── mark.js                # Status CLI: `node dev/tracker/mark.js EOM-T7 done`
+    ├── comment.js             # Comment CLI: `node dev/tracker/comment.js EOM-T7 "…"`
     ├── install-hooks.js       # One-time installer for the post-commit hook
-    ├── hooks/post-commit      # Reads [EOM-Tn done]-style tokens from commit messages
+    ├── hooks/post-commit      # Reads [EOM-Tn done] / [EOM-Tn note: …] tokens from commit messages
     └── seed.js                # One-time seed script: 7 epics from the existing codebase
 ```
 
