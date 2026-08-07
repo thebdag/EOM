@@ -40,6 +40,7 @@ subtask list, where `N` is the comment count.
 
 | Key | Action |
 |---|---|
+| `r` | **Reload** all panes from the DB (pick up external writes from the CLI or post-commit hook) |
 | `q` | Quit |
 | `Ctrl+C` | Force quit |
 

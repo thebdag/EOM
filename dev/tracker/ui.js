@@ -183,7 +183,7 @@ function launchTUI({ branch }) {
       ` {bold}EOM Tracker{/bold}   ` +
       colorTag(COLORS.textDim, `branch: ${branch || '(none)'}`) +
       `   {right}` +
-      colorTag(COLORS.textDim, `[Tab] focus  [n] new  [e] edit  [d] cycle  [b] branch  [c] comment  [v] view  [D] delete  [q] quit `) ,
+      colorTag(COLORS.textDim, `[Tab] focus  [n] new  [e] edit  [d] cycle  [b] branch  [c] comment  [v] view  [r] reload  [D] delete  [q] quit `) ,
     tags: true,
     style: { bg: COLORS.surface, fg: COLORS.text },
   });
@@ -693,6 +693,7 @@ function launchTUI({ branch }) {
   screen.key(['b'], () => linkBranch());
   screen.key(['c'], () => addComment());
   screen.key(['v'], () => viewComments());
+  screen.key(['r'], () => { refreshAll(); setStatus('Reloaded from DB', COLORS.done); });
   screen.key(['q', 'C-c'], () => process.exit(0));
 
   // ── Init ──────────────────────────────────────────────────────────────────────

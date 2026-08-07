@@ -17,11 +17,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `ResponseCard`); History empty-state CTA + clear confirmation; intent
   pill descriptions (subtitle + tooltip). Covered by
   `intent_error_test`, `ux_eom_e4_quick_wins_test`, and updated
-  `home_screen_test` / `ai_service_test`.
+  `home_screen_test` / `ai_service_test`. Findings doc marks F2/F3/F6/F7/F9
+  resolved; structural fixes (F1/F4/F5/F8/F10) remain open for live beta
+  stories EOM-S21–S23.
 - **EOM-E4 / EOM-S16** UX walkthrough findings report
   (`docs/ux_findings_eom_e4.md`): 16 friction points across Home, Settings,
   and History (first-run + returning passes), with severity, heuristics, and
   prioritized quick wins / structural fixes for the next iteration.
+- Tracker TUI **reload** (`r`) so panes refresh after CLI / post-commit
+  writes without restarting.
 - **EOM-E5** Beta epistemic alignment pressure tests: a curated prompt
   library (`dev/beta/prompts/`) covering all five cognitive intents with
   baseline + edge cases (ambiguous, contradictory, multi-intent, adversarial)
