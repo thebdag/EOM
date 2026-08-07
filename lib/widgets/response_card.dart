@@ -7,10 +7,18 @@ class ResponseCard extends StatefulWidget {
     super.key,
     required this.text,
     required this.accentColor,
+    this.isError = false,
+    this.onOpenSettings,
   });
 
   final String text;
   final Color accentColor;
+
+  /// Soft error styling + optional recovery action (EOM-S18).
+  final bool isError;
+
+  /// When non-null, shows a calm "Open Settings" text button under the copy.
+  final VoidCallback? onOpenSettings;
 
   @override
   State<ResponseCard> createState() => _ResponseCardState();
@@ -45,6 +53,8 @@ class _ResponseCardState extends State<ResponseCard>
 
   @override
   Widget build(BuildContext context) {
+    final accent = widget.isError ? EomColors.error : widget.accentColor;
+
     return FadeTransition(
       opacity: _fadeIn,
       child: SlideTransition(
@@ -60,18 +70,36 @@ class _ResponseCardState extends State<ResponseCard>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Accent bar
               Container(
                 width: 24,
                 height: 3,
                 decoration: BoxDecoration(
-                  color: widget.accentColor.withValues(alpha: 0.5),
+                  color: accent.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
               const SizedBox(height: 16),
-              // Response text — simple rich text with **bold** support
               _buildRichText(widget.text),
+              if (widget.onOpenSettings != null) ...[
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: widget.onOpenSettings,
+                  style: TextButton.styleFrom(
+                    foregroundColor: EomColors.accent,
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: const Text(
+                    'Open Settings',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -102,8 +130,10 @@ class _ResponseCardState extends State<ResponseCard>
 
     return RichText(
       text: TextSpan(
-        style: const TextStyle(
-          color: EomColors.textPrimary,
+        style: TextStyle(
+          color: widget.isError
+              ? EomColors.textSecondary
+              : EomColors.textPrimary,
           fontSize: 15,
           fontWeight: FontWeight.w400,
           height: 1.65,

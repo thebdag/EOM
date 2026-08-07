@@ -5,6 +5,7 @@ import '../models/epistemic_operation.dart';
 import '../models/epistemic_query_result.dart';
 import '../models/intent.dart';
 import '../services/ai_service.dart';
+import '../services/intent_error.dart';
 import '../theme/eom_colors.dart';
 import '../widgets/epistemic_graph_view.dart';
 import '../widgets/intent_button.dart';
@@ -203,13 +204,27 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     } catch (e) {
+      // Never fail silently (EOM-S18 / UX F3) — surface calm copy.
       if (mounted) {
+        final mapped = IntentError.from(e);
         setState(() {
           _isProcessing = false;
-          _activeIntent = null;
+          _response = AiResponse(
+            text: mapped.message,
+            intent: intent,
+            isError: true,
+            offerSettings: mapped.offerSettings,
+          );
         });
       }
     }
+  }
+
+  void _openSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const SettingsScreen()),
+    );
   }
 
   void _clearSession() {
@@ -259,6 +274,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ResponseCard(
                         text: _response!.text,
                         accentColor: _response!.intent.color,
+                        isError: _response!.isError,
+                        onOpenSettings: _response!.offerSettings
+                            ? _openSettings
+                            : null,
                       ),
                     ],
 
@@ -330,10 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
             tooltip: 'History',
           ),
           IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const SettingsScreen()),
-            ),
+            onPressed: _openSettings,
             icon: const Icon(Icons.settings_outlined, size: 20),
             color: EomColors.textTertiary,
             tooltip: 'Settings',

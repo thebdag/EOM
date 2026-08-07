@@ -3,6 +3,7 @@ import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
 import 'intent_config.dart';
+import 'intent_error.dart';
 import 'llm_provider.dart';
 import 'settings_service.dart';
 
@@ -86,11 +87,12 @@ class AiService {
 
       return _parseEpistemicResponse(textResponse, intent);
     } catch (e) {
+      final mapped = IntentError.from(e);
       return AiResponse(
-        text:
-            'Error processing intent with ${SettingsService.activeProvider.label}: $e',
+        text: mapped.message,
         intent: intent,
         isError: true,
+        offerSettings: mapped.offerSettings,
       );
     }
   }
@@ -207,6 +209,7 @@ class AiResponse {
     this.tree,
     this.operation,
     this.isError = false,
+    this.offerSettings = false,
   });
 
   final String text;
@@ -222,4 +225,7 @@ class AiResponse {
   /// real answer (EOM-S5). Error responses must not be appended to the
   /// conversation history or persisted to Hive.
   final bool isError;
+
+  /// When true with [isError], the UI should offer Open Settings (EOM-S18).
+  final bool offerSettings;
 }

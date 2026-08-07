@@ -24,13 +24,13 @@ class _FakeProvider implements LlmProvider {
   }) async => payload;
 }
 
-class _ThrowingProvider implements LlmProvider {
+class _MissingKeyProvider implements LlmProvider {
   @override
   Future<String> generate(
     String systemPrompt,
     String userMessage, {
     List<ChatMessage> history = const [],
-  }) async => throw Exception('boom');
+  }) async => throw Exception('OPENAI_API_KEY is missing');
 }
 
 /// ResponseCard renders via RichText (markdown bold support), which
@@ -118,15 +118,21 @@ void main() {
       expect(find.byType(EpistemicGraphView), findsOneWidget);
     });
 
-    testWidgets('provider errors render but save nothing (EOM-S5)', (
+    testWidgets('provider errors render friendly copy and Open Settings', (
       tester,
     ) async {
-      await pumpHome(tester, _ThrowingProvider());
+      await pumpHome(tester, _MissingKeyProvider());
 
       await submit(tester, 'Act');
 
-      expect(richTextContaining('boom'), findsOneWidget);
+      expect(richTextContaining('Add an API key in Settings'), findsOneWidget);
+      expect(find.text('Open Settings'), findsOneWidget);
+      expect(richTextContaining('Exception'), findsNothing);
       expect(store.nodes, isEmpty);
+
+      await tester.tap(find.text('Open Settings'));
+      await tester.pumpAndSettle();
+      expect(find.text('AI Configuration'), findsOneWidget);
     });
 
     testWidgets('new-thought button clears the session', (tester) async {

@@ -27,6 +27,15 @@ class _ThrowingProvider implements LlmProvider {
   }) async => throw Exception('provider exploded');
 }
 
+class _MissingKeyProvider implements LlmProvider {
+  @override
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<ChatMessage> history = const [],
+  }) async => throw Exception('OPENAI_API_KEY is missing');
+}
+
 void main() {
   group('AiService Map parsing (EOM-S4)', () {
     test('parses a well-formed map response into tree and operation', () async {
@@ -83,19 +92,28 @@ void main() {
       await SettingsService.init();
     });
 
-    test(
-      'provider failures are flagged isError with a readable message',
-      () async {
-        final service = AiService(provider: _ThrowingProvider());
+    test('provider failures are flagged isError with friendly copy', () async {
+      final service = AiService(provider: _ThrowingProvider());
 
-        final response = await service.process('input', CognitiveIntent.act);
+      final response = await service.process('input', CognitiveIntent.act);
 
-        expect(response.isError, isTrue);
-        expect(response.text, contains('provider exploded'));
-        expect(response.operation, isNull);
-        expect(response.tree, isNull);
-      },
-    );
+      expect(response.isError, isTrue);
+      expect(response.text, isNot(contains('provider exploded')));
+      expect(response.text, contains('quiet'));
+      expect(response.offerSettings, isFalse);
+      expect(response.operation, isNull);
+      expect(response.tree, isNull);
+    });
+
+    test('missing API key offers Settings recovery', () async {
+      final service = AiService(provider: _MissingKeyProvider());
+
+      final response = await service.process('input', CognitiveIntent.clarify);
+
+      expect(response.isError, isTrue);
+      expect(response.offerSettings, isTrue);
+      expect(response.text, contains('API key'));
+    });
 
     test('successful responses are not flagged isError', () async {
       final service = AiService(provider: _FakeProvider('plain prose'));

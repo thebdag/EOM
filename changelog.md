@@ -12,6 +12,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-S18 / S19 / S20** UX quick wins from EOM-E4 findings: calm
+  intent-error copy with Open Settings recovery (`IntentError`,
+  `ResponseCard`); History empty-state CTA + clear confirmation; intent
+  pill descriptions (subtitle + tooltip). Covered by
+  `intent_error_test`, `ux_eom_e4_quick_wins_test`, and updated
+  `home_screen_test` / `ai_service_test`.
+- **EOM-E4 / EOM-S16** UX walkthrough findings report
+  (`docs/ux_findings_eom_e4.md`): 16 friction points across Home, Settings,
+  and History (first-run + returning passes), with severity, heuristics, and
+  prioritized quick wins / structural fixes for the next iteration.
 - **EOM-E5** Beta epistemic alignment pressure tests: a curated prompt
   library (`dev/beta/prompts/`) covering all five cognitive intents with
   baseline + edge cases (ambiguous, contradictory, multi-intent, adversarial)
