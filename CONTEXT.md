@@ -49,5 +49,13 @@ The *only* serialisation allowed into sqflite writes: `EpistemicNode.toDbMap()` 
 _Avoid_: toJson for DB writes, "the map" (ambiguous)
 
 **Error Response**:
-An `AiResponse` with `isError = true` — provider/parse failure text shown to the user but never appended to conversation history, saved to Hive, or persisted to the graph (EOM-S5).
+An `AiResponse` with `isError = true` — provider/parse failure text shown to the user but never appended to conversation history, saved to Hive, or persisted to the graph (EOM-S5). Calm copy may offer **Open Settings** when the failure is missing/invalid credentials (EOM-S18).
 _Avoid_: error message (that is just prose), failed intent
+
+**Session (on-screen)**:
+The in-progress Home canvas: current input, latest response, optional prior turns, and in-memory chat history sent to the model. Distinct from the Hive **History** library of saved conversations. **New thought** clears the on-screen session after confirm; it does not delete History (EOM-S24).
+_Avoid_: conversation (ambiguous with History rows), thread (prefer "earlier in this session")
+
+**History (library)**:
+Persisted list of saved thought sessions (`Conversation` rows via `HistoryService`). Rows reopen into Home; empty state invites capture; clear-all requires confirmation (EOM-S19, S24).
+_Avoid_: chat log, archive (generic)

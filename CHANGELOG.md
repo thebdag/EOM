@@ -2,7 +2,13 @@
 
 All notable changes to the EOM project will be documented in this file.
 
-## [Unreleased] - 2026-05-11
+## [Unreleased]
+
+### Added
+- **Session continuity (EOM-E4 / EOM-S24):** tap a History row to reopen it on Home; multi-turn sessions keep earlier turns visible; **New thought** asks before clearing the on-screen session.
+- **Map framing (EOM-S24):** Map responses label the concept tree as **Your map**; the confidence graph sits under collapsible **Connections** (collapsed by default).
+- **Calmer failures and History empty state (EOM-S18 / S19 / S20):** friendly missing-key copy with **Open Settings**; History empty CTA; clear-history confirmation; intent pill descriptions.
+- **Beta UX findings** documented in [`docs/ux_findings_eom_e4.md`](docs/ux_findings_eom_e4.md) (walkthrough + live S21–S23 notes; structural F8/F10/F11/F16 closed).
 
 ### Changed
 - **Codebase health pass (EOM-E3)**: internal refactor with no behaviour change — provider identity is now a single `LlmProviderKind` enum, chat history and saved conversations travel as typed models (`ChatMessage`, `Conversation`), per-intent prompts/parsing live beside the intent definitions, duplicated provider/parsing/graph-persistence code is deduplicated, and `HomeScreen` services are constructor-injected behind the `EpistemicGraphStore` interface (`EpistemicService` renamed `SqliteEpistemicGraphStore`). Map graph overlay border aligned to the 0.5px design spec.

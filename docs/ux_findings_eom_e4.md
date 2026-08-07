@@ -1,16 +1,18 @@
-# UX Findings — EOM-E4 / EOM-S16
+# UX Findings — EOM-E4
 
 Walked: Home, Settings, History; all five intents (Clarify, Compress, Map, Reflect, Act).
 Passes: first-run (empty vault, no keys/history) and returning (response present, history populated).
+Live beta: EOM-S21 (first-run), EOM-S22 (five intents), EOM-S23 (returning-user).
+Structural closes: EOM-S18–S20 (quick wins), EOM-S24 (F8 / F10 / F11 / F16).
 Heuristics: `.agents/skills/ux-tester/references/heuristics.md`.
-Date: 2026-08-06.
+Date: 2026-08-06 (updated through S24).
 
 ## Orient
 
 | | |
 |---|---|
 | **Purpose** | Private vault for the mind — five cognitive intents routed to swappable LLMs. |
-| **Primary flows** | Capture thought → choose intent → read structured response; configure provider; browse history. |
+| **Primary flows** | Capture thought → choose intent → read structured response (with prior turns on multi-turn); configure provider; browse History and reopen a row into Home. |
 | **Tone** | Epistemic Calm — quiet, minimal, provisional, unintimidating. |
 
 ---
@@ -22,21 +24,21 @@ Severity: **critical** (blocks flow) · **major** (forces recovery) · **minor**
 | ID | Where | What | Heuristic | Severity |
 |----|-------|------|-----------|----------|
 | F1 | Home → first intent (no API key) | First-run never prompts for a provider/key. First tap fails inside Settings-less flow. | Flow continuity | critical |
-| F2 | Home → error response | Errors render as `Error processing intent with …: Exception: …` in the same card as success — technical, blame-y, no recovery path (e.g. Open Settings). | Error states | critical |
-| F3 | Home → `_processIntent` catch | Unexpected throws clear the spinner and wipe `_activeIntent` with **no** on-screen message. | Error states | critical |
+| F2 | Home → error response | ~~Technical Exception in success card~~ → **Fixed S18:** calm `IntentError` + Open Settings. | Error states | critical → done |
+| F3 | Home → `_processIntent` catch | ~~Silent wipe~~ → **Fixed S18:** friendly `AiResponse` on outer catch. | Error states | critical → done |
 | F4 | Settings (first-run) | Title "AI Configuration"; all providers + LiteLLM/Gateway/Model Alias shown at once. Dense jargon before any success. | Tone · Cognitive load | major |
 | F5 | Settings → Home | No cue that a key is required before intents work; save is silent on back. | Flow continuity · Affordances | major |
-| F6 | Home (first-run) | Intent pills appear after typing, but labels alone (Clarify/Compress/…) hide meaning; descriptions only show while processing. | Affordances · Cognitive load | major |
-| F7 | History (empty) | Copy is only "No conversations yet." — no invitation to return home and start. | Empty states | major |
-| F8 | History (populated) | Rows are not tappable; cannot reopen or continue a session. | Affordances · Flow continuity | major |
-| F9 | History AppBar | Clear-all deletes with no confirmation. | Affordances · Error states | major |
-| F10 | Home (returning, multi-turn) | In-memory `_history` feeds the model, but UI shows only the latest response — prior turns vanish. | Flow continuity · Cognitive load | major |
-| F11 | Home → Map | Tree + epistemic graph stack with no framing; two structures compete for attention. | Visual hierarchy · Cognitive load | major |
+| F6 | Home (first-run) | ~~Labels alone hide meaning~~ → **Fixed S20:** pill subtitle + tooltip from `description`. | Affordances · Cognitive load | major → done |
+| F7 | History (empty) | ~~“No conversations yet.” only~~ → **Fixed S19:** invitational CTA. | Empty states | major → done |
+| F8 | History (populated) | ~~Rows are not tappable~~ → **Fixed S24:** row reopens into Home. | Affordances · Flow continuity | major → done |
+| F9 | History AppBar | ~~Clear-all deletes with no confirmation~~ → **Fixed S19:** confirm dialog. | Affordances · Error states | major → done |
+| F10 | Home (returning, multi-turn) | ~~UI shows only the latest response~~ → **Fixed S24:** “Earlier in this session”. | Flow continuity · Cognitive load | major → done |
+| F11 | Home → Map | ~~Tree + graph stack with no framing~~ → **Fixed S24:** Your map + collapsible Connections. | Visual hierarchy · Cognitive load | major → done |
 | F12 | Theme / History empty & hints | `textTertiary` `#64748B` on `#1A1C23` is ~3:1 — weak for small/hint text vs WCAG AA. | Visual hierarchy (readability) | major |
 | F13 | Home (empty input) | Tapping an intent with blank input does nothing (early return) — no hint. | Affordances | minor |
 | F14 | History rows | Intent shown as raw enum name (`clarify`); response capped at 4 lines with no expand. | Visual hierarchy · Affordances | minor |
 | F15 | Home top bar | History/Settings are icon-only (tooltips help); no badge that history has items. | Navigation · Affordances | minor |
-| F16 | Home → New thought | Refresh clears multi-turn context with no confirm. | Affordances | minor |
+| F16 | Home → New thought | ~~Refresh clears with no confirm~~ → **Fixed S24:** “Start a new thought?” | Affordances | minor → done |
 
 ### What works
 
