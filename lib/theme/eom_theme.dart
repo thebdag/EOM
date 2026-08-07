@@ -1,23 +1,56 @@
 import 'package:flutter/material.dart';
 import 'eom_colors.dart';
 
-/// EOM Material 3 theme — dark mode default, zero shadows, soft corners.
+/// Bundled orientation display face (Cormorant Garamond). Body stays system sans.
+const String eomDisplaySerif = 'CormorantGaramond';
+
+/// Vault-room spacing — ceremonial empty vs mid-session breath.
+class EomSpacing {
+  EomSpacing._();
+
+  static const double xs = 8;
+  static const double sm = 12;
+  static const double md = 16;
+  static const double lg = 24;
+  static const double xl = 32;
+  static const double xxl = 48;
+}
+
+/// EOM Material 3 theme — dark vault, zero shadows, orientation serif.
 class EomTheme {
   EomTheme._();
+
+  static TextStyle _orientation({
+    required double fontSize,
+    FontWeight fontWeight = FontWeight.w500,
+    double letterSpacing = -0.3,
+    Color color = EomColors.textPrimary,
+  }) {
+    return TextStyle(
+      fontFamily: eomDisplaySerif,
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
+    );
+  }
 
   static ThemeData get dark {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      fontFamily: null, // body/labels: platform sans
       scaffoldBackgroundColor: EomColors.background,
       colorScheme: const ColorScheme.dark(
         surface: EomColors.surface,
         primary: EomColors.accent,
         secondary: EomColors.sage,
+        tertiary: EomColors.gold,
         error: EomColors.error,
         onSurface: EomColors.textPrimary,
         onPrimary: EomColors.background,
         onSecondary: EomColors.background,
+        onTertiary: EomColors.background,
       ),
       cardTheme: CardThemeData(
         color: EomColors.surface,
@@ -28,18 +61,13 @@ class EomTheme {
         ),
         margin: EdgeInsets.zero,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: EomColors.background,
         foregroundColor: EomColors.textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: TextStyle(
-          color: EomColors.textPrimary,
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          letterSpacing: -0.3,
-        ),
+        titleTextStyle: _orientation(fontSize: 20, letterSpacing: -0.2),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: false,
@@ -56,41 +84,39 @@ class EomTheme {
           vertical: 16,
         ),
       ),
-      textTheme: const TextTheme(
-        headlineLarge: TextStyle(
-          color: EomColors.textPrimary,
-          fontSize: 28,
-          fontWeight: FontWeight.w500,
-          letterSpacing: -0.5,
-        ),
-        headlineMedium: TextStyle(
-          color: EomColors.textPrimary,
-          fontSize: 22,
-          fontWeight: FontWeight.w500,
-          letterSpacing: -0.3,
-        ),
-        titleMedium: TextStyle(
+      textTheme: TextTheme(
+        headlineLarge: _orientation(fontSize: 28, letterSpacing: -0.5),
+        headlineMedium: _orientation(fontSize: 22),
+        headlineSmall: _orientation(fontSize: 18, letterSpacing: -0.2),
+        titleLarge: _orientation(fontSize: 18, letterSpacing: -0.2),
+        titleMedium: const TextStyle(
           color: EomColors.textPrimary,
           fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
-        bodyLarge: TextStyle(
+        bodyLarge: const TextStyle(
           color: EomColors.textPrimary,
           fontSize: 16,
           fontWeight: FontWeight.w400,
           height: 1.6,
         ),
-        bodyMedium: TextStyle(
+        bodyMedium: const TextStyle(
           color: EomColors.textSecondary,
           fontSize: 14,
           fontWeight: FontWeight.w400,
           height: 1.5,
         ),
-        labelMedium: TextStyle(
+        labelMedium: const TextStyle(
           color: EomColors.textSecondary,
           fontSize: 13,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.3,
+        ),
+        labelSmall: _orientation(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.2,
+          color: EomColors.textSecondary,
         ),
       ),
       dividerTheme: const DividerThemeData(

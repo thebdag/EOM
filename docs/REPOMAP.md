@@ -10,12 +10,15 @@ EOM/
 ├── CONTEXT.md                 # Domain glossary (ubiquitous language)
 ├── learnings.md               # Running log of bugs to avoid, gotchas, and best practices
 ├── README.md                  # Project overview and setup instructions
-├── pubspec.yaml               # Flutter package dependencies and assets
+├── pubspec.yaml               # Flutter package dependencies and assets (incl. Cormorant Garamond)
+├── assets/
+│   └── fonts/                 # Bundled orientation serif (Cormorant Garamond + OFL)
 │
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
-│   ├── design_spec.md         # Original design philosophy and component spec
+│   ├── design_spec.md         # Epistemic Calm + Family kinship (dual accent, serif, soft gate)
 │   ├── ux_findings_eom_e4.md  # UX findings (EOM-E4): S16 walk + S21–S23 live beta + S24 structural closes
+│   ├── ui_spirit_enhancement_plan.md  # Epiture-kinship UI/UX spirit plan (Family; soft gate; calm Settings)
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
 │       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
@@ -54,8 +57,9 @@ EOM/
 │   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
 │   │
 │   ├── theme/
-│   │   ├── eom_colors.dart    # Strict color palette tokens
-│   │   └── eom_theme.dart     # Material 3 global ThemeData definition
+│   │   ├── eom_colors.dart    # Palette tokens (gold/indigo/sage; deeper void; F12 tertiary)
+│   │   ├── eom_shapes.dart    # Leaf path/radius helpers for signature moments (EOM-S25)
+│   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing
 │   │
 │   └── widgets/
 │       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18); shown under collapsible Connections on Home (S24/F11)
