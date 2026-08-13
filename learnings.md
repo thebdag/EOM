@@ -233,9 +233,15 @@ when relevant.
   matches framework internals too. Scope the finder:
   `find.descendant(of: find.byType(MyWidget), matching: find.byType(CustomPaint))`.
 
-- **`.env` is still listed as a Flutter asset** in `pubspec.yaml` even though
-  runtime config moved to `shared_preferences`. Don't reintroduce `.env`
-  reads without a deliberate reason.
+- **`.env` is not a Flutter asset.** Runtime config is `shared_preferences`
+  only. Don't re-add `flutter_dotenv` or `assets: - .env`.
+- **LiteLLM origin must parse as http(s) with a host and no userinfo.**
+  `normalizeGatewayOrigin` throws `FormatException`; Settings must catch it
+  and refuse to pop.
+- **Don't `setState` on every Home keystroke.** Rebuild only when
+  `hasInput` or the F13 hint actually changes, or the response/graph will
+  re-layout on each character.
+- **Gemini keys go in `x-goog-api-key`, not the query string.**
 - **`hive` / `hive_flutter` are dependencies** but `history_service.dart`
   notes SQLite — verify which persistence backend is actually in use before
   adding storage code, to avoid duplicate stores.

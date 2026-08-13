@@ -149,9 +149,12 @@ Future<String> callProvider({
       final resp = await http.post(
         Uri.parse(
           'https://generativelanguage.googleapis.com/v1beta/models/'
-          '${config.model}:generateContent?key=${config.apiKey}',
+          '${config.model}:generateContent',
         ),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': config.apiKey,
+        },
         body: jsonEncode({
           'systemInstruction': {
             'parts': [

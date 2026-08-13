@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import '../models/llm_provider_kind.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_shapes.dart';
+import '../theme/eom_theme.dart';
+
+BoxDecoration eomSurfaceDecoration({BorderRadius? radius}) {
+  return BoxDecoration(
+    color: EomColors.surface,
+    borderRadius: radius ?? BorderRadius.circular(EomShapes.radiusMd),
+    border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
+  );
+}
 
 /// Lifted 0.5px field used by the soft gate and Settings (EOM-S27, S28).
 class EomSurfaceField extends StatelessWidget {
@@ -18,22 +28,21 @@ class EomSurfaceField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: EomColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
-      ),
+      decoration: eomSurfaceDecoration(),
       child: TextField(
         controller: controller,
         obscureText: obscure,
+        autocorrect: !obscure,
+        enableSuggestions: !obscure,
+        enableIMEPersonalizedLearning: !obscure,
         style: const TextStyle(color: EomColors.textPrimary, fontSize: 15),
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: const TextStyle(color: EomColors.textTertiary),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
+            horizontal: EomSpacing.md,
+            vertical: EomSpacing.md,
           ),
         ),
       ),
@@ -55,12 +64,8 @@ class ProviderPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: EomColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: EomSpacing.md),
+      decoration: eomSurfaceDecoration(),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<LlmProviderKind>(
           value: value,

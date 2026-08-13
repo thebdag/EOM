@@ -4,6 +4,8 @@ import '../models/intent.dart';
 import '../services/history_service.dart';
 import '../theme/eom_colors.dart';
 import '../theme/eom_theme.dart';
+import '../widgets/empty_vault_panel.dart';
+import '../widgets/orientation_chrome.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key, this.historyService});
@@ -19,7 +21,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   late final HistoryService _historyService =
       widget.historyService ?? HistoryService();
   List<Conversation> _conversations = [];
-  final Set<int> _expanded = {};
 
   @override
   void initState() {
@@ -30,12 +31,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void _loadConversations() {
     setState(() {
       _conversations = _historyService.getConversations();
-      _expanded.clear();
     });
   }
-
-  bool _needsReadMore(String response) =>
-      response.length > 180 || response.split('\n').length > 4;
 
   Future<void> _confirmClear() async {
     final confirmed = await showDialog<bool>(
@@ -98,42 +95,36 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: EomSpacing.xl),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'No conversations yet.',
-                      style: TextStyle(
-                        color: EomColors.textSecondary,
-                        fontSize: 15,
+                child: EmptyVaultPanel(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'No conversations yet.',
+                        style: EomTheme.orientationLabel(
+                          fontSize: 15,
+                        ).copyWith(color: EomColors.textSecondary),
                       ),
-                    ),
-                    const SizedBox(height: EomSpacing.xs),
-                    const Text(
-                      'Capture a thought on Home to start your vault.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: EomColors.textTertiary,
-                        fontSize: 13,
-                        height: 1.4,
-                      ),
-                    ),
-                    const SizedBox(height: EomSpacing.lg),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: TextButton.styleFrom(
-                        foregroundColor: EomColors.accent,
-                      ),
-                      child: const Text(
-                        'Capture a thought',
+                      const SizedBox(height: EomSpacing.xs),
+                      const Text(
+                        'Capture a thought on Home to start your vault.',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.3,
+                          color: EomColors.textTertiary,
+                          fontSize: 13,
+                          height: 1.4,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: EomSpacing.lg),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: OrientationCta(
+                          label: 'Capture a thought',
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
@@ -143,108 +134,123 @@ class _HistoryScreenState extends State<HistoryScreen> {
               separatorBuilder: (context, index) =>
                   const Divider(height: EomSpacing.xl),
               itemBuilder: (context, index) {
-                final item = _conversations[index];
-                final expanded = _expanded.contains(index);
-                final showToggle = _needsReadMore(item.response);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Material(
-                      color: EomColors.transparent,
-                      child: Tooltip(
-                        message: 'Continue this thought',
-                        child: InkWell(
-                          onTap: () => _openConversation(item),
-                          borderRadius: BorderRadius.circular(8),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      CognitiveIntent.displayName(item.intent),
-                                      style: const TextStyle(
-                                        color: EomColors.accent,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: 1.2,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      _formatDate(item.timestamp),
-                                      style: const TextStyle(
-                                        color: EomColors.textTertiary,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                    const Icon(
-                                      Icons.chevron_right,
-                                      size: 16,
-                                      color: EomColors.textTertiary,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: EomSpacing.xs),
-                                Text(
-                                  item.initialInput,
-                                  style: const TextStyle(
-                                    color: EomColors.textPrimary,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: EomSpacing.xs),
-                    Text(
-                      item.response,
-                      style: const TextStyle(
-                        color: EomColors.textSecondary,
-                        fontSize: 14,
-                        height: 1.5,
-                      ),
-                      maxLines: expanded ? null : 4,
-                      overflow: expanded
-                          ? TextOverflow.visible
-                          : TextOverflow.ellipsis,
-                    ),
-                    if (showToggle)
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (expanded) {
-                              _expanded.remove(index);
-                            } else {
-                              _expanded.add(index);
-                            }
-                          });
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: EomColors.textTertiary,
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          minimumSize: const Size(0, 44),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          alignment: Alignment.centerLeft,
-                        ),
-                        child: Text(expanded ? 'Show less' : 'Read more'),
-                      ),
-                  ],
+                return _HistoryEntry(
+                  item: _conversations[index],
+                  onOpen: () => _openConversation(_conversations[index]),
                 );
               },
             ),
     );
   }
+}
+
+class _HistoryEntry extends StatefulWidget {
+  const _HistoryEntry({required this.item, required this.onOpen});
+
+  final Conversation item;
+  final VoidCallback onOpen;
+
+  @override
+  State<_HistoryEntry> createState() => _HistoryEntryState();
+}
+
+class _HistoryEntryState extends State<_HistoryEntry> {
+  bool _expanded = false;
+
+  static const int _collapsedLines = 4;
+  static const int _expandedLines = 24;
+
+  bool _needsReadMore(String response) =>
+      response.length > 180 || response.split('\n').length > _collapsedLines;
+
+  @override
+  Widget build(BuildContext context) {
+    final item = widget.item;
+    final showToggle = _needsReadMore(item.response);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Material(
+          color: EomColors.transparent,
+          child: Tooltip(
+            message: 'Continue this thought',
+            child: InkWell(
+              onTap: widget.onOpen,
+              borderRadius: BorderRadius.circular(8),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          CognitiveIntent.displayName(item.intent),
+                          style: const TextStyle(
+                            color: EomColors.accent,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          _formatDate(item.timestamp),
+                          style: const TextStyle(
+                            color: EomColors.textTertiary,
+                            fontSize: 12,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.chevron_right,
+                          size: 16,
+                          color: EomColors.textTertiary,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: EomSpacing.xs),
+                    Text(
+                      item.initialInput,
+                      style: const TextStyle(
+                        color: EomColors.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: EomSpacing.xs),
+        Text(
+          item.response,
+          style: const TextStyle(
+            color: EomColors.textSecondary,
+            fontSize: 14,
+            height: 1.5,
+          ),
+          maxLines: _expanded ? _expandedLines : _collapsedLines,
+          overflow: _expanded ? TextOverflow.fade : TextOverflow.ellipsis,
+        ),
+        if (showToggle)
+          TextButton(
+            onPressed: () => setState(() => _expanded = !_expanded),
+            style: TextButton.styleFrom(
+              foregroundColor: EomColors.textTertiary,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              minimumSize: const Size(0, 44),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              alignment: Alignment.centerLeft,
+            ),
+            child: Text(_expanded ? 'Show less' : 'Read more'),
+          ),
+      ],
+    );
+  }
 
   String _formatDate(DateTime? date) {
-    // Malformed timestamps arrive null (EOM-S9) and render as no date
-    // rather than crashing the build.
     if (date == null) return '';
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }

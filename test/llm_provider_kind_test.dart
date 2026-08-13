@@ -48,6 +48,23 @@ void main() {
     });
   });
 
+  group('GeminiProvider headers', () {
+    test('keeps the API key out of the URL', () {
+      expect(GeminiProvider.generateContentUri().query, isEmpty);
+      expect(
+        GeminiProvider.generateContentUri().toString(),
+        isNot(contains('key=')),
+      );
+    });
+
+    test('sends the key as x-goog-api-key', () {
+      expect(
+        GeminiProvider.generateContentHeaders('secret'),
+        containsPair('x-goog-api-key', 'secret'),
+      );
+    });
+  });
+
   group('ChatMessage (EOM-S11)', () {
     test('serialises to the OpenAI-compatible shape', () {
       expect(ChatMessage.user('hi').toJson(), {

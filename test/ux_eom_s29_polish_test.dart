@@ -38,6 +38,9 @@ class _FakeHistory extends HistoryService {
   List<Conversation> getConversations() => items;
 
   @override
+  bool get hasConversations => items.isNotEmpty;
+
+  @override
   Future<void> saveConversation({
     required String initialInput,
     required String intent,

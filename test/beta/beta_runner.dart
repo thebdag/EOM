@@ -124,8 +124,10 @@ Future<CapturedResponse> _runOne(Prompt prompt, BetaConfig config) async {
 }
 
 CapturedResponse _parse(Prompt prompt, BetaConfig config, String raw) {
-  final (:prose, :opJson, :opType, :treeJson) =
-      reparseFromRaw(prompt.intent, raw);
+  final (:prose, :opJson, :opType, :treeJson) = reparseFromRaw(
+    prompt.intent,
+    raw,
+  );
   return CapturedResponse(
     promptId: prompt.id,
     intent: prompt.intent.name,
@@ -150,8 +152,12 @@ CapturedResponse _parse(Prompt prompt, BetaConfig config, String raw) {
 /// - [opJson] is null when no balanced JSON object decodes.
 /// - [opType] is the runtime type name when `parseOperation` succeeds.
 /// - [treeJson] is populated only for tree-producing intents (Map).
-({String? prose, Map<String, dynamic>? opJson, String? opType,
-    Map<String, dynamic>? treeJson})
+({
+  String? prose,
+  Map<String, dynamic>? opJson,
+  String? opType,
+  Map<String, dynamic>? treeJson,
+})
 reparseFromRaw(CognitiveIntent intent, String raw) {
   final markerIndex = raw.indexOf(betaEpistemicMarker);
   String? prose;

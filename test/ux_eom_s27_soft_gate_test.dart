@@ -2,10 +2,6 @@
 library;
 
 import 'package:eom/models/llm_provider_kind.dart';
-import 'package:eom/screens/home_screen.dart';
-import 'package:eom/services/ai_service.dart';
-import 'package:eom/services/history_service.dart';
-import 'package:eom/services/llm_provider.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:eom/theme/eom_theme.dart';
 import 'package:eom/widgets/empty_vault_panel.dart';
@@ -15,23 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/in_memory_epistemic_store.dart';
-
-class _SilentProvider implements LlmProvider {
-  @override
-  Future<String> generate(
-    String systemPrompt,
-    String userMessage, {
-    List<ChatMessage> history = const [],
-  }) async => 'Quiet prose.';
-}
-
-Finder richTextContaining(String needle) => find.byWidgetPredicate(
-  (w) => w is RichText && w.text.toPlainText().contains(needle),
-);
-
-Finder fieldByHint(String hint) => find.byWidgetPredicate(
-  (w) => w is TextField && w.decoration?.hintText == hint,
-);
+import 'helpers/ux_harness.dart';
 
 void main() {
   late InMemoryStore store;
@@ -42,21 +22,8 @@ void main() {
     store = InMemoryStore();
   });
 
-  Future<void> pumpHome(WidgetTester tester) async {
-    await tester.binding.setSurfaceSize(const Size(900, 1600));
-    addTearDown(() => tester.binding.setSurfaceSize(null));
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: EomTheme.dark,
-        home: HomeScreen(
-          aiService: AiService(provider: _SilentProvider()),
-          historyService: HistoryService(),
-          epistemicStoreFactory: () async => store,
-        ),
-      ),
-    );
-    await tester.pump();
-  }
+  Future<void> pumpHome(WidgetTester tester) =>
+      pumpEomHome(tester, store: store);
 
   testWidgets('T113: Connect CTA opens the soft-gate sheet, not Settings', (
     tester,
@@ -94,6 +61,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.enterText(fieldByHint('API Key'), 'sk-gemini');
+    await tester.pump();
     await tester.tap(find.byKey(const Key('soft-gate-connect')));
     await tester.pumpAndSettle();
 
@@ -156,10 +124,47 @@ void main() {
     await tester.pumpAndSettle();
 
     await tester.enterText(fieldByHint('API Key'), 'sk-gemini');
+    await tester.pump();
     await tester.tap(find.byKey(const Key('soft-gate-connect')));
     await tester.pumpAndSettle();
 
     expect(richTextContaining('Quiet prose.'), findsOneWidget);
     expect(find.byType(SoftGateSheet), findsNothing);
+  });
+
+  testWidgets('empty Connect is disabled (no silent persist)', (tester) async {
+    await pumpHome(tester);
+    await tester.tap(find.text('Connect a guide'));
+    await tester.pumpAndSettle();
+
+    final connect = tester.widget<TextButton>(
+      find.byKey(const Key('soft-gate-connect')),
+    );
+    expect(connect.onPressed, isNull);
+    expect(SettingsService.hasUsableGuide, isFalse);
+  });
+
+  testWidgets('persist failure shows an error and stays open', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: EomTheme.dark,
+        home: Scaffold(
+          body: SoftGateSheet(
+            persist: (_, _) async {
+              throw Exception('disk');
+            },
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.enterText(fieldByHint('API Key'), 'sk-fail');
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('soft-gate-connect')));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(SoftGateSheet), findsOneWidget);
+    expect(find.text('Could not save the key. Try again.'), findsOneWidget);
+    expect(SettingsService.hasUsableGuide, isFalse);
   });
 }

@@ -12,7 +12,7 @@ EOM/
 ├── README.md                  # Project overview and setup instructions
 ├── pubspec.yaml               # Flutter package dependencies and assets (incl. Cormorant Garamond)
 ├── assets/
-│   └── fonts/                 # Bundled orientation serif (Cormorant Garamond + OFL)
+│   └── fonts/                 # Bundled orientation serif (Cormorant Garamond Medium + OFL)
 │
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
@@ -58,12 +58,13 @@ EOM/
 │   │
 │   ├── theme/
 │   │   ├── eom_colors.dart    # Palette tokens (gold/indigo/sage; deeper void; F12 tertiary)
-│   │   ├── eom_shapes.dart    # Leaf path/radius helpers for signature moments (EOM-S25)
+│   │   ├── eom_shapes.dart    # Leaf radius + ordinary radii (EOM-S25)
 │   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing
 │   │
 │   └── widgets/
 │       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
 │       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
+│       ├── orientation_chrome.dart # Gold sans CTA + Advanced/Connections disclosure
 │       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)
 │       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18); shown under collapsible Connections on Home (S24/F11)
 │       ├── intent_button.dart   # Interactive pill button for cognitive intents (description subtitle + tooltip, EOM-S20)
@@ -96,6 +97,7 @@ EOM/
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
     ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
+    ├── helpers/ux_harness.dart  # Shared SilentLlmProvider, FakeHistory, pumpEomHome
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
     ├── home_screen_test.dart      # Injected-service flows: clarify/map, friendly errors, New-thought confirm, Connections expand (S12, S18, S24)
     ├── ux_eom_s26_empty_state_test.dart # Ceremonial empty: serif/leaf/gold/Connect CTA (EOM-S26)
