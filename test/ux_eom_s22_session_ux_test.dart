@@ -8,7 +8,6 @@ library;
 
 import 'dart:io';
 
-import 'package:eom/models/intent.dart';
 import 'package:eom/screens/home_screen.dart';
 import 'package:eom/services/ai_service.dart';
 import 'package:eom/services/history_service.dart';
@@ -147,6 +146,9 @@ void main() {
 }
 
 class _NoopHistory extends HistoryService {
+  @override
+  bool get hasConversations => false;
+
   @override
   Future<void> saveConversation({
     required String initialInput,

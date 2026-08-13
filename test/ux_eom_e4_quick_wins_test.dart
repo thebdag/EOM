@@ -16,6 +16,9 @@ class _FakeHistory extends HistoryService {
   List<Conversation> getConversations() => items;
 
   @override
+  bool get hasConversations => items.isNotEmpty;
+
+  @override
   Future<void> clearHistory() async {
     clearCalls++;
     items = [];

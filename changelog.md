@@ -12,6 +12,34 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- `SettingsService.keyFor` / `setKey` so soft-gate and Settings share one
+  provider-key seam. `OrientationCta` + `OrientationDisclosure` for gold
+  sans actions and Advanced/Connections rows.
+- Gateway origin validation (http(s) + host, no userinfo) with a Settings
+  inline error that blocks pop.
+- `HistoryService.hasConversations` for the History pip without parsing
+  every transcript.
+
+### Changed
+- Home `setState` on input only when emptiness or the blank hint flips.
+- Settings persist writes dirty keys only. Soft-gate Connect uses a
+  `ValueListenableBuilder` (no per-keystroke sheet rebuild).
+- Orientation serif stays on titles/labels; Connect / Capture CTAs are sans.
+- Bundled Cormorant Garamond **Medium** static instance (not the variable
+  file). Leaf signature is `EomShapes.leafRadius` only.
+- Android `allowBackup="false"`; iOS excludes the prefs plist from backup.
+- Gemini requests send `x-goog-api-key` instead of `?key=` in the URL.
+
+### Fixed
+- Soft-gate empty Connect is disabled; persist failures show calm copy and
+  stay open (no silent no-op).
+- History empty state uses the vault panel + gold Capture CTA.
+
+### Removed
+- `.env` Flutter asset and unused `flutter_dotenv` dependency.
+- Unused `EomShapes.leaf` / `EomLeafClipper` cubic path.
+
+### Added
 - **EOM-S29** spirit polish (F12–F15): blank-input hint; History Clarify +
   Read more; History presence pip; orientation serif on map/session labels;
   leaf radius on success `ResponseCard`; tertiary contrast locked ≥4.5:1.

@@ -2,15 +2,24 @@ import 'package:flutter/material.dart';
 import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
 import 'guide_fields.dart';
+import 'orientation_chrome.dart';
+
+/// Persists the active provider + essential key. Tests inject a throwing
+/// implementation to cover the error path.
+typedef SoftGatePersist =
+    Future<void> Function(LlmProviderKind provider, String key);
 
 /// Quiet first-run / no-key sheet (EOM-S27 / F1 / F5).
 ///
 /// Provider pick + essential key only. Dismiss without Connect is cancel
 /// (not a hard wall). Pops `true` after a successful persist.
 class SoftGateSheet extends StatefulWidget {
-  const SoftGateSheet({super.key});
+  const SoftGateSheet({super.key, this.persist});
+
+  final SoftGatePersist? persist;
 
   static Future<bool> show(BuildContext context) async {
     final result = await showModalBottomSheet<bool>(
@@ -19,7 +28,9 @@ class SoftGateSheet extends StatefulWidget {
       elevation: 0,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(EomShapes.radiusMd),
+        ),
       ),
       builder: (ctx) {
         return Padding(
@@ -38,13 +49,14 @@ class SoftGateSheet extends StatefulWidget {
 class _SoftGateSheetState extends State<SoftGateSheet> {
   late LlmProviderKind _provider;
   final _keyController = TextEditingController();
+  bool _saving = false;
+  String? _error;
 
   @override
   void initState() {
     super.initState();
     _provider = SettingsService.activeProvider;
-    _keyController.text = _keyFor(_provider);
-    _keyController.addListener(() => setState(() {}));
+    _keyController.text = SettingsService.keyFor(_provider);
   }
 
   @override
@@ -53,41 +65,35 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
     super.dispose();
   }
 
-  String _keyFor(LlmProviderKind kind) {
-    switch (kind) {
-      case LlmProviderKind.openai:
-        return SettingsService.openAiKey;
-      case LlmProviderKind.anthropic:
-        return SettingsService.anthropicKey;
-      case LlmProviderKind.gemini:
-        return SettingsService.geminiKey;
-      case LlmProviderKind.local:
-        return SettingsService.localApiKey;
-    }
+  Future<void> _defaultPersist(LlmProviderKind provider, String key) async {
+    await SettingsService.setActiveProvider(provider);
+    await SettingsService.setKey(provider, key);
   }
 
   Future<void> _connect() async {
     final key = _keyController.text.trim();
-    if (key.isEmpty) return;
+    if (key.isEmpty) {
+      setState(() => _error = 'Add a key to connect.');
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
     try {
-      await SettingsService.setActiveProvider(_provider);
-      switch (_provider) {
-        case LlmProviderKind.openai:
-          await SettingsService.setOpenAiKey(key);
-        case LlmProviderKind.anthropic:
-          await SettingsService.setAnthropicKey(key);
-        case LlmProviderKind.gemini:
-          await SettingsService.setGeminiKey(key);
-        case LlmProviderKind.local:
-          await SettingsService.setLocalApiKey(key);
-      }
+      final persist = widget.persist ?? _defaultPersist;
+      await persist(_provider, key);
       if (mounted) Navigator.pop(context, true);
     } catch (e, st) {
       debugPrint('EOM: soft-gate persist failed: $e\n$st');
+      if (mounted) {
+        setState(() {
+          _saving = false;
+          _error = 'Could not save the key. Try again.';
+        });
+      }
     }
   }
-
-  bool get _canConnect => _keyController.text.trim().isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -103,15 +109,7 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Connect a guide',
-              style: TextStyle(
-                fontFamily: eomDisplaySerif,
-                color: EomColors.textPrimary,
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text('Connect a guide', style: EomTheme.displayTitle()),
             const SizedBox(height: EomSpacing.xs),
             const Text(
               'Choose a provider and add its key. You can change this later.',
@@ -127,7 +125,8 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
               onChanged: (kind) {
                 setState(() {
                   _provider = kind;
-                  _keyController.text = _keyFor(kind);
+                  _keyController.text = SettingsService.keyFor(kind);
+                  _error = null;
                 });
               },
             ),
@@ -136,28 +135,30 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
             const SizedBox(height: EomSpacing.md),
             Align(
               alignment: Alignment.centerLeft,
-              child: TextButton(
-                key: const Key('soft-gate-connect'),
-                onPressed: _connect,
-                style: TextButton.styleFrom(
-                  foregroundColor: _canConnect
-                      ? EomColors.gold
-                      : EomColors.goldMuted,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  minimumSize: const Size(0, 44),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  alignment: Alignment.centerLeft,
-                ),
-                child: const Text(
-                  'Connect',
-                  style: TextStyle(
-                    fontFamily: eomDisplaySerif,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+              child: ValueListenableBuilder<TextEditingValue>(
+                valueListenable: _keyController,
+                builder: (context, value, _) {
+                  final canConnect = value.text.trim().isNotEmpty;
+                  return OrientationCta(
+                    buttonKey: const Key('soft-gate-connect'),
+                    label: 'Connect',
+                    enabled: canConnect,
+                    loading: _saving,
+                    onPressed: _connect,
+                  );
+                },
               ),
             ),
+            if (_error != null) ...[
+              const SizedBox(height: EomSpacing.xs),
+              Text(
+                _error!,
+                style: const TextStyle(
+                  color: EomColors.textTertiary,
+                  fontSize: 13,
+                ),
+              ),
+            ],
           ],
         ),
       ),

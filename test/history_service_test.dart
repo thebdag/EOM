@@ -72,5 +72,16 @@ void main() {
       expect(conversations, hasLength(1));
       expect(conversations.single.timestamp, isNull);
     });
+
+    test('hasConversations is true without parsing transcripts', () async {
+      final service = HistoryService();
+      expect(service.hasConversations, isFalse);
+      await service.saveConversation(
+        initialInput: 'a thought',
+        intent: 'clarify',
+        response: 'clearer',
+      );
+      expect(service.hasConversations, isTrue);
+    });
   });
 }

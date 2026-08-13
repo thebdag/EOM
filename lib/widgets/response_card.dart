@@ -82,10 +82,10 @@ class _ResponseCardState extends State<ResponseCard>
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: EomSpacing.md),
               _buildRichText(widget.text),
               if (widget.onOpenSettings != null) ...[
-                const SizedBox(height: 16),
+                const SizedBox(height: EomSpacing.md),
                 TextButton(
                   onPressed: widget.onOpenSettings,
                   style: TextButton.styleFrom(

@@ -29,6 +29,12 @@ class HistoryService {
     return box.values.map(Conversation.fromMap).toList().reversed.toList();
   }
 
+  /// Presence check without parsing every stored transcript (History pip).
+  bool get hasConversations {
+    final box = Hive.box<Map<dynamic, dynamic>>(_boxName);
+    return box.isNotEmpty;
+  }
+
   Future<void> clearHistory() async {
     final box = Hive.box<Map<dynamic, dynamic>>(_boxName);
     await box.clear();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/eom_colors.dart';
 import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
+import 'orientation_chrome.dart';
 
 /// Ceremonial empty canvas — leaf-framed room around the blank input.
 ///
@@ -28,7 +29,7 @@ class EmptyVaultPanel extends StatelessWidget {
         borderRadius: EomShapes.leafRadius,
         border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
       ),
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.hardEdge,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(
           EomSpacing.lg,
@@ -44,24 +45,9 @@ class EmptyVaultPanel extends StatelessWidget {
               const SizedBox(height: EomSpacing.md),
               Align(
                 alignment: Alignment.centerLeft,
-                child: TextButton(
+                child: OrientationCta(
+                  label: 'Connect a guide',
                   onPressed: onConnect,
-                  style: TextButton.styleFrom(
-                    foregroundColor: EomColors.gold,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    minimumSize: const Size(0, 44),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    alignment: Alignment.centerLeft,
-                  ),
-                  child: const Text(
-                    'Connect a guide',
-                    style: TextStyle(
-                      fontFamily: eomDisplaySerif,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
                 ),
               ),
             ],

@@ -93,5 +93,44 @@ void main() {
         'http://127.0.0.1:4000',
       );
     });
+
+    test('rejects missing host and non-http schemes', () {
+      expect(
+        () => SettingsService.normalizeGatewayOrigin('not-a-url'),
+        throwsFormatException,
+      );
+      expect(
+        () => SettingsService.normalizeGatewayOrigin('ftp://127.0.0.1:4000'),
+        throwsFormatException,
+      );
+    });
+
+    test('rejects userinfo in the origin', () {
+      expect(
+        () => SettingsService.normalizeGatewayOrigin(
+          'http://127.0.0.1:4000@evil.com',
+        ),
+        throwsFormatException,
+      );
+    });
+  });
+
+  group('keyFor / setKey', () {
+    test('round-trips the active provider credential', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setKey(LlmProviderKind.openai, ' sk-o ');
+      expect(SettingsService.keyFor(LlmProviderKind.openai), 'sk-o');
+      expect(SettingsService.openAiKey, 'sk-o');
+    });
+
+    test('hasUsableGuide reads keyFor of the active provider', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setKey(LlmProviderKind.anthropic, 'sk-ant');
+      expect(SettingsService.hasUsableGuide, isFalse);
+      await SettingsService.setActiveProvider(LlmProviderKind.anthropic);
+      expect(SettingsService.hasUsableGuide, isTrue);
+    });
   });
 }

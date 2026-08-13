@@ -159,4 +159,25 @@ void main() {
     await tester.pumpAndSettle();
     expect(SettingsService.openAiKey, 'sk-keep');
   });
+
+  testWidgets('invalid gateway origin blocks pop and shows an error', (
+    tester,
+  ) async {
+    await pushSettings(tester);
+    await tester.tap(find.text('Advanced'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      fieldByHint('Gateway Origin (e.g., http://127.0.0.1:4000)'),
+      'ftp://example.com',
+    );
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(SettingsScreen), findsOneWidget);
+    expect(
+      find.text('Gateway origin must be an http(s) URL with a host.'),
+      findsOneWidget,
+    );
+    expect(SettingsService.localHost, SettingsService.defaultGatewayOrigin);
+  });
 }

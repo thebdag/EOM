@@ -22,6 +22,11 @@ class SettingsService {
 
   /// Strip trailing slashes and an optional `/v1` so pasted LITELLM_BASE
   /// values do not become `/v1/v1/...` when clients append the OpenAI path.
+  ///
+  /// Rejects missing scheme/host, non-http(s) schemes, and userinfo
+  /// (`http://127.0.0.1:4000@evil.com`). LAN `http://` origins stay valid
+  /// (LiteLLM on the local network). Throws [FormatException] on invalid
+  /// input.
   static String normalizeGatewayOrigin(String host) {
     var origin = host.trim();
     origin = origin.replaceAll(RegExp(r'/+$'), '');
@@ -29,7 +34,21 @@ class SettingsService {
       origin = origin.substring(0, origin.length - 3);
       origin = origin.replaceAll(RegExp(r'/+$'), '');
     }
-    return origin;
+    final uri = Uri.tryParse(origin);
+    if (uri == null ||
+        !uri.hasScheme ||
+        uri.host.isEmpty ||
+        (uri.scheme != 'http' && uri.scheme != 'https')) {
+      throw const FormatException(
+        'Gateway origin must be an http(s) URL with a host.',
+      );
+    }
+    if (uri.userInfo.isNotEmpty) {
+      throw const FormatException(
+        'Gateway origin must not include credentials.',
+      );
+    }
+    return uri.origin;
   }
 
   // Active Provider — legacy OLLAMA → LOCAL mapping lives in
@@ -43,6 +62,33 @@ class SettingsService {
 
   static Future<void> setActiveProvider(LlmProviderKind provider) async {
     await _prefs.setString(_kProvider, provider.id);
+  }
+
+  /// Essential credential for [kind] (cloud API key or LiteLLM master key).
+  static String keyFor(LlmProviderKind kind) {
+    switch (kind) {
+      case LlmProviderKind.openai:
+        return openAiKey;
+      case LlmProviderKind.anthropic:
+        return anthropicKey;
+      case LlmProviderKind.gemini:
+        return geminiKey;
+      case LlmProviderKind.local:
+        return localApiKey;
+    }
+  }
+
+  static Future<void> setKey(LlmProviderKind kind, String key) {
+    switch (kind) {
+      case LlmProviderKind.openai:
+        return setOpenAiKey(key);
+      case LlmProviderKind.anthropic:
+        return setAnthropicKey(key);
+      case LlmProviderKind.gemini:
+        return setGeminiKey(key);
+      case LlmProviderKind.local:
+        return setLocalApiKey(key);
+    }
   }
 
   // OpenAI Key
@@ -64,11 +110,20 @@ class SettingsService {
   static String get localHost {
     final raw = _prefs.getString(_kLocalHost);
     if (raw == null || raw.trim().isEmpty) return defaultGatewayOrigin;
-    return normalizeGatewayOrigin(raw);
+    try {
+      return normalizeGatewayOrigin(raw);
+    } on FormatException {
+      return defaultGatewayOrigin;
+    }
   }
 
-  static Future<void> setLocalHost(String host) async =>
-      await _prefs.setString(_kLocalHost, normalizeGatewayOrigin(host));
+  static Future<void> setLocalHost(String host) async {
+    if (host.trim().isEmpty) {
+      await _prefs.setString(_kLocalHost, defaultGatewayOrigin);
+      return;
+    }
+    await _prefs.setString(_kLocalHost, normalizeGatewayOrigin(host));
+  }
 
   // LiteLLM Model Alias (e.g. qwen-smart, auto, claude-haiku)
   static String get localModel {
@@ -89,16 +144,5 @@ class SettingsService {
   ///
   /// Used by the empty-state Connect CTA (EOM-S26). A key on a different
   /// provider does not count.
-  static bool get hasUsableGuide {
-    switch (activeProvider) {
-      case LlmProviderKind.openai:
-        return openAiKey.isNotEmpty;
-      case LlmProviderKind.anthropic:
-        return anthropicKey.isNotEmpty;
-      case LlmProviderKind.gemini:
-        return geminiKey.isNotEmpty;
-      case LlmProviderKind.local:
-        return localApiKey.isNotEmpty;
-    }
-  }
+  static bool get hasUsableGuide => keyFor(activeProvider).isNotEmpty;
 }

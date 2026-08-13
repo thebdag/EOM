@@ -53,8 +53,9 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 ### Shape & elevation
 
 * Soft corners (8px–12px) for ordinary surfaces.
-* **Leaf** (`EomShapes.leaf`) only at signature moments (empty canvas panel;
-  optional response card) — not a global card system.
+* **Leaf** (`EomShapes.leafRadius`) only at signature moments (empty canvas
+  panel; optional response card) — not a global card system. Cubic leaf
+  clips stay off the input field.
 * Zero drop shadows; depth via 0.5px `surfaceBorder` strokes.
 
 ### Density ("vault room")

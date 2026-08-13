@@ -12,6 +12,7 @@ import '../theme/eom_theme.dart';
 import '../widgets/empty_vault_panel.dart';
 import '../widgets/epistemic_graph_view.dart';
 import '../widgets/intent_button.dart';
+import '../widgets/orientation_chrome.dart';
 import '../widgets/response_card.dart';
 import '../widgets/soft_gate_sheet.dart';
 import '../widgets/thought_tree_view.dart';
@@ -76,6 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// F15 — quiet pip on History when the library has rows.
   bool _hasSavedHistory = false;
+
+  /// Cached so keystrokes don't rebuild the vault until emptiness flips.
+  bool _hasInput = false;
 
   /// Caches the initialization *future*, not the instance (EOM-S8) —
   /// concurrent callers otherwise both pass the null check, init two
@@ -165,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool _safeHasSavedHistory() {
     try {
-      return _historyService.getConversations().isNotEmpty;
+      return _historyService.hasConversations;
     } catch (_) {
       return false;
     }
@@ -309,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     setState(() {
       _controller.text = item.initialInput;
+      _hasInput = item.initialInput.trim().isNotEmpty;
       _activeIntent = intent;
       _mapOverlay = null;
       _connectionsExpanded = false;
@@ -365,6 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _clearSession() {
     setState(() {
       _controller.clear();
+      _hasInput = false;
       _activeIntent = null;
       _response = null;
       _isProcessing = false;
@@ -379,9 +385,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hasInput = _controller.text.trim().isNotEmpty;
+    final hasInput = _hasInput;
     final isEmptyCanvas =
         _response == null && _history.isEmpty && !_isProcessing;
+    final priorTurns = _computePriorTurns();
 
     return Scaffold(
       body: SafeArea(
@@ -451,23 +458,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
 
                     // F10 — prior turns stay visible above the latest card
-                    if (_priorTurns.isNotEmpty) ...[
+                    if (priorTurns.isNotEmpty) ...[
                       const SizedBox(height: EomSpacing.xl),
-                      _buildPriorTurns(),
+                      _buildPriorTurns(priorTurns),
                     ],
 
                     // Response
                     if (_response != null) ...[
                       const SizedBox(height: EomSpacing.xl),
-                      ResponseCard(
-                        text: _response!.text,
-                        accentColor: _response!.intent.color,
-                        isError: _response!.isError,
-                        onOpenSettings: _response!.offerSettings
-                            ? () {
-                                unawaited(_openSettings());
-                              }
-                            : null,
+                      RepaintBoundary(
+                        child: ResponseCard(
+                          text: _response!.text,
+                          accentColor: _response!.intent.color,
+                          isError: _response!.isError,
+                          onOpenSettings: _response!.offerSettings
+                              ? () {
+                                  unawaited(_openSettings());
+                                }
+                              : null,
+                        ),
                       ),
                     ],
 
@@ -502,7 +511,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildTopBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(
+        horizontal: EomSpacing.bar,
+        vertical: EomSpacing.sm,
+      ),
       child: Row(
         children: [
           Container(
@@ -515,16 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(width: 10),
-          const Text(
-            'EOM',
-            style: TextStyle(
-              fontFamily: eomDisplaySerif,
-              color: EomColors.textPrimary,
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 0.8,
-            ),
-          ),
+          Text('EOM', style: EomTheme.displayTitle()),
           const Spacer(),
           if (_response != null)
             IconButton(
@@ -594,12 +597,18 @@ class _HomeScreenState extends State<HomeScreen> {
         border: InputBorder.none,
         contentPadding: EdgeInsets.zero,
       ),
-      onChanged: (_) {
-        setState(() {
-          if (_controller.text.trim().isNotEmpty) _blankHint = null;
-        });
-      },
+      onChanged: _onInputChanged,
     );
+  }
+
+  void _onInputChanged(String value) {
+    final hasInput = value.trim().isNotEmpty;
+    final clearHint = hasInput && _blankHint != null;
+    if (hasInput == _hasInput && !clearHint) return;
+    setState(() {
+      _hasInput = hasInput;
+      if (hasInput) _blankHint = null;
+    });
   }
 
   Widget _buildIntentBar() {
@@ -641,7 +650,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Prior user/assistant pairs excluding the current turn (F10).
-  List<ChatMessage> get _priorTurns {
+  List<ChatMessage> _computePriorTurns() {
     if (_history.length <= 2) return const [];
     if (_response != null && !_response!.isError) {
       return _history.sublist(0, _history.length - 2);
@@ -649,16 +658,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return List<ChatMessage>.from(_history);
   }
 
-  Widget _buildPriorTurns() {
+  Widget _buildPriorTurns(List<ChatMessage> priorTurns) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Earlier in this session', style: EomTheme.orientationLabel()),
         const SizedBox(height: EomSpacing.sm),
-        for (var i = 0; i < _priorTurns.length; i++) ...[
+        for (var i = 0; i < priorTurns.length; i++) ...[
           if (i > 0) const SizedBox(height: 10),
           Text(
-            _priorTurns[i].role == 'user' ? 'You' : 'EOM',
+            priorTurns[i].role == 'user' ? 'You' : 'EOM',
             style: const TextStyle(
               color: EomColors.textTertiary,
               fontSize: 11,
@@ -668,11 +677,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 4),
           Text(
-            _priorTurns[i].content,
+            priorTurns[i].content,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              color: _priorTurns[i].role == 'user'
+              color: priorTurns[i].role == 'user'
                   ? EomColors.textSecondary
                   : EomColors.textTertiary,
               fontSize: 13,
@@ -685,40 +694,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildConnectionsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InkWell(
-          onTap: () =>
-              setState(() => _connectionsExpanded = !_connectionsExpanded),
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              children: [
-                Text('Connections', style: EomTheme.orientationLabel()),
-                const Spacer(),
-                Icon(
-                  _connectionsExpanded ? Icons.expand_less : Icons.expand_more,
-                  size: 18,
-                  color: EomColors.textTertiary,
-                ),
-              ],
-            ),
-          ),
-        ),
-        AnimatedSize(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-          alignment: Alignment.topCenter,
-          child: _connectionsExpanded
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: EpistemicGraphView(graph: _mapOverlay!),
-                )
-              : const SizedBox(width: double.infinity),
-        ),
-      ],
+    return OrientationDisclosure(
+      label: 'Connections',
+      expanded: _connectionsExpanded,
+      onToggle: () =>
+          setState(() => _connectionsExpanded = !_connectionsExpanded),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: RepaintBoundary(child: EpistemicGraphView(graph: _mapOverlay!)),
+      ),
     );
   }
 }

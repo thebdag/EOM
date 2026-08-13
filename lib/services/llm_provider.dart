@@ -196,10 +196,8 @@ class GeminiProvider implements LlmProvider {
     }
 
     final response = await http.post(
-      Uri.parse(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$apiKey',
-      ),
-      headers: {'Content-Type': 'application/json'},
+      generateContentUri(),
+      headers: generateContentHeaders(apiKey),
       body: jsonEncode({
         'systemInstruction': {
           'parts': [
@@ -251,6 +249,17 @@ class GeminiProvider implements LlmProvider {
       'Gemini Error: unexpected response shape (possibly safety-blocked)',
     );
   }
+
+  /// Endpoint without the API key in the query string.
+  static Uri generateContentUri() => Uri.parse(
+    'https://generativelanguage.googleapis.com/v1beta/models/'
+    'gemini-1.5-pro:generateContent',
+  );
+
+  static Map<String, String> generateContentHeaders(String apiKey) => {
+    'Content-Type': 'application/json',
+    'x-goog-api-key': apiKey,
+  };
 }
 
 /// LiteLLM Gateway client (provider id `LOCAL`) — OpenAI-compatible

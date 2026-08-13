@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'eom_colors.dart';
+import 'eom_shapes.dart';
 
 /// Bundled orientation display face (Cormorant Garamond). Body stays system sans.
 const String eomDisplaySerif = 'CormorantGaramond';
@@ -14,6 +15,9 @@ class EomSpacing {
   static const double lg = 24;
   static const double xl = 32;
   static const double xxl = 48;
+
+  /// Top-bar / field horizontal inset (between [sm] and [lg]).
+  static const double bar = 20;
 }
 
 /// EOM Material 3 theme — dark vault, zero shadows, orientation serif.
@@ -45,6 +49,23 @@ class EomTheme {
     );
   }
 
+  /// Brand / sheet titles (serif). Not for CTAs or dense chrome.
+  static TextStyle displayTitle({
+    double fontSize = 22,
+    double letterSpacing = 0.8,
+  }) {
+    return _orientation(fontSize: fontSize, letterSpacing: letterSpacing);
+  }
+
+  /// Orientation actions — gold CTAs stay sans (spec: never serif chrome).
+  static TextStyle orientationCta({double fontSize = 16}) {
+    return TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.2,
+    );
+  }
+
   static ThemeData get dark {
     return ThemeData(
       useMaterial3: true,
@@ -66,7 +87,7 @@ class EomTheme {
         color: EomColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(EomShapes.radiusMd),
           side: const BorderSide(color: EomColors.surfaceBorder, width: 0.5),
         ),
         margin: EdgeInsets.zero,
@@ -90,15 +111,20 @@ class EomTheme {
           fontWeight: FontWeight.w400,
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
+          horizontal: EomSpacing.bar,
+          vertical: EomSpacing.md,
         ),
       ),
       textTheme: TextTheme(
         headlineLarge: _orientation(fontSize: 28, letterSpacing: -0.5),
         headlineMedium: _orientation(fontSize: 22),
         headlineSmall: _orientation(fontSize: 18, letterSpacing: -0.2),
-        titleLarge: _orientation(fontSize: 18, letterSpacing: -0.2),
+        titleLarge: const TextStyle(
+          color: EomColors.textPrimary,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          letterSpacing: -0.2,
+        ),
         titleMedium: const TextStyle(
           color: EomColors.textPrimary,
           fontSize: 16,
@@ -122,11 +148,11 @@ class EomTheme {
           fontWeight: FontWeight.w500,
           letterSpacing: 0.3,
         ),
-        labelSmall: _orientation(
+        labelSmall: const TextStyle(
+          color: EomColors.textSecondary,
           fontSize: 13,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.2,
-          color: EomColors.textSecondary,
         ),
       ),
       dividerTheme: const DividerThemeData(

@@ -63,7 +63,7 @@ Sitting at a clean desk in a quiet room — Epiture’s editorial restraint tran
    - Bundle one display serif; wire into `headline*` / AppBar title / orientation labels  
    - Body/label/input remain system or bundled sans  
    - Spacing scale bump for “vault room” (padding tokens if useful)  
-   - Optional `EomShapes.leaf` path / `BorderRadius` helper for signature clips  
+   - `EomShapes.leafRadius` for signature clips (no cubic path on the input)  
 
 4. **REPOMAP / changelog** — note new font assets + theme tokens  
 

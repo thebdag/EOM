@@ -7,7 +7,6 @@ library;
 import 'package:eom/screens/home_screen.dart';
 import 'package:eom/services/ai_service.dart';
 import 'package:eom/services/history_service.dart';
-import 'package:eom/services/llm_provider.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:eom/theme/eom_colors.dart';
 import 'package:eom/theme/eom_shapes.dart';
@@ -20,19 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/in_memory_epistemic_store.dart';
-
-class _SilentProvider implements LlmProvider {
-  @override
-  Future<String> generate(
-    String systemPrompt,
-    String userMessage, {
-    List<ChatMessage> history = const [],
-  }) async => 'Quiet prose.';
-}
-
-Finder richTextContaining(String needle) => find.byWidgetPredicate(
-  (w) => w is RichText && w.text.toPlainText().contains(needle),
-);
+import 'helpers/ux_harness.dart';
 
 void main() {
   late InMemoryStore store;
@@ -43,21 +30,8 @@ void main() {
     store = InMemoryStore();
   });
 
-  Future<void> pumpHome(WidgetTester tester) async {
-    await tester.binding.setSurfaceSize(const Size(900, 1600));
-    addTearDown(() => tester.binding.setSurfaceSize(null));
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: EomTheme.dark,
-        home: HomeScreen(
-          aiService: AiService(provider: _SilentProvider()),
-          historyService: HistoryService(),
-          epistemicStoreFactory: () async => store,
-        ),
-      ),
-    );
-    await tester.pump();
-  }
+  Future<void> pumpHome(WidgetTester tester) =>
+      pumpEomHome(tester, store: store);
 
   testWidgets('T107: serif EOM, expansive hint, vault-room empty canvas', (
     tester,
@@ -153,7 +127,7 @@ void main() {
       MaterialApp(
         theme: EomTheme.dark,
         home: HomeScreen(
-          aiService: AiService(provider: _SilentProvider()),
+          aiService: AiService(provider: const SilentLlmProvider()),
           historyService: HistoryService(),
           epistemicStoreFactory: () async => store,
         ),
