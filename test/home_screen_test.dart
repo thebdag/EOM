@@ -46,6 +46,7 @@ void main() {
     // AiService's error path reads the active provider for its message.
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await SettingsService.setGeminiKey('test-guide');
     store = InMemoryStore();
   });
 
@@ -142,7 +143,7 @@ void main() {
 
       await tester.tap(find.text('Open Settings'));
       await tester.pumpAndSettle();
-      expect(find.text('AI Configuration'), findsOneWidget);
+      expect(find.widgetWithText(AppBar, 'Settings'), findsOneWidget);
     });
 
     testWidgets('new-thought button confirms then clears the session', (

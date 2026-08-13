@@ -25,6 +25,46 @@ void main() {
     });
   });
 
+  group('hasUsableGuide (EOM-S26)', () {
+    test('is false when no keys are stored (gemini fallback)', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      expect(SettingsService.hasUsableGuide, isFalse);
+    });
+
+    test('is true when the active provider has a key', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setGeminiKey('sk-test');
+      expect(SettingsService.hasUsableGuide, isTrue);
+    });
+
+    test('ignores a key on a non-active provider', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setOpenAiKey('sk-openai');
+      expect(SettingsService.activeProvider, LlmProviderKind.gemini);
+      expect(SettingsService.hasUsableGuide, isFalse);
+    });
+
+    test('follows the active provider slot', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setOpenAiKey('sk-openai');
+      await SettingsService.setActiveProvider(LlmProviderKind.openai);
+      expect(SettingsService.hasUsableGuide, isTrue);
+    });
+
+    test('requires the LiteLLM master key for local', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.local);
+      expect(SettingsService.hasUsableGuide, isFalse);
+      await SettingsService.setLocalApiKey('master');
+      expect(SettingsService.hasUsableGuide, isTrue);
+    });
+  });
+
   group('normalizeGatewayOrigin', () {
     test('leaves bare origin unchanged', () {
       expect(

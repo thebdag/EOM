@@ -68,9 +68,15 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 
 * **Input Area:** borderless, expansive, auto-resizing `TextField`. Blank
   canvas, not a form.
+* **Empty canvas (ceremonial):** Vault-room margins; leaf-radius panel around
+  the blank input only (not pills). Serif EOM + gold brand mark. Quiet
+  **Connect a guide** when the active provider has no usable key (opens
+  the soft-gate sheet). Intents stay deferred until there is text.
 * **Intent Buttons (Clarify, Compress, Map, Reflect, Act):** Pill-shaped,
   muted background; idle pills show a short description subtitle (EOM-S20).
-  Intents stay deferred until there is text (calm first paint).
+  Intents stay deferred until there is text (calm first paint). A blank-field
+  tap after a response shows a calm hint ("Write a thought first.") — never
+  a silent no-op (F13).
 * **Soft gate (first-run / no key):** Quiet connect path — bottom sheet or
   panel with provider pick + essential key fields only. Same sheet if an
   intent is tapped without a usable key. Never a hard blocking wall; never
@@ -83,15 +89,21 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 * **The "Map" (Tree Visualization):**
   * Lightweight custom painter or hierarchical list; clean directory tree.
   * Connecting lines 1px, muted grey.
-  * On Home, framed with orientation label **Your map** (EOM-S24 / F11).
+  * On Home, framed with orientation serif label **Your map** (EOM-S24 / F11 / S29).
 * **The Epistemic Graph Overlay (EOM-T18):**
   * Static radial layout under the tree; confidence colours from palette
     tokens; 0.5px `surfaceBorder` edges; 300ms `easeOut` fade-in.
-  * On Home, under **Connections**, collapsed by default (EOM-S24 / F11).
-* **Session continuity (EOM-S24):**
-  * Multi-turn Home shows muted **Earlier in this session** turns above the
-    latest response card.
-  * History rows reopen into Home.
+  * On Home, under **Connections** (orientation serif), collapsed by default
+    (EOM-S24 / F11 / S29).
+* **Response card:** Success uses leaf radius (signature, quiet); errors keep
+  the ordinary 12px corner.
+* **Session continuity (EOM-S24 / S29):**
+  * Multi-turn Home shows muted **Earlier in this session** (orientation
+    serif) above the latest response card.
+  * History rows reopen into Home; intent shown as Clarify not `clarify`;
+    long responses offer **Read more** (F14).
+  * Home History icon keeps its tooltip and shows a quiet pip when the
+    library has rows (F15).
   * **New thought** confirms before clearing a non-empty on-screen session.
 
 ---

@@ -40,9 +40,9 @@ EOM/
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view (+ fromJson/tryParseRaw, EOM-S14)
 │   │
 │   ├── screens/
-│   │   ├── history_screen.dart  # Saved sessions: empty CTA, clear confirm (S19); row reopen → Home (S24/F8)
-│   │   ├── home_screen.dart     # Vault UI: intents, prior-turn thread (F10), Map framing (F11), New-thought confirm (F16), calm errors (S18)
-│   │   └── settings_screen.dart # API Key / LiteLLM / Provider configuration UI
+│   │   ├── history_screen.dart  # Saved sessions: empty CTA, clear confirm (S19); row reopen → Home (S24/F8); Clarify + Read more (S29/F14)
+│   │   ├── home_screen.dart     # Vault UI: ceremonial empty (S26), soft gate (S27), blank-input hint (F13), History pip (F15), prior-turn thread (F10), Map framing (F11), New-thought confirm (F16), calm errors (S18)
+│   │   └── settings_screen.dart # Calm Settings: active-only key, collapsed Advanced, Epiture footer (S28 / F4)
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router + ---EPISTEMIC--- epilogue splitting (prompts/parsing live in intent_config.dart)
@@ -62,9 +62,12 @@ EOM/
 │   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing
 │   │
 │   └── widgets/
+│       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
+│       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
+│       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)
 │       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18); shown under collapsible Connections on Home (S24/F11)
 │       ├── intent_button.dart   # Interactive pill button for cognitive intents (description subtitle + tooltip, EOM-S20)
-│       ├── response_card.dart   # Fade-in markdown container; Open Settings on recoverable errors (EOM-S18)
+│       ├── response_card.dart   # Fade-in markdown; leaf on success (S29); Open Settings on recoverable errors (EOM-S18)
 │       └── thought_tree_view.dart # Custom widget rendering recursive directory trees ("Your map" on Home, S24/F11)
 │
 └── test/                      # Unit and widget tests
@@ -95,11 +98,15 @@ EOM/
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
     ├── home_screen_test.dart      # Injected-service flows: clarify/map, friendly errors, New-thought confirm, Connections expand (S12, S18, S24)
+    ├── ux_eom_s26_empty_state_test.dart # Ceremonial empty: serif/leaf/gold/Connect CTA (EOM-S26)
+    ├── ux_eom_s27_soft_gate_test.dart # Soft-gate sheet: CTA + intent-without-key (EOM-S27 / F1 / F5)
+    ├── ux_eom_s28_settings_test.dart # Calm Settings: active-only + Advanced + lineage (EOM-S28 / F4)
+    ├── ux_eom_s29_polish_test.dart # F12–F15 polish: contrast, blank hint, History, pip, leaf (EOM-S29)
     ├── intent_config_test.dart    # Per-intent prompt contract + operation routing (EOM-S14)
     ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
     ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage (EOM-S10, S11)
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
-    ├── settings_service_test.dart # Gateway-origin normalization
+    ├── settings_service_test.dart # Gateway-origin normalization + hasUsableGuide (S26)
     ├── thought_node_test.dart     # Logic tests for tree structure management
     ├── ux_eom_e4_quick_wins_test.dart # History empty CTA/clear confirm + intent descriptions (EOM-S19, S20)
     ├── ux_eom_s21_first_run_test.dart # Live first-run widget walk (guarded by EOM_S21_LIVE)

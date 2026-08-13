@@ -84,4 +84,21 @@ class SettingsService {
   static String get localApiKey => _prefs.getString(_kLocalApiKey) ?? '';
   static Future<void> setLocalApiKey(String key) async =>
       await _prefs.setString(_kLocalApiKey, key.trim());
+
+  /// Whether the *active* provider has the credential needed to run an intent.
+  ///
+  /// Used by the empty-state Connect CTA (EOM-S26). A key on a different
+  /// provider does not count.
+  static bool get hasUsableGuide {
+    switch (activeProvider) {
+      case LlmProviderKind.openai:
+        return openAiKey.isNotEmpty;
+      case LlmProviderKind.anthropic:
+        return anthropicKey.isNotEmpty;
+      case LlmProviderKind.gemini:
+        return geminiKey.isNotEmpty;
+      case LlmProviderKind.local:
+        return localApiKey.isNotEmpty;
+    }
+  }
 }

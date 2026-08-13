@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_theme.dart';
+import '../widgets/guide_fields.dart';
 
+/// Calm Settings (EOM-S28 / F4) — active-provider essential fields;
+/// Advanced (gateway / model alias) collapsed; quiet Epiture lineage.
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -12,6 +16,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   LlmProviderKind _activeProvider = LlmProviderKind.fallback;
+  bool _advancedExpanded = false;
   final _openAiController = TextEditingController();
   final _anthropicController = TextEditingController();
   final _geminiController = TextEditingController();
@@ -46,6 +51,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// system back, and iOS swipe-back all route through the [PopScope].
   bool _allowPop = false;
 
+  TextEditingController _keyControllerFor(LlmProviderKind kind) {
+    switch (kind) {
+      case LlmProviderKind.openai:
+        return _openAiController;
+      case LlmProviderKind.anthropic:
+        return _anthropicController;
+      case LlmProviderKind.gemini:
+        return _geminiController;
+      case LlmProviderKind.local:
+        return _localApiKeyController;
+    }
+  }
+
   Future<void> _persistSettings() async {
     await SettingsService.setActiveProvider(_activeProvider);
     await SettingsService.setOpenAiKey(_openAiController.text);
@@ -70,49 +88,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
       canPop: _allowPop,
       onPopInvokedWithResult: (didPop, _) => _onPopInvoked(didPop),
       child: Scaffold(
-        appBar: AppBar(title: const Text('AI Configuration')),
+        appBar: AppBar(title: const Text('Settings')),
         body: ListView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(EomSpacing.lg),
           children: [
-            _buildSectionTitle('Active Provider'),
-            _buildDropdown(),
-            const SizedBox(height: 32),
-
-            _buildSectionTitle('OpenAI'),
-            _buildTextField(
-              'API Key (sk-...)',
-              _openAiController,
-              obscure: true,
+            _orientationLabel('Guide'),
+            ProviderPicker(
+              value: _activeProvider,
+              onChanged: (val) => setState(() => _activeProvider = val),
             ),
-            const SizedBox(height: 24),
-
-            _buildSectionTitle('Anthropic'),
-            _buildTextField(
-              'API Key (sk-ant-...)',
-              _anthropicController,
-              obscure: true,
+            const SizedBox(height: EomSpacing.lg),
+            GuideKeyField(
+              provider: _activeProvider,
+              controller: _keyControllerFor(_activeProvider),
             ),
-            const SizedBox(height: 24),
-
-            _buildSectionTitle('Google Gemini'),
-            _buildTextField('API Key', _geminiController, obscure: true),
-            const SizedBox(height: 24),
-
-            _buildSectionTitle('LiteLLM'),
-            _buildTextField(
-              'Master Key (required)',
-              _localApiKeyController,
-              obscure: true,
-            ),
-            const SizedBox(height: 12),
-            _buildTextField(
-              'Gateway Origin (e.g., http://127.0.0.1:4000)',
-              _localHostController,
-            ),
-            const SizedBox(height: 12),
-            _buildTextField(
-              'Model Alias (e.g., qwen-smart)',
-              _localModelController,
+            const SizedBox(height: EomSpacing.xl),
+            _buildAdvanced(),
+            const Padding(
+              padding: EdgeInsets.only(top: EomSpacing.xxl),
+              child: Text(
+                'Kin to Epiture.',
+                style: TextStyle(
+                  fontFamily: eomDisplaySerif,
+                  color: EomColors.textTertiary,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
           ],
         ),
@@ -120,73 +122,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _orientationLabel(String title) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Text(
-        title.toUpperCase(),
-        style: const TextStyle(
-          color: EomColors.textSecondary,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 1.2,
-        ),
-      ),
+      padding: const EdgeInsets.only(bottom: EomSpacing.sm),
+      child: Text(title, style: EomTheme.orientationLabel()),
     );
   }
 
-  Widget _buildDropdown() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: EomColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<LlmProviderKind>(
-          value: _activeProvider,
-          isExpanded: true,
-          dropdownColor: EomColors.surface,
-          items: LlmProviderKind.values
-              .map(
-                (kind) =>
-                    DropdownMenuItem(value: kind, child: Text(kind.label)),
-              )
-              .toList(),
-          onChanged: (val) {
-            if (val != null) setState(() => _activeProvider = val);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(
-    String hint,
-    TextEditingController controller, {
-    bool obscure = false,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: EomColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscure,
-        style: const TextStyle(color: EomColors.textPrimary, fontSize: 15),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: const TextStyle(color: EomColors.textTertiary),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
+  Widget _buildAdvanced() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () => setState(() => _advancedExpanded = !_advancedExpanded),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              children: [
+                Text('Advanced', style: EomTheme.orientationLabel()),
+                const Spacer(),
+                Icon(
+                  _advancedExpanded ? Icons.expand_less : Icons.expand_more,
+                  size: 18,
+                  color: EomColors.textTertiary,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+          alignment: Alignment.topCenter,
+          child: _advancedExpanded
+              ? Column(
+                  children: [
+                    EomSurfaceField(
+                      controller: _localHostController,
+                      hint: 'Gateway Origin (e.g., http://127.0.0.1:4000)',
+                    ),
+                    const SizedBox(height: EomSpacing.sm),
+                    EomSurfaceField(
+                      controller: _localModelController,
+                      hint: 'Model Alias (e.g., qwen-smart)',
+                    ),
+                  ],
+                )
+              : const SizedBox(width: double.infinity),
+        ),
+      ],
     );
   }
 }

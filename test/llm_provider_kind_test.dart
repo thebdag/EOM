@@ -27,6 +27,13 @@ void main() {
       expect(LlmProviderKind.fromString(''), LlmProviderKind.fallback);
       expect(LlmProviderKind.fallback, LlmProviderKind.gemini);
     });
+
+    test('keyHint matches Settings / soft-gate field copy', () {
+      expect(LlmProviderKind.openai.keyHint, 'API Key (sk-...)');
+      expect(LlmProviderKind.anthropic.keyHint, 'API Key (sk-ant-...)');
+      expect(LlmProviderKind.gemini.keyHint, 'API Key');
+      expect(LlmProviderKind.local.keyHint, 'Master Key (required)');
+    });
   });
 
   group('createProvider (EOM-S10)', () {

@@ -85,6 +85,7 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await SettingsService.setGeminiKey('test-guide');
     store = InMemoryStore();
   });
 

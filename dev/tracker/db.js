@@ -12,6 +12,18 @@ let _db = null;
 // Call initDb() once at startup and await it before using any helpers.
 let _sqlJs = null;
 
+// mtime of the DB file at last load/save — used to avoid clobbering external
+// writers (mark CLI, post-commit hook) when a long-lived TUI process exits.
+let _lastKnownMtimeMs = 0;
+
+function _rememberFileMtime() {
+  try {
+    if (fs.existsSync(DB_PATH)) {
+      _lastKnownMtimeMs = fs.statSync(DB_PATH).mtimeMs;
+    }
+  } catch (_) { /* ignore */ }
+}
+
 async function initDb() {
   if (_db) return _db;
 
@@ -22,6 +34,7 @@ async function initDb() {
   if (fs.existsSync(DB_PATH)) {
     const filebuf = fs.readFileSync(DB_PATH);
     _db = new _sqlJs.Database(filebuf);
+    _rememberFileMtime();
   } else {
     _db = new _sqlJs.Database();
   }
@@ -35,18 +48,48 @@ function getDb() {
   return _db;
 }
 
+// Re-read the DB file from disk into a fresh in-memory Database.
+// Needed by the TUI `r` reload: sql.js keeps a snapshot, so querying alone
+// cannot see writes from other processes (mark CLI, post-commit hook).
+function reloadDb() {
+  if (!_sqlJs) throw new Error('DB not initialised — call initDb() first');
+  if (!fs.existsSync(DB_PATH)) return _db;
+
+  const filebuf = fs.readFileSync(DB_PATH);
+  if (_db) {
+    try { _db.close(); } catch (_) { /* ignore */ }
+  }
+  _db = new _sqlJs.Database(filebuf);
+  _rememberFileMtime();
+  return _db;
+}
+
 // Persist the in-memory db to disk
 function saveDb() {
   if (!_db) return;
   const data = _db.export();
   fs.writeFileSync(DB_PATH, Buffer.from(data));
+  _rememberFileMtime();
+}
+
+// Exit flush that skips overwrite when another process updated the file
+// since this process last loaded or saved (avoids TUI clobbering CLI writes).
+function saveDbIfNotStale() {
+  if (!_db) return;
+  try {
+    if (fs.existsSync(DB_PATH)) {
+      const mtime = fs.statSync(DB_PATH).mtimeMs;
+      if (mtime > _lastKnownMtimeMs + 1) return;
+    }
+  } catch (_) { /* fall through to save */ }
+  saveDb();
 }
 
 // Safety flush — ensures writes survive even if a script exits without
 // explicitly calling saveDb() (e.g. unhandled rejection, early process.exit).
-process.on('exit', () => saveDb());
-process.on('SIGINT', () => { saveDb(); process.exit(0); });
-process.on('SIGTERM', () => { saveDb(); process.exit(0); });
+process.on('exit', () => saveDbIfNotStale());
+process.on('SIGINT', () => { saveDbIfNotStale(); process.exit(0); });
+process.on('SIGTERM', () => { saveDbIfNotStale(); process.exit(0); });
 
 // ── Schema migration ───────────────────────────────────────────────────────────
 function migrate() {
@@ -259,4 +302,4 @@ const Comments = {
   },
 };
 
-module.exports = { initDb, getDb, saveDb, Epics, Stories, Subtasks, Comments };
+module.exports = { initDb, getDb, saveDb, reloadDb, Epics, Stories, Subtasks, Comments };

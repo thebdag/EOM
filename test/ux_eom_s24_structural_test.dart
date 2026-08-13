@@ -75,6 +75,7 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await SettingsService.setGeminiKey('test-guide');
     store = InMemoryStore();
   });
 
@@ -169,9 +170,9 @@ void main() {
           aiService: AiService(
             provider: _ScriptedProvider([
               'Shape.\n${AiService.epistemicMarker}\n'
-              '{"label": "Focus", "children": [{"label": "Rest"}], '
-              '"relationships": [{"source": "Focus", "target": "Rest", '
-              '"type": "supports"}]}',
+                  '{"label": "Focus", "children": [{"label": "Rest"}], '
+                  '"relationships": [{"source": "Focus", "target": "Rest", '
+                  '"type": "supports"}]}',
             ]),
           ),
           historyService: _FakeHistory(),
