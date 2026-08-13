@@ -13,6 +13,16 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-13 — Reopened History must separate context from the composer** —
+  putting the saved input in both `_history` and the text field resends it on
+  the next intent. Keep the composer empty, retain the saved pair as provider
+  context, and render the original input as a prior turn.
+
+- **2026-08-13 — A stale sql.js snapshot needs locking before mutation** —
+  checking mtime only at process exit does not protect normal TUI writes.
+  Acquire a cross-process file lock, reload the latest database, mutate, and
+  save while still holding the lock.
+
 - **2026-08-12 — `pumpWidget` a second HomeScreen reuses State** — no
   `initState`, `late final` services stay the first inject. Split widget
   tests instead of pumping Home twice in one case (EOM-S29 F15 pip).

@@ -76,8 +76,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_comment",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "comment.js"
     },
     {
@@ -87,8 +87,8 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "dev_tracker_comment_initdb_epics_stories_subtasks_comments",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "{ initdb, epics, stories, subtasks, comments }"
     },
     {
@@ -98,8 +98,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "dev_tracker_comment_findsubtask",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "findsubtask()"
     },
     {
@@ -109,8 +109,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dev_tracker_comment_main",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "main()"
     },
     {
@@ -147,10 +147,32 @@
       "norm_label": "fs"
     },
     {
-      "label": "DB_PATH",
+      "label": "{ Worker }",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "dev_tracker_db_worker",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "{ worker }"
+    },
+    {
+      "label": "properLockfile",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
       "source_location": "L7",
+      "_origin": "ast",
+      "id": "dev_tracker_db_properlockfile",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "properlockfile"
+    },
+    {
+      "label": "DB_PATH",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "dev_tracker_db_db_path",
       "community": 7,
@@ -158,10 +180,21 @@
       "norm_label": "db_path"
     },
     {
+      "label": "lockWaitArray",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "dev_tracker_db_lockwaitarray",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "lockwaitarray"
+    },
+    {
       "label": "_rememberFileMtime()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L19",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "dev_tracker_db_rememberfilemtime",
       "community": 7,
@@ -169,32 +202,87 @@
       "norm_label": "_rememberfilemtime()"
     },
     {
+      "label": "_diskChanged()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "dev_tracker_db_diskchanged",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "_diskchanged()"
+    },
+    {
+      "label": "_startLockHeartbeat()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "dev_tracker_db_startlockheartbeat",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "_startlockheartbeat()"
+    },
+    {
+      "label": "_stopLockHeartbeat()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "dev_tracker_db_stoplockheartbeat",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "_stoplockheartbeat()"
+    },
+    {
+      "label": "_withWriteLock()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L80",
+      "_origin": "ast",
+      "id": "dev_tracker_db_withwritelock",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "_withwritelock()"
+    },
+    {
       "label": "initDb()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L27",
+      "source_location": "L111",
       "_origin": "ast",
       "id": "dev_tracker_db_initdb",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "initdb()"
     },
     {
       "label": "getDb()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L46",
+      "source_location": "L130",
       "_origin": "ast",
       "id": "dev_tracker_db_getdb",
+      "community": 44,
+      "community_name": "initDb",
+      "norm_label": "getdb()"
+    },
+    {
+      "label": "_reloadDbFromDisk()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L135",
+      "_origin": "ast",
+      "id": "dev_tracker_db_reloaddbfromdisk",
       "community": 7,
       "community_name": "db.js",
-      "norm_label": "getdb()"
+      "norm_label": "_reloaddbfromdisk()"
     },
     {
       "label": "reloadDb()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L54",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "dev_tracker_db_reloaddb",
       "community": 7,
@@ -202,10 +290,21 @@
       "norm_label": "reloaddb()"
     },
     {
+      "label": "_saveDbUnlocked()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L155",
+      "_origin": "ast",
+      "id": "dev_tracker_db_savedbunlocked",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "_savedbunlocked()"
+    },
+    {
       "label": "saveDb()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L68",
+      "source_location": "L169",
       "_origin": "ast",
       "id": "dev_tracker_db_savedb",
       "community": 7,
@@ -216,7 +315,7 @@
       "label": "saveDbIfNotStale()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L77",
+      "source_location": "L180",
       "_origin": "ast",
       "id": "dev_tracker_db_savedbifnotstale",
       "community": 7,
@@ -224,10 +323,21 @@
       "norm_label": "savedbifnotstale()"
     },
     {
+      "label": "write()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L191",
+      "_origin": "ast",
+      "id": "dev_tracker_db_write",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "write()"
+    },
+    {
       "label": "migrate()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L95",
+      "source_location": "L224",
       "_origin": "ast",
       "id": "dev_tracker_db_migrate",
       "community": 7,
@@ -238,7 +348,7 @@
       "label": "run()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L154",
+      "source_location": "L282",
       "_origin": "ast",
       "id": "dev_tracker_db_run",
       "community": 7,
@@ -246,10 +356,21 @@
       "norm_label": "run()"
     },
     {
+      "label": "allFrom()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L286",
+      "_origin": "ast",
+      "id": "dev_tracker_db_allfrom",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "allfrom()"
+    },
+    {
       "label": "all()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L159",
+      "source_location": "L297",
       "_origin": "ast",
       "id": "dev_tracker_db_all",
       "community": 7,
@@ -257,10 +378,21 @@
       "norm_label": "all()"
     },
     {
+      "label": "getFrom()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L301",
+      "_origin": "ast",
+      "id": "dev_tracker_db_getfrom",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "getfrom()"
+    },
+    {
       "label": "get()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L170",
+      "source_location": "L306",
       "_origin": "ast",
       "id": "dev_tracker_db_get",
       "community": 7,
@@ -271,7 +403,7 @@
       "label": "nextKey()",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L175",
+      "source_location": "L310",
       "_origin": "ast",
       "id": "dev_tracker_db_nextkey",
       "community": 7,
@@ -279,48 +411,70 @@
       "norm_label": "nextkey()"
     },
     {
+      "label": "lastInsertId()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L316",
+      "_origin": "ast",
+      "id": "dev_tracker_db_lastinsertid",
+      "community": 7,
+      "community_name": "db.js",
+      "norm_label": "lastinsertid()"
+    },
+    {
       "label": "Epics",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L183",
+      "source_location": "L323",
       "_origin": "ast",
       "id": "dev_tracker_db_epics",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "epics"
     },
     {
       "label": "Stories",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L213",
+      "source_location": "L369",
       "_origin": "ast",
       "id": "dev_tracker_db_stories",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "stories"
     },
     {
       "label": "Subtasks",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L246",
+      "source_location": "L413",
       "_origin": "ast",
       "id": "dev_tracker_db_subtasks",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "subtasks"
     },
     {
       "label": "Comments",
       "file_type": "code",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L282",
+      "source_location": "L454",
       "_origin": "ast",
       "id": "dev_tracker_db_comments",
+      "community": 44,
+      "community_name": "initDb",
+      "norm_label": "comments"
+    },
+    {
+      "label": "seedIfEmpty()",
+      "file_type": "code",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L478",
+      "_origin": "ast",
+      "id": "dev_tracker_db_seedifempty",
       "community": 7,
       "community_name": "db.js",
-      "norm_label": "comments"
+      "norm_label": "seedifempty()"
     },
     {
       "label": "post-commit",
@@ -329,8 +483,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "post-commit"
     },
     {
@@ -340,8 +494,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_execsync",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "{ execsync }"
     },
     {
@@ -351,8 +505,8 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_path",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "path"
     },
     {
@@ -362,8 +516,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_fs",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "fs"
     },
     {
@@ -373,8 +527,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_reporoot",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "reporoot"
     },
     {
@@ -384,8 +538,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_trackerdir",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "trackerdir"
     },
     {
@@ -395,8 +549,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_dbpath",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "dbpath"
     },
     {
@@ -406,8 +560,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_status_aliases",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "status_aliases"
     },
     {
@@ -417,8 +571,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_matches",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "matches"
     },
     {
@@ -428,8 +582,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_commentmatches",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "commentmatches"
     },
     {
@@ -439,8 +593,8 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_initdb_epics_stories_subtasks_comments",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 89,
+      "community_name": "post-commit",
       "norm_label": "{ initdb, epics, stories, subtasks, comments }"
     },
     {
@@ -450,8 +604,8 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "dev_tracker_hooks_post_commit_findsubtask",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "findsubtask()"
     },
     {
@@ -538,8 +692,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_mark",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "mark.js"
     },
     {
@@ -549,8 +703,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "dev_tracker_mark_initdb_epics_stories_subtasks",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "{ initdb, epics, stories, subtasks }"
     },
     {
@@ -560,8 +714,8 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "dev_tracker_mark_status_aliases",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "status_aliases"
     },
     {
@@ -571,8 +725,8 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "dev_tracker_mark_main",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "main()"
     },
     {
@@ -686,32 +840,10 @@
       "norm_label": "dependencies"
     },
     {
-      "label": "sql.js",
-      "file_type": "code",
-      "source_file": "dev/tracker/package.json",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "dev_tracker_package_dependencies_sql_js",
-      "community": 13,
-      "community_name": "tracker/package.json",
-      "norm_label": "sql.js"
-    },
-    {
-      "label": "sql.js",
-      "file_type": "concept",
-      "source_file": "dev/tracker/package.json",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "sql_js",
-      "community": 13,
-      "community_name": "tracker/package.json",
-      "norm_label": "sql.js"
-    },
-    {
       "label": "blessed",
       "file_type": "code",
       "source_file": "dev/tracker/package.json",
-      "source_location": "L13",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "dev_tracker_package_dependencies_blessed",
       "community": 13,
@@ -722,12 +854,56 @@
       "label": "blessed",
       "file_type": "concept",
       "source_file": "dev/tracker/package.json",
-      "source_location": "L13",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "blessed",
       "community": 13,
       "community_name": "tracker/package.json",
       "norm_label": "blessed"
+    },
+    {
+      "label": "proper-lockfile",
+      "file_type": "code",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "dev_tracker_package_dependencies_proper_lockfile",
+      "community": 13,
+      "community_name": "tracker/package.json",
+      "norm_label": "proper-lockfile"
+    },
+    {
+      "label": "proper-lockfile",
+      "file_type": "concept",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "proper_lockfile",
+      "community": 13,
+      "community_name": "tracker/package.json",
+      "norm_label": "proper-lockfile"
+    },
+    {
+      "label": "sql.js",
+      "file_type": "code",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "dev_tracker_package_dependencies_sql_js",
+      "community": 13,
+      "community_name": "tracker/package.json",
+      "norm_label": "sql.js"
+    },
+    {
+      "label": "sql.js",
+      "file_type": "concept",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "sql_js",
+      "community": 13,
+      "community_name": "tracker/package.json",
+      "norm_label": "sql.js"
     },
     {
       "label": "seed.js",
@@ -741,15 +917,15 @@
       "norm_label": "seed.js"
     },
     {
-      "label": "{ Epics, Stories }",
+      "label": "{ seedIfEmpty }",
       "file_type": "code",
       "source_file": "dev/tracker/seed.js",
       "source_location": "L4",
       "_origin": "ast",
-      "id": "dev_tracker_seed_epics_stories",
+      "id": "dev_tracker_seed_seedifempty",
       "community": 7,
       "community_name": "db.js",
-      "norm_label": "{ epics, stories }"
+      "norm_label": "{ seedifempty }"
     },
     {
       "label": "seed()",
@@ -769,8 +945,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_tracker",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "tracker.js"
     },
     {
@@ -780,20 +956,20 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "dev_tracker_tracker_execsync",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "{ execsync }"
     },
     {
-      "label": "{ initDb, getDb }",
+      "label": "{ initDb }",
       "file_type": "code",
       "source_file": "dev/tracker/tracker.js",
       "source_location": "L5",
       "_origin": "ast",
-      "id": "dev_tracker_tracker_initdb_getdb",
-      "community": 7,
-      "community_name": "db.js",
-      "norm_label": "{ initdb, getdb }"
+      "id": "dev_tracker_tracker_initdb",
+      "community": 92,
+      "community_name": "tracker.js",
+      "norm_label": "{ initdb }"
     },
     {
       "label": "{ launchTUI }",
@@ -802,8 +978,8 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "dev_tracker_tracker_launchtui",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "{ launchtui }"
     },
     {
@@ -813,8 +989,8 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "dev_tracker_tracker_currentbranch",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "currentbranch()"
     },
     {
@@ -824,8 +1000,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "dev_tracker_tracker_main",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "main()"
     },
     {
@@ -835,8 +1011,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_ui",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "ui.js"
     },
     {
@@ -846,8 +1022,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "dev_tracker_ui_blessed",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "blessed"
     },
     {
@@ -857,8 +1033,8 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "dev_tracker_ui_epics_stories_subtasks_comments_reloaddb",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "{ epics, stories, subtasks, comments, reloaddb }"
     },
     {
@@ -868,8 +1044,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "dev_tracker_ui_colors",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "colors"
     },
     {
@@ -879,8 +1055,8 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "dev_tracker_ui_status_cycle",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "status_cycle"
     },
     {
@@ -890,8 +1066,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "dev_tracker_ui_status_label",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "status_label"
     },
     {
@@ -901,8 +1077,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "dev_tracker_ui_status_color",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "status_color"
     },
     {
@@ -912,8 +1088,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "dev_tracker_ui_priority_label",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "priority_label"
     },
     {
@@ -923,8 +1099,8 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "dev_tracker_ui_priority_color",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "priority_color"
     },
     {
@@ -934,8 +1110,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "dev_tracker_ui_state",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "state"
     },
     {
@@ -945,8 +1121,8 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "dev_tracker_ui_colortag",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "colortag()"
     },
     {
@@ -956,8 +1132,8 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "dev_tracker_ui_statustag",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "statustag()"
     },
     {
@@ -967,8 +1143,8 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "dev_tracker_ui_prioritytag",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "prioritytag()"
     },
     {
@@ -978,8 +1154,8 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "dev_tracker_ui_epicprogress",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "epicprogress()"
     },
     {
@@ -989,8 +1165,8 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "dev_tracker_ui_prompt",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "prompt()"
     },
     {
@@ -1000,8 +1176,8 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "dev_tracker_ui_confirm",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 53,
+      "community_name": "ui.js",
       "norm_label": "confirm()"
     },
     {
@@ -1011,8 +1187,8 @@
       "source_location": "L163",
       "_origin": "ast",
       "id": "dev_tracker_ui_launchtui",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 92,
+      "community_name": "tracker.js",
       "norm_label": "launchtui()"
     },
     {
@@ -1022,8 +1198,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_update_t3",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "update_t3.js"
     },
     {
@@ -1033,8 +1209,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "dev_tracker_update_t3_initdb_getdb_subtasks",
-      "community": 7,
-      "community_name": "db.js",
+      "community": 44,
+      "community_name": "initDb",
       "norm_label": "{ initdb, getdb, subtasks }"
     },
     {
@@ -1300,8 +1476,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_main_eomapp",
-      "community": 37,
-      "community_name": "guide_fields.dart",
+      "community": 80,
+      "community_name": "main.dart",
       "norm_label": "eomapp"
     },
     {
@@ -1355,7 +1531,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_flutter_material_dart",
-      "community": 74,
+      "community": 46,
       "community_name": "package:flutter/material.dart",
       "norm_label": "package:flutter/material.dart"
     },
@@ -1388,8 +1564,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "theme_eom_theme_dart",
-      "community": 80,
-      "community_name": "main.dart",
+      "community": 47,
+      "community_name": "orientation_chrome.dart",
       "norm_label": "../theme/eom_theme.dart"
     },
     {
@@ -2060,7 +2236,7 @@
       "_origin": "ast",
       "id": "epistemic_node_dart",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "epistemic_node.dart"
     },
     {
@@ -2368,7 +2544,7 @@
       "_origin": "ast",
       "id": "epistemic_relationship_dart",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "epistemic_relationship.dart"
     },
     {
@@ -2499,8 +2675,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_epistemic_operation_list",
-      "community": 50,
-      "community_name": "List",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "list"
     },
     {
@@ -2808,7 +2984,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "epistemic_query_result.dart"
     },
     {
@@ -2819,7 +2995,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_epistemicqueryresult",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "epistemicqueryresult"
     },
     {
@@ -2830,7 +3006,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_rootid",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "rootid"
     },
     {
@@ -2841,7 +3017,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_nodes",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "nodes"
     },
     {
@@ -2852,7 +3028,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_edges",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "edges"
     },
     {
@@ -2863,7 +3039,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_isempty",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "isempty"
     },
     {
@@ -2873,8 +3049,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "bool_get",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "bool get"
     },
     {
@@ -2885,7 +3061,7 @@
       "_origin": "ast",
       "id": "lib_models_epistemic_query_result_tostring",
       "community": 50,
-      "community_name": "List",
+      "community_name": "epistemic_query_result.dart",
       "norm_label": "tostring"
     },
     {
@@ -3104,8 +3280,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "intent.dart"
     },
     {
@@ -3115,8 +3291,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_cognitiveintent",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "cognitiveintent"
     },
     {
@@ -3126,8 +3302,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_label",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "label"
     },
     {
@@ -3137,8 +3313,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_icon",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "icon"
     },
     {
@@ -3148,8 +3324,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "icondata",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "icondata"
     },
     {
@@ -3159,8 +3335,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_description",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "description"
     },
     {
@@ -3170,8 +3346,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_color",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "color"
     },
     {
@@ -3181,8 +3357,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "color",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "color"
     },
     {
@@ -3192,8 +3368,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_intent_displayname",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "displayname"
     },
     {
@@ -3203,8 +3379,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "theme_eom_colors_dart",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "../theme/eom_colors.dart"
     },
     {
@@ -3252,6 +3428,17 @@
       "norm_label": "label"
     },
     {
+      "label": "keyHint",
+      "file_type": "code",
+      "source_file": "lib/models/llm_provider_kind.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_models_llm_provider_kind_keyhint",
+      "community": 55,
+      "community_name": "llm_provider_kind.dart",
+      "norm_label": "keyhint"
+    },
+    {
       "label": "fallback",
       "file_type": "code",
       "source_file": "lib/models/llm_provider_kind.dart",
@@ -3291,8 +3478,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "thought_node.dart"
     },
     {
@@ -3302,8 +3489,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_thoughtnode",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "thoughtnode"
     },
     {
@@ -3313,8 +3500,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_label",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "label"
     },
     {
@@ -3324,8 +3511,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_children",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "children"
     },
     {
@@ -3335,8 +3522,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_isexpanded",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "isexpanded"
     },
     {
@@ -3346,8 +3533,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_isleaf",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "isleaf"
     },
     {
@@ -3357,8 +3544,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_tojson",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "tojson"
     },
     {
@@ -3368,8 +3555,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_fromjson",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "fromjson"
     },
     {
@@ -3379,8 +3566,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_models_thought_node_tryparseraw",
-      "community": 76,
-      "community_name": "thought_node.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "tryparseraw"
     },
     {
@@ -3412,8 +3599,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreen",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "historyscreen"
     },
     {
@@ -3423,8 +3610,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "statefulwidget",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "statefulwidget"
     },
     {
@@ -3434,8 +3621,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyscreenstate",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_historyscreenstate"
     },
     {
@@ -3445,8 +3632,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "state",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "state"
     },
     {
@@ -3456,8 +3643,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyentry",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_historyentry"
     },
     {
@@ -3467,8 +3654,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_history_screen_historyentrystate",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_historyentrystate"
     },
     {
@@ -3558,17 +3745,6 @@
       "community": 75,
       "community_name": "history_screen.dart",
       "norm_label": "static const int"
-    },
-    {
-      "label": "_expandedLines",
-      "file_type": "code",
-      "source_file": "lib/screens/history_screen.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "lib_screens_history_screen_expandedlines",
-      "community": 75,
-      "community_name": "history_screen.dart",
-      "norm_label": "_expandedlines"
     },
     {
       "label": "createState",
@@ -3665,8 +3841,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_conversation_dart",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "../models/conversation.dart"
     },
     {
@@ -3676,8 +3852,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_intent_dart",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "../models/intent.dart"
     },
     {
@@ -3720,8 +3896,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreen",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "homescreen"
     },
     {
@@ -3731,8 +3907,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_screens_home_screen_homescreenstate",
-      "community": 75,
-      "community_name": "history_screen.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_homescreenstate"
     },
     {
@@ -3934,6 +4110,17 @@
       "norm_label": "_hasinput"
     },
     {
+      "label": "_showRestoredInputAsPriorTurn",
+      "file_type": "code",
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_screens_home_screen_showrestoredinputaspriorturn",
+      "community": 3,
+      "community_name": "home_screen.dart",
+      "norm_label": "_showrestoredinputaspriorturn"
+    },
+    {
       "label": "createState",
       "file_type": "code",
       "source_file": "lib/screens/home_screen.dart",
@@ -4062,7 +4249,7 @@
       "_origin": "ast",
       "id": "lib_screens_home_screen_opensettings",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "_opensettings"
     },
     {
@@ -4073,7 +4260,7 @@
       "_origin": "ast",
       "id": "materialpageroute",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "materialpageroute"
     },
     {
@@ -4237,8 +4424,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_epistemic_operation_dart",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "../models/epistemic_operation.dart"
     },
     {
@@ -4462,37 +4649,37 @@
       "norm_label": "_hosterror"
     },
     {
-      "label": "_openAiController",
+      "label": "_saveError",
       "file_type": "code",
       "source_file": "lib/screens/settings_screen.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "lib_screens_settings_screen_openaicontroller",
+      "id": "lib_screens_settings_screen_saveerror",
       "community": 5,
       "community_name": "settings_screen.dart",
-      "norm_label": "_openaicontroller"
+      "norm_label": "_saveerror"
     },
     {
-      "label": "_anthropicController",
+      "label": "_keyControllers",
       "file_type": "code",
       "source_file": "lib/screens/settings_screen.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "lib_screens_settings_screen_anthropiccontroller",
+      "id": "lib_screens_settings_screen_keycontrollers",
       "community": 5,
       "community_name": "settings_screen.dart",
-      "norm_label": "_anthropiccontroller"
+      "norm_label": "_keycontrollers"
     },
     {
-      "label": "_geminiController",
+      "label": "Map",
       "file_type": "code",
-      "source_file": "lib/screens/settings_screen.dart",
+      "source_file": null,
       "source_location": null,
       "_origin": "ast",
-      "id": "lib_screens_settings_screen_geminicontroller",
-      "community": 5,
-      "community_name": "settings_screen.dart",
-      "norm_label": "_geminicontroller"
+      "id": "map",
+      "community": 63,
+      "community_name": "llm_provider.dart",
+      "norm_label": "map"
     },
     {
       "label": "_localHostController",
@@ -4517,17 +4704,6 @@
       "norm_label": "_localmodelcontroller"
     },
     {
-      "label": "_localApiKeyController",
-      "file_type": "code",
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "lib_screens_settings_screen_localapikeycontroller",
-      "community": 5,
-      "community_name": "settings_screen.dart",
-      "norm_label": "_localapikeycontroller"
-    },
-    {
       "label": "_initialProvider",
       "file_type": "code",
       "source_file": "lib/screens/settings_screen.dart",
@@ -4539,37 +4715,15 @@
       "norm_label": "_initialprovider"
     },
     {
-      "label": "_initialOpenAi",
+      "label": "_initialKeys",
       "file_type": "code",
       "source_file": "lib/screens/settings_screen.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "lib_screens_settings_screen_initialopenai",
+      "id": "lib_screens_settings_screen_initialkeys",
       "community": 5,
       "community_name": "settings_screen.dart",
-      "norm_label": "_initialopenai"
-    },
-    {
-      "label": "_initialAnthropic",
-      "file_type": "code",
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "lib_screens_settings_screen_initialanthropic",
-      "community": 5,
-      "community_name": "settings_screen.dart",
-      "norm_label": "_initialanthropic"
-    },
-    {
-      "label": "_initialGemini",
-      "file_type": "code",
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "lib_screens_settings_screen_initialgemini",
-      "community": 5,
-      "community_name": "settings_screen.dart",
-      "norm_label": "_initialgemini"
+      "norm_label": "_initialkeys"
     },
     {
       "label": "_initialLocalHost",
@@ -4592,17 +4746,6 @@
       "community": 5,
       "community_name": "settings_screen.dart",
       "norm_label": "_initiallocalmodel"
-    },
-    {
-      "label": "_initialLocalApiKey",
-      "file_type": "code",
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "lib_screens_settings_screen_initiallocalapikey",
-      "community": 5,
-      "community_name": "settings_screen.dart",
-      "norm_label": "_initiallocalapikey"
     },
     {
       "label": "_allowPop",
@@ -4814,6 +4957,61 @@
       "norm_label": "null"
     },
     {
+      "label": "markerIndex",
+      "file_type": "code",
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_ai_service_markerindex",
+      "community": 32,
+      "community_name": "ai_service.dart",
+      "norm_label": "markerindex"
+    },
+    {
+      "label": "prose",
+      "file_type": "code",
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_ai_service_prose",
+      "community": 32,
+      "community_name": "ai_service.dart",
+      "norm_label": "prose"
+    },
+    {
+      "label": "afterMarker",
+      "file_type": "code",
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_ai_service_aftermarker",
+      "community": 32,
+      "community_name": "ai_service.dart",
+      "norm_label": "aftermarker"
+    },
+    {
+      "label": "jsonBlock",
+      "file_type": "code",
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_ai_service_jsonblock",
+      "community": 32,
+      "community_name": "ai_service.dart",
+      "norm_label": "jsonblock"
+    },
+    {
+      "label": "data",
+      "file_type": "code",
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_ai_service_data",
+      "community": 32,
+      "community_name": "ai_service.dart",
+      "norm_label": "data"
+    },
+    {
       "label": "_providerOverride",
       "file_type": "code",
       "source_file": "lib/services/ai_service.dart",
@@ -4842,8 +5040,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "static_const",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 88,
+      "community_name": "epistemic_export_service.dart",
       "norm_label": "static const"
     },
     {
@@ -4985,8 +5183,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "models_thought_node_dart",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "../models/thought_node.dart"
     },
     {
@@ -5040,7 +5238,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "epistemic_export_service.dart"
     },
@@ -5051,7 +5249,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_epistemicexporter",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "epistemicexporter"
     },
@@ -5062,7 +5260,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_epistemicexportservice",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "epistemicexportservice"
     },
@@ -5073,7 +5271,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_store",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "_store"
     },
@@ -5084,7 +5282,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_exportversion",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "exportversion"
     },
@@ -5095,7 +5293,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_typeheadings",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "_typeheadings"
     },
@@ -5106,7 +5304,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_tojsongraph",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "tojsongraph"
     },
@@ -5117,7 +5315,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_tojson",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "tojson"
     },
@@ -5128,7 +5326,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_tomarkdown",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "tomarkdown"
     },
@@ -5139,7 +5337,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_typeheading",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "_typeheading"
     },
@@ -5150,7 +5348,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_epistemic_export_service_snippet",
-      "community": 85,
+      "community": 88,
       "community_name": "epistemic_export_service.dart",
       "norm_label": "_snippet"
     },
@@ -5480,8 +5678,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "history_service.dart"
     },
     {
@@ -5491,8 +5689,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_historyservice",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "historyservice"
     },
     {
@@ -5502,8 +5700,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_boxname",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "_boxname"
     },
     {
@@ -5513,8 +5711,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "static_const_string",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "static const string"
     },
     {
@@ -5524,8 +5722,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_init",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "init"
     },
     {
@@ -5535,8 +5733,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_saveconversation",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "saveconversation"
     },
     {
@@ -5546,8 +5744,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_getconversations",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "getconversations"
     },
     {
@@ -5557,8 +5755,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_history_service_clearhistory",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "clearhistory"
     },
     {
@@ -5568,8 +5766,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_hive_flutter_hive_flutter_dart",
-      "community": 4,
-      "community_name": "settings_service.dart",
+      "community": 85,
+      "community_name": "history_service.dart",
       "norm_label": "package:hive_flutter/hive_flutter.dart"
     },
     {
@@ -5579,8 +5777,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "intent_config.dart"
     },
     {
@@ -5590,8 +5788,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_cognitiveintentops",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "cognitiveintentops"
     },
     {
@@ -5601,8 +5799,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_categoryvalues",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "_categoryvalues"
     },
     {
@@ -5612,8 +5810,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_producestree",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "producestree"
     },
     {
@@ -5623,8 +5821,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_buildprompt",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "buildprompt"
     },
     {
@@ -5634,8 +5832,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_intent_config_parseoperation",
-      "community": 53,
-      "community_name": "intent_config.dart",
+      "community": 60,
+      "community_name": "beta_reporter.dart",
       "norm_label": "parseoperation"
     },
     {
@@ -5755,7 +5953,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_llmprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "llmprovider"
     },
@@ -5766,7 +5964,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_openaiprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "openaiprovider"
     },
@@ -5777,7 +5975,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_anthropicprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "anthropicprovider"
     },
@@ -5788,7 +5986,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_geminiprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "geminiprovider"
     },
@@ -5799,7 +5997,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_llm_provider_localprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "localprovider"
     },
@@ -5846,17 +6044,6 @@
       "community": 63,
       "community_name": "llm_provider.dart",
       "norm_label": "extrabody"
-    },
-    {
-      "label": "Map",
-      "file_type": "code",
-      "source_file": null,
-      "source_location": null,
-      "_origin": "ast",
-      "id": "map",
-      "community": 63,
-      "community_name": "llm_provider.dart",
-      "norm_label": "map"
     },
     {
       "label": "response",
@@ -6088,6 +6275,28 @@
       "community": 4,
       "community_name": "settings_service.dart",
       "norm_label": "_klocalapikey"
+    },
+    {
+      "label": "_providerKeyPreferences",
+      "file_type": "code",
+      "source_file": "lib/services/settings_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_settings_service_providerkeypreferences",
+      "community": 4,
+      "community_name": "settings_service.dart",
+      "norm_label": "_providerkeypreferences"
+    },
+    {
+      "label": "static const Map",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "static_const_map",
+      "community": 4,
+      "community_name": "settings_service.dart",
+      "norm_label": "static const map"
     },
     {
       "label": "defaultGatewayOrigin",
@@ -6332,14 +6541,25 @@
       "norm_label": "setlocalapikey"
     },
     {
+      "label": "_setString",
+      "file_type": "code",
+      "source_file": "lib/services/settings_service.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "lib_services_settings_service_setstring",
+      "community": 4,
+      "community_name": "settings_service.dart",
+      "norm_label": "_setstring"
+    },
+    {
       "label": "package:shared_preferences/shared_preferences.dart",
       "file_type": "code",
       "source_file": null,
       "source_location": null,
       "_origin": "ast",
       "id": "package_shared_preferences_shared_preferences_dart",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:shared_preferences/shared_preferences.dart"
     },
     {
@@ -6360,8 +6580,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_sqlite_epistemic_graph_store_epistemicgraphstore",
-      "community": 49,
-      "community_name": "ux_eom_s26_empty_state_test.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "epistemicgraphstore"
     },
     {
@@ -6371,8 +6591,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_services_sqlite_epistemic_graph_store_sqliteepistemicgraphstore",
-      "community": 94,
-      "community_name": "sqlite_epistemic_graph_store_test.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "sqliteepistemicgraphstore"
     },
     {
@@ -7383,8 +7603,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "orientation_chrome_dart",
-      "community": 47,
-      "community_name": "orientation_chrome.dart",
+      "community": 48,
+      "community_name": "soft_gate_sheet.dart",
       "norm_label": "orientation_chrome.dart"
     },
     {
@@ -7735,8 +7955,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "intent_button.dart"
     },
     {
@@ -7746,8 +7966,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_intentbutton",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "intentbutton"
     },
     {
@@ -7757,8 +7977,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_intent",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "intent"
     },
     {
@@ -7768,8 +7988,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_onpressed",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "onpressed"
     },
     {
@@ -7779,8 +7999,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_isloading",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "isloading"
     },
     {
@@ -7790,8 +8010,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_isselected",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "isselected"
     },
     {
@@ -7801,8 +8021,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_intent_button_build",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 78,
+      "community_name": "../theme/eom_colors.dart",
       "norm_label": "build"
     },
     {
@@ -7966,8 +8186,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecard",
-      "community": 8,
-      "community_name": "response_card.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "responsecard"
     },
     {
@@ -7977,8 +8197,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_response_card_responsecardstate",
-      "community": 8,
-      "community_name": "response_card.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_responsecardstate"
     },
     {
@@ -7988,8 +8208,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "singletickerproviderstatemixin",
-      "community": 8,
-      "community_name": "response_card.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "singletickerproviderstatemixin"
     },
     {
@@ -8175,8 +8395,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_soft_gate_sheet_softgatesheet",
-      "community": 48,
-      "community_name": "soft_gate_sheet.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "softgatesheet"
     },
     {
@@ -8186,8 +8406,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_soft_gate_sheet_softgatesheetstate",
-      "community": 48,
-      "community_name": "soft_gate_sheet.dart",
+      "community": 73,
+      "community_name": "State",
       "norm_label": "_softgatesheetstate"
     },
     {
@@ -8373,8 +8593,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "thought_tree_view.dart"
     },
     {
@@ -8384,8 +8604,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_thoughttreeview",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "thoughttreeview"
     },
     {
@@ -8395,8 +8615,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_root",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "root"
     },
     {
@@ -8406,8 +8626,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_exportmap",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "_exportmap"
     },
     {
@@ -8417,8 +8637,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_build",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "build"
     },
     {
@@ -8428,8 +8648,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "lib_widgets_thought_tree_view_buildnode",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "_buildnode"
     },
     {
@@ -8439,8 +8659,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_share_plus_share_plus_dart",
-      "community": 74,
-      "community_name": "package:flutter/material.dart",
+      "community": 32,
+      "community_name": "ai_service.dart",
       "norm_label": "package:share_plus/share_plus.dart"
     },
     {
@@ -8951,7 +9171,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "ai_service_test.dart"
     },
@@ -8962,7 +9182,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_fakeprovider",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "_fakeprovider"
     },
@@ -8973,7 +9193,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_throwingprovider",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "_throwingprovider"
     },
@@ -8984,7 +9204,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_missingkeyprovider",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "_missingkeyprovider"
     },
@@ -8995,7 +9215,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_payload",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "payload"
     },
@@ -9006,7 +9226,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_generate",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "generate"
     },
@@ -9017,7 +9237,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ai_service_test_main",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "main"
     },
@@ -9028,7 +9248,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_intent_dart",
-      "community": 93,
+      "community": 96,
       "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/models/intent.dart"
     },
@@ -9039,8 +9259,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_ai_service_dart",
-      "community": 78,
-      "community_name": "home_screen_test.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/services/ai_service.dart"
     },
     {
@@ -9050,7 +9270,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_llm_provider_dart",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "package:eom/services/llm_provider.dart"
     },
@@ -9061,8 +9281,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_settings_service_dart",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:eom/services/settings_service.dart"
     },
     {
@@ -9072,7 +9292,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_flutter_test_flutter_test_dart",
-      "community": 52,
+      "community": 58,
       "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:flutter_test/flutter_test.dart"
     },
@@ -9083,7 +9303,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "exception",
-      "community": 86,
+      "community": 90,
       "community_name": "ai_service_test.dart",
       "norm_label": "exception"
     },
@@ -9248,8 +9468,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "directory",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 86,
+      "community_name": "home_screen_test.dart",
       "norm_label": "directory"
     },
     {
@@ -9699,8 +9919,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_intent_config_dart",
-      "community": 78,
-      "community_name": "home_screen_test.dart",
+      "community": 96,
+      "community_name": "package:eom/models/intent.dart",
       "norm_label": "package:eom/services/intent_config.dart"
     },
     {
@@ -10287,70 +10507,15 @@
       "norm_label": "treejson"
     },
     {
-      "label": "markerIndex",
+      "label": "split",
       "file_type": "code",
       "source_file": "test/beta/beta_runner.dart",
       "source_location": null,
       "_origin": "ast",
-      "id": "test_beta_beta_runner_markerindex",
+      "id": "test_beta_beta_runner_split",
       "community": 59,
       "community_name": "beta_runner.dart",
-      "norm_label": "markerindex"
-    },
-    {
-      "label": "start",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_start",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "start"
-    },
-    {
-      "label": "depth",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_depth",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "depth"
-    },
-    {
-      "label": "inString",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_instring",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "instring"
-    },
-    {
-      "label": "escape",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_escape",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "escape"
-    },
-    {
-      "label": "null",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_null",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "null"
+      "norm_label": "split"
     },
     {
       "label": "stamp",
@@ -10417,17 +10582,6 @@
       "community": 59,
       "community_name": "beta_runner.dart",
       "norm_label": "reparsefromraw"
-    },
-    {
-      "label": "_extractFirstJsonObject",
-      "file_type": "code",
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "test_beta_beta_runner_extractfirstjsonobject",
-      "community": 59,
-      "community_name": "beta_runner.dart",
-      "norm_label": "_extractfirstjsonobject"
     },
     {
       "label": "_runManifest",
@@ -11266,14 +11420,25 @@
       "norm_label": "main"
     },
     {
+      "label": "FormatException",
+      "file_type": "code",
+      "source_file": null,
+      "source_location": null,
+      "_origin": "ast",
+      "id": "formatexception",
+      "community": 62,
+      "community_name": "scorer_test.dart",
+      "norm_label": "formatexception"
+    },
+    {
       "label": "beta_drift_test.dart",
       "file_type": "code",
       "source_file": "test/beta_drift_test.dart",
       "source_location": null,
       "_origin": "ast",
       "id": "test_beta_drift_test",
-      "community": 78,
-      "community_name": "home_screen_test.dart",
+      "community": 96,
+      "community_name": "package:eom/models/intent.dart",
       "norm_label": "beta_drift_test.dart"
     },
     {
@@ -11283,8 +11448,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_beta_drift_test_main",
-      "community": 78,
-      "community_name": "home_screen_test.dart",
+      "community": 96,
+      "community_name": "package:eom/models/intent.dart",
       "norm_label": "main"
     },
     {
@@ -11294,8 +11459,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "beta_beta_provider_dart",
-      "community": 78,
-      "community_name": "home_screen_test.dart",
+      "community": 96,
+      "community_name": "package:eom/models/intent.dart",
       "norm_label": "beta/beta_provider.dart"
     },
     {
@@ -11306,7 +11471,7 @@
       "_origin": "ast",
       "id": "test_conversation_test",
       "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "conversation_test.dart"
     },
     {
@@ -11317,7 +11482,7 @@
       "_origin": "ast",
       "id": "test_conversation_test_main",
       "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "main"
     },
     {
@@ -11328,7 +11493,7 @@
       "_origin": "ast",
       "id": "package_eom_models_conversation_dart",
       "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "package:eom/models/conversation.dart"
     },
     {
@@ -11338,7 +11503,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_category_test",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "epistemic_category_test.dart"
     },
@@ -11349,7 +11514,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_category_test_main",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "main"
     },
@@ -11360,7 +11525,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_node_dart",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "package:eom/models/epistemic_node.dart"
     },
@@ -11371,8 +11536,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test",
-      "community": 87,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "epistemic_drift_test.dart"
     },
     {
@@ -11382,8 +11547,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_store",
-      "community": 87,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "store"
     },
     {
@@ -11393,8 +11558,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_node",
-      "community": 87,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "node"
     },
     {
@@ -11404,8 +11569,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_drift_test_main",
-      "community": 87,
-      "community_name": "helpers/in_memory_epistemic_store.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "main"
     },
     {
@@ -11415,7 +11580,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "helpers_in_memory_epistemic_store_dart",
-      "community": 87,
+      "community": 97,
       "community_name": "helpers/in_memory_epistemic_store.dart",
       "norm_label": "helpers/in_memory_epistemic_store.dart"
     },
@@ -11481,8 +11646,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_relationship_dart",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "package:eom/models/epistemic_relationship.dart"
     },
     {
@@ -11503,7 +11668,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_gap_test",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "epistemic_gap_test.dart"
     },
@@ -11514,7 +11679,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_gap_test_store",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "store"
     },
@@ -11525,7 +11690,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_gap_test_service",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "service"
     },
@@ -11536,7 +11701,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_gap_test_node",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "node"
     },
@@ -11547,7 +11712,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_gap_test_main",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "main"
     },
@@ -11558,7 +11723,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_gap_dart",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "package:eom/models/epistemic_gap.dart"
     },
@@ -11569,7 +11734,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_epistemic_gap_service_dart",
-      "community": 89,
+      "community": 94,
       "community_name": "epistemic_gap_test.dart",
       "norm_label": "package:eom/services/epistemic_gap_service.dart"
     },
@@ -11723,8 +11888,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_operation_dart",
-      "community": 84,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "package:eom/models/epistemic_operation.dart"
     },
     {
@@ -11745,7 +11910,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_maturity_test",
-      "community": 87,
+      "community": 97,
       "community_name": "helpers/in_memory_epistemic_store.dart",
       "norm_label": "epistemic_maturity_test.dart"
     },
@@ -11756,7 +11921,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_maturity_test_node",
-      "community": 87,
+      "community": 97,
       "community_name": "helpers/in_memory_epistemic_store.dart",
       "norm_label": "node"
     },
@@ -11767,7 +11932,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_maturity_test_main",
-      "community": 87,
+      "community": 97,
       "community_name": "helpers/in_memory_epistemic_store.dart",
       "norm_label": "main"
     },
@@ -11778,7 +11943,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_epistemic_maturity_dart",
-      "community": 87,
+      "community": 97,
       "community_name": "helpers/in_memory_epistemic_store.dart",
       "norm_label": "package:eom/models/epistemic_maturity.dart"
     },
@@ -11789,7 +11954,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_node_test",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "epistemic_node_test.dart"
     },
@@ -11800,7 +11965,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_node_test_main",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "main"
     },
@@ -11811,7 +11976,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "argumenterror",
-      "community": 90,
+      "community": 95,
       "community_name": "package:eom/models/epistemic_node.dart",
       "norm_label": "argumenterror"
     },
@@ -11822,8 +11987,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_operation_test",
-      "community": 84,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "epistemic_operation_test.dart"
     },
     {
@@ -11833,8 +11998,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_operation_test_main",
-      "community": 84,
-      "community_name": "epistemic_intent_service_test.dart",
+      "community": 33,
+      "community_name": "epistemic_operation.dart",
       "norm_label": "main"
     },
     {
@@ -11844,8 +12009,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_query_test",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "epistemic_query_test.dart"
     },
     {
@@ -11855,8 +12020,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_query_test_node",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "node"
     },
     {
@@ -11866,8 +12031,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_query_test_edge",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "edge"
     },
     {
@@ -11877,8 +12042,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_query_test_main",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "main"
     },
     {
@@ -11888,8 +12053,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_sqlite_epistemic_graph_store_dart",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "package:eom/services/sqlite_epistemic_graph_store.dart"
     },
     {
@@ -11899,8 +12064,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_relationship_test",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "epistemic_relationship_test.dart"
     },
     {
@@ -11910,8 +12075,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_epistemic_relationship_test_main",
-      "community": 88,
-      "community_name": "epistemic_query_test.dart",
+      "community": 87,
+      "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "main"
     },
     {
@@ -11932,8 +12097,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_helpers_in_memory_epistemic_store_inmemorystore",
-      "community": 49,
-      "community_name": "ux_eom_s26_empty_state_test.dart",
+      "community": 93,
+      "community_name": "InMemoryStore",
       "norm_label": "inmemorystore"
     },
     {
@@ -12097,7 +12262,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_helpers_ux_harness_silentllmprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "silentllmprovider"
     },
@@ -12108,8 +12273,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_helpers_ux_harness_fakehistoryservice",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "fakehistoryservice"
     },
     {
@@ -12273,8 +12438,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_history_service_dart",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 86,
+      "community_name": "home_screen_test.dart",
       "norm_label": "package:eom/services/history_service.dart"
     },
     {
@@ -12285,7 +12450,7 @@
       "_origin": "ast",
       "id": "package_eom_theme_eom_theme_dart",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "package:eom/theme/eom_theme.dart"
     },
     {
@@ -12306,8 +12471,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 86,
+      "community_name": "home_screen_test.dart",
       "norm_label": "history_service_test.dart"
     },
     {
@@ -12317,8 +12482,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test_tempdir",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 86,
+      "community_name": "home_screen_test.dart",
       "norm_label": "tempdir"
     },
     {
@@ -12328,8 +12493,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_history_service_test_main",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 86,
+      "community_name": "home_screen_test.dart",
       "norm_label": "main"
     },
     {
@@ -12339,7 +12504,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "home_screen_test.dart"
     },
@@ -12350,7 +12515,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_fakeprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_fakeprovider"
     },
@@ -12361,7 +12526,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_missingkeyprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_missingkeyprovider"
     },
@@ -12372,7 +12537,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_payload",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "payload"
     },
@@ -12383,7 +12548,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_store",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "store"
     },
@@ -12394,7 +12559,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_generate",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "generate"
     },
@@ -12405,7 +12570,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_richtextcontaining",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "richtextcontaining"
     },
@@ -12416,7 +12581,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_main",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "main"
     },
@@ -12427,7 +12592,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_pumphome",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "pumphome"
     },
@@ -12438,7 +12603,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_home_screen_test_submit",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "submit"
     },
@@ -12449,7 +12614,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_widgets_thought_tree_view_dart",
-      "community": 78,
+      "community": 86,
       "community_name": "home_screen_test.dart",
       "norm_label": "package:eom/widgets/thought_tree_view.dart"
     },
@@ -12482,7 +12647,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_intent_error_test",
-      "community": 52,
+      "community": 58,
       "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "intent_error_test.dart"
     },
@@ -12493,7 +12658,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_intent_error_test_main",
-      "community": 52,
+      "community": 58,
       "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
@@ -12504,7 +12669,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_services_intent_error_dart",
-      "community": 52,
+      "community": 58,
       "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "package:eom/services/intent_error.dart"
     },
@@ -12515,7 +12680,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_llm_provider_kind_test",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "llm_provider_kind_test.dart"
     },
@@ -12526,7 +12691,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_llm_provider_kind_test_main",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "main"
     },
@@ -12537,8 +12702,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_models_llm_provider_kind_dart",
-      "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:eom/models/llm_provider_kind.dart"
     },
     {
@@ -12549,7 +12714,7 @@
       "_origin": "ast",
       "id": "test_settings_screen_test",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "settings_screen_test.dart"
     },
     {
@@ -12560,7 +12725,7 @@
       "_origin": "ast",
       "id": "test_settings_screen_test_main",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "main"
     },
     {
@@ -12571,7 +12736,7 @@
       "_origin": "ast",
       "id": "test_settings_screen_test_pushsettings",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "pushsettings"
     },
     {
@@ -12582,7 +12747,7 @@
       "_origin": "ast",
       "id": "test_settings_screen_test_fieldbyhint",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "fieldbyhint"
     },
     {
@@ -12593,7 +12758,7 @@
       "_origin": "ast",
       "id": "package_eom_screens_settings_screen_dart",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "package:eom/screens/settings_screen.dart"
     },
     {
@@ -12603,8 +12768,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_service_test",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "settings_service_test.dart"
     },
     {
@@ -12614,8 +12779,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_settings_service_test_main",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "main"
     },
     {
@@ -12625,7 +12790,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_sqlite_epistemic_graph_store_test",
-      "community": 94,
+      "community": 87,
       "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "sqlite_epistemic_graph_store_test.dart"
     },
@@ -12636,7 +12801,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_sqlite_epistemic_graph_store_test_service",
-      "community": 94,
+      "community": 87,
       "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "service"
     },
@@ -12647,7 +12812,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_sqlite_epistemic_graph_store_test_main",
-      "community": 94,
+      "community": 87,
       "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "main"
     },
@@ -12658,7 +12823,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_sqlite_epistemic_graph_store_test_samplenode",
-      "community": 94,
+      "community": 87,
       "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "samplenode"
     },
@@ -12669,7 +12834,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_sqflite_common_ffi_sqflite_ffi_dart",
-      "community": 94,
+      "community": 87,
       "community_name": "sqlite_epistemic_graph_store_test.dart",
       "norm_label": "package:sqflite_common_ffi/sqflite_ffi.dart"
     },
@@ -12713,8 +12878,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "ux_eom_e4_quick_wins_test.dart"
     },
     {
@@ -12724,8 +12889,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_fakehistory",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_fakehistory"
     },
     {
@@ -12735,8 +12900,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_items",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "items"
     },
     {
@@ -12746,8 +12911,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_clearcalls",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "clearcalls"
     },
     {
@@ -12757,8 +12922,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_hasconversations",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "hasconversations"
     },
     {
@@ -12768,8 +12933,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_getconversations",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "getconversations"
     },
     {
@@ -12779,8 +12944,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_clearhistory",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "clearhistory"
     },
     {
@@ -12791,7 +12956,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_e4_quick_wins_test_main",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "main"
     },
     {
@@ -12801,8 +12966,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_screens_history_screen_dart",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "package:eom/screens/history_screen.dart"
     },
     {
@@ -12812,8 +12977,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_widgets_intent_button_dart",
-      "community": 52,
-      "community_name": "package:flutter_test/flutter_test.dart",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "package:eom/widgets/intent_button.dart"
     },
     {
@@ -12922,8 +13087,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "ux_eom_s21_live_provider_test.dart"
     },
     {
@@ -12933,8 +13098,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test_live",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "live"
     },
     {
@@ -12944,8 +13109,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test_masterkey",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "masterkey"
     },
     {
@@ -12955,8 +13120,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test_host",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "host"
     },
     {
@@ -12966,8 +13131,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test_model",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "model"
     },
     {
@@ -12977,8 +13142,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s21_live_provider_test_main",
-      "community": 93,
-      "community_name": "package:eom/models/intent.dart",
+      "community": 58,
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -12989,7 +13154,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "ux_eom_s22_live_provider_test.dart"
     },
     {
@@ -13000,7 +13165,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_live",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "live"
     },
     {
@@ -13011,7 +13176,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_masterkey",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "masterkey"
     },
     {
@@ -13022,7 +13187,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_host",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "host"
     },
     {
@@ -13033,7 +13198,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_model",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "model"
     },
     {
@@ -13044,7 +13209,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_prompt",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "prompt"
     },
     {
@@ -13055,7 +13220,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s22_live_provider_test_main",
       "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community_name": "package:flutter_test/flutter_test.dart",
       "norm_label": "main"
     },
     {
@@ -13076,7 +13241,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s22_session_ux_test_fakeprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_fakeprovider"
     },
@@ -13087,8 +13252,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s22_session_ux_test_noophistory",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_noophistory"
     },
     {
@@ -13230,7 +13395,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s23_returning_user_test_scriptedprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_scriptedprovider"
     },
@@ -13241,8 +13406,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s23_returning_user_test_fakehistory",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_fakehistory"
     },
     {
@@ -13406,7 +13571,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "ux_eom_s24_structural_test.dart"
     },
@@ -13417,7 +13582,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_scriptedprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_scriptedprovider"
     },
@@ -13428,8 +13593,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_fakehistory",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_fakehistory"
     },
     {
@@ -13439,7 +13604,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_replies",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "replies"
     },
@@ -13450,7 +13615,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_calls",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "calls"
     },
@@ -13461,7 +13626,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_items",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "items"
     },
@@ -13472,7 +13637,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_hasconversations",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "hasconversations"
     },
@@ -13483,7 +13648,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_store",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "store"
     },
@@ -13494,7 +13659,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_generate",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "generate"
     },
@@ -13505,7 +13670,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_getconversations",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "getconversations"
     },
@@ -13516,7 +13681,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_saveconversation",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "saveconversation"
     },
@@ -13527,7 +13692,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_clearhistory",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "clearhistory"
     },
@@ -13538,7 +13703,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_richtextcontaining",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "richtextcontaining"
     },
@@ -13549,7 +13714,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s24_structural_test_main",
-      "community": 44,
+      "community": 52,
       "community_name": "ux_eom_s24_structural_test.dart",
       "norm_label": "main"
     },
@@ -13737,7 +13902,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "ux_eom_s28_settings_test.dart"
     },
     {
@@ -13748,7 +13913,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test_fieldbyhint",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "fieldbyhint"
     },
     {
@@ -13759,7 +13924,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test_main",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "main"
     },
     {
@@ -13770,7 +13935,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test_pumpsettings",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "pumpsettings"
     },
     {
@@ -13781,7 +13946,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test_pushsettings",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "pushsettings"
     },
     {
@@ -13792,7 +13957,7 @@
       "_origin": "ast",
       "id": "test_ux_eom_s28_settings_test_selectprovider",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "selectprovider"
     },
     {
@@ -13803,7 +13968,7 @@
       "_origin": "ast",
       "id": "package_eom_widgets_guide_fields_dart",
       "community": 46,
-      "community_name": "ux_eom_s28_settings_test.dart",
+      "community_name": "package:flutter/material.dart",
       "norm_label": "package:eom/widgets/guide_fields.dart"
     },
     {
@@ -13824,9 +13989,20 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s29_polish_test_silentprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_silentprovider"
+    },
+    {
+      "label": "_RecordingProvider",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s29_polish_test_recordingprovider",
+      "community": 74,
+      "community_name": "LlmProvider",
+      "norm_label": "_recordingprovider"
     },
     {
       "label": "_FakeHistory",
@@ -13835,8 +14011,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s29_polish_test_fakehistory",
-      "community": 92,
-      "community_name": "HistoryService",
+      "community": 76,
+      "community_name": "ux_eom_e4_quick_wins_test.dart",
       "norm_label": "_fakehistory"
     },
     {
@@ -13846,9 +14022,31 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_ux_eom_s29_polish_test_mapprovider",
-      "community": 73,
+      "community": 74,
       "community_name": "LlmProvider",
       "norm_label": "_mapprovider"
+    },
+    {
+      "label": "userMessage",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s29_polish_test_usermessage",
+      "community": 67,
+      "community_name": "ux_eom_s29_polish_test.dart",
+      "norm_label": "usermessage"
+    },
+    {
+      "label": "history",
+      "file_type": "code",
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "test_ux_eom_s29_polish_test_history",
+      "community": 67,
+      "community_name": "ux_eom_s29_polish_test.dart",
+      "norm_label": "history"
     },
     {
       "label": "items",
@@ -14044,8 +14242,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_widget_test",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "widget_test.dart"
     },
     {
@@ -14055,8 +14253,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "test_widget_test_main",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "main"
     },
     {
@@ -14066,8 +14264,8 @@
       "source_location": null,
       "_origin": "ast",
       "id": "package_eom_main_dart",
-      "community": 58,
-      "community_name": "package:shared_preferences/shared_preferences.dart",
+      "community": 57,
+      "community_name": "ux_eom_s21_first_run_test.dart",
       "norm_label": "package:eom/main.dart"
     },
     {
@@ -15482,7 +15680,7 @@
       "label": "Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L38",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "changelog_removed",
       "community": 10,
@@ -15493,9 +15691,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L42",
+      "source_location": "L52",
       "_origin": "ast",
-      "id": "changelog_added_42",
+      "id": "changelog_added_52",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15504,9 +15702,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L113",
+      "source_location": "L123",
       "_origin": "ast",
-      "id": "changelog_changed_113",
+      "id": "changelog_changed_123",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15515,9 +15713,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L145",
+      "source_location": "L155",
       "_origin": "ast",
-      "id": "changelog_fixed_145",
+      "id": "changelog_fixed_155",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "fixed"
@@ -15526,9 +15724,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L183",
+      "source_location": "L193",
       "_origin": "ast",
-      "id": "changelog_changed_183",
+      "id": "changelog_changed_193",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15537,9 +15735,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L193",
+      "source_location": "L203",
       "_origin": "ast",
-      "id": "changelog_added_193",
+      "id": "changelog_added_203",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15548,9 +15746,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L252",
+      "source_location": "L262",
       "_origin": "ast",
-      "id": "changelog_changed_252",
+      "id": "changelog_changed_262",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15559,9 +15757,9 @@
       "label": "Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L269",
+      "source_location": "L279",
       "_origin": "ast",
-      "id": "changelog_removed_269",
+      "id": "changelog_removed_279",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "removed"
@@ -15570,9 +15768,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L275",
+      "source_location": "L285",
       "_origin": "ast",
-      "id": "changelog_added_275",
+      "id": "changelog_added_285",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15581,9 +15779,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L293",
+      "source_location": "L303",
       "_origin": "ast",
-      "id": "changelog_changed_293",
+      "id": "changelog_changed_303",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15592,9 +15790,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L306",
+      "source_location": "L316",
       "_origin": "ast",
-      "id": "changelog_added_306",
+      "id": "changelog_added_316",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15603,9 +15801,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L324",
+      "source_location": "L334",
       "_origin": "ast",
-      "id": "changelog_changed_324",
+      "id": "changelog_changed_334",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15614,9 +15812,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L334",
+      "source_location": "L344",
       "_origin": "ast",
-      "id": "changelog_fixed_334",
+      "id": "changelog_fixed_344",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "fixed"
@@ -15625,9 +15823,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L340",
+      "source_location": "L350",
       "_origin": "ast",
-      "id": "changelog_added_340",
+      "id": "changelog_added_350",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15636,7 +15834,7 @@
       "label": "Added / Changed / Fixed / Removed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L352",
+      "source_location": "L362",
       "_origin": "ast",
       "id": "changelog_added_changed_fixed_removed",
       "community": 10,
@@ -15647,7 +15845,7 @@
       "label": "[1.0.0+1] \u2014 2026-05-11",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L356",
+      "source_location": "L366",
       "_origin": "ast",
       "id": "changelog_1_0_0_1_2026_05_11",
       "community": 10,
@@ -15658,9 +15856,9 @@
       "label": "Added",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L358",
+      "source_location": "L368",
       "_origin": "ast",
-      "id": "changelog_added_358",
+      "id": "changelog_added_368",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "added"
@@ -15669,9 +15867,9 @@
       "label": "Changed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L367",
+      "source_location": "L377",
       "_origin": "ast",
-      "id": "changelog_changed_367",
+      "id": "changelog_changed_377",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "changed"
@@ -15680,9 +15878,9 @@
       "label": "Fixed",
       "file_type": "document",
       "source_file": "changelog.md",
-      "source_location": "L370",
+      "source_location": "L380",
       "_origin": "ast",
-      "id": "changelog_fixed_370",
+      "id": "changelog_fixed_380",
       "community": 10,
       "community_name": "Unreleased",
       "norm_label": "fixed"
@@ -16436,6 +16634,17 @@
       "norm_label": "spirit walk \u2014 eom-s29 / eom-e6 (2026-08-12)"
     },
     {
+      "label": "Review follow-up \u2014 2026-08-13",
+      "file_type": "document",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L174",
+      "_origin": "ast",
+      "id": "docs_ux_findings_eom_e4_review_follow_up_2026_08_13",
+      "community": 19,
+      "community_name": "UX Findings \u2014 EOM-E4",
+      "norm_label": "review follow-up \u2014 2026-08-13"
+    },
+    {
       "label": "LaunchImage.imageset/README.md",
       "file_type": "document",
       "source_file": "ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
@@ -16494,7 +16703,7 @@
       "label": "Best Practices",
       "file_type": "document",
       "source_file": "learnings.md",
-      "source_location": "L105",
+      "source_location": "L115",
       "_origin": "ast",
       "id": "learnings_best_practices",
       "community": 20,
@@ -16505,7 +16714,7 @@
       "label": "Gotchas",
       "file_type": "document",
       "source_file": "learnings.md",
-      "source_location": "L229",
+      "source_location": "L239",
       "_origin": "ast",
       "id": "learnings_gotchas",
       "community": 20,
@@ -16705,7 +16914,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L159",
+      "source_location": "L297",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16716,7 +16925,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L282",
+      "source_location": "L286",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_allfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L454",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16727,7 +16947,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16738,7 +16958,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L183",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_diskchanged",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L323",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16760,7 +16991,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L170",
+      "source_location": "L306",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16771,7 +17002,7 @@
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L305",
+      "source_location": "L515",
       "weight": 1.0,
       "_origin": "ast",
       "context": "collection",
@@ -16780,10 +17011,21 @@
       "confidence_score": 0.5
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L301",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_getfrom",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L305",
+      "source_location": "L514",
       "weight": 1.0,
       "_origin": "ast",
       "context": "collection",
@@ -16795,7 +17037,29 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L95",
+      "source_location": "L316",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_lastinsertid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_lockwaitarray",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L224",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16806,7 +17070,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L175",
+      "source_location": "L310",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16825,10 +17089,21 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_properlockfile",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L305",
+      "source_location": "L517",
       "weight": 1.0,
       "_origin": "ast",
       "context": "collection",
@@ -16840,7 +17115,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L19",
+      "source_location": "L135",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_reloaddbfromdisk",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L27",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16851,7 +17137,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L154",
+      "source_location": "L282",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16862,7 +17148,7 @@
       "relation": "indirect_call",
       "confidence": "INFERRED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L305",
+      "source_location": "L516",
       "weight": 1.0,
       "_origin": "ast",
       "context": "collection",
@@ -16874,7 +17160,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L77",
+      "source_location": "L180",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16885,7 +17171,52 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L213",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_savedbunlocked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L518",
+      "weight": 1.0,
+      "_origin": "ast",
+      "context": "collection",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_seedifempty",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_startlockheartbeat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_stoplockheartbeat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L369",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
@@ -16896,11 +17227,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L246",
+      "source_location": "L413",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db",
       "target": "dev_tracker_db_subtasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_withwritelock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_worker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L191",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db",
+      "target": "dev_tracker_db_write",
       "confidence_score": 1.0
     },
     {
@@ -16920,7 +17284,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/seed.js",
-      "source_location": "L120",
+      "source_location": "L108",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_seed",
@@ -16968,7 +17332,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L37",
+      "source_location": "L121",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_initdb",
@@ -16980,10 +17344,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L63",
+      "source_location": "L142",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "dev_tracker_db_reloaddb",
+      "source": "dev_tracker_db_reloaddbfromdisk",
       "target": "dev_tracker_db_rememberfilemtime",
       "confidence_score": 1.0
     },
@@ -16992,11 +17356,23 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L72",
+      "source_location": "L165",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_savedbunlocked",
+      "target": "dev_tracker_db_rememberfilemtime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L172",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_savedb",
-      "target": "dev_tracker_db_rememberfilemtime",
+      "target": "dev_tracker_db_diskchanged",
       "confidence_score": 1.0
     },
     {
@@ -17004,7 +17380,79 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L42",
+      "source_location": "L183",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_savedbifnotstale",
+      "target": "dev_tracker_db_diskchanged",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_withwritelock",
+      "target": "dev_tracker_db_startlockheartbeat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L106",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_withwritelock",
+      "target": "dev_tracker_db_stoplockheartbeat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L171",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_savedb",
+      "target": "dev_tracker_db_withwritelock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L182",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_savedbifnotstale",
+      "target": "dev_tracker_db_withwritelock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L193",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_write",
+      "target": "dev_tracker_db_withwritelock",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L126",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_initdb",
@@ -17040,7 +17488,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/seed.js",
-      "source_location": "L120",
+      "source_location": "L108",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_seed",
@@ -17087,11 +17535,11 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "dev/tracker/tracker.js",
-      "source_location": "L5",
+      "source_file": "dev/tracker/update_t3.js",
+      "source_location": "L1",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "dev_tracker_tracker",
+      "source": "dev_tracker_update_t3",
       "target": "dev_tracker_db_getdb",
       "confidence_score": 1.0
     },
@@ -17099,24 +17547,24 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dev/tracker/tracker.js",
-      "source_location": "L27",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L152",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "dev_tracker_tracker_main",
-      "target": "dev_tracker_db_getdb"
+      "source": "dev_tracker_db_reloaddb",
+      "target": "dev_tracker_db_reloaddbfromdisk",
+      "confidence_score": 1.0
     },
     {
-      "relation": "imports",
-      "context": "import",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
-      "source_file": "dev/tracker/update_t3.js",
-      "source_location": "L1",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L194",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "dev_tracker_update_t3",
-      "target": "dev_tracker_db_getdb",
+      "source": "dev_tracker_db_write",
+      "target": "dev_tracker_db_reloaddbfromdisk",
       "confidence_score": 1.0
     },
     {
@@ -17136,11 +17584,11 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L149",
+      "source_location": "L175",
       "weight": 1.0,
       "_origin": "ast",
-      "source": "dev_tracker_db_migrate",
-      "target": "dev_tracker_db_savedb",
+      "source": "dev_tracker_db_savedb",
+      "target": "dev_tracker_db_savedbunlocked",
       "confidence_score": 1.0
     },
     {
@@ -17148,23 +17596,11 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L156",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "dev_tracker_db_run",
-      "target": "dev_tracker_db_savedb",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "dev/tracker/db.js",
-      "source_location": "L85",
+      "source_location": "L184",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_savedbifnotstale",
-      "target": "dev_tracker_db_savedb",
+      "target": "dev_tracker_db_savedbunlocked",
       "confidence_score": 1.0
     },
     {
@@ -17172,7 +17608,55 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L97",
+      "source_location": "L199",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_write",
+      "target": "dev_tracker_db_savedbunlocked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L225",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_migrate",
+      "target": "dev_tracker_db_write",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L283",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_run",
+      "target": "dev_tracker_db_write",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L479",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_seedifempty",
+      "target": "dev_tracker_db_write",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L226",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_migrate",
@@ -17184,7 +17668,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L176",
+      "source_location": "L311",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_nextkey",
@@ -17196,11 +17680,95 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/db.js",
-      "source_location": "L177",
+      "source_location": "L485",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_seedifempty",
+      "target": "dev_tracker_db_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L298",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_all",
+      "target": "dev_tracker_db_allfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L302",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_getfrom",
+      "target": "dev_tracker_db_allfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L307",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_get",
+      "target": "dev_tracker_db_getfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L312",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_db_nextkey",
-      "target": "dev_tracker_db_get",
+      "target": "dev_tracker_db_getfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L480",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_seedifempty",
+      "target": "dev_tracker_db_getfrom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L484",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_seedifempty",
+      "target": "dev_tracker_db_nextkey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/db.js",
+      "source_location": "L489",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_db_seedifempty",
+      "target": "dev_tracker_db_lastinsertid",
       "confidence_score": 1.0
     },
     {
@@ -17225,30 +17793,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_mark_main",
-      "target": "dev_tracker_db_epics"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dev/tracker/seed.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "dev_tracker_seed",
-      "target": "dev_tracker_db_epics",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dev/tracker/seed.js",
-      "source_location": "L102",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "dev_tracker_seed_seed",
       "target": "dev_tracker_db_epics"
     },
     {
@@ -17297,30 +17841,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_mark_main",
-      "target": "dev_tracker_db_stories"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "dev/tracker/seed.js",
-      "source_location": "L4",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "dev_tracker_seed",
-      "target": "dev_tracker_db_stories",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "dev/tracker/seed.js",
-      "source_location": "L104",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "dev_tracker_seed_seed",
       "target": "dev_tracker_db_stories"
     },
     {
@@ -17418,6 +17938,30 @@
       "source": "dev_tracker_ui",
       "target": "dev_tracker_db_comments",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/seed.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_seed",
+      "target": "dev_tracker_db_seedifempty",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "dev/tracker/seed.js",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_seed_seed",
+      "target": "dev_tracker_db_seedifempty"
     },
     {
       "relation": "contains",
@@ -17742,7 +18286,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/package.json",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_package_dependencies",
@@ -17753,7 +18297,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/package.json",
-      "source_location": "L12",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "dev_tracker_package_dependencies",
+      "target": "dev_tracker_package_dependencies_proper_lockfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L14",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_package_dependencies",
@@ -17768,8 +18323,8 @@
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
-      "source": "dev_tracker_package_dependencies_sql_js",
-      "target": "sql_js",
+      "source": "dev_tracker_package_dependencies_blessed",
+      "target": "blessed",
       "confidence_score": 1.0
     },
     {
@@ -17780,9 +18335,33 @@
       "weight": 1.0,
       "context": "import",
       "_origin": "ast",
-      "source": "dev_tracker_package_dependencies_blessed",
-      "target": "blessed",
+      "source": "dev_tracker_package_dependencies_proper_lockfile",
+      "target": "proper_lockfile",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "dev/tracker/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "context": "import",
+      "_origin": "ast",
+      "source": "dev_tracker_package_dependencies_sql_js",
+      "target": "sql_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "indirect_call",
+      "confidence": "INFERRED",
+      "source_file": "dev/tracker/seed.js",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast",
+      "context": "collection",
+      "source": "dev_tracker_seed",
+      "target": "dev_tracker_seed_seed",
+      "confidence_score": 0.5
     },
     {
       "relation": "contains",
@@ -17792,20 +18371,8 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_seed",
-      "target": "dev_tracker_seed_epics_stories",
+      "target": "dev_tracker_seed_seedifempty",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "indirect_call",
-      "confidence": "INFERRED",
-      "source_file": "dev/tracker/seed.js",
-      "source_location": "L128",
-      "weight": 1.0,
-      "_origin": "ast",
-      "context": "collection",
-      "source": "dev_tracker_seed",
-      "target": "dev_tracker_seed_seed",
-      "confidence_score": 0.5
     },
     {
       "relation": "contains",
@@ -17837,7 +18404,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_tracker",
-      "target": "dev_tracker_tracker_initdb_getdb",
+      "target": "dev_tracker_tracker_initdb",
       "confidence_score": 1.0
     },
     {
@@ -17891,7 +18458,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "dev/tracker/tracker.js",
-      "source_location": "L36",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_tracker_main",
@@ -17904,7 +18471,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "dev/tracker/tracker.js",
-      "source_location": "L36",
+      "source_location": "L31",
       "weight": 1.0,
       "_origin": "ast",
       "source": "dev_tracker_tracker_main",
@@ -19740,6 +20307,18 @@
       "context": "variable_type",
       "_origin": "ast",
       "source": "test_beta_beta_scorer",
+      "target": "string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test",
       "target": "string"
     },
     {
@@ -21846,6 +22425,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_models_llm_provider_kind",
+      "target": "lib_models_llm_provider_kind_keyhint"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/models/llm_provider_kind.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_models_llm_provider_kind",
       "target": "lib_models_llm_provider_kind_label"
     },
     {
@@ -22216,17 +22806,6 @@
       "_origin": "ast",
       "source": "lib_screens_history_screen",
       "target": "lib_screens_history_screen_expanded"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/history_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_history_screen",
-      "target": "lib_screens_history_screen_expandedlines"
     },
     {
       "relation": "defines",
@@ -23260,6 +23839,17 @@
       "target": "lib_screens_home_screen_scrollcontroller"
     },
     {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/home_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_home_screen",
+      "target": "lib_screens_home_screen_showrestoredinputaspriorturn"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -23652,17 +24242,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_anthropiccontroller"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_build"
     },
     {
@@ -23696,17 +24275,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_geminicontroller"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_hosterror"
     },
     {
@@ -23718,29 +24286,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_initialanthropic"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_initialgemini"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_initiallocalapikey"
+      "target": "lib_screens_settings_screen_initialkeys"
     },
     {
       "relation": "defines",
@@ -23763,17 +24309,6 @@
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_initiallocalmodel"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_initialopenai"
     },
     {
       "relation": "defines",
@@ -23817,7 +24352,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_localapikeycontroller"
+      "target": "lib_screens_settings_screen_keycontrollers"
     },
     {
       "relation": "defines",
@@ -23861,17 +24396,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
-      "target": "lib_screens_settings_screen_openaicontroller"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/screens/settings_screen.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_orientationlabel"
     },
     {
@@ -23894,6 +24418,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
+      "target": "lib_screens_settings_screen_saveerror"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/settings_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_settingsscreen"
     },
     {
@@ -23906,6 +24441,18 @@
       "_origin": "ast",
       "source": "lib_screens_settings_screen",
       "target": "lib_screens_settings_screen_settingsscreenstate"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/screens/settings_screen.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_screens_settings_screen",
+      "target": "map"
     },
     {
       "relation": "imports",
@@ -23939,6 +24486,78 @@
       "_origin": "ast",
       "source": "lib_screens_settings_screen_settingsscreenstate",
       "target": "lib_screens_settings_screen_settingsscreen"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/llm_provider.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_services_llm_provider",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/beta_reporter.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_beta_beta_reporter",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/beta_runner.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_beta_beta_runner",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/beta_scorer.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_beta_beta_scorer",
+      "target": "map"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/scorer_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "test_beta_scorer_test",
+      "target": "map"
     },
     {
       "relation": "imports",
@@ -24015,6 +24634,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_services_ai_service",
+      "target": "lib_services_ai_service_aftermarker"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
       "target": "lib_services_ai_service_airesponse"
     },
     {
@@ -24027,6 +24657,17 @@
       "_origin": "ast",
       "source": "lib_services_ai_service",
       "target": "lib_services_ai_service_aiservice"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
+      "target": "lib_services_ai_service_data"
     },
     {
       "relation": "defines",
@@ -24136,6 +24777,28 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_services_ai_service",
+      "target": "lib_services_ai_service_jsonblock"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
+      "target": "lib_services_ai_service_markerindex"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
       "target": "lib_services_ai_service_null"
     },
     {
@@ -24192,6 +24855,17 @@
       "_origin": "ast",
       "source": "lib_services_ai_service",
       "target": "lib_services_ai_service_process"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/ai_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_ai_service",
+      "target": "lib_services_ai_service_prose"
     },
     {
       "relation": "defines",
@@ -25484,18 +26158,6 @@
       "target": "lib_services_llm_provider_user"
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/services/llm_provider.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast",
-      "source": "lib_services_llm_provider",
-      "target": "map"
-    },
-    {
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -25668,6 +26330,17 @@
       "source_location": null,
       "weight": 1.0,
       "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test_recordingprovider",
+      "target": "lib_services_llm_provider_llmprovider"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
       "source": "test_ux_eom_s29_polish_test_silentprovider",
       "target": "lib_services_llm_provider_llmprovider"
     },
@@ -25718,54 +26391,6 @@
       "_origin": "ast",
       "source": "test_llm_provider_kind_test",
       "target": "lib_services_llm_provider_localprovider"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_reporter.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast",
-      "source": "test_beta_beta_reporter",
-      "target": "map"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
-      "target": "map"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_scorer.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast",
-      "source": "test_beta_beta_scorer",
-      "target": "map"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/scorer_test.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "context": "variable_type",
-      "_origin": "ast",
-      "source": "test_beta_scorer_test",
-      "target": "map"
     },
     {
       "relation": "imports",
@@ -25985,6 +26610,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_services_settings_service",
+      "target": "lib_services_settings_service_providerkeypreferences"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/settings_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_settings_service",
       "target": "lib_services_settings_service_setactiveprovider"
     },
     {
@@ -26073,6 +26709,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "lib_services_settings_service",
+      "target": "lib_services_settings_service_setstring"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/settings_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "lib_services_settings_service",
       "target": "lib_services_settings_service_settingsservice"
     },
     {
@@ -26097,6 +26744,18 @@
       "_origin": "ast",
       "source": "lib_services_settings_service",
       "target": "static_bool_get"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/services/settings_service.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "variable_type",
+      "_origin": "ast",
+      "source": "lib_services_settings_service",
+      "target": "static_const_map"
     },
     {
       "relation": "references",
@@ -29242,6 +29901,17 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "test/beta/beta_runner.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_beta_beta_runner",
+      "target": "package_eom_services_ai_service_dart"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "test/beta_drift_test.dart",
       "source_location": null,
       "weight": 1.0,
@@ -30217,6 +30887,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_beta_run_test",
+      "target": "dart_io"
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/scorer_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_beta_scorer_test",
       "target": "dart_io"
     },
     {
@@ -31257,51 +31938,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_depth"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
       "target": "test_beta_beta_runner_error"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_escape"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_extractfirstjsonobject"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_instring"
     },
     {
       "relation": "defines",
@@ -31323,29 +31960,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_markerindex"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
       "target": "test_beta_beta_runner_model"
-    },
-    {
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "test/beta/beta_runner.dart",
-      "source_location": null,
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_null"
     },
     {
       "relation": "defines",
@@ -31554,7 +32169,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_stamp"
+      "target": "test_beta_beta_runner_split"
     },
     {
       "relation": "defines",
@@ -31565,7 +32180,7 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_beta_beta_runner",
-      "target": "test_beta_beta_runner_start"
+      "target": "test_beta_beta_runner_stamp"
     },
     {
       "relation": "defines",
@@ -32226,6 +32841,18 @@
       "_origin": "ast",
       "source": "test_beta_run_test",
       "target": "test_beta_run_test_main"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/beta/scorer_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "test_beta_scorer_test",
+      "target": "formatexception"
     },
     {
       "relation": "references",
@@ -35624,6 +36251,18 @@
       "context": "type_lookup",
       "_origin": "ast",
       "source": "test_ux_eom_s29_polish_test",
+      "target": "textfield"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "context": "type_lookup",
+      "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test",
       "target": "container"
     },
     {
@@ -35823,6 +36462,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_ux_eom_s29_polish_test",
+      "target": "test_ux_eom_s29_polish_test_history"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test",
       "target": "test_ux_eom_s29_polish_test_items"
     },
     {
@@ -35922,6 +36572,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "test_ux_eom_s29_polish_test",
+      "target": "test_ux_eom_s29_polish_test_recordingprovider"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test",
       "target": "test_ux_eom_s29_polish_test_richtextcontaining"
     },
     {
@@ -35956,6 +36617,17 @@
       "_origin": "ast",
       "source": "test_ux_eom_s29_polish_test",
       "target": "test_ux_eom_s29_polish_test_store"
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "test/ux_eom_s29_polish_test.dart",
+      "source_location": null,
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "test_ux_eom_s29_polish_test",
+      "target": "test_ux_eom_s29_polish_test_usermessage"
     },
     {
       "relation": "imports",
@@ -37259,7 +37931,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L356",
+      "source_location": "L366",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_changelog_dev_log",
@@ -37281,62 +37953,62 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L193",
+      "source_location": "L203",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_added_193",
+      "target": "changelog_added_203",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L275",
+      "source_location": "L285",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_added_275",
+      "target": "changelog_added_285",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L306",
+      "source_location": "L316",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_added_306",
+      "target": "changelog_added_316",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L340",
+      "source_location": "L350",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_added_340",
+      "target": "changelog_added_350",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L42",
+      "source_location": "L52",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_added_42",
+      "target": "changelog_added_52",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L352",
+      "source_location": "L362",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
@@ -37347,66 +38019,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L113",
+      "source_location": "L123",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_changed_113",
+      "target": "changelog_changed_123",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L183",
+      "source_location": "L193",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_changed_183",
+      "target": "changelog_changed_193",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L252",
+      "source_location": "L262",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_changed_252",
+      "target": "changelog_changed_262",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L293",
+      "source_location": "L303",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_changed_293",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "changelog.md",
-      "source_location": "L324",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_changed_324",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "changelog.md",
-      "source_location": "L145",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_fixed_145",
+      "target": "changelog_changed_303",
       "confidence_score": 1.0
     },
     {
@@ -37417,7 +38067,29 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_fixed_334",
+      "target": "changelog_changed_334",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "changelog.md",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_md_changelog_unreleased_4c23f3",
+      "target": "changelog_fixed_155",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "changelog.md",
+      "source_location": "L344",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "changelog_md_changelog_unreleased_4c23f3",
+      "target": "changelog_fixed_344",
       "confidence_score": 1.0
     },
     {
@@ -37457,7 +38129,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L38",
+      "source_location": "L48",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
@@ -37468,44 +38140,44 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L269",
+      "source_location": "L279",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_md_changelog_unreleased_4c23f3",
-      "target": "changelog_removed_269",
+      "target": "changelog_removed_279",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L358",
+      "source_location": "L368",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_added_358",
+      "target": "changelog_added_368",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L367",
+      "source_location": "L377",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_changed_367",
+      "target": "changelog_changed_377",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "changelog.md",
-      "source_location": "L370",
+      "source_location": "L380",
       "weight": 1.0,
       "_origin": "ast",
       "source": "changelog_1_0_0_1_2026_05_11",
-      "target": "changelog_fixed_370",
+      "target": "changelog_fixed_380",
       "confidence_score": 1.0
     },
     {
@@ -38171,6 +38843,17 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/ux_findings_eom_e4.md",
+      "source_location": "L174",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "docs_ux_findings_eom_e4_spirit_walk_eom_s29_eom_e6_2026_08_12",
+      "target": "docs_ux_findings_eom_e4_review_follow_up_2026_08_13",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -38194,7 +38877,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "learnings.md",
-      "source_location": "L105",
+      "source_location": "L115",
       "weight": 1.0,
       "_origin": "ast",
       "source": "learnings_learnings",
@@ -38216,7 +38899,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "learnings.md",
-      "source_location": "L229",
+      "source_location": "L239",
       "weight": 1.0,
       "_origin": "ast",
       "source": "learnings_learnings",
@@ -38225,5 +38908,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "544d738fdb3f5d6720c61e195ed4fc0bef11d533"
+  "built_at_commit": "853183b18ebe130423ae5db1c70bdc933ff09dc6"
 }

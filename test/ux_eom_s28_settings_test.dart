@@ -180,4 +180,37 @@ void main() {
     );
     expect(SettingsService.localHost, SettingsService.defaultGatewayOrigin);
   });
+
+  testWidgets('unexpected persistence failure blocks pop with calm feedback', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: EomTheme.dark,
+        home: Builder(
+          builder: (context) => TextButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => SettingsScreen(
+                  persist: () async => throw Exception('disk unavailable'),
+                ),
+              ),
+            ),
+            child: const Text('open settings'),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(SettingsScreen), findsOneWidget);
+    expect(
+      find.text('Settings could not be saved. Try again.'),
+      findsOneWidget,
+    );
+  });
 }

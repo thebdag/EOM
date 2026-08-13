@@ -15,6 +15,7 @@ import 'dart:io';
 
 import 'package:eom/models/intent.dart';
 import 'package:eom/models/thought_node.dart';
+import 'package:eom/services/ai_service.dart' show splitEpistemicEpilogue;
 import 'package:eom/services/intent_config.dart';
 
 import 'beta_loader.dart';
@@ -159,23 +160,11 @@ CapturedResponse _parse(Prompt prompt, BetaConfig config, String raw) {
   Map<String, dynamic>? treeJson,
 })
 reparseFromRaw(CognitiveIntent intent, String raw) {
-  final markerIndex = raw.indexOf(betaEpistemicMarker);
   String? prose;
   Map<String, dynamic>? opJson;
-  if (markerIndex != -1) {
-    prose = raw.substring(0, markerIndex).trim();
-    final afterMarker = raw
-        .substring(markerIndex + betaEpistemicMarker.length)
-        .replaceAll('```json', '')
-        .replaceAll('```', '');
-    final block = _extractFirstJsonObject(afterMarker);
-    if (block != null) {
-      try {
-        opJson = jsonDecode(block) as Map<String, dynamic>;
-      } catch (_) {
-        opJson = null;
-      }
-    }
+  final split = splitEpistemicEpilogue(raw, betaEpistemicMarker);
+  if (split != null) {
+    (prose, opJson) = split;
   }
 
   String? opType;
@@ -206,40 +195,6 @@ reparseFromRaw(CognitiveIntent intent, String raw) {
   }
 
   return (prose: prose, opJson: opJson, opType: opType, treeJson: treeJson);
-}
-
-/// Extracts the first balanced `{ ... }` object from [text], ignoring any
-/// prose the model emits after the JSON epilogue. Strings are skipped so a
-/// `}` inside a string value cannot close the object early. Returns null
-/// when no balanced object is found.
-String? _extractFirstJsonObject(String text) {
-  final start = text.indexOf('{');
-  if (start == -1) return null;
-  var depth = 0;
-  var inString = false;
-  var escape = false;
-  for (var i = start; i < text.length; i++) {
-    final ch = text[i];
-    if (inString) {
-      if (escape) {
-        escape = false;
-      } else if (ch == '\\') {
-        escape = true;
-      } else if (ch == '"') {
-        inString = false;
-      }
-      continue;
-    }
-    if (ch == '"') {
-      inString = true;
-    } else if (ch == '{') {
-      depth++;
-    } else if (ch == '}') {
-      depth--;
-      if (depth == 0) return text.substring(start, i + 1);
-    }
-  }
-  return null;
 }
 
 Map<String, dynamic> _runManifest(

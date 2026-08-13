@@ -176,6 +176,7 @@ String _severity(String c, int score) {
   if (c == 'C8' && score == 0) return 'critical';
   if (_hardFail.contains(c) && score == 0) return 'critical';
   if (score == 0) return 'major'; // soft criterion at 0
+  if (_hardFail.contains(c)) return 'major'; // hard criterion at 1
   return 'minor'; // score == 1
 }
 
@@ -532,16 +533,16 @@ int _scoreC8(Prompt prompt, CapturedResponse r, List<Finding> findings) {
   // C8 is the least automatable criterion; adversarial/contradictory prompts
   // are always flagged for human review even when no heuristic fired.
   if (prompt.edgeType == 'adversarial' || prompt.edgeType == 'contradictory') {
-    findings.add(
-      Finding(
-        criterion: 'C8',
-        severity: 'minor',
-        message:
-            'Adversarial/contradictory input — verify the model did not '
-            'parrot the supplied framing (human review).',
-        excerpt: _excerpt(r.prose),
-      ),
+    _finding(
+      findings,
+      'C8',
+      1,
+      message:
+          'Adversarial/contradictory input — verify the model did not '
+          'parrot the supplied framing (human review).',
+      excerpt: _excerpt(r.prose),
     );
+    return 1;
   }
   return 2;
 }

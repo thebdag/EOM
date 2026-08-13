@@ -10,6 +10,12 @@ class SettingsService {
   static const String _kLocalHost = 'ollama_host';
   static const String _kLocalModel = 'ollama_model';
   static const String _kLocalApiKey = 'ollama_api_key';
+  static const Map<LlmProviderKind, String> _providerKeyPreferences = {
+    LlmProviderKind.openai: _kOpenAiKey,
+    LlmProviderKind.anthropic: _kAnthropicKey,
+    LlmProviderKind.gemini: _kGeminiKey,
+    LlmProviderKind.local: _kLocalApiKey,
+  };
 
   static const String defaultGatewayOrigin = 'http://127.0.0.1:4000';
   static const String defaultModelAlias = 'qwen-smart';
@@ -61,50 +67,30 @@ class SettingsService {
   }
 
   static Future<void> setActiveProvider(LlmProviderKind provider) async {
-    await _prefs.setString(_kProvider, provider.id);
+    await _setString(_kProvider, provider.id);
   }
 
   /// Essential credential for [kind] (cloud API key or LiteLLM master key).
-  static String keyFor(LlmProviderKind kind) {
-    switch (kind) {
-      case LlmProviderKind.openai:
-        return openAiKey;
-      case LlmProviderKind.anthropic:
-        return anthropicKey;
-      case LlmProviderKind.gemini:
-        return geminiKey;
-      case LlmProviderKind.local:
-        return localApiKey;
-    }
-  }
+  static String keyFor(LlmProviderKind kind) =>
+      _prefs.getString(_providerKeyPreferences[kind]!) ?? '';
 
-  static Future<void> setKey(LlmProviderKind kind, String key) {
-    switch (kind) {
-      case LlmProviderKind.openai:
-        return setOpenAiKey(key);
-      case LlmProviderKind.anthropic:
-        return setAnthropicKey(key);
-      case LlmProviderKind.gemini:
-        return setGeminiKey(key);
-      case LlmProviderKind.local:
-        return setLocalApiKey(key);
-    }
-  }
+  static Future<void> setKey(LlmProviderKind kind, String key) async =>
+      await _setString(_providerKeyPreferences[kind]!, key.trim());
 
   // OpenAI Key
-  static String get openAiKey => _prefs.getString(_kOpenAiKey) ?? '';
+  static String get openAiKey => keyFor(LlmProviderKind.openai);
   static Future<void> setOpenAiKey(String key) async =>
-      await _prefs.setString(_kOpenAiKey, key.trim());
+      await setKey(LlmProviderKind.openai, key);
 
   // Anthropic Key
-  static String get anthropicKey => _prefs.getString(_kAnthropicKey) ?? '';
+  static String get anthropicKey => keyFor(LlmProviderKind.anthropic);
   static Future<void> setAnthropicKey(String key) async =>
-      await _prefs.setString(_kAnthropicKey, key.trim());
+      await setKey(LlmProviderKind.anthropic, key);
 
   // Gemini Key
-  static String get geminiKey => _prefs.getString(_kGeminiKey) ?? '';
+  static String get geminiKey => keyFor(LlmProviderKind.gemini);
   static Future<void> setGeminiKey(String key) async =>
-      await _prefs.setString(_kGeminiKey, key.trim());
+      await setKey(LlmProviderKind.gemini, key);
 
   // LiteLLM Gateway Origin (no /v1 suffix)
   static String get localHost {
@@ -119,10 +105,10 @@ class SettingsService {
 
   static Future<void> setLocalHost(String host) async {
     if (host.trim().isEmpty) {
-      await _prefs.setString(_kLocalHost, defaultGatewayOrigin);
+      await _setString(_kLocalHost, defaultGatewayOrigin);
       return;
     }
-    await _prefs.setString(_kLocalHost, normalizeGatewayOrigin(host));
+    await _setString(_kLocalHost, normalizeGatewayOrigin(host));
   }
 
   // LiteLLM Model Alias (e.g. qwen-smart, auto, claude-haiku)
@@ -133,16 +119,23 @@ class SettingsService {
   }
 
   static Future<void> setLocalModel(String model) async =>
-      await _prefs.setString(_kLocalModel, model.trim());
+      await _setString(_kLocalModel, model.trim());
 
   // LiteLLM Master Key (required for the LAN-facing gateway)
-  static String get localApiKey => _prefs.getString(_kLocalApiKey) ?? '';
+  static String get localApiKey => keyFor(LlmProviderKind.local);
   static Future<void> setLocalApiKey(String key) async =>
-      await _prefs.setString(_kLocalApiKey, key.trim());
+      await setKey(LlmProviderKind.local, key);
 
   /// Whether the *active* provider has the credential needed to run an intent.
   ///
   /// Used by the empty-state Connect CTA (EOM-S26). A key on a different
   /// provider does not count.
   static bool get hasUsableGuide => keyFor(activeProvider).isNotEmpty;
+
+  static Future<void> _setString(String preference, String value) async {
+    final saved = await _prefs.setString(preference, value);
+    if (!saved) {
+      throw StateError('Settings storage rejected the write.');
+    }
+  }
 }

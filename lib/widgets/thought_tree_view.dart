@@ -16,10 +16,12 @@ class ThoughtTreeView extends StatelessWidget {
       '  ',
     ).convert(root.toJson());
     final box = context.findRenderObject() as RenderBox?;
-    await Share.share(
-      jsonString,
-      subject: 'EOM Thought Map',
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    await SharePlus.instance.share(
+      ShareParams(
+        text: jsonString,
+        subject: 'EOM Thought Map',
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      ),
     );
   }
 

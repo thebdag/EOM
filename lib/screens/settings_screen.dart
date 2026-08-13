@@ -9,7 +9,10 @@ import '../widgets/orientation_chrome.dart';
 /// Calm Settings (EOM-S28 / F4) — active-provider essential fields;
 /// Advanced (gateway / model alias) collapsed; quiet Epiture lineage.
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, this.persist});
+
+  /// Optional persistence seam used to verify graceful failure handling.
+  final Future<void> Function()? persist;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -19,48 +22,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
   LlmProviderKind _activeProvider = LlmProviderKind.fallback;
   bool _advancedExpanded = false;
   String? _hostError;
-  final _openAiController = TextEditingController();
-  final _anthropicController = TextEditingController();
-  final _geminiController = TextEditingController();
+  String? _saveError;
+  late final Map<LlmProviderKind, TextEditingController> _keyControllers;
   final _localHostController = TextEditingController();
   final _localModelController = TextEditingController();
-  final _localApiKeyController = TextEditingController();
 
   late final LlmProviderKind _initialProvider;
-  late final String _initialOpenAi;
-  late final String _initialAnthropic;
-  late final String _initialGemini;
+  late final Map<LlmProviderKind, String> _initialKeys;
   late final String _initialLocalHost;
   late final String _initialLocalModel;
-  late final String _initialLocalApiKey;
 
   @override
   void initState() {
     super.initState();
     _activeProvider = SettingsService.activeProvider;
-    _openAiController.text = SettingsService.openAiKey;
-    _anthropicController.text = SettingsService.anthropicKey;
-    _geminiController.text = SettingsService.geminiKey;
+    _keyControllers = {
+      for (final kind in LlmProviderKind.values)
+        kind: TextEditingController(text: SettingsService.keyFor(kind)),
+    };
     _localHostController.text = SettingsService.localHost;
     _localModelController.text = SettingsService.localModel;
-    _localApiKeyController.text = SettingsService.localApiKey;
     _initialProvider = _activeProvider;
-    _initialOpenAi = _openAiController.text;
-    _initialAnthropic = _anthropicController.text;
-    _initialGemini = _geminiController.text;
+    _initialKeys = {
+      for (final entry in _keyControllers.entries) entry.key: entry.value.text,
+    };
     _initialLocalHost = _localHostController.text;
     _initialLocalModel = _localModelController.text;
-    _initialLocalApiKey = _localApiKeyController.text;
   }
 
   @override
   void dispose() {
-    _openAiController.dispose();
-    _anthropicController.dispose();
-    _geminiController.dispose();
+    for (final controller in _keyControllers.values) {
+      controller.dispose();
+    }
     _localHostController.dispose();
     _localModelController.dispose();
-    _localApiKeyController.dispose();
     super.dispose();
   }
 
@@ -68,34 +64,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// system back, and iOS swipe-back all route through the [PopScope].
   bool _allowPop = false;
 
-  TextEditingController _keyControllerFor(LlmProviderKind kind) {
-    switch (kind) {
-      case LlmProviderKind.openai:
-        return _openAiController;
-      case LlmProviderKind.anthropic:
-        return _anthropicController;
-      case LlmProviderKind.gemini:
-        return _geminiController;
-      case LlmProviderKind.local:
-        return _localApiKeyController;
-    }
-  }
+  TextEditingController _keyControllerFor(LlmProviderKind kind) =>
+      _keyControllers[kind]!;
 
   Future<void> _persistSettings() async {
     if (_activeProvider != _initialProvider) {
       await SettingsService.setActiveProvider(_activeProvider);
     }
-    if (_openAiController.text.trim() != _initialOpenAi) {
-      await SettingsService.setOpenAiKey(_openAiController.text);
-    }
-    if (_anthropicController.text.trim() != _initialAnthropic) {
-      await SettingsService.setAnthropicKey(_anthropicController.text);
-    }
-    if (_geminiController.text.trim() != _initialGemini) {
-      await SettingsService.setGeminiKey(_geminiController.text);
-    }
-    if (_localApiKeyController.text.trim() != _initialLocalApiKey) {
-      await SettingsService.setLocalApiKey(_localApiKeyController.text);
+    for (final entry in _keyControllers.entries) {
+      if (entry.value.text.trim() != _initialKeys[entry.key]) {
+        await SettingsService.setKey(entry.key, entry.value.text);
+      }
     }
     if (_localModelController.text.trim() != _initialLocalModel) {
       await SettingsService.setLocalModel(_localModelController.text);
@@ -108,12 +87,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _onPopInvoked(bool didPop) async {
     if (didPop) return;
     try {
-      await _persistSettings();
+      await (widget.persist?.call() ?? _persistSettings());
     } on FormatException catch (e) {
       if (!mounted) return;
       setState(() {
         _hostError = e.message;
+        _saveError = null;
         _advancedExpanded = true;
+      });
+      return;
+    } catch (e, st) {
+      debugPrint('EOM: settings save failed: $e\n$st');
+      if (!mounted) return;
+      setState(() {
+        _saveError = 'Settings could not be saved. Try again.';
       });
       return;
     }
@@ -121,6 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _allowPop = true;
       _hostError = null;
+      _saveError = null;
     });
     Navigator.of(context).pop();
   }
@@ -145,6 +133,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               provider: _activeProvider,
               controller: _keyControllerFor(_activeProvider),
             ),
+            if (_saveError != null) ...[
+              const SizedBox(height: EomSpacing.sm),
+              Text(
+                _saveError!,
+                style: const TextStyle(
+                  color: EomColors.textTertiary,
+                  fontSize: 13,
+                ),
+              ),
+            ],
             const SizedBox(height: EomSpacing.xl),
             OrientationDisclosure(
               label: 'Advanced',

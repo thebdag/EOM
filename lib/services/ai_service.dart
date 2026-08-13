@@ -41,6 +41,36 @@ String? _extractFirstJsonObject(String text) {
   return null;
 }
 
+/// Splits a response into trimmed prose and its first balanced JSON epilogue.
+///
+/// This is shared with the beta pressure runner so captured results cannot
+/// drift from production parsing. A missing marker returns null; malformed
+/// JSON preserves the prose and returns null data.
+(String, Map<String, dynamic>?)? splitEpistemicEpilogue(
+  String raw,
+  String marker,
+) {
+  final markerIndex = raw.indexOf(marker);
+  if (markerIndex == -1) return null;
+
+  final prose = raw.substring(0, markerIndex).trim();
+  final afterMarker = raw
+      .substring(markerIndex + marker.length)
+      .replaceAll('```json', '')
+      .replaceAll('```', '');
+  final jsonBlock = _extractFirstJsonObject(afterMarker);
+
+  Map<String, dynamic>? data;
+  if (jsonBlock != null) {
+    try {
+      data = jsonDecode(jsonBlock) as Map<String, dynamic>;
+    } catch (_) {
+      data = null;
+    }
+  }
+  return (prose, data);
+}
+
 class AiService {
   AiService({LlmProvider? provider}) : _providerOverride = provider;
 
@@ -97,42 +127,13 @@ class AiService {
     }
   }
 
-  /// Splits an intent response into trimmed prose and the decoded epilogue
-  /// JSON (EOM-S13). Returns null when the marker is absent; the epilogue
-  /// half is null when the JSON block is malformed.
-  ///
-  /// Models sometimes emit trailing prose after the JSON epilogue (e.g.
-  /// a closing question). We isolate the first balanced `{ ... }` object
-  /// after the marker so that trailing text no longer breaks `jsonDecode`.
-  (String, Map<String, dynamic>?)? _splitEpilogue(String raw) {
-    final markerIndex = raw.indexOf(epistemicMarker);
-    if (markerIndex == -1) return null;
-
-    final prose = raw.substring(0, markerIndex).trim();
-    final afterMarker = raw
-        .substring(markerIndex + epistemicMarker.length)
-        .replaceAll('```json', '')
-        .replaceAll('```', '');
-    final jsonBlock = _extractFirstJsonObject(afterMarker);
-
-    Map<String, dynamic>? data;
-    if (jsonBlock != null) {
-      try {
-        data = jsonDecode(jsonBlock) as Map<String, dynamic>;
-      } catch (_) {
-        data = null;
-      }
-    }
-    return (prose, data);
-  }
-
   /// Splits an intent response into prose and its epistemic JSON epilogue,
   /// parsing the epilogue into the [EpistemicOperation] for [intent].
   ///
   /// A missing or malformed epilogue never fails the intent — the user still
   /// gets the prose, and [AiResponse.operation] stays null.
   AiResponse _parseEpistemicResponse(String raw, CognitiveIntent intent) {
-    final split = _splitEpilogue(raw);
+    final split = splitEpistemicEpilogue(raw, epistemicMarker);
     if (split == null) {
       return AiResponse(text: raw.trim(), intent: intent);
     }
@@ -158,7 +159,7 @@ class AiService {
   /// bare tree (the pre-T8 pure-JSON contract), and unparseable JSON returns
   /// the raw text as plain prose. The intent never hard-fails.
   AiResponse _parseMapResponse(String raw, CognitiveIntent intent) {
-    final split = _splitEpilogue(raw);
+    final split = splitEpistemicEpilogue(raw, epistemicMarker);
 
     if (split == null) {
       // Legacy pure-JSON response (small local models may ignore the prose
