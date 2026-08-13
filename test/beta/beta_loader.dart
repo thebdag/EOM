@@ -149,11 +149,18 @@ List<Prompt> loadPrompts(Directory repoRoot) {
   final all = <Prompt>[];
   for (final file in promptsDir.listSync().whereType<File>()) {
     if (!file.path.endsWith('.json')) continue;
-    final decoded = jsonDecode(file.readAsStringSync());
-    if (decoded is List) {
+    try {
+      final decoded = jsonDecode(file.readAsStringSync());
+      if (decoded is! List) {
+        throw const FormatException('Top-level value must be a JSON list.');
+      }
       for (final item in decoded) {
         all.add(Prompt.fromJson(item as Map<String, dynamic>));
       }
+    } catch (error) {
+      throw FormatException(
+        'Could not load beta prompts from ${file.path}: $error',
+      );
     }
   }
   all.sort((a, b) => a.id.compareTo(b.id));

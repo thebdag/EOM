@@ -158,7 +158,6 @@ class _HistoryEntryState extends State<_HistoryEntry> {
   bool _expanded = false;
 
   static const int _collapsedLines = 4;
-  static const int _expandedLines = 24;
 
   bool _needsReadMore(String response) =>
       response.length > 180 || response.split('\n').length > _collapsedLines;
@@ -231,8 +230,8 @@ class _HistoryEntryState extends State<_HistoryEntry> {
             fontSize: 14,
             height: 1.5,
           ),
-          maxLines: _expanded ? _expandedLines : _collapsedLines,
-          overflow: _expanded ? TextOverflow.fade : TextOverflow.ellipsis,
+          maxLines: _expanded ? null : _collapsedLines,
+          overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
         ),
         if (showToggle)
           TextButton(

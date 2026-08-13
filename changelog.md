@@ -31,6 +31,16 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Gemini requests send `x-goog-api-key` instead of `?key=` in the URL.
 
 ### Fixed
+- Review follow-up: empty Home no longer summons the mobile keyboard; reopened
+  History keeps its original turn visible without resending it; expanded saved
+  responses are no longer capped at 24 lines.
+- Settings now reports unexpected persistence failures, provider credentials
+  use one metadata-backed path, and beta capture reuses production epilogue
+  parsing.
+- Beta C8 human-review findings now produce a hard-criterion partial score and
+  major severity instead of allowing a false pass.
+- Tracker mutations reload the latest database under an exclusive file lock so
+  the TUI cannot overwrite newer CLI or post-commit updates.
 - Soft-gate empty Connect is disabled; persist failures show calm copy and
   stay open (no silent no-op).
 - History empty state uses the vault panel + gold Capture CTA.

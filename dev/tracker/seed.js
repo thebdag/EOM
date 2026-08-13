@@ -1,7 +1,7 @@
 // seed.js — pre-populate the tracker with EOM's natural epic/story structure
 'use strict';
 
-const { Epics, Stories } = require('./db');
+const { seedIfEmpty } = require('./db');
 
 function seed() {
   const data = [
@@ -98,21 +98,9 @@ function seed() {
     },
   ];
 
-  for (const epicData of data) {
-    const epic = Epics.create({ title: epicData.title, description: epicData.description });
-    for (const s of epicData.stories) {
-      const story = Stories.create({
-        epicId: epic.id,
-        title: s.title,
-        priority: s.priority || 'p2',
-      });
-      if (s.status && s.status !== 'todo') {
-        Stories.update(story.id, { status: s.status });
-      }
-    }
-  }
-
-  console.log('✓ Seeded 7 epics with stories.');
+  const seeded = seedIfEmpty(data);
+  if (seeded) console.log('✓ Seeded 7 epics with stories.');
+  return seeded;
 }
 
 // Allow running standalone: node seed.js

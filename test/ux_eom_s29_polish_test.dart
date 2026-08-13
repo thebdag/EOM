@@ -30,6 +30,22 @@ class _SilentProvider implements LlmProvider {
   }) async => 'Quiet prose.';
 }
 
+class _RecordingProvider implements LlmProvider {
+  String? userMessage;
+  List<ChatMessage> history = const [];
+
+  @override
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<ChatMessage> history = const [],
+  }) async {
+    this.userMessage = userMessage;
+    this.history = List.of(history);
+    return 'Continued quietly.';
+  }
+}
+
 class _FakeHistory extends HistoryService {
   _FakeHistory({this.items = const []});
   List<Conversation> items;
@@ -95,14 +111,18 @@ void main() {
     store = InMemoryStore();
   });
 
-  Future<void> pumpHome(WidgetTester tester, {HistoryService? history}) async {
+  Future<void> pumpHome(
+    WidgetTester tester, {
+    HistoryService? history,
+    LlmProvider? provider,
+  }) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
         theme: EomTheme.dark,
         home: HomeScreen(
-          aiService: AiService(provider: _SilentProvider()),
+          aiService: AiService(provider: provider ?? _SilentProvider()),
           historyService: history ?? _FakeHistory(),
           epistemicStoreFactory: () async => store,
         ),
@@ -146,6 +166,16 @@ void main() {
     expect(richTextContaining('Quiet prose.'), findsOneWidget);
   });
 
+  testWidgets('empty vault does not summon the keyboard on first paint', (
+    tester,
+  ) async {
+    await pumpHome(tester);
+
+    final field = tester.widget<TextField>(find.byType(TextField).first);
+    expect(field.autofocus, isFalse);
+    expect(field.focusNode?.hasFocus, isFalse);
+  });
+
   testWidgets('T124: History shows Clarify and Read more', (tester) async {
     final long = List.filled(8, 'A longer line of saved prose.').join('\n');
     await tester.pumpWidget(
@@ -174,7 +204,47 @@ void main() {
     await tester.tap(find.text('Read more'));
     await tester.pump();
     expect(find.text('Show less'), findsOneWidget);
-    expect(find.textContaining('A longer line of saved prose.'), findsWidgets);
+    final expanded = tester.widget<Text>(find.text(long));
+    expect(expanded.maxLines, isNull);
+    expect(expanded.overflow, TextOverflow.visible);
+  });
+
+  testWidgets('reopened history sends only the new continuation', (
+    tester,
+  ) async {
+    final provider = _RecordingProvider();
+    final saved = Conversation(
+      timestamp: DateTime(2026, 8, 12),
+      initialInput: 'the original thought',
+      intent: 'clarify',
+      response: 'the original response',
+    );
+    await pumpHome(
+      tester,
+      history: _FakeHistory(items: [saved]),
+      provider: provider,
+    );
+
+    await tester.tap(find.byTooltip('History'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('the original thought'));
+    await tester.pumpAndSettle();
+
+    final restoredField = tester.widget<TextField>(
+      find.byType(TextField).first,
+    );
+    expect(restoredField.controller?.text, isEmpty);
+
+    await tester.enterText(find.byType(TextField).first, 'a new follow-up');
+    await tester.pump();
+    await tester.tap(find.text('Clarify'));
+    await tester.pumpAndSettle();
+
+    expect(provider.userMessage, 'a new follow-up');
+    expect(provider.history.map((message) => message.content), [
+      'the original thought',
+      'the original response',
+    ]);
   });
 
   testWidgets('T125: History pip when the library has rows', (tester) async {

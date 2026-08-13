@@ -4,12 +4,20 @@
 /// `OLLAMA` → `LOCAL` mapping re-implemented at every call site; it now
 /// lives here exactly once. Persisted preferences store [id].
 enum LlmProviderKind {
-  openai(id: 'OPENAI', label: 'OpenAI'),
-  anthropic(id: 'ANTHROPIC', label: 'Anthropic Claude'),
-  gemini(id: 'GEMINI', label: 'Google Gemini'),
-  local(id: 'LOCAL', label: 'LiteLLM');
+  openai(id: 'OPENAI', label: 'OpenAI', keyHint: 'API Key (sk-...)'),
+  anthropic(
+    id: 'ANTHROPIC',
+    label: 'Anthropic Claude',
+    keyHint: 'API Key (sk-ant-...)',
+  ),
+  gemini(id: 'GEMINI', label: 'Google Gemini', keyHint: 'API Key'),
+  local(id: 'LOCAL', label: 'LiteLLM', keyHint: 'Master Key (required)');
 
-  const LlmProviderKind({required this.id, required this.label});
+  const LlmProviderKind({
+    required this.id,
+    required this.label,
+    required this.keyHint,
+  });
 
   /// Uppercase value persisted in shared preferences.
   final String id;
@@ -18,18 +26,7 @@ enum LlmProviderKind {
   final String label;
 
   /// Hint for the essential credential field (soft gate + Settings).
-  String get keyHint {
-    switch (this) {
-      case LlmProviderKind.openai:
-        return 'API Key (sk-...)';
-      case LlmProviderKind.anthropic:
-        return 'API Key (sk-ant-...)';
-      case LlmProviderKind.gemini:
-        return 'API Key';
-      case LlmProviderKind.local:
-        return 'Master Key (required)';
-    }
-  }
+  final String keyHint;
 
   /// The kind used when no preference has been saved yet.
   static const LlmProviderKind fallback = LlmProviderKind.gemini;

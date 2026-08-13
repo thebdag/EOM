@@ -81,6 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Cached so keystrokes don't rebuild the vault until emptiness flips.
   bool _hasInput = false;
 
+  /// A reopened turn keeps its user message visible outside the empty composer.
+  bool _showRestoredInputAsPriorTurn = false;
+
   /// Caches the initialization *future*, not the instance (EOM-S8) —
   /// concurrent callers otherwise both pass the null check, init two
   /// stores, and leak a Database.
@@ -226,6 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (!response.isError) {
             _history.add(ChatMessage.user(input));
             _history.add(ChatMessage.assistant(response.text));
+            _showRestoredInputAsPriorTurn = false;
           }
         });
 
@@ -312,8 +316,11 @@ class _HomeScreenState extends State<HomeScreen> {
       intent = null;
     }
     setState(() {
-      _controller.text = item.initialInput;
-      _hasInput = item.initialInput.trim().isNotEmpty;
+      // The saved turn already lives in [_history]. Keep the composer empty so
+      // continuing the conversation cannot resend the original input twice.
+      _controller.clear();
+      _hasInput = false;
+      _showRestoredInputAsPriorTurn = true;
       _activeIntent = intent;
       _mapOverlay = null;
       _connectionsExpanded = false;
@@ -379,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _connectionsExpanded = false;
       _guideConfirm = null;
       _blankHint = null;
+      _showRestoredInputAsPriorTurn = false;
     });
     _focusNode.requestFocus();
   }
@@ -578,7 +586,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return TextField(
       controller: _controller,
       focusNode: _focusNode,
-      autofocus: true,
+      // Preserve the empty vault's first-paint space on mobile. Once a thought
+      // exists, retaining focus keeps the working canvas frictionless.
+      autofocus: !ceremonial,
       maxLines: null,
       minLines: ceremonial ? 8 : 6,
       style: TextStyle(
@@ -651,9 +661,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// Prior user/assistant pairs excluding the current turn (F10).
   List<ChatMessage> _computePriorTurns() {
-    if (_history.length <= 2) return const [];
     if (_response != null && !_response!.isError) {
-      return _history.sublist(0, _history.length - 2);
+      final visibleCurrentMessages = _showRestoredInputAsPriorTurn ? 1 : 2;
+      if (_history.length <= visibleCurrentMessages) return const [];
+      return _history.sublist(0, _history.length - visibleCurrentMessages);
     }
     return List<ChatMessage>.from(_history);
   }

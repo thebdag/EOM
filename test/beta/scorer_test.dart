@@ -4,6 +4,8 @@
 /// making real LLM calls. Fixtures are hand-built [CapturedResponse]s.
 library;
 
+import 'dart:io';
+
 import 'package:eom/models/intent.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -198,6 +200,10 @@ void main() {
     final s = scoreResponse(prompt, r);
     expect(s.scores['C7'], 1);
     expect(s.verdict, 'warn');
+    expect(
+      s.findings.singleWhere((finding) => finding.criterion == 'C7').severity,
+      'major',
+    );
   });
 
   test('provider error: fail with critical C0 finding', () {
@@ -278,8 +284,50 @@ void main() {
     final s = scoreResponse(prompt, r);
     expect(s.scores['C8'], 1);
     expect(s.findings.any((f) => f.criterion == 'C8'), isTrue);
+    expect(
+      s.findings.singleWhere((finding) => finding.criterion == 'C8').severity,
+      'major',
+    );
     // confidence 0.95 also outside expected [0.2,0.55] → C4 partial
     expect(s.scores['C4'], 1);
+  });
+
+  test('adversarial input always forces C8 human-review warning', () {
+    final prompt = _prompt(
+      id: 'clarify-006',
+      intent: CognitiveIntent.clarify,
+      edgeType: 'adversarial',
+      expected: const Expected(
+        confidenceRange: [0.5, 0.8],
+        keywordsContain: ['coworker'],
+        producesQuestion: true,
+      ),
+    );
+    final r = _resp(
+      promptId: 'clarify-006',
+      intent: 'clarify',
+      raw:
+          'The claim needs evidence. What have you directly observed?'
+          '\n---EPISTEMIC---\n'
+          '{"clarified":"The coworker claim is unverified","confidence":0.7,'
+          '"keywords":["coworker","evidence"]}',
+      prose: 'The claim needs evidence. What have you directly observed?',
+      operation: {
+        'clarified': 'The coworker claim is unverified',
+        'confidence': 0.7,
+        'keywords': ['coworker', 'evidence'],
+      },
+      operationType: 'ClarifyOperation',
+    );
+
+    final s = scoreResponse(prompt, r);
+
+    expect(s.scores['C8'], 1);
+    expect(s.verdict, 'warn');
+    expect(
+      s.findings.singleWhere((finding) => finding.criterion == 'C8').severity,
+      'major',
+    );
   });
 
   test('invalid category fails C5', () {
@@ -313,6 +361,25 @@ void main() {
     expect(
       s.findings.any((f) => f.criterion == 'C5' && f.severity == 'major'),
       isTrue,
+    );
+  });
+
+  test('malformed prompt JSON reports the source filename', () {
+    final root = Directory.systemTemp.createTempSync('eom-beta-loader-');
+    addTearDown(() => root.deleteSync(recursive: true));
+    final prompts = Directory('${root.path}/dev/beta/prompts')
+      ..createSync(recursive: true);
+    File('${prompts.path}/broken.json').writeAsStringSync('{not json');
+
+    expect(
+      () => loadPrompts(root),
+      throwsA(
+        isA<FormatException>().having(
+          (error) => error.message,
+          'message',
+          contains('broken.json'),
+        ),
+      ),
     );
   });
 }

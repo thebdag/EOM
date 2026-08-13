@@ -2,7 +2,7 @@
 'use strict';
 
 const { execSync } = require('child_process');
-const { initDb, getDb } = require('./db');
+const { initDb } = require('./db');
 const { launchTUI } = require('./ui');
 
 // Auto-detect current git branch
@@ -23,15 +23,10 @@ async function main() {
   // Init DB (async with sql.js)
   await initDb();
 
-  // Auto-seed on first launch
-  const db = getDb();
-  const epicCount = db.exec(`SELECT COUNT(*) as n FROM epics`);
-  const count = epicCount[0]?.values[0][0] ?? 0;
-
-  if (count === 0) {
-    const { seed } = require('./seed');
-    seed();
-  }
+  // Auto-seed atomically on first launch. Concurrent startups serialize
+  // through db.js and only one can observe an empty tracker.
+  const { seed } = require('./seed');
+  seed();
 
   launchTUI({ branch: currentBranch() });
 }

@@ -170,3 +170,12 @@ screen read; no GTK desktop in this environment). Heuristics from
 | Returning / mid-session | Prior turns and map labels in orientation serif; response leaf on success; gold still rare; History Clarify + Read more; History pip when rows exist. Blank intent tap hints, never silent. |
 
 **Sign-off:** Empty state reads as Epiture quiet authority and a private vault — not a marketing site, chat dashboard, or clinical settings wall. Mid-session stays a quiet desk. EOM-E6 checklist complete.
+
+### Review follow-up — 2026-08-13
+
+- First-paint Home no longer autofocuses, preserving the ceremonial mobile
+  viewport.
+- History continuation keeps the saved turn as context but leaves the composer
+  empty, preventing duplicate provider input.
+- **Read more** now reveals the full saved response without a second line cap.
+- Settings persistence failures stay on-screen with calm recovery copy.
