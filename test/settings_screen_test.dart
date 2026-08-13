@@ -1,3 +1,4 @@
+import 'package:eom/models/llm_provider_kind.dart';
 import 'package:eom/screens/settings_screen.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,17 @@ void main() {
   testWidgets('edits persist on Android system back (EOM-S6)', (tester) async {
     await pushSettings(tester);
 
+    await tester.tap(find.byType(DropdownButton<LlmProviderKind>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('LiteLLM').last);
+    await tester.pumpAndSettle();
     await tester.enterText(fieldByHint('Master Key (required)'), 'sk-test-1');
     await tester.pageBack();
     await tester.pumpAndSettle();
 
-    expect(find.text('AI Configuration'), findsNothing);
+    expect(find.widgetWithText(AppBar, 'Settings'), findsNothing);
     expect(SettingsService.localApiKey, 'sk-test-1');
+    expect(SettingsService.activeProvider, LlmProviderKind.local);
   });
 
   testWidgets('edits persist on the AppBar back button', (tester) async {

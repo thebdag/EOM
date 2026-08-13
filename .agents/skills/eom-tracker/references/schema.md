@@ -5,11 +5,15 @@ The tracker uses `sql.js` (pure-JS SQLite) persisted to `dev/tracker/eom-tracker
 
 > **Persistence model:** `sql.js` is in-memory. Every write helper calls `saveDb()`
 > to flush to disk immediately. A `process.on('exit')` safety handler also flushes
-> on normal exit, SIGINT, and SIGTERM. **Scripts must be run from `dev/tracker/`**
-> (or any directory — `__dirname` in `db.js` anchors the path) and must `await initDb()`
-> before touching any helper. If a previous script claimed to write data but the
-> tracker shows it as unchanged, the script likely exited before the flush completed.
-> Fix: re-apply the update manually via the pattern in Step 7 of SKILL.md.
+> on normal exit, SIGINT, and SIGTERM — but **skips** the flush if the on-disk file
+> is newer than this process's last load/save (so a long-lived TUI cannot clobber
+> writes from `mark` / `comment` / the post-commit hook). Call `reloadDb()` to
+> re-read the file into memory (the TUI `r` key does this before refreshing panes).
+> **Scripts must be run from `dev/tracker/`** (or any directory — `__dirname` in
+> `db.js` anchors the path) and must `await initDb()` before touching any helper.
+> If a previous script claimed to write data but the tracker shows it as unchanged,
+> the script likely exited before the flush completed — or the TUI needs `r` to
+> pick up the external write. Fix: re-apply via Step 7 of SKILL.md, or hit `r`.
 
 ---
 
@@ -82,6 +86,15 @@ Stores auto-increment counters for key generation.
 ## JS Helper API (`db.js`)
 
 All helpers are synchronous after `await initDb()`.
+
+### Lifecycle
+
+```js
+await initDb()   // load (or create) eom-tracker.db into memory
+reloadDb()       // re-read the file from disk (TUI `r`); drops in-memory snapshot
+saveDb()         // flush memory → disk (also called by every write helper)
+getDb()          // → raw sql.js Database
+```
 
 ### Epics
 

@@ -13,6 +13,32 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-12 — `pumpWidget` a second HomeScreen reuses State** — no
+  `initState`, `late final` services stay the first inject. Split widget
+  tests instead of pumping Home twice in one case (EOM-S29 F15 pip).
+
+- **2026-08-12 — History presence cue must not assume Hive is open** —
+  `getConversations()` throws if the box is missing. Guard the pip read
+  in try/catch so tests and first-frame Home still build (EOM-S29 / F15).
+
+- **2026-08-12 — Hidden Settings fields still need live controllers** —
+  active-only Settings (EOM-S28) must not skip persist for inactive
+  providers. Keep every key/host controller loaded and write them on pop,
+  or switching Guide would wipe stored keys. Mount Advanced gateway/alias
+  only when expanded (`AnimatedSize` + conditional), same as Connections
+  (EOM-S24) — collapsed `ExpansionTile` / `AnimatedCrossFade` still puts
+  jargon in the tree.
+
+- **2026-08-12 — Disabled `TextButton` ignores taps after `enterText`** — a
+  listener/`setState` that enables `onPressed` may not rebuild before the
+  next tap. Keep `onPressed` wired and no-op inside if the field is empty
+  (EOM-S27 soft-gate Connect).
+
+- **2026-08-12 — `RichText.contains('ok')` matches intent copy** — Clarify's
+  subtitle "Look at it differently" contains the substring `ok`. Prefer a
+  distinctive prose fixture (or `findsWidgets` with a unique needle) when
+  asserting response cards (EOM-S26).
+
 - **2026-08-06 — `AnimatedCrossFade` still builds both children** — a
   collapsed graph under CrossFade still matched `find.byType(EpistemicGraphView)`.
   Prefer mounting the heavy child only when expanded (`AnimatedSize` +

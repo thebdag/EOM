@@ -170,12 +170,12 @@ Follow AGENTS: service-first, relative imports, `EomColors` only, `dart format`,
 
 **Checklist**
 
-- [ ] `design_spec.md` reflects Family kinship + dual accent + soft gate + Settings  
-- [ ] Gold / deeper void / orientation serif / leaf helper in theme  
-- [ ] Soft gate prevents key-less silent failure  
-- [ ] Settings active-only + Advanced collapsed  
-- [ ] F12–F15 addressed  
-- [ ] `flutter analyze` clean; relevant `flutter test` green  
+- [x] `design_spec.md` reflects Family kinship + dual accent + soft gate + Settings  
+- [x] Gold / deeper void / orientation serif / leaf helper in theme  
+- [x] Soft gate prevents key-less silent failure  
+- [x] Settings active-only + Advanced collapsed  
+- [x] F12–F15 addressed  
+- [x] `flutter analyze` clean; relevant `flutter test` green  
 
 **Felt bar (spirit walk)**
 

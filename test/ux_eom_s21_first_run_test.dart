@@ -18,6 +18,7 @@ import 'package:eom/services/ai_service.dart';
 import 'package:eom/services/history_service.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:eom/theme/eom_theme.dart';
+import 'package:eom/widgets/soft_gate_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,21 +78,23 @@ void main() {
       // T82 — Settings walk
       await tester.tap(find.byTooltip('Settings'));
       await tester.pumpAndSettle();
-      expect(find.text('AI Configuration'), findsOneWidget);
-      expect(find.text('ACTIVE PROVIDER'), findsOneWidget);
-      expect(find.text('OPENAI'), findsOneWidget);
-      expect(find.text('ANTHROPIC'), findsOneWidget);
-      expect(find.text('GOOGLE GEMINI'), findsOneWidget);
-      expect(find.text('LITELLM'), findsOneWidget);
-      expect(fieldByHint('Master Key (required)'), findsOneWidget);
+      expect(find.widgetWithText(AppBar, 'Settings'), findsOneWidget);
+      expect(find.text('Guide'), findsOneWidget);
+      expect(find.text('Advanced'), findsOneWidget);
+      expect(fieldByHint('API Key'), findsOneWidget);
+      expect(fieldByHint('Master Key (required)'), findsNothing);
+      expect(
+        fieldByHint('Gateway Origin (e.g., http://127.0.0.1:4000)'),
+        findsNothing,
+      );
       notes.add(
-        'T82: all providers + LiteLLM fields at once; '
-        'title="AI Configuration"; default=Gemini; no key-required cue',
+        'T82: active-only key + collapsed Advanced; '
+        'title="Settings"; default=Gemini',
       );
       await tester.tap(find.byType(BackButton));
       await tester.pumpAndSettle();
 
-      // T83 — first intent, no key (default Gemini)
+      // T83 — first intent, no key → soft gate (F1)
       await tester.enterText(
         find.byType(TextField).first,
         'I feel scattered and want one clear next step.',
@@ -100,39 +103,31 @@ void main() {
       await tester.tap(find.text('Clarify'));
       await tester.pumpAndSettle();
 
-      expect(richTextContaining('Add an API key in Settings'), findsOneWidget);
-      expect(find.text('Open Settings'), findsOneWidget);
+      expect(find.byType(SoftGateSheet), findsOneWidget);
       expect(richTextContaining('Exception'), findsNothing);
       notes.add(
-        'T83: calm missing-key copy + Open Settings '
+        'T83: intent without key opens soft-gate sheet '
         '(no raw Exception) at ${sw.elapsedMilliseconds}ms',
       );
 
-      // Configure LiteLLM via recovery CTA (UI path for T84 setup)
-      await tester.tap(find.text('Open Settings'));
-      await tester.pumpAndSettle();
+      // Configure LiteLLM via the gate (UI path for T84 setup)
       await tester.tap(find.byType(DropdownButton<LlmProviderKind>));
       await tester.pumpAndSettle();
       await tester.tap(find.text('LiteLLM').last);
       await tester.pumpAndSettle();
       await tester.enterText(fieldByHint('Master Key (required)'), masterKey);
-      await tester.enterText(
-        fieldByHint('Gateway Origin (e.g., http://127.0.0.1:4000)'),
-        host,
-      );
-      await tester.enterText(
-        fieldByHint('Model Alias (e.g., qwen-smart)'),
-        model,
-      );
-      await tester.tap(find.byType(BackButton));
+      await tester.tap(find.byKey(const Key('soft-gate-connect')));
       await tester.pumpAndSettle();
+
+      await SettingsService.setLocalHost(host);
+      await SettingsService.setLocalModel(model);
 
       expect(SettingsService.activeProvider.id, 'LOCAL');
       expect(SettingsService.localApiKey, masterKey);
       expect(SettingsService.localHost, host);
       expect(SettingsService.localModel, model);
       notes.add(
-        'T84-setup: Settings→LiteLLM persisted host=$host model=$model '
+        'T84-setup: soft gate→LiteLLM persisted host=$host model=$model '
         '(real HTTP deferred to plain test — widget binding stubs HttpClient)',
       );
 

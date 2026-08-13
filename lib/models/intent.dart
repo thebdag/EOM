@@ -45,4 +45,15 @@ enum CognitiveIntent {
   final IconData icon;
   final String description;
   final Color color;
+
+  /// Human label for a persisted [name] (`clarify` → Clarify).
+  static String displayName(String raw) {
+    try {
+      return CognitiveIntent.values.byName(raw).label;
+    } catch (_) {
+      final trimmed = raw.trim();
+      if (trimmed.isEmpty) return '';
+      return '${trimmed[0].toUpperCase()}${trimmed.substring(1)}';
+    }
+  }
 }

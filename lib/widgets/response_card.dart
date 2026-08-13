@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_shapes.dart';
+import '../theme/eom_theme.dart';
 
 /// Animated text response — fades in with 300ms easing per design spec.
 class ResponseCard extends StatefulWidget {
@@ -61,10 +63,12 @@ class _ResponseCardState extends State<ResponseCard>
         position: _slideUp,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(EomSpacing.lg),
           decoration: BoxDecoration(
             color: EomColors.surface,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: widget.isError
+                ? BorderRadius.circular(EomShapes.radiusMd)
+                : EomShapes.leafRadius,
             border: Border.all(color: EomColors.surfaceBorder, width: 0.5),
           ),
           child: Column(

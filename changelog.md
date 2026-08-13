@@ -12,6 +12,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **EOM-S29** spirit polish (F12–F15): blank-input hint; History Clarify +
+  Read more; History presence pip; orientation serif on map/session labels;
+  leaf radius on success `ResponseCard`; tertiary contrast locked ≥4.5:1.
+  Covered by `test/ux_eom_s29_polish_test.dart`. Spirit walk in
+  `docs/ux_findings_eom_e4.md` signs off EOM-E6.
+- **EOM-S28** calm Settings (F4): AppBar **Settings**; essential key for the
+  active provider only; LiteLLM gateway/alias under collapsed **Advanced**;
+  quiet **Kin to Epiture.** footer. Reuses `ProviderPicker` / `GuideKeyField`.
+  Covered by `test/ux_eom_s28_settings_test.dart`.
+- **EOM-S27** soft first-run provider gate (F1/F5): `SoftGateSheet` with
+  shared `ProviderPicker` / `GuideKeyField`; Connect CTA and intent-without-key
+  open the same sheet; persist via `SettingsService`; muted “Guide connected.”
+  Covered by `test/ux_eom_s27_soft_gate_test.dart`.
+- **EOM-S26** ceremonial Home empty state: serif EOM, vault-room margins,
+  leaf-framed `EmptyVaultPanel`, gold brand mark, quiet **Connect a guide**
+  when `SettingsService.hasUsableGuide` is false. Covered by
+  `test/ux_eom_s26_empty_state_test.dart`.
 - **EOM-S25** Phase 0 theme foundation (Family kinship): `gold` /
   `goldMuted` / `goldSubtle` tokens; bundled Cormorant Garamond orientation
   serif (`assets/fonts/`); `EomShapes.leaf` + `EomSpacing`;
@@ -34,8 +51,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   pill descriptions (subtitle + tooltip). Covered by
   `intent_error_test`, `ux_eom_e4_quick_wins_test`, and updated
   `home_screen_test` / `ai_service_test`. Findings doc marks F2/F3/F6/F7/F9
-  resolved; F8/F10/F11/F16 later closed by EOM-S24. Still open: F1/F4/F5,
-  F12–F15.
+  resolved; F8/F10/F11/F16 later closed by EOM-S24; F1/F5 closed by EOM-S27;
+  F4 closed by EOM-S28; F12–F15 closed by EOM-S29.
 - **EOM-E4 / EOM-S16** UX walkthrough findings report
   (`docs/ux_findings_eom_e4.md`): 16 friction points across Home, Settings,
 

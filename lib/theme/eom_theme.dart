@@ -35,6 +35,16 @@ class EomTheme {
     );
   }
 
+  /// Section orientation labels — "Your map", "Connections", "Guide".
+  static TextStyle orientationLabel({double fontSize = 13}) {
+    return _orientation(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.2,
+      color: EomColors.textTertiary,
+    );
+  }
+
   static ThemeData get dark {
     return ThemeData(
       useMaterial3: true,

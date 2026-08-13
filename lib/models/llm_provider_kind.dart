@@ -17,6 +17,20 @@ enum LlmProviderKind {
   /// Human-readable name shown in settings.
   final String label;
 
+  /// Hint for the essential credential field (soft gate + Settings).
+  String get keyHint {
+    switch (this) {
+      case LlmProviderKind.openai:
+        return 'API Key (sk-...)';
+      case LlmProviderKind.anthropic:
+        return 'API Key (sk-ant-...)';
+      case LlmProviderKind.gemini:
+        return 'API Key';
+      case LlmProviderKind.local:
+        return 'Master Key (required)';
+    }
+  }
+
   /// The kind used when no preference has been saved yet.
   static const LlmProviderKind fallback = LlmProviderKind.gemini;
 

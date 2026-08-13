@@ -2,7 +2,7 @@
 'use strict';
 
 const blessed = require('blessed');
-const { Epics, Stories, Subtasks, Comments } = require('./db');
+const { Epics, Stories, Subtasks, Comments, reloadDb } = require('./db');
 
 // ── Palette (matches EOM's Epistemic Calm design) ────────────────────────────
 const COLORS = {
@@ -380,6 +380,8 @@ function launchTUI({ branch }) {
   }
 
   function refreshAll() {
+    // sql.js is in-memory; re-read the file so external CLI/hook writes show up.
+    reloadDb();
     loadEpics();
     loadStories();
     screen.render();
