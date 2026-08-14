@@ -122,29 +122,17 @@ Beneath the surface, every session quietly builds a personal knowledge
 graph — your beliefs, questions, and acknowledged unknowns, with typed
 relationships between them. It lives entirely on your device.
 
-- **Map sessions** show a labeled **Your map** tree; the confidence-coloured
+- **Map sessions** show a labeled **Your map** tree; the confidence-colored
   graph sits under a collapsible **Connections** section (collapsed by
   default so the tree stays primary).
 - **Gap detection** surfaces what you don't yet have a node for — open
   questions and concepts your sessions reference but never captured.
 - **Confidence drift** tracks how your beliefs shift across sessions.
-- **Maturity scores** summarise each domain (empirical, rational,
-  intuitive, abductive, revelatory) as the balance of high-confidence to
+- **Maturity scores** summarize each domain (empirical, rational,
+  intuitive, deductive, revelatory) as the balance of high-confidence to
   uncertain nodes.
 - **Export**: the whole map can be exported as structured JSON (full
   fidelity, re-importable) or as a readable Markdown document.
-
----
-
-## Project Documentation
-
-| Document | What it covers |
-|---|---|
-| [Design Spec](docs/design_spec.md) | The visual philosophy, color palette, and component guidelines |
-| [Repository Map](docs/REPOMAP.md) | The full directory structure and the role of each file |
-| [UX Findings (EOM-E4)](docs/ux_findings_eom_e4.md) | Beta UX walkthrough, live walks, and structural fixes (through S24) |
-| [Changelog](CHANGELOG.md) | A running log of what has been added, changed, or fixed |
-| [Context / Glossary](CONTEXT.md) | Definitions of domain-specific terms used in the codebase |
 
 ---
 
