@@ -13,7 +13,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - Calm Material 3 utility motion (`EomMotion`, fade page routes, `EomAppear`,
-  clamping scroll). Soft-gate sheets use `EomMotion.sheetStyle`.
+  clamping scroll). Soft-gate sheets use `EomMotion.sheetStyleOf`.
 - `SettingsService.keyFor` / `setKey` so soft-gate and Settings share one
   provider-key seam. `OrientationCta` + `OrientationDisclosure` for gold
   sans actions and Advanced/Connections rows.
@@ -23,6 +23,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   every transcript.
 
 ### Changed
+- Soft-gate sheet animation goes through `EomMotion.sheetStyleOf` so
+  reduce-motion zeros the sheet. Spec names iOS Cupertino pop (500ms) as
+  the 300ms-cap exception; `EomAppear` hide is documented as snap-unmount.
 - Home intent bar, blank hint, processing, History pip, and New-thought
   appear through `EomAppear`; canvas padding animates. Thought tree fades
   in; History Read more uses `AnimatedSize`; Settings key field crossfades

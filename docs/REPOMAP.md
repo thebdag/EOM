@@ -58,13 +58,13 @@ EOM/
 │   │
 │   ├── theme/
 │   │   ├── eom_colors.dart    # Palette tokens (gold/indigo/sage; deeper void; F12 tertiary)
-│   │   ├── eom_motion.dart    # Duration/curve tokens + calm fade page transitions (EOM-S30)
+│   │   ├── eom_motion.dart    # Duration/curve tokens + fade routes + sheetStyleOf (EOM-S30)
 │   │   ├── eom_shapes.dart    # Leaf radius + ordinary radii (EOM-S25)
 │   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing + EomScrollBehavior
 │   │
 │   └── widgets/
 │       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
-│       ├── eom_appear.dart      # Fade appear; mounts child only while visible (EOM-S30)
+│       ├── eom_appear.dart      # Fade-in appear; snap-unmount hide (EOM-S30)
 │       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
 │       ├── orientation_chrome.dart # Gold sans CTA + Advanced/Connections disclosure
 │       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)

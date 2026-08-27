@@ -28,10 +28,20 @@ class EomMotion {
       disableAnimationsOf(context) ? Duration.zero : duration;
 
   /// Soft-gate / modal sheet enter–exit (M3 [AnimationStyle]).
+  ///
+  /// Prefer [sheetStyleOf] at call sites that have a [BuildContext] so
+  /// reduce-motion collapses the sheet. This const default cannot.
   static AnimationStyle get sheetStyle => const AnimationStyle(
     duration: medium,
     curve: curve,
     reverseDuration: exit,
+    reverseCurve: curve,
+  );
+
+  static AnimationStyle sheetStyleOf(BuildContext context) => AnimationStyle(
+    duration: of(context, medium),
+    curve: curve,
+    reverseDuration: of(context, exit),
     reverseCurve: curve,
   );
 }
@@ -41,6 +51,9 @@ class EomMotion {
 class EomFadePageTransitionsBuilder extends PageTransitionsBuilder {
   const EomFadePageTransitionsBuilder();
 
+  /// Route lock duration. [PageTransitionsBuilder] getters have no
+  /// [BuildContext], so reduce-motion cannot collapse these; [buildTransitions]
+  /// still skips the fade when [EomMotion.disableAnimationsOf] is set.
   @override
   Duration get transitionDuration => EomMotion.medium;
 

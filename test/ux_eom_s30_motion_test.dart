@@ -75,6 +75,27 @@ void main() {
     );
   });
 
+  testWidgets('reduce-motion zeros of() and sheetStyleOf', (tester) async {
+    await tester.pumpWidget(
+      MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: MaterialApp(
+          home: Builder(
+            builder: (context) {
+              expect(EomMotion.of(context, EomMotion.medium), Duration.zero);
+              expect(EomMotion.of(context, EomMotion.exit), Duration.zero);
+              final sheet = EomMotion.sheetStyleOf(context);
+              expect(sheet.duration, Duration.zero);
+              expect(sheet.reverseDuration, Duration.zero);
+              expect(EomMotion.sheetStyle.duration, EomMotion.medium);
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+      ),
+    );
+  });
+
   testWidgets('EomScrollBehavior clamps overscroll', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
