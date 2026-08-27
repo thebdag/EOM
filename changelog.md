@@ -26,6 +26,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Soft-gate sheet animation goes through `EomMotion.sheetStyleOf` so
   reduce-motion zeros the sheet. Spec names iOS Cupertino pop (500ms) as
   the 300ms-cap exception; `EomAppear` hide is documented as snap-unmount.
+  Tests lock both: hide gone after one `pump()`, iOS stays 500ms
+  Cupertino.
 - Home intent bar, blank hint, processing, History pip, and New-thought
   appear through `EomAppear`; canvas padding animates. Thought tree fades
   in; History Read more uses `AnimatedSize`; Settings key field crossfades

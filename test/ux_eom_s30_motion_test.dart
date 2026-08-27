@@ -151,6 +151,51 @@ void main() {
     expect(find.text('shown'), findsNothing);
   });
 
+  testWidgets('EomAppear hide is snap-unmount, not an exit fade', (
+    tester,
+  ) async {
+    var visible = true;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                children: [
+                  TextButton(
+                    onPressed: () => setState(() => visible = false),
+                    child: const Text('hide'),
+                  ),
+                  EomAppear(visible: visible, child: const Text('shown')),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(find.text('shown'), findsOneWidget);
+
+    await tester.tap(find.text('hide'));
+    await tester.pump(); // one frame — do not pump EomMotion.exit
+    expect(find.text('shown'), findsNothing);
+  });
+
+  test('iOS Cupertino pop is the documented 500ms cap exception', () {
+    const cupertino = CupertinoPageTransitionsBuilder();
+    expect(
+      EomTheme.dark.pageTransitionsTheme.builders[TargetPlatform.iOS],
+      isA<CupertinoPageTransitionsBuilder>(),
+    );
+    expect(cupertino.transitionDuration, const Duration(milliseconds: 500));
+    expect(cupertino.transitionDuration, isNot(EomMotion.medium));
+    expect(
+      const EomFadePageTransitionsBuilder().transitionDuration,
+      lessThanOrEqualTo(EomMotion.medium),
+    );
+  });
+
   testWidgets('intent bar and hint go through EomAppear', (tester) async {
     await SettingsService.setGeminiKey('test-guide');
     await pumpEomHome(tester, store: store);

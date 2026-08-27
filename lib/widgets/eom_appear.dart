@@ -67,6 +67,7 @@ class _EomAppearState extends State<EomAppear>
         _controller.forward(from: 0);
       }
     } else if (!widget.visible) {
+      // Snap-unmount this frame. Do not reverse() — hide is not an ease.
       _controller.value = 0;
     }
   }
