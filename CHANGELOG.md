@@ -5,6 +5,7 @@ All notable changes to the EOM project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Calm motion (EOM-S30):** screens fade instead of zoom; session chrome (intents, hints, processing) eases in. No bounce, no springs.
 - **Session continuity (EOM-E4 / EOM-S24):** tap a History row to reopen it on Home; multi-turn sessions keep earlier turns visible; **New thought** asks before clearing the on-screen session.
 - **Map framing (EOM-S24):** Map responses label the concept tree as **Your map**; the confidence graph sits under collapsible **Connections** (collapsed by default).
 - **Calmer failures and History empty state (EOM-S18 / S19 / S20):** friendly missing-key copy with **Open Settings**; History empty CTA; clear-history confirmation; intent pill descriptions.

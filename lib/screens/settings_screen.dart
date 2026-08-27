@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_theme.dart';
 import '../widgets/guide_fields.dart';
 import '../widgets/orientation_chrome.dart';
@@ -129,9 +130,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onChanged: (val) => setState(() => _activeProvider = val),
             ),
             const SizedBox(height: EomSpacing.lg),
-            GuideKeyField(
-              provider: _activeProvider,
-              controller: _keyControllerFor(_activeProvider),
+            AnimatedSwitcher(
+              duration: EomMotion.of(context, EomMotion.medium),
+              switchInCurve: EomMotion.curve,
+              switchOutCurve: EomMotion.curve,
+              child: GuideKeyField(
+                key: ValueKey(_activeProvider),
+                provider: _activeProvider,
+                controller: _keyControllerFor(_activeProvider),
+              ),
             ),
             if (_saveError != null) ...[
               const SizedBox(height: EomSpacing.sm),

@@ -28,6 +28,7 @@ class EomApp extends StatelessWidget {
       title: 'EOM',
       debugShowCheckedModeBanner: false,
       theme: EomTheme.dark,
+      scrollBehavior: const EomScrollBehavior(),
       home: const HomeScreen(),
     );
   }

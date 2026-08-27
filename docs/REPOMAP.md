@@ -58,11 +58,13 @@ EOM/
 │   │
 │   ├── theme/
 │   │   ├── eom_colors.dart    # Palette tokens (gold/indigo/sage; deeper void; F12 tertiary)
+│   │   ├── eom_motion.dart    # Duration/curve tokens + calm fade page transitions (EOM-S30)
 │   │   ├── eom_shapes.dart    # Leaf radius + ordinary radii (EOM-S25)
-│   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing
+│   │   └── eom_theme.dart     # Material 3 ThemeData + orientation serif + EomSpacing + EomScrollBehavior
 │   │
 │   └── widgets/
 │       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
+│       ├── eom_appear.dart      # Size+fade appear; mounts child only while visible (EOM-S30)
 │       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
 │       ├── orientation_chrome.dart # Gold sans CTA + Advanced/Connections disclosure
 │       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)
@@ -104,6 +106,7 @@ EOM/
     ├── ux_eom_s27_soft_gate_test.dart # Soft-gate sheet: CTA + intent-without-key (EOM-S27 / F1 / F5)
     ├── ux_eom_s28_settings_test.dart # Calm Settings: active-only + Advanced + lineage (EOM-S28 / F4)
     ├── ux_eom_s29_polish_test.dart # F12–F15 polish: contrast, blank hint, History, pip, leaf (EOM-S29)
+    ├── ux_eom_s30_motion_test.dart # Calm M3 utility motion: tokens, EomAppear, fade routes (EOM-S30)
     ├── intent_config_test.dart    # Per-intent prompt contract + operation routing (EOM-S14)
     ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
     ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage (EOM-S10, S11)

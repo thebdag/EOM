@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
 
@@ -87,8 +88,8 @@ class OrientationDisclosure extends StatelessWidget {
           ),
         ),
         AnimatedSize(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
+          duration: EomMotion.of(context, EomMotion.medium),
+          curve: EomMotion.curve,
           alignment: Alignment.topCenter,
           child: expanded ? child : const SizedBox(width: double.infinity),
         ),

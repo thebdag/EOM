@@ -111,6 +111,19 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 
 ## 4. Animation & Motion
 
-* **Rule:** Motion must be functional, not decorative.
-* **Transitions:** Fade-ins ≤300ms, `Curves.easeOut`. No bouncy or springy
-  physics.
+* **Rule:** Motion must be functional, not decorative. Use the Material 3
+  **standard/utility** lane — not Expressive springs, bounce, or 400ms+
+  emphasized durations.
+* **Tokens:** [`lib/theme/eom_motion.dart`](../lib/theme/eom_motion.dart) —
+  `short` 200ms, `medium` 300ms (enter / layout / page push), `exit` 200ms,
+  `Curves.easeOut` (M3 emphasized analogue). Hard cap is **300ms**.
+* **Page routes:** Fade + tiny upward slide (`EomMotion.slide`) on
+  Android/desktop. iOS keeps `CupertinoPageTransitionsBuilder` so interactive
+  pop stays. Do not use `FadeForwardsPageTransitionsBuilder` (typically 400ms).
+* **Appear:** [`EomAppear`](../lib/widgets/eom_appear.dart) size+fade; mount
+  the child only while visible. Never `AnimatedCrossFade` (both children stay
+  in the tree).
+* **Scroll:** `EomScrollBehavior` uses `ClampingScrollPhysics` — no iOS bounce.
+* **Reduce motion:** `MediaQuery.disableAnimations` collapses durations to zero.
+* **Sheets / dialogs:** elevation 0; soft-gate uses `EomMotion.sheetStyle`.
+* **Never:** springs, bounce, drop shadows, seed-generated color.

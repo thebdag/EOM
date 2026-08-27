@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models/thought_node.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 
 /// Clean directory-tree visualization for the "Map" intent.
 /// Uses 1px muted grey connecting lines per design spec.
@@ -27,9 +28,12 @@ class ThoughtTreeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 300),
-      opacity: 1.0,
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: EomMotion.of(context, EomMotion.medium),
+      curve: EomMotion.curve,
+      builder: (context, opacity, child) =>
+          Opacity(opacity: opacity, child: child),
       child: Stack(
         children: [
           Container(

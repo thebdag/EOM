@@ -114,6 +114,12 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-27 — Session chrome uses `EomAppear`, not `AnimatedCrossFade` (EOM-S30)** —
+  fading Home intents/hints/processing must unmount the child when hidden.
+  `AnimatedCrossFade` keeps both children in the tree and breaks
+  `find.byType`. Durations live in `EomMotion` so they cannot drift past
+  300ms `easeOut`.
+
 - **2026-08-06 — Map provider exceptions to calm UX copy once (EOM-S18)** —
   never render `Exception: …` in a response card. Keep a single mapper
   (`IntentError.from`) that turns missing keys / provider HTTP failures
