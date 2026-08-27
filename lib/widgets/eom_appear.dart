@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../theme/eom_motion.dart';
 
-/// Size+fade appear. Mounts [child] only while [visible] is true.
+/// Fade appear. Mounts [child] only while [visible] is true.
 ///
 /// Never uses [AnimatedCrossFade] — both children would stay in the tree
-/// and break `find.byType` (EOM-S24 learning).
+/// and break `find.byType` (EOM-S24 learning). Layout is immediate so the
+/// child is hittable on the first frame (no [AnimatedSize] clip).
 class EomAppear extends StatefulWidget {
   const EomAppear({
     super.key,
@@ -20,6 +21,7 @@ class EomAppear extends StatefulWidget {
   /// When true, the collapsed placeholder is full-width (column items).
   final bool expandWidth;
 
+  /// Kept for call-site stability; layout is not size-animated.
   final Alignment alignment;
 
   @override
@@ -80,25 +82,18 @@ class _EomAppearState extends State<EomAppear>
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.visible) {
+      return SizedBox(
+        width: widget.expandWidth ? double.infinity : 0,
+        height: 0,
+      );
+    }
     final reduced = EomMotion.disableAnimationsOf(context);
-    return AnimatedSize(
-      duration: reduced ? Duration.zero : EomMotion.medium,
-      curve: EomMotion.curve,
-      alignment: widget.alignment,
-      child: widget.visible
-          ? FadeTransition(
-              opacity: reduced
-                  ? const AlwaysStoppedAnimation<double>(1)
-                  : CurvedAnimation(
-                      parent: _controller,
-                      curve: EomMotion.curve,
-                    ),
-              child: widget.child,
-            )
-          : SizedBox(
-              width: widget.expandWidth ? double.infinity : 0,
-              height: 0,
-            ),
-    );
+    final fade = reduced
+        ? const AlwaysStoppedAnimation<double>(1)
+        : Tween<double>(begin: 0.01, end: 1).animate(
+            CurvedAnimation(parent: _controller, curve: EomMotion.curve),
+          );
+    return FadeTransition(opacity: fade, child: widget.child);
   }
 }

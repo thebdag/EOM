@@ -120,9 +120,9 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 * **Page routes:** Fade + tiny upward slide (`EomMotion.slide`) on
   Android/desktop. iOS keeps `CupertinoPageTransitionsBuilder` so interactive
   pop stays. Do not use `FadeForwardsPageTransitionsBuilder` (typically 400ms).
-* **Appear:** [`EomAppear`](../lib/widgets/eom_appear.dart) size+fade; mount
-  the child only while visible. Never `AnimatedCrossFade` (both children stay
-  in the tree).
+* **Appear:** [`EomAppear`](../lib/widgets/eom_appear.dart) fade; mount
+  the child only while visible. Layout is immediate so the first frame is
+  hittable. Never `AnimatedCrossFade` (both children stay in the tree).
 * **Scroll:** `EomScrollBehavior` uses `ClampingScrollPhysics` — no iOS bounce.
 * **Reduce motion:** `MediaQuery.disableAnimations` collapses durations to zero.
 * **Sheets / dialogs:** elevation 0; soft-gate uses `EomMotion.sheetStyle`.

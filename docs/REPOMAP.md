@@ -64,7 +64,7 @@ EOM/
 │   │
 │   └── widgets/
 │       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
-│       ├── eom_appear.dart      # Size+fade appear; mounts child only while visible (EOM-S30)
+│       ├── eom_appear.dart      # Fade appear; mounts child only while visible (EOM-S30)
 │       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
 │       ├── orientation_chrome.dart # Gold sans CTA + Advanced/Connections disclosure
 │       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)

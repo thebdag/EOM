@@ -114,6 +114,11 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-27 — `EomAppear` must stay hittable on the first frame (EOM-S30)** —
+  `AnimatedSize` keeps a shrinking hit box even with `Clip.none`, and
+  `FadeTransition` at opacity 0 skips hits. Fade only (layout immediate)
+  and start opacity at 0.01 so a `pump()` then tap still reaches intents.
+
 - **2026-08-27 — Session chrome uses `EomAppear`, not `AnimatedCrossFade` (EOM-S30)** —
   fading Home intents/hints/processing must unmount the child when hidden.
   `AnimatedCrossFade` keeps both children in the tree and breaks
