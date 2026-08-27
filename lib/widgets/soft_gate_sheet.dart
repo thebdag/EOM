@@ -28,7 +28,7 @@ class SoftGateSheet extends StatefulWidget {
       backgroundColor: EomColors.surface,
       elevation: 0,
       isScrollControlled: true,
-      sheetAnimationStyle: EomMotion.sheetStyle,
+      sheetAnimationStyle: EomMotion.sheetStyleOf(context),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(EomShapes.radiusMd),

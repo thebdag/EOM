@@ -165,6 +165,7 @@ class EomTheme {
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: EomFadePageTransitionsBuilder(),
+          // Stock Cupertino keeps interactive pop (500ms cap exception).
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           TargetPlatform.macOS: EomFadePageTransitionsBuilder(),
           TargetPlatform.linux: EomFadePageTransitionsBuilder(),

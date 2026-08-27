@@ -114,10 +114,25 @@ when relevant.
 
 ## Best Practices
 
-- **2026-08-27 — `EomAppear` must stay hittable on the first frame (EOM-S30)** —
-  `AnimatedSize` keeps a shrinking hit box even with `Clip.none`, and
-  `FadeTransition` at opacity 0 skips hits. Fade only (layout immediate)
-  and start opacity at 0.01 so a `pump()` then tap still reaches intents.
+- **2026-08-27 — First-frame misses are layout clips, not opacity 0 (EOM-S30)** —
+  `AnimatedSize` shrinks the hit box even with `Clip.none`. Flutter's
+  `FadeTransition` still hit-tests at opacity 0 (wrap with `IgnorePointer`
+  if you need the opposite). Do not "fix" taps by starting a fade at 0.01.
+
+- **2026-08-27 — `EomAppear` hide is a snap-unmount, not an ease (EOM-S30)** —
+  enter fades; hide sets height 0 and drops the child on that frame so
+  `find.byType` stays honest. `EomMotion.exit` is for page reverse / sheets,
+  not appear-hide. Do not reach for `AnimatedCrossFade` to get a hide fade.
+
+- **2026-08-27 — Reduce-motion only collapses durations that see a `BuildContext` (EOM-S30)** —
+  `EomMotion.of` / `sheetStyleOf` can zero out. A const `AnimationStyle`
+  cannot. `PageTransitionsBuilder.transitionDuration` has no context, so
+  skipping the fade paint is not the same as a zero-length route lock.
+
+- **2026-08-27 — A 300ms motion cap and Cupertino interactive pop cannot both be global (EOM-S30)** —
+  `CupertinoPageTransitionsBuilder` is 500ms (`kTransitionDuration`). Name
+  iOS as the exception in the spec; do not imply the cap holds on every
+  platform while keeping stock Cupertino pop.
 
 - **2026-08-27 — Session chrome uses `EomAppear`, not `AnimatedCrossFade` (EOM-S30)** —
   fading Home intents/hints/processing must unmount the child when hidden.

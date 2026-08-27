@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 ///
 /// Durations stay ≤300ms. [curve] is `Curves.easeOut` (M3 emphasized
 /// `cubic-bezier(0.2, 0, 0, 1)` analogue). No springs, no bounce.
+///
+/// [exit] is for page reverse and sheets — not appear-hide (snap-unmount).
+/// iOS Cupertino interactive pop (500ms) is the documented cap exception;
+/// this class does not own that route.
 class EomMotion {
   EomMotion._();
 
@@ -13,7 +17,7 @@ class EomMotion {
   /// Enter, layout, page push.
   static const Duration medium = Duration(milliseconds: 300);
 
-  /// Hide / reverse.
+  /// Hide / reverse (page pop, sheet dismiss). Not appear-widget hide.
   static const Duration exit = Duration(milliseconds: 200);
 
   static const Curve curve = Curves.easeOut;
@@ -28,10 +32,20 @@ class EomMotion {
       disableAnimationsOf(context) ? Duration.zero : duration;
 
   /// Soft-gate / modal sheet enter–exit (M3 [AnimationStyle]).
+  ///
+  /// Prefer [sheetStyleOf] at call sites that have a [BuildContext] so
+  /// reduce-motion collapses the sheet. This const default cannot.
   static AnimationStyle get sheetStyle => const AnimationStyle(
     duration: medium,
     curve: curve,
     reverseDuration: exit,
+    reverseCurve: curve,
+  );
+
+  static AnimationStyle sheetStyleOf(BuildContext context) => AnimationStyle(
+    duration: of(context, medium),
+    curve: curve,
+    reverseDuration: of(context, exit),
     reverseCurve: curve,
   );
 }
@@ -41,6 +55,9 @@ class EomMotion {
 class EomFadePageTransitionsBuilder extends PageTransitionsBuilder {
   const EomFadePageTransitionsBuilder();
 
+  /// Route lock duration. [PageTransitionsBuilder] getters have no
+  /// [BuildContext], so reduce-motion cannot collapse these; [buildTransitions]
+  /// still skips the fade when [EomMotion.disableAnimationsOf] is set.
   @override
   Duration get transitionDuration => EomMotion.medium;
 

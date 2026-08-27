@@ -116,14 +116,20 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
   emphasized durations.
 * **Tokens:** [`lib/theme/eom_motion.dart`](../lib/theme/eom_motion.dart) —
   `short` 200ms, `medium` 300ms (enter / layout / page push), `exit` 200ms,
-  `Curves.easeOut` (M3 emphasized analogue). Hard cap is **300ms**.
+  `Curves.easeOut` (M3 emphasized analogue). Hard cap is **300ms**, except
+  iOS Cupertino interactive pop (`kTransitionDuration` is 500ms).
 * **Page routes:** Fade + tiny upward slide (`EomMotion.slide`) on
   Android/desktop. iOS keeps `CupertinoPageTransitionsBuilder` so interactive
-  pop stays. Do not use `FadeForwardsPageTransitionsBuilder` (typically 400ms).
-* **Appear:** [`EomAppear`](../lib/widgets/eom_appear.dart) fade; mount
-  the child only while visible. Layout is immediate so the first frame is
-  hittable. Never `AnimatedCrossFade` (both children stay in the tree).
+  pop stays — that 500ms is the documented cap exception. Do not use
+  `FadeForwardsPageTransitionsBuilder` (typically 400ms).
+* **Appear:** [`EomAppear`](../lib/widgets/eom_appear.dart) fades **in**;
+  hide is a snap-unmount (child gone, height 0) so `find.byType` stays
+  honest. Layout is immediate so the first frame is hittable. Never
+  `AnimatedCrossFade` (both children stay in the tree).
 * **Scroll:** `EomScrollBehavior` uses `ClampingScrollPhysics` — no iOS bounce.
-* **Reduce motion:** `MediaQuery.disableAnimations` collapses durations to zero.
-* **Sheets / dialogs:** elevation 0; soft-gate uses `EomMotion.sheetStyle`.
+* **Reduce motion:** `MediaQuery.disableAnimations` zeros durations that
+  go through `EomMotion.of` / `sheetStyleOf`. `PageTransitionsBuilder`
+  duration getters have no `BuildContext`, so the fade builder skips
+  painting but the route may still occupy 300ms.
+* **Sheets / dialogs:** elevation 0; soft-gate uses `EomMotion.sheetStyleOf`.
 * **Never:** springs, bounce, drop shadows, seed-generated color.

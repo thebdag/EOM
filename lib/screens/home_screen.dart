@@ -255,13 +255,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // Scroll to show response
         await Future.delayed(const Duration(milliseconds: 100));
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
-            duration: EomMotion.medium,
-            curve: EomMotion.curve,
-          );
-        }
+        if (!mounted || !_scrollController.hasClients) return;
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: EomMotion.of(context, EomMotion.medium),
+          curve: EomMotion.curve,
+        );
       }
     } catch (e) {
       // Never fail silently (EOM-S18 / UX F3) — surface calm copy.

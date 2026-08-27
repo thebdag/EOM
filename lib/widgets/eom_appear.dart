@@ -3,9 +3,10 @@ import '../theme/eom_motion.dart';
 
 /// Fade appear. Mounts [child] only while [visible] is true.
 ///
-/// Never uses [AnimatedCrossFade] — both children would stay in the tree
-/// and break `find.byType` (EOM-S24 learning). Layout is immediate so the
-/// child is hittable on the first frame (no [AnimatedSize] clip).
+/// Hide is a snap-unmount (zero-height placeholder, child gone) so
+/// `find.byType` stays honest. Enter fades. Never [AnimatedCrossFade].
+/// Layout is immediate so the first frame is hittable (no [AnimatedSize]
+/// clip). [FadeTransition] still hit-tests at opacity 0.
 class EomAppear extends StatefulWidget {
   const EomAppear({
     super.key,
@@ -66,6 +67,7 @@ class _EomAppearState extends State<EomAppear>
         _controller.forward(from: 0);
       }
     } else if (!widget.visible) {
+      // Snap-unmount this frame. Do not reverse() — hide is not an ease.
       _controller.value = 0;
     }
   }
@@ -91,7 +93,7 @@ class _EomAppearState extends State<EomAppear>
     final reduced = EomMotion.disableAnimationsOf(context);
     final fade = reduced
         ? const AlwaysStoppedAnimation<double>(1)
-        : Tween<double>(begin: 0.01, end: 1).animate(
+        : Tween<double>(begin: 0, end: 1).animate(
             CurvedAnimation(parent: _controller, curve: EomMotion.curve),
           );
     return FadeTransition(opacity: fade, child: widget.child);

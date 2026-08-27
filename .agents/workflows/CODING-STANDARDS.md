@@ -19,7 +19,7 @@ This document defines the step-by-step workflow for contributing to the EOM appl
 * **Visual Precision**: 
     - No drop shadows or `elevation`. 
     - Use 0.5px `EomColors.surfaceBorder` strokes for depth.
-* **Motion**: Limit animations to 300ms with `Curves.easeOut` via `EomMotion`. Use `EomAppear` for show/hide. Avoid bouncy physics; clamp overscroll.
+* **Motion**: Limit animations to 300ms with `Curves.easeOut` via `EomMotion`. Use `EomMotion.of` / `sheetStyleOf` so reduce-motion collapses durations. `EomAppear` fades in and snap-unmounts on hide. Avoid bouncy physics; clamp overscroll. iOS Cupertino pop is the documented 500ms exception.
 
 ## Step 4: Stability & Error Handling
 * **Graceful Degradation**: Always wrap async calls and JSON parsing in `try/catch`.
