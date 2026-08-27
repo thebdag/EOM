@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/intent.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 
 /// Pill-shaped intent button — muted idle state, subtle glow on tap.
 /// Shows [CognitiveIntent.description] as a subtitle + tooltip (EOM-S20).
@@ -29,8 +30,8 @@ class IntentButton extends StatelessWidget {
       message: intent.description,
       waitDuration: const Duration(milliseconds: 400),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
+        duration: EomMotion.of(context, EomMotion.short),
+        curve: EomMotion.curve,
         decoration: BoxDecoration(
           color: isSelected
               ? intent.color.withValues(alpha: 0.15)

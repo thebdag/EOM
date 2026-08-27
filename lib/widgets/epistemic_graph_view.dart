@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/epistemic_query_result.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 
 /// Maps a confidence value in [0, 1] to a node colour (EOM-T18).
 ///
@@ -44,8 +45,8 @@ class EpistemicGraphView extends StatelessWidget {
 
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
+      duration: EomMotion.of(context, EomMotion.medium),
+      curve: EomMotion.curve,
       builder: (context, opacity, child) =>
           Opacity(opacity: opacity, child: child),
       child: Container(

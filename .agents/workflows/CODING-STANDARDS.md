@@ -19,7 +19,7 @@ This document defines the step-by-step workflow for contributing to the EOM appl
 * **Visual Precision**: 
     - No drop shadows or `elevation`. 
     - Use 0.5px `EomColors.surfaceBorder` strokes for depth.
-* **Motion**: Limit animations to 300ms with `Curves.easeOut`. Avoid bouncy physics.
+* **Motion**: Limit animations to 300ms with `Curves.easeOut` via `EomMotion`. Use `EomAppear` for show/hide. Avoid bouncy physics; clamp overscroll.
 
 ## Step 4: Stability & Error Handling
 * **Graceful Degradation**: Always wrap async calls and JSON parsing in `try/catch`.

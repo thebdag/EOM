@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
 
@@ -35,16 +36,21 @@ class _ResponseCardState extends State<ResponseCard>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    _controller = AnimationController(duration: EomMotion.medium, vsync: this);
+    _fadeIn = CurvedAnimation(parent: _controller, curve: EomMotion.curve);
     _slideUp = Tween<Offset>(
-      begin: const Offset(0, 0.05),
+      begin: EomMotion.slide,
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    ).animate(CurvedAnimation(parent: _controller, curve: EomMotion.curve));
     _controller.forward();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final reduced = EomMotion.disableAnimationsOf(context);
+    _controller.duration = reduced ? Duration.zero : EomMotion.medium;
+    if (reduced) _controller.value = 1;
   }
 
   @override

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 import 'eom_colors.dart';
+import 'eom_motion.dart';
 import 'eom_shapes.dart';
 
 /// Bundled orientation display face (Cormorant Garamond). Body stays system sans.
@@ -160,7 +162,53 @@ class EomTheme {
         thickness: 0.5,
         space: 0,
       ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: EomFadePageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.macOS: EomFadePageTransitionsBuilder(),
+          TargetPlatform.linux: EomFadePageTransitionsBuilder(),
+          TargetPlatform.windows: EomFadePageTransitionsBuilder(),
+          TargetPlatform.fuchsia: EomFadePageTransitionsBuilder(),
+        },
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: EomColors.surface,
+        elevation: 0,
+        shadowColor: EomColors.transparent,
+        surfaceTintColor: EomColors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(EomShapes.radiusMd),
+          side: const BorderSide(color: EomColors.surfaceBorder, width: 0.5),
+        ),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: EomColors.surface,
+        elevation: 0,
+        modalElevation: 0,
+        shadowColor: EomColors.transparent,
+        surfaceTintColor: EomColors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(EomShapes.radiusMd),
+          ),
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          overlayColor: EomColors.accent.withValues(alpha: 0.12),
+        ),
+      ),
       splashFactory: InkSparkle.splashFactory,
     );
   }
+}
+
+/// Clamps overscroll — spec forbids springy physics (iOS bounce included).
+class EomScrollBehavior extends MaterialScrollBehavior {
+  const EomScrollBehavior();
+
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) =>
+      const ClampingScrollPhysics();
 }

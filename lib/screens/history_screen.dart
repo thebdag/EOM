@@ -3,6 +3,7 @@ import '../models/conversation.dart';
 import '../models/intent.dart';
 import '../services/history_service.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_theme.dart';
 import '../widgets/empty_vault_panel.dart';
 import '../widgets/orientation_chrome.dart';
@@ -223,15 +224,20 @@ class _HistoryEntryState extends State<_HistoryEntry> {
           ),
         ),
         const SizedBox(height: EomSpacing.xs),
-        Text(
-          item.response,
-          style: const TextStyle(
-            color: EomColors.textSecondary,
-            fontSize: 14,
-            height: 1.5,
+        AnimatedSize(
+          duration: EomMotion.of(context, EomMotion.medium),
+          curve: EomMotion.curve,
+          alignment: Alignment.topCenter,
+          child: Text(
+            item.response,
+            style: const TextStyle(
+              color: EomColors.textSecondary,
+              fontSize: 14,
+              height: 1.5,
+            ),
+            maxLines: _expanded ? null : _collapsedLines,
+            overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
           ),
-          maxLines: _expanded ? null : _collapsedLines,
-          overflow: _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
         ),
         if (showToggle)
           TextButton(

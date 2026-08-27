@@ -8,8 +8,10 @@ import '../models/intent.dart';
 import '../services/ai_service.dart';
 import '../services/intent_error.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_theme.dart';
 import '../widgets/empty_vault_panel.dart';
+import '../widgets/eom_appear.dart';
 import '../widgets/epistemic_graph_view.dart';
 import '../widgets/intent_button.dart';
 import '../widgets/orientation_chrome.dart';
@@ -256,8 +258,8 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_scrollController.hasClients) {
           _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
+            duration: EomMotion.medium,
+            curve: EomMotion.curve,
           );
         }
       }
@@ -410,104 +412,122 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: SingleChildScrollView(
                 controller: _scrollController,
-                padding: isEmptyCanvas
-                    ? const EdgeInsets.fromLTRB(
-                        EomSpacing.xl,
-                        EomSpacing.xxl,
-                        EomSpacing.xl,
-                        EomSpacing.xl,
-                      )
-                    : const EdgeInsets.fromLTRB(
-                        EomSpacing.lg,
-                        EomSpacing.md,
-                        EomSpacing.lg,
-                        EomSpacing.lg,
-                      ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (isEmptyCanvas)
-                      EmptyVaultPanel(
-                        showConnectCta: !SettingsService.hasUsableGuide,
-                        onConnect: () {
-                          unawaited(_openSoftGate());
-                        },
-                        child: _buildInputArea(ceremonial: true),
-                      )
-                    else
-                      _buildInputArea(ceremonial: false),
+                child: AnimatedPadding(
+                  duration: EomMotion.of(context, EomMotion.medium),
+                  curve: EomMotion.curve,
+                  padding: isEmptyCanvas
+                      ? const EdgeInsets.fromLTRB(
+                          EomSpacing.xl,
+                          EomSpacing.xxl,
+                          EomSpacing.xl,
+                          EomSpacing.xl,
+                        )
+                      : const EdgeInsets.fromLTRB(
+                          EomSpacing.lg,
+                          EomSpacing.md,
+                          EomSpacing.lg,
+                          EomSpacing.lg,
+                        ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (isEmptyCanvas)
+                        EmptyVaultPanel(
+                          showConnectCta: !SettingsService.hasUsableGuide,
+                          onConnect: () {
+                            unawaited(_openSoftGate());
+                          },
+                          child: _buildInputArea(ceremonial: true),
+                        )
+                      else
+                        _buildInputArea(ceremonial: false),
 
-                    if (isEmptyCanvas && _guideConfirm != null) ...[
-                      const SizedBox(height: EomSpacing.sm),
-                      Text(
-                        _guideConfirm!,
-                        style: const TextStyle(
-                          color: EomColors.textTertiary,
-                          fontSize: 13,
+                      EomAppear(
+                        key: const Key('eom-appear-guide-confirm'),
+                        visible: isEmptyCanvas && _guideConfirm != null,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: EomSpacing.sm),
+                          child: Text(
+                            _guideConfirm ?? '',
+                            style: const TextStyle(
+                              color: EomColors.textTertiary,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      EomAppear(
+                        key: const Key('eom-appear-hint'),
+                        visible: _blankHint != null,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: EomSpacing.sm),
+                          child: Text(
+                            _blankHint ?? '',
+                            style: const TextStyle(
+                              color: EomColors.textTertiary,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      EomAppear(
+                        key: const Key('eom-appear-intents'),
+                        visible: hasInput || _response != null,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: EomSpacing.lg),
+                          child: _buildIntentBar(),
+                        ),
+                      ),
+
+                      // F10 — prior turns stay visible above the latest card
+                      if (priorTurns.isNotEmpty) ...[
+                        const SizedBox(height: EomSpacing.xl),
+                        _buildPriorTurns(priorTurns),
+                      ],
+
+                      // Response
+                      if (_response != null) ...[
+                        const SizedBox(height: EomSpacing.xl),
+                        RepaintBoundary(
+                          child: ResponseCard(
+                            text: _response!.text,
+                            accentColor: _response!.intent.color,
+                            isError: _response!.isError,
+                            onOpenSettings: _response!.offerSettings
+                                ? () {
+                                    unawaited(_openSettings());
+                                  }
+                                : null,
+                          ),
+                        ),
+                      ],
+
+                      // Tree view (for Map intent) — F11 framing
+                      if (_response?.tree != null) ...[
+                        const SizedBox(height: EomSpacing.lg),
+                        Text('Your map', style: EomTheme.orientationLabel()),
+                        const SizedBox(height: EomSpacing.sm),
+                        ThoughtTreeView(root: _response!.tree!),
+                      ],
+
+                      // Epistemic graph overlay — F11 collapsed by default
+                      if (_mapOverlay != null) ...[
+                        const SizedBox(height: EomSpacing.md),
+                        _buildConnectionsSection(),
+                      ],
+
+                      EomAppear(
+                        key: const Key('eom-appear-processing'),
+                        visible: _isProcessing,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: EomSpacing.xl),
+                          child: _buildProcessingIndicator(),
                         ),
                       ),
                     ],
-
-                    if (_blankHint != null) ...[
-                      const SizedBox(height: EomSpacing.sm),
-                      Text(
-                        _blankHint!,
-                        style: const TextStyle(
-                          color: EomColors.textTertiary,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-
-                    // Intent buttons — deferred until text; never inside the leaf
-                    if (hasInput || _response != null) ...[
-                      const SizedBox(height: EomSpacing.lg),
-                      _buildIntentBar(),
-                    ],
-
-                    // F10 — prior turns stay visible above the latest card
-                    if (priorTurns.isNotEmpty) ...[
-                      const SizedBox(height: EomSpacing.xl),
-                      _buildPriorTurns(priorTurns),
-                    ],
-
-                    // Response
-                    if (_response != null) ...[
-                      const SizedBox(height: EomSpacing.xl),
-                      RepaintBoundary(
-                        child: ResponseCard(
-                          text: _response!.text,
-                          accentColor: _response!.intent.color,
-                          isError: _response!.isError,
-                          onOpenSettings: _response!.offerSettings
-                              ? () {
-                                  unawaited(_openSettings());
-                                }
-                              : null,
-                        ),
-                      ),
-                    ],
-
-                    // Tree view (for Map intent) — F11 framing
-                    if (_response?.tree != null) ...[
-                      const SizedBox(height: EomSpacing.lg),
-                      Text('Your map', style: EomTheme.orientationLabel()),
-                      const SizedBox(height: EomSpacing.sm),
-                      ThoughtTreeView(root: _response!.tree!),
-                    ],
-
-                    // Epistemic graph overlay — F11 collapsed by default
-                    if (_mapOverlay != null) ...[
-                      const SizedBox(height: EomSpacing.md),
-                      _buildConnectionsSection(),
-                    ],
-
-                    // Processing indicator
-                    if (_isProcessing) ...[
-                      const SizedBox(height: EomSpacing.xl),
-                      _buildProcessingIndicator(),
-                    ],
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -537,13 +557,18 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 10),
           Text('EOM', style: EomTheme.displayTitle()),
           const Spacer(),
-          if (_response != null)
-            IconButton(
+          EomAppear(
+            key: const Key('eom-appear-new-thought'),
+            visible: _response != null,
+            expandWidth: false,
+            alignment: Alignment.center,
+            child: IconButton(
               onPressed: _confirmNewThought,
               icon: const Icon(Icons.refresh_outlined, size: 20),
               color: EomColors.textTertiary,
               tooltip: 'New thought',
             ),
+          ),
           IconButton(
             onPressed: _openHistory,
             color: EomColors.textTertiary,
@@ -552,12 +577,16 @@ class _HomeScreenState extends State<HomeScreen> {
               clipBehavior: Clip.none,
               children: [
                 const Icon(Icons.history_outlined, size: 20),
-                if (_hasSavedHistory)
-                  Positioned(
-                    key: const Key('history-presence'),
-                    right: -1,
-                    top: -1,
+                Positioned(
+                  right: -1,
+                  top: -1,
+                  child: EomAppear(
+                    key: const Key('eom-appear-history-pip'),
+                    visible: _hasSavedHistory,
+                    expandWidth: false,
+                    alignment: Alignment.center,
                     child: Container(
+                      key: const Key('history-presence'),
                       width: 6,
                       height: 6,
                       decoration: const BoxDecoration(
@@ -566,6 +595,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                ),
               ],
             ),
           ),

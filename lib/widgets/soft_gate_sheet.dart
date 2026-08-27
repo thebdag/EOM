@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
+import '../theme/eom_motion.dart';
 import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
 import 'guide_fields.dart';
@@ -27,6 +28,7 @@ class SoftGateSheet extends StatefulWidget {
       backgroundColor: EomColors.surface,
       elevation: 0,
       isScrollControlled: true,
+      sheetAnimationStyle: EomMotion.sheetStyle,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(EomShapes.radiusMd),

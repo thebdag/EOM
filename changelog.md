@@ -12,6 +12,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- Calm Material 3 utility motion (`EomMotion`, fade page routes, `EomAppear`,
+  clamping scroll). Soft-gate sheets use `EomMotion.sheetStyle`.
 - `SettingsService.keyFor` / `setKey` so soft-gate and Settings share one
   provider-key seam. `OrientationCta` + `OrientationDisclosure` for gold
   sans actions and Advanced/Connections rows.
@@ -21,6 +23,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   every transcript.
 
 ### Changed
+- Home intent bar, blank hint, processing, History pip, and New-thought
+  appear through `EomAppear`; canvas padding animates. Thought tree fades
+  in; History Read more uses `AnimatedSize`; Settings key field crossfades
+  on provider change.
 - Home `setState` on input only when emptiness or the blank hint flips.
 - Settings persist writes dirty keys only. Soft-gate Connect uses a
   `ValueListenableBuilder` (no per-keystroke sheet rebuild).
