@@ -5,6 +5,7 @@ All notable changes to the EOM project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Android APK:** a sideloadable release build (`flutter build apk --release`). GitHub Actions uploads `eom-android-apk`. Requires Android 8.0+.
 - **Calm motion (EOM-S30):** screens fade instead of zoom; session chrome (intents, hints, processing) eases in (hide snaps off). No bounce, no springs. iOS keeps Cupertino pop (500ms exception). Soft-gate sheet motion honors reduce-motion via `EomMotion.sheetStyleOf`.
 - **Session continuity (EOM-E4 / EOM-S24):** tap a History row to reopen it on Home; multi-turn sessions keep earlier turns visible; **New thought** asks before clearing the on-screen session.
 - **Map framing (EOM-S24):** Map responses label the concept tree as **Your map**; the confidence graph sits under collapsible **Connections** (collapsed by default).
