@@ -28,8 +28,15 @@ jobs:
       - name: Run Tests with Coverage
         run: flutter test --coverage
 
-      - name: Build
-        run: flutter build appbundle --debug --no-pub
+      - name: Build APK
+        run: flutter build apk --release --no-pub
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: eom-android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v3

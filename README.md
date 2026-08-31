@@ -102,6 +102,24 @@ On Android and iOS, first launch uses **On this device**. Open **Settings**
 (the gear) to pick a cloud provider or LiteLLM. On desktop, Settings is
 required before the first intent.
 
+### Install on Android
+
+Requires **Android 8.0+** (API 26). Sideload a release APK — CI uploads
+`eom-android-apk` on every GitHub Actions run, or build it locally:
+
+```bash
+flutter build apk --release
+```
+
+The file is `build/app/outputs/flutter-apk/app-release.apk`. Copy it to
+the phone, enable **Install unknown apps** for the Files app (or your
+browser), and open the APK.
+
+Then open **EOM**. **On this device** works on phones with Google AICore
+(typically Pixel). Cloud Guides need an API key. A LiteLLM gateway on
+your LAN should use `http://<lan-ip>:4000` (not `127.0.0.1` — that is
+the phone itself).
+
 ---
 
 ## Session History

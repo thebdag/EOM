@@ -11,6 +11,7 @@ EOM/
 ├── learnings.md               # Running log of bugs to avoid, gotchas, and best practices
 ├── README.md                  # Project overview and setup instructions
 ├── pubspec.yaml               # Flutter package dependencies and assets (incl. Cormorant Garamond)
+├── .github/workflows/build.yml # Tests, coverage, SonarQube, upload eom-android-apk
 ├── assets/
 │   └── fonts/                 # Bundled orientation serif (Cormorant Garamond Medium + OFL)
 │

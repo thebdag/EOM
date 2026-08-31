@@ -13,6 +13,12 @@ when relevant.
 
 ## Bugs To Avoid
 
+- **2026-08-31 — Release APKs do not inherit debug INTERNET** — Flutter
+  only puts `INTERNET` in `debug`/`profile` manifests (for hot reload).
+  Sideload/release builds need it on `android/app/src/main/AndroidManifest.xml`
+  or cloud Guides fail with a socket error. LiteLLM on a phone also needs
+  `usesCleartextTraffic` plus a LAN IP, not `127.0.0.1`.
+
 - **2026-08-13 — Reopened History must separate context from the composer** —
   putting the saved input in both `_history` and the text field resends it on
   the next intent. Keep the composer empty, retain the saved pair as provider

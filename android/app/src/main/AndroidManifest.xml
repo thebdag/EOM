@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required in the main manifest so release/sideload APKs can reach
+         cloud Guides. Debug/profile already declare this for hot reload. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="eom"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:allowBackup="false">
+        android:allowBackup="false"
+        android:usesCleartextTraffic="true">
+        <!-- Cleartext: LiteLLM on a LAN is http://, not https. -->
         <!-- AICore is optional so the APK still installs on devices without it. -->
         <uses-library
             android:name="com.google.android.aicore"
