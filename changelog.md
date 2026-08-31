@@ -16,6 +16,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `flutter build apk --release`. Main manifest declares `INTERNET` and
   allows cleartext so cloud Guides and a LAN LiteLLM gateway work off a
   phone (debug-only INTERNET is not merged into release).
+- Flutter 3.47 Android migrator flags in `android/gradle.properties`
+  (`android.builtInKotlin=false`, `android.newDsl=false`) so the APK
+  build matches current AGP 8.11 / Kotlin 2.2.20.
 - **On this device** Guide (`ON_DEVICE`): OS-managed on-device inference
   when packaged for Android (ML Kit GenAI Prompt API / AICore) or iOS
   (Foundation Models). Distinct from LiteLLM (`LOCAL`). Compact prompts,
