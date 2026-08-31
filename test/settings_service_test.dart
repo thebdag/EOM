@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:eom/models/llm_provider_kind.dart';
 import 'package:eom/services/settings_service.dart';
@@ -5,10 +6,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('activeProvider (EOM-S10)', () {
-    test('defaults to the fallback kind when unset', () async {
+    test('defaults to the platform unset default when unset', () async {
       SharedPreferences.setMockInitialValues({});
       await SettingsService.init();
-      expect(SettingsService.activeProvider, LlmProviderKind.fallback);
+      expect(
+        SettingsService.activeProvider,
+        SettingsService.unsetDefaultFor(defaultTargetPlatform),
+      );
+    });
+
+    test('unset default is on-device on Android and iOS', () {
+      expect(
+        SettingsService.unsetDefaultFor(TargetPlatform.android),
+        LlmProviderKind.onDevice,
+      );
+      expect(
+        SettingsService.unsetDefaultFor(TargetPlatform.iOS),
+        LlmProviderKind.onDevice,
+      );
+      expect(
+        SettingsService.unsetDefaultFor(TargetPlatform.linux),
+        LlmProviderKind.gemini,
+      );
     });
 
     test('round-trips enum values', () async {
@@ -26,15 +45,26 @@ void main() {
   });
 
   group('hasUsableGuide (EOM-S26)', () {
-    test('is false when no keys are stored (gemini fallback)', () async {
+    test('is true when the unset default needs no credential', () async {
       SharedPreferences.setMockInitialValues({});
       await SettingsService.init();
+      expect(
+        SettingsService.hasUsableGuide,
+        !SettingsService.activeProvider.requiresCredential,
+      );
+    });
+
+    test('is false when Gemini is active and no keys are stored', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.gemini);
       expect(SettingsService.hasUsableGuide, isFalse);
     });
 
     test('is true when the active provider has a key', () async {
       SharedPreferences.setMockInitialValues({});
       await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.gemini);
       await SettingsService.setGeminiKey('sk-test');
       expect(SettingsService.hasUsableGuide, isTrue);
     });
@@ -42,6 +72,7 @@ void main() {
     test('ignores a key on a non-active provider', () async {
       SharedPreferences.setMockInitialValues({});
       await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.gemini);
       await SettingsService.setOpenAiKey('sk-openai');
       expect(SettingsService.activeProvider, LlmProviderKind.gemini);
       expect(SettingsService.hasUsableGuide, isFalse);
@@ -62,6 +93,16 @@ void main() {
       expect(SettingsService.hasUsableGuide, isFalse);
       await SettingsService.setLocalApiKey('master');
       expect(SettingsService.hasUsableGuide, isTrue);
+    });
+
+    test('on-device is usable without a key', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.onDevice);
+      expect(SettingsService.hasUsableGuide, isTrue);
+      expect(SettingsService.keyFor(LlmProviderKind.onDevice), isEmpty);
+      await SettingsService.setKey(LlmProviderKind.onDevice, 'ignored');
+      expect(SettingsService.keyFor(LlmProviderKind.onDevice), isEmpty);
     });
   });
 
@@ -127,6 +168,7 @@ void main() {
     test('hasUsableGuide reads keyFor of the active provider', () async {
       SharedPreferences.setMockInitialValues({});
       await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.gemini);
       await SettingsService.setKey(LlmProviderKind.anthropic, 'sk-ant');
       expect(SettingsService.hasUsableGuide, isFalse);
       await SettingsService.setActiveProvider(LlmProviderKind.anthropic);

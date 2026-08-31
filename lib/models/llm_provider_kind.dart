@@ -11,7 +11,8 @@ enum LlmProviderKind {
     keyHint: 'API Key (sk-ant-...)',
   ),
   gemini(id: 'GEMINI', label: 'Google Gemini', keyHint: 'API Key'),
-  local(id: 'LOCAL', label: 'LiteLLM', keyHint: 'Master Key (required)');
+  local(id: 'LOCAL', label: 'LiteLLM', keyHint: 'Master Key (required)'),
+  onDevice(id: 'ON_DEVICE', label: 'On this device', keyHint: '');
 
   const LlmProviderKind({
     required this.id,
@@ -26,9 +27,14 @@ enum LlmProviderKind {
   final String label;
 
   /// Hint for the essential credential field (soft gate + Settings).
+  /// Empty when [requiresCredential] is false.
   final String keyHint;
 
-  /// The kind used when no preference has been saved yet.
+  /// Cloud / LiteLLM slots need a stored key; the OS on-device Guide does not.
+  bool get requiresCredential => this != LlmProviderKind.onDevice;
+
+  /// Unknown persisted ids map here. Unset preference uses
+  /// [SettingsService.unsetDefaultFor] (on-device on Android/iOS).
   static const LlmProviderKind fallback = LlmProviderKind.gemini;
 
   /// Parses a persisted provider id, mapping the legacy `OLLAMA`
@@ -41,5 +47,20 @@ enum LlmProviderKind {
       (k) => k.id == normalized,
       orElse: () => fallback,
     );
+  }
+
+  /// Kinds shown in the Guide picker.
+  ///
+  /// [onDevice] is offered only on Android/iOS. If it is already [selected]
+  /// (a saved preference opened on desktop), it stays in the list so the
+  /// dropdown value remains valid — generate still fails with calm copy.
+  static List<LlmProviderKind> pickerKinds({
+    required bool includeOnDevice,
+    LlmProviderKind? selected,
+  }) {
+    return values.where((kind) {
+      if (kind != onDevice) return true;
+      return includeOnDevice || selected == onDevice;
+    }).toList();
   }
 }

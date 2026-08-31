@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/guide_prefs.dart';
 import 'helpers/in_memory_epistemic_store.dart';
 import 'helpers/ux_harness.dart';
 
@@ -19,6 +20,7 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await persistGeminiGuideWithoutKey();
     store = InMemoryStore();
   });
 

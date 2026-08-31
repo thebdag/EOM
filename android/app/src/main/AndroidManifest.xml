@@ -4,6 +4,10 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false">
+        <!-- AICore is optional so the APK still installs on devices without it. -->
+        <uses-library
+            android:name="com.google.android.aicore"
+            android:required="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

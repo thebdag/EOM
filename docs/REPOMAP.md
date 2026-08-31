@@ -21,7 +21,8 @@ EOM/
 │   ├── ui_spirit_enhancement_plan.md  # Epiture-kinship UI/UX spirit plan (Family; soft gate; calm Settings)
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
-│       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
+│       ├── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
+│       └── 0003-on-device-means-os-foundation-models.md  # ON_DEVICE ≠ LOCAL; AICore / Foundation Models
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
@@ -36,13 +37,13 @@ EOM/
 │   │   ├── epistemic_query_result.dart # BFS traversal result: root + nodes + unique edges (EOM-T17)
 │   │   ├── epistemic_relationship.dart # EpistemicRelationship model + type enum (EOM-T4)
 │   │   ├── intent.dart          # CognitiveIntent enum (Clarify, Compress, Map, etc.)
-│   │   ├── llm_provider_kind.dart # LlmProviderKind enum: provider identity + OLLAMA→LOCAL legacy mapping (EOM-S10)
+│   │   ├── llm_provider_kind.dart # LlmProviderKind enum: provider identity + OLLAMA→LOCAL + ON_DEVICE (EOM-S10)
 │   │   └── thought_node.dart    # Recursive node structure for the Map tree view (+ fromJson/tryParseRaw, EOM-S14)
 │   │
 │   ├── screens/
 │   │   ├── history_screen.dart  # Saved sessions: empty CTA, clear confirm (S19); row reopen → Home (S24/F8); Clarify + Read more (S29/F14)
 │   │   ├── home_screen.dart     # Vault UI: ceremonial empty (S26), soft gate (S27), blank-input hint (F13), History pip (F15), prior-turn thread (F10), Map framing (F11), New-thought confirm (F16), calm errors (S18)
-│   │   └── settings_screen.dart # Calm Settings: active-only key, collapsed Advanced, Epiture footer (S28 / F4)
+│   │   └── settings_screen.dart # Calm Settings: active-only key or on-device status, collapsed Advanced, Epiture footer (S28 / F4)
 │   │
 │   ├── services/
 │   │   ├── ai_service.dart      # Intent router + ---EPISTEMIC--- epilogue splitting (prompts/parsing live in intent_config.dart)
@@ -52,7 +53,8 @@ EOM/
 │   │   ├── history_service.dart # Persistent storage for session logs (Hive)
 │   │   ├── intent_config.dart   # Per-intent prompt builder + epilogue JSON→operation routing (EOM-S14)
 │   │   ├── intent_error.dart    # Maps provider/auth failures to calm copy + Settings recovery (EOM-S18)
-│   │   ├── llm_provider.dart    # LlmProvider interface, ChatMessage, provider clients, shared chat-completions helper (EOM-S11, S13)
+│   │   ├── llm_provider.dart    # LlmProvider interface, ChatMessage, provider clients, shared chat-completions helper, OnDeviceProvider (EOM-S11, S13)
+│   │   ├── on_device_llm.dart   # MethodChannel client for OS on-device models (AICore / Foundation Models)
 │   │   ├── settings_service.dart# SharedPreferences wrapper for persistent storage
 │   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
 │   │
@@ -65,7 +67,7 @@ EOM/
 │   └── widgets/
 │       ├── empty_vault_panel.dart # Ceremonial leaf-framed empty canvas + Connect CTA (EOM-S26)
 │       ├── eom_appear.dart      # Fade-in appear; snap-unmount hide (EOM-S30)
-│       ├── guide_fields.dart    # Shared provider picker + key field (soft gate + Settings, S27/S28)
+│       ├── guide_fields.dart    # Shared provider picker + key field + on-device status (soft gate + Settings, S27/S28)
 │       ├── orientation_chrome.dart # Gold sans CTA + Advanced/Connections disclosure
 │       ├── soft_gate_sheet.dart # First-run / no-key connect sheet (EOM-S27 / F1 / F5)
 │       ├── epistemic_graph_view.dart # Radial epistemic subgraph overlay, nodes coloured by confidence (EOM-T18); shown under collapsible Connections on Home (S24/F11)
@@ -99,6 +101,8 @@ EOM/
     ├── epistemic_relationship_test.dart # Edge round-trip, type enum (EOM-T4)
     ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
+    ├── helpers/fake_on_device_llm.dart # In-memory OnDeviceLlmClient for tests
+    ├── helpers/guide_prefs.dart # persistGeminiGuideWithoutKey (credential-gate tests)
     ├── helpers/ux_harness.dart  # Shared SilentLlmProvider, FakeHistory, pumpEomHome
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
     ├── home_screen_test.dart      # Injected-service flows: clarify/map, friendly errors, New-thought confirm, Connections expand (S12, S18, S24)
@@ -107,9 +111,11 @@ EOM/
     ├── ux_eom_s28_settings_test.dart # Calm Settings: active-only + Advanced + lineage (EOM-S28 / F4)
     ├── ux_eom_s29_polish_test.dart # F12–F15 polish: contrast, blank hint, History, pip, leaf (EOM-S29)
     ├── ux_eom_s30_motion_test.dart # Calm M3 motion: snap-hide, iOS 500ms exception (EOM-S30)
+    ├── ux_on_device_guide_test.dart # On-device picker / soft gate / Settings status
     ├── intent_config_test.dart    # Per-intent prompt contract + operation routing (EOM-S14)
     ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
-    ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage (EOM-S10, S11)
+    ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage
+    ├── on_device_llm_test.dart     # Fake channel + OnDeviceProvider prepare/generate (no device)
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization + hasUsableGuide (S26)
     ├── thought_node_test.dart     # Logic tests for tree structure management

@@ -72,17 +72,19 @@ Tokens live in `lib/theme/eom_colors.dart`. Roles:
 * **Empty canvas (ceremonial):** Vault-room margins; leaf-radius panel around
   the blank input only (not pills). Serif EOM + gold brand mark. Quiet
   **Connect a guide** when the active provider has no usable key (opens
-  the soft-gate sheet). Intents stay deferred until there is text.
+  the soft-gate sheet). Android/iOS first launch uses **On this device**
+  (no key, no Connect). Intents stay deferred until there is text.
 * **Intent Buttons (Clarify, Compress, Map, Reflect, Act):** Pill-shaped,
   muted background; idle pills show a short description subtitle (EOM-S20).
   Intents stay deferred until there is text (calm first paint). A blank-field
   tap after a response shows a calm hint ("Write a thought first.") — never
   a silent no-op (F13).
-* **Soft gate (first-run / no key):** Quiet connect path — bottom sheet or
-  panel with provider pick + essential key fields only. Same sheet if an
-  intent is tapped without a usable key. Never a hard blocking wall; never
-  silent fail. Plain-language CTA (e.g. "Connect a guide"), gold-accented
-  sparingly.
+* **Soft gate (first-run / no key):** Quiet connect path when the active
+  Guide needs a credential — bottom sheet or panel with provider pick +
+  essential key fields only. Same sheet if an intent is tapped without a
+  usable key. Packaged Android/iOS skip this on first launch (On this
+  device). Never a hard blocking wall; never silent fail. Plain-language
+  CTA (e.g. "Connect a guide"), gold-accented sparingly.
 * **Settings:** Active-provider fields only by default; Advanced (LiteLLM /
   gateway / model alias) behind one collapsed disclosure. Soft-gate and
   Settings share field widgets. Quiet Epiture lineage line in footer/About

@@ -65,6 +65,11 @@ Settings screen:
 - **Google Gemini**
 - **LiteLLM** — a local gateway that lets you run open-source models on
   your own hardware, keeping everything entirely offline if you prefer.
+- **On this device** (default on Android and iOS) — the OS on-device
+  model (Gemini Nano via AICore on supported Android phones; Apple
+  Foundation Models on iOS 26+ with Apple Intelligence). No API key.
+  Switch to OpenAI, Anthropic, Gemini, or LiteLLM in Settings anytime.
+  If the phone has no on-device model, first thought offers Settings.
 
 ---
 
@@ -74,9 +79,10 @@ Settings screen:
 
 - [Flutter](https://docs.flutter.dev/get-started/install) installed on your
   computer.
-- An API key from at least one AI provider (OpenAI, Anthropic, or Google),
-  **or** a running [LiteLLM](https://docs.litellm.ai/) gateway for local
-  models.
+- Android/iOS: no key required to start (On this device). Optional: an
+  API key (OpenAI, Anthropic, or Google) or a running
+  [LiteLLM](https://docs.litellm.ai/) gateway.
+- Desktop: an API key **or** a LiteLLM gateway.
 
 ### Run the App
 
@@ -92,8 +98,9 @@ flutter pub get
 flutter run
 ```
 
-On first launch, open **Settings** (the gear icon in the top-right corner)
-to select your AI provider and enter your credentials.
+On Android and iOS, first launch uses **On this device**. Open **Settings**
+(the gear) to pick a cloud provider or LiteLLM. On desktop, Settings is
+required before the first intent.
 
 ---
 

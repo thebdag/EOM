@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/guide_prefs.dart';
+
 Finder fieldByHint(String hint) => find.byWidgetPredicate(
   (w) => w is TextField && w.decoration?.hintText == hint,
 );
@@ -18,6 +20,7 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await persistGeminiGuideWithoutKey();
   });
 
   Future<void> pumpSettings(WidgetTester tester) async {

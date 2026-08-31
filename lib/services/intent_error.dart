@@ -21,6 +21,14 @@ class IntentError {
       );
     }
 
+    if (_isOnDeviceFailure(msg)) {
+      return const IntentError(
+        message:
+            'On-device isn\'t available here. Choose another Guide in Settings.',
+        offerSettings: true,
+      );
+    }
+
     if (_isProviderConfig(msg)) {
       return const IntentError(
         message:
@@ -48,6 +56,14 @@ class IntentError {
         lower.contains('api key is missing') ||
         lower.contains('master key is required') ||
         lower.contains('model alias is missing');
+  }
+
+  static bool _isOnDeviceFailure(String msg) {
+    final lower = msg.toLowerCase();
+    return lower.contains('on-device') ||
+        lower.contains('aicore') ||
+        lower.contains('apple intelligence') ||
+        lower.contains('foundation model');
   }
 
   static bool _isProviderConfig(String msg) {

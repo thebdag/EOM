@@ -12,6 +12,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- **On this device** Guide (`ON_DEVICE`): OS-managed on-device inference
+  when packaged for Android (ML Kit GenAI Prompt API / AICore) or iOS
+  (Foundation Models). Distinct from LiteLLM (`LOCAL`). Compact prompts,
+  no API key, availability in Settings. Unset preference defaults to this
+  Guide on Android/iOS (cloud/LiteLLM remain optional in Settings). Covered by
+  `test/on_device_llm_test.dart` and `test/ux_on_device_guide_test.dart`.
+  ADR `docs/adr/0003-on-device-means-os-foundation-models.md`.
 - Calm Material 3 utility motion (`EomMotion`, fade page routes, `EomAppear`,
   clamping scroll). Soft-gate sheets use `EomMotion.sheetStyleOf`.
 - `SettingsService.keyFor` / `setKey` so soft-gate and Settings share one
@@ -21,6 +28,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   inline error that blocks pop.
 - `HistoryService.hasConversations` for the History pip without parsing
   every transcript.
+
+### Fixed
+- Android on-device plugin compiles against ML Kit GenAI Prompt
+  `1.0.0-beta2` (`DownloadStatus` in `genai.common`, `PromptPrefix`
+  instead of unpublished `SystemInstruction`).
 
 ### Changed
 - Soft-gate sheet animation goes through `EomMotion.sheetStyleOf` so
