@@ -23,6 +23,15 @@ void main() {
       expect(err.message, isNot(contains('{"error"')));
     });
 
+    test('maps on-device failures to Settings recovery', () {
+      final err = IntentError.from(
+        Exception('On-device Error: Gemini Nano is not available'),
+      );
+      expect(err.offerSettings, isTrue);
+      expect(err.message.toLowerCase(), contains('on-device'));
+      expect(err.message, isNot(contains('Gemini Nano')));
+    });
+
     test('maps unknown failures to calm copy without Settings', () {
       final err = IntentError.from(Exception('provider exploded'));
       expect(err.offerSettings, isFalse);

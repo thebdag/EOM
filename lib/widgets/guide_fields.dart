@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import '../models/llm_provider_kind.dart';
+import '../services/on_device_llm.dart';
 import '../theme/eom_colors.dart';
 import '../theme/eom_shapes.dart';
 import '../theme/eom_theme.dart';
@@ -61,8 +64,22 @@ class ProviderPicker extends StatelessWidget {
   final LlmProviderKind value;
   final ValueChanged<LlmProviderKind> onChanged;
 
+  bool get _includeOnDevice {
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final kinds = LlmProviderKind.pickerKinds(
+      includeOnDevice: _includeOnDevice,
+      selected: value,
+    );
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: EomSpacing.md),
       decoration: eomSurfaceDecoration(),
@@ -71,7 +88,7 @@ class ProviderPicker extends StatelessWidget {
           value: value,
           isExpanded: true,
           dropdownColor: EomColors.surface,
-          items: LlmProviderKind.values
+          items: kinds
               .map(
                 (kind) =>
                     DropdownMenuItem(value: kind, child: Text(kind.label)),
@@ -103,6 +120,46 @@ class GuideKeyField extends StatelessWidget {
       controller: controller,
       hint: provider.keyHint,
       obscure: true,
+    );
+  }
+}
+
+/// Quiet availability line for the on-device Guide (Settings).
+class OnDeviceGuideStatus extends StatefulWidget {
+  const OnDeviceGuideStatus({super.key, this.client});
+
+  final OnDeviceLlmClient? client;
+
+  @override
+  State<OnDeviceGuideStatus> createState() => _OnDeviceGuideStatusState();
+}
+
+class _OnDeviceGuideStatusState extends State<OnDeviceGuideStatus> {
+  late Future<OnDeviceAvailability> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = (widget.client ?? OnDeviceLlm.instance).availability();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<OnDeviceAvailability>(
+      future: _future,
+      builder: (context, snapshot) {
+        final copy = snapshot.hasError
+            ? 'Not available here — choose another Guide'
+            : (snapshot.data?.statusCopy ?? 'Preparing…');
+        return Text(
+          copy,
+          style: const TextStyle(
+            color: EomColors.textTertiary,
+            fontSize: 13,
+            height: 1.4,
+          ),
+        );
+      },
     );
   }
 }

@@ -1,6 +1,9 @@
 import 'dart:convert';
+
 import '../models/llm_provider_kind.dart';
+import 'on_device_llm.dart';
 import 'settings_service.dart';
+
 import 'package:http/http.dart' as http;
 
 /// Builds the concrete [LlmProvider] for a [LlmProviderKind]. Lives in the
@@ -16,6 +19,8 @@ extension LlmProviderKindFactory on LlmProviderKind {
         return LocalProvider();
       case LlmProviderKind.gemini:
         return GeminiProvider();
+      case LlmProviderKind.onDevice:
+        return OnDeviceProvider();
     }
   }
 }
@@ -48,6 +53,11 @@ abstract class LlmProvider {
     String userMessage, {
     List<ChatMessage> history = const [],
   });
+}
+
+/// On-device OS models need a short system prompt (~150 words).
+extension LlmProviderPromptBudget on LlmProvider {
+  bool get usesCompactPrompt => this is OnDeviceProvider;
 }
 
 /// Shared OpenAI-compatible chat-completions client (EOM-S13). Both
@@ -291,6 +301,55 @@ class LocalProvider implements LlmProvider {
       history: history,
       errorPrefix: 'LiteLLM Error',
       extraBody: const {'stream': false},
+    );
+  }
+}
+
+/// OS-managed on-device Guide (provider id `ON_DEVICE`).
+///
+/// Android: ML Kit GenAI Prompt API via AICore (Gemini Nano).
+/// iOS 26+: Foundation Models. Not LiteLLM — see ADR 0003.
+class OnDeviceProvider implements LlmProvider {
+  OnDeviceProvider({OnDeviceLlmClient? client})
+    : _client = client ?? OnDeviceLlm.instance;
+
+  final OnDeviceLlmClient _client;
+
+  /// Last two conversation turns (user + assistant = 4 messages).
+  static const int historyMessageCap = 4;
+
+  /// Keeps the most recent [historyMessageCap] messages.
+  static List<ChatMessage> truncateHistory(List<ChatMessage> history) {
+    if (history.length <= historyMessageCap) return history;
+    return history.sublist(history.length - historyMessageCap);
+  }
+
+  @override
+  Future<String> generate(
+    String systemPrompt,
+    String userMessage, {
+    List<ChatMessage> history = const [],
+  }) async {
+    final trimmed = truncateHistory(history);
+    var status = await _client.availability();
+    if (status.kind == OnDeviceAvailabilityKind.unavailable) {
+      throw Exception(
+        'On-device Error: ${status.reason ?? 'model unavailable'}',
+      );
+    }
+    if (status.needsPrepare) {
+      await _client.prepare();
+      status = await _client.availability();
+      if (!status.isReady) {
+        throw Exception(
+          'On-device Error: ${status.reason ?? 'model unavailable'}',
+        );
+      }
+    }
+    return _client.generate(
+      systemPrompt: systemPrompt,
+      userMessage: userMessage,
+      history: trimmed.map((m) => m.toJson()).toList(),
     );
   }
 }

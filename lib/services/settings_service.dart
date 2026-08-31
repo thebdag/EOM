@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/llm_provider_kind.dart';
 
 class SettingsService {
@@ -71,11 +72,20 @@ class SettingsService {
   }
 
   /// Essential credential for [kind] (cloud API key or LiteLLM master key).
-  static String keyFor(LlmProviderKind kind) =>
-      _prefs.getString(_providerKeyPreferences[kind]!) ?? '';
+  ///
+  /// Kinds without a credential (the OS on-device Guide) return empty and
+  /// [setKey] is a no-op.
+  static String keyFor(LlmProviderKind kind) {
+    final pref = _providerKeyPreferences[kind];
+    if (pref == null) return '';
+    return _prefs.getString(pref) ?? '';
+  }
 
-  static Future<void> setKey(LlmProviderKind kind, String key) async =>
-      await _setString(_providerKeyPreferences[kind]!, key.trim());
+  static Future<void> setKey(LlmProviderKind kind, String key) async {
+    final pref = _providerKeyPreferences[kind];
+    if (pref == null) return;
+    await _setString(pref, key.trim());
+  }
 
   // OpenAI Key
   static String get openAiKey => keyFor(LlmProviderKind.openai);
@@ -126,11 +136,15 @@ class SettingsService {
   static Future<void> setLocalApiKey(String key) async =>
       await setKey(LlmProviderKind.local, key);
 
-  /// Whether the *active* provider has the credential needed to run an intent.
+  /// Whether the *active* provider can run an intent without opening the gate.
   ///
-  /// Used by the empty-state Connect CTA (EOM-S26). A key on a different
-  /// provider does not count.
-  static bool get hasUsableGuide => keyFor(activeProvider).isNotEmpty;
+  /// Credentialed Guides need a stored key. The on-device Guide is usable
+  /// once selected — availability is checked at generate time (EOM-S26).
+  static bool get hasUsableGuide {
+    final kind = activeProvider;
+    if (!kind.requiresCredential) return true;
+    return keyFor(kind).isNotEmpty;
+  }
 
   static Future<void> _setString(String preference, String value) async {
     final saved = await _prefs.setString(preference, value);

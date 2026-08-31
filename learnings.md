@@ -114,6 +114,15 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-31 — On-device ≠ LiteLLM** — `LOCAL` stays the LiteLLM
+  gateway (ADR 0001). Phone OS models are `ON_DEVICE` / **On this device**.
+  Gemini Nano system instructions should stay under ~150 words; use
+  `buildPrompt(..., compact: true)` plus `AiService.compactContext`. Fake
+  the MethodChannel in tests — CI has no AICore or Foundation Models.
+  Override platform in widget tests with `TargetPlatformVariant`, not a
+  raw `debugDefaultTargetPlatformOverride` (the test binding asserts it
+  was restored).
+
 - **2026-08-27 — First-frame misses are layout clips, not opacity 0 (EOM-S30)** —
   `AnimatedSize` shrinks the hit box even with `Clip.none`. Flutter's
   `FadeTransition` still hit-tests at opacity 0 (wrap with `IgnorePointer`

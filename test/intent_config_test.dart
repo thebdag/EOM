@@ -29,6 +29,42 @@ void main() {
       expect(CognitiveIntent.act.buildPrompt('M'), contains('"actionable"'));
     });
 
+    test('each compact prompt carries its epilogue contract', () {
+      expect(
+        CognitiveIntent.clarify.buildPrompt('M', compact: true),
+        contains('"clarified"'),
+      );
+      expect(
+        CognitiveIntent.compress.buildPrompt('M', compact: true),
+        contains('"principle"'),
+      );
+      expect(
+        CognitiveIntent.map.buildPrompt('M', compact: true),
+        contains('"relationships"'),
+      );
+      expect(
+        CognitiveIntent.reflect.buildPrompt('M', compact: true),
+        contains('"contradictions"'),
+      );
+      expect(
+        CognitiveIntent.act.buildPrompt('M', compact: true),
+        contains('"actionable"'),
+      );
+    });
+
+    test('compact prompts stay under 150 words with compactContext', () {
+      for (final intent in CognitiveIntent.values) {
+        final prompt =
+            '${AiService.compactContext}\n\n${intent.buildPrompt(AiService.epistemicMarker, compact: true)}';
+        final words = prompt
+            .split(RegExp(r'\s+'))
+            .where((w) => w.isNotEmpty)
+            .length;
+        expect(words, lessThanOrEqualTo(150), reason: intent.name);
+        expect(prompt, contains(AiService.epistemicMarker));
+      }
+    });
+
     test('only map produces a tree', () {
       for (final intent in CognitiveIntent.values) {
         expect(intent.producesTree, intent == CognitiveIntent.map);

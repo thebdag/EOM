@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import '../models/epistemic_operation.dart';
 import '../models/intent.dart';
 import '../models/thought_node.dart';
@@ -94,6 +95,11 @@ class AiService {
   static const defaultContext =
       'Use plain language. Your ethics are empowering, encouraging, and truth telling, balanced as in taoism, redemptive as in christianity. never use religious language. detect sentiment from user input: if more chaotic, encourage toward balanced order. If too ordlery, encourage toward balanced chaos';
 
+  /// Short ethics line prepended when [LlmProviderPromptBudget.usesCompactPrompt]
+  /// is true (OS on-device models).
+  static const compactContext =
+      'Use plain language. Be encouraging and truthful. Never use religious language. If chaotic, nudge toward balance; if too rigid, toward flexibility.';
+
   Future<AiResponse> process(
     String input,
     CognitiveIntent intent, {
@@ -101,8 +107,9 @@ class AiService {
   }) async {
     final provider = _getProvider();
 
-    final systemPrompt =
-        '$defaultContext\n\n${intent.buildPrompt(epistemicMarker)}';
+    final systemPrompt = provider.usesCompactPrompt
+        ? '$compactContext\n\n${intent.buildPrompt(epistemicMarker, compact: true)}'
+        : '$defaultContext\n\n${intent.buildPrompt(epistemicMarker)}';
 
     try {
       final textResponse = await provider.generate(

@@ -18,7 +18,11 @@ extension CognitiveIntentOps on CognitiveIntent {
 
   /// The intent-specific system-prompt section. [marker] is the delimiter
   /// the LLM must emit before its JSON epilogue (`AiService.epistemicMarker`).
-  String buildPrompt(String marker) {
+  ///
+  /// [compact] is the on-device budget (Gemini Nano system instructions
+  /// should stay under ~150 words including [AiService.compactContext]).
+  String buildPrompt(String marker, {bool compact = false}) {
+    if (compact) return _compactPrompt(marker);
     switch (this) {
       case CognitiveIntent.clarify:
         return 'You are an epistemic agent helping the user clarify their thoughts. '
@@ -68,6 +72,38 @@ extension CognitiveIntentOps on CognitiveIntent {
             'identifying the belief the action rests on: {"actionable": "the highest-confidence belief to act on", '
             '"confidence": 0.0-1.0, "keywords": ["concept", "keywords"]}. '
             'No markdown fences around the JSON.';
+    }
+  }
+
+  String _compactPrompt(String marker) {
+    switch (this) {
+      case CognitiveIntent.clarify:
+        return 'Clarify the thought. Name the surface concern and deeper current. '
+            'End with one question. Then a new line, "$marker", then JSON: '
+            '{"clarified":"one sentence","type":"belief"|"knowledge"|"hypothesis",'
+            '"category":$_categoryValues,"confidence":0-1,"keywords":["..."]}. '
+            'No fences.';
+      case CognitiveIntent.compress:
+        return 'Reduce the thought to essence a child would grasp. '
+            'Write **Core:** then **In one line:**. Then a new line, "$marker", '
+            'then JSON: {"principle":"...","type":"knowledge"|"belief"|"hypothesis",'
+            '"category":$_categoryValues,"confidence":0-1,"keywords":["..."]}. '
+            'No fences.';
+      case CognitiveIntent.map:
+        return 'In 1-2 sentences, how the ideas connect. Then a new line, '
+            '"$marker", then JSON: {"label":"You","children":[{"label":"Category",'
+            '"children":[{"label":"Concept"}]}],"relationships":[{"source":"A",'
+            '"target":"B","type":"supports"|"contradicts"|"refines"|"is-example-of"}]}. '
+            'Empty relationships if none. No fences.';
+      case CognitiveIntent.reflect:
+        return 'Offer a brief perspective shift and invite more journaling. '
+            'Then a new line, "$marker", then JSON: {"contradictions":[{"statement":'
+            '"...","conflicts_with":"..."}],"low_confidence":["..."]}. '
+            'Empty lists if none. No fences.';
+      case CognitiveIntent.act:
+        return 'Three steps: 1. Right now (10 mins), 2. Today, 3. This week. '
+            'Then a new line, "$marker", then JSON: {"actionable":"...","confidence":0-1,'
+            '"keywords":["..."]}. No fences.';
     }
   }
 

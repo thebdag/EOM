@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/llm_provider_kind.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
@@ -69,12 +70,14 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
 
   Future<void> _defaultPersist(LlmProviderKind provider, String key) async {
     await SettingsService.setActiveProvider(provider);
-    await SettingsService.setKey(provider, key);
+    if (provider.requiresCredential) {
+      await SettingsService.setKey(provider, key);
+    }
   }
 
   Future<void> _connect() async {
     final key = _keyController.text.trim();
-    if (key.isEmpty) {
+    if (_provider.requiresCredential && key.isEmpty) {
       setState(() => _error = 'Add a key to connect.');
       return;
     }
@@ -113,9 +116,11 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
           children: [
             Text('Connect a guide', style: EomTheme.displayTitle()),
             const SizedBox(height: EomSpacing.xs),
-            const Text(
-              'Choose a provider and add its key. You can change this later.',
-              style: TextStyle(
+            Text(
+              _provider.requiresCredential
+                  ? 'Choose a provider and add its key. You can change this later.'
+                  : 'This guide runs on your device. You can change this later.',
+              style: const TextStyle(
                 color: EomColors.textTertiary,
                 fontSize: 14,
                 height: 1.4,
@@ -132,15 +137,19 @@ class _SoftGateSheetState extends State<SoftGateSheet> {
                 });
               },
             ),
-            const SizedBox(height: EomSpacing.md),
-            GuideKeyField(provider: _provider, controller: _keyController),
+            if (_provider.requiresCredential) ...[
+              const SizedBox(height: EomSpacing.md),
+              GuideKeyField(provider: _provider, controller: _keyController),
+            ],
             const SizedBox(height: EomSpacing.md),
             Align(
               alignment: Alignment.centerLeft,
               child: ValueListenableBuilder<TextEditingValue>(
                 valueListenable: _keyController,
                 builder: (context, value, _) {
-                  final canConnect = value.text.trim().isNotEmpty;
+                  final canConnect =
+                      !_provider.requiresCredential ||
+                      value.text.trim().isNotEmpty;
                   return OrientationCta(
                     buttonKey: const Key('soft-gate-connect'),
                     label: 'Connect',

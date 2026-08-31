@@ -14,6 +14,10 @@ void main() {
       expect(LlmProviderKind.fromString('OLLAMA'), LlmProviderKind.local);
     });
 
+    test('parses ON_DEVICE', () {
+      expect(LlmProviderKind.fromString('ON_DEVICE'), LlmProviderKind.onDevice);
+    });
+
     test('is case- and whitespace-tolerant', () {
       expect(LlmProviderKind.fromString(' openai '), LlmProviderKind.openai);
       expect(
@@ -33,6 +37,28 @@ void main() {
       expect(LlmProviderKind.anthropic.keyHint, 'API Key (sk-ant-...)');
       expect(LlmProviderKind.gemini.keyHint, 'API Key');
       expect(LlmProviderKind.local.keyHint, 'Master Key (required)');
+      expect(LlmProviderKind.onDevice.requiresCredential, isFalse);
+      expect(LlmProviderKind.gemini.requiresCredential, isTrue);
+    });
+  });
+
+  group('pickerKinds', () {
+    test('omits on-device unless included or already selected', () {
+      expect(
+        LlmProviderKind.pickerKinds(includeOnDevice: false),
+        isNot(contains(LlmProviderKind.onDevice)),
+      );
+      expect(
+        LlmProviderKind.pickerKinds(includeOnDevice: true),
+        contains(LlmProviderKind.onDevice),
+      );
+      expect(
+        LlmProviderKind.pickerKinds(
+          includeOnDevice: false,
+          selected: LlmProviderKind.onDevice,
+        ),
+        contains(LlmProviderKind.onDevice),
+      );
     });
   });
 
@@ -45,6 +71,10 @@ void main() {
       );
       expect(LlmProviderKind.gemini.createProvider(), isA<GeminiProvider>());
       expect(LlmProviderKind.local.createProvider(), isA<LocalProvider>());
+      expect(
+        LlmProviderKind.onDevice.createProvider(),
+        isA<OnDeviceProvider>(),
+      );
     });
   });
 

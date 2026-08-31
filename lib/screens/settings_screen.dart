@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../models/llm_provider_kind.dart';
+import '../services/on_device_llm.dart';
 import '../services/settings_service.dart';
 import '../theme/eom_colors.dart';
 import '../theme/eom_motion.dart';
@@ -10,10 +12,13 @@ import '../widgets/orientation_chrome.dart';
 /// Calm Settings (EOM-S28 / F4) — active-provider essential fields;
 /// Advanced (gateway / model alias) collapsed; quiet Epiture lineage.
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key, this.persist});
+  const SettingsScreen({super.key, this.persist, this.onDeviceLlm});
 
   /// Optional persistence seam used to verify graceful failure handling.
   final Future<void> Function()? persist;
+
+  /// Test seam for the on-device availability line.
+  final OnDeviceLlmClient? onDeviceLlm;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -73,6 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       await SettingsService.setActiveProvider(_activeProvider);
     }
     for (final entry in _keyControllers.entries) {
+      if (!entry.key.requiresCredential) continue;
       if (entry.value.text.trim() != _initialKeys[entry.key]) {
         await SettingsService.setKey(entry.key, entry.value.text);
       }
@@ -134,11 +140,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               duration: EomMotion.of(context, EomMotion.medium),
               switchInCurve: EomMotion.curve,
               switchOutCurve: EomMotion.curve,
-              child: GuideKeyField(
-                key: ValueKey(_activeProvider),
-                provider: _activeProvider,
-                controller: _keyControllerFor(_activeProvider),
-              ),
+              child: _activeProvider.requiresCredential
+                  ? GuideKeyField(
+                      key: ValueKey(_activeProvider),
+                      provider: _activeProvider,
+                      controller: _keyControllerFor(_activeProvider),
+                    )
+                  : OnDeviceGuideStatus(
+                      key: ValueKey(_activeProvider),
+                      client: widget.onDeviceLlm,
+                    ),
             ),
             if (_saveError != null) ...[
               const SizedBox(height: EomSpacing.sm),
@@ -150,37 +161,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ],
-            const SizedBox(height: EomSpacing.xl),
-            OrientationDisclosure(
-              label: 'Advanced',
-              expanded: _advancedExpanded,
-              onToggle: () =>
-                  setState(() => _advancedExpanded = !_advancedExpanded),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  EomSurfaceField(
-                    controller: _localHostController,
-                    hint: 'Gateway Origin (e.g., http://127.0.0.1:4000)',
-                  ),
-                  if (_hostError != null) ...[
-                    const SizedBox(height: EomSpacing.xs),
-                    Text(
-                      _hostError!,
-                      style: const TextStyle(
-                        color: EomColors.textTertiary,
-                        fontSize: 13,
+            if (_activeProvider.requiresCredential) ...[
+              const SizedBox(height: EomSpacing.xl),
+              OrientationDisclosure(
+                label: 'Advanced',
+                expanded: _advancedExpanded,
+                onToggle: () =>
+                    setState(() => _advancedExpanded = !_advancedExpanded),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    EomSurfaceField(
+                      controller: _localHostController,
+                      hint: 'Gateway Origin (e.g., http://127.0.0.1:4000)',
+                    ),
+                    if (_hostError != null) ...[
+                      const SizedBox(height: EomSpacing.xs),
+                      Text(
+                        _hostError!,
+                        style: const TextStyle(
+                          color: EomColors.textTertiary,
+                          fontSize: 13,
+                        ),
                       ),
+                    ],
+                    const SizedBox(height: EomSpacing.sm),
+                    EomSurfaceField(
+                      controller: _localModelController,
+                      hint: 'Model Alias (e.g., qwen-smart)',
                     ),
                   ],
-                  const SizedBox(height: EomSpacing.sm),
-                  EomSurfaceField(
-                    controller: _localModelController,
-                    hint: 'Model Alias (e.g., qwen-smart)',
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
             const Padding(
               padding: EdgeInsets.only(top: EomSpacing.xxl),
               child: Text(

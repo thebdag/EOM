@@ -65,6 +65,10 @@ Settings screen:
 - **Google Gemini**
 - **LiteLLM** — a local gateway that lets you run open-source models on
   your own hardware, keeping everything entirely offline if you prefer.
+- **On this device** — Android and iOS builds can use the OS on-device
+  model (Gemini Nano via AICore on supported Android phones; Apple
+  Foundation Models on iOS 26+ with Apple Intelligence). No API key.
+  Unavailable devices keep using a cloud or LiteLLM Guide.
 
 ---
 
@@ -76,7 +80,7 @@ Settings screen:
   computer.
 - An API key from at least one AI provider (OpenAI, Anthropic, or Google),
   **or** a running [LiteLLM](https://docs.litellm.ai/) gateway for local
-  models.
+  models, **or** (Android/iOS) a device with an OS on-device model.
 
 ### Run the App
 

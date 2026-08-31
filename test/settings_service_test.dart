@@ -63,6 +63,16 @@ void main() {
       await SettingsService.setLocalApiKey('master');
       expect(SettingsService.hasUsableGuide, isTrue);
     });
+
+    test('on-device is usable without a key', () async {
+      SharedPreferences.setMockInitialValues({});
+      await SettingsService.init();
+      await SettingsService.setActiveProvider(LlmProviderKind.onDevice);
+      expect(SettingsService.hasUsableGuide, isTrue);
+      expect(SettingsService.keyFor(LlmProviderKind.onDevice), isEmpty);
+      await SettingsService.setKey(LlmProviderKind.onDevice, 'ignored');
+      expect(SettingsService.keyFor(LlmProviderKind.onDevice), isEmpty);
+    });
   });
 
   group('normalizeGatewayOrigin', () {
