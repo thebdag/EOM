@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Build provenance: write it with `scripts/cite.py --stamp <deck> --repo .` so check.py
+     can report which slides have gone stale. See references/freshness.md. -->
+<meta name="slideops-build" content="commit=f2ecb8d date=2026-08-31 repo=workspace">
+<title>EOM: a quiet vault for the mind</title>
+<style>
+  /* ── THEME ─────────────────────────────────────────────────────────────────
+     The :root block below is the ENTIRE theme: every color in the deck derives
+     from these tokens (soft tints/borders via color-mix), so switching theme
+     means replacing this one block. Preset palettes (Ledger Light default,
+     Ledger Dark, midnight, graphite) live in references/themes.md; brand
+     extraction rules live in references/style-guide.md § Theming.
+     Do not invent colors and do not reintroduce hex/rgba literals below
+     this block. */
+  :root{
+    --bg:#0E0F12; --bg2:#1A1D26; --card:#22252F; --code-bg:#0E0F12;
+    --stage-1:#1A1D26; --stage-2:#0E0F12;
+    --section-1:#1A1D26; --section-2:#0E0F12;
+    --fg:#E2E8F0; --text:#94A3B8; --strong:#E2E8F0; --muted:#8B95A8;
+    --accent:#C4A574; --accent2:#6366F1; --warn:#A68B4B; --bad:#F87171;
+    --code-fg:#E2E8F0; --code-comment:#8B95A8; --code-keyword:#C4A574; --code-string:#6EE7B7;
+    --grad-1:#E2E8F0; --grad-2:#C4A574;
+    --card-border:color-mix(in srgb, var(--muted) 22%, transparent);
+    --img-bg:#1A1D26; --shadow:rgba(0,0,0,.55); --radius:12px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "SFMono-Regular", Consolas, Menlo, "Liberation Mono", monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--stage-2);color:var(--fg);font-family:var(--font);height:100%;overflow:hidden;}
+  .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%, var(--stage-1) 0%, var(--stage-2) 70%);}
+  .deck{position:relative;width:1280px;height:720px;transform-origin:center center;box-shadow:0 30px 90px var(--shadow);border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--bg) 0%, var(--bg2) 100%);}
+  .slide{position:absolute;inset:0;padding:64px 76px 56px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .25s ease;}
+  .slide.active{opacity:1;visibility:visible;}
+  .kicker{font-size:14px;letter-spacing:.12em;color:var(--accent);font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:10px;}
+  h1{font-size:44px;line-height:1.15;margin:0 0 14px;font-weight:800;letter-spacing:-.01em;}
+  h2{font-size:34px;line-height:1.2;margin:0 0 18px;font-weight:800;letter-spacing:-.01em;}
+  h3{font-size:20px;margin:0 0 8px;font-weight:700;color:var(--fg);}
+  .subtitle{font-size:19px;color:var(--muted);margin:0 0 6px;line-height:1.5;}
+  .body{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px;}
+  p{margin:0 0 10px;line-height:1.55;font-size:17px;color:var(--text);}
+  ul,ol{margin:0 0 8px;padding-left:22px;}
+  li{margin-bottom:8px;line-height:1.5;font-size:17px;color:var(--text);}
+  li b, p b, td b{color:var(--strong);}
+  .muted{color:var(--muted);}
+  .small{font-size:14px;}
+  /* Status tags: use sparingly and accurately. Don't call something "major"
+     or "critical" unless it genuinely is; a wrong badge is worse than none. */
+  .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid transparent;}
+  .tag-new{background:color-mix(in srgb, var(--accent) 13%, transparent);color:var(--accent);border-color:color-mix(in srgb, var(--accent) 40%, transparent);}
+  .tag-major{background:color-mix(in srgb, var(--warn) 14%, transparent);color:var(--warn);border-color:color-mix(in srgb, var(--warn) 45%, transparent);}
+  .tag-existing{background:color-mix(in srgb, var(--accent2) 13%, transparent);color:var(--accent2);border-color:color-mix(in srgb, var(--accent2) 40%, transparent);}
+  .tag-optional{background:color-mix(in srgb, var(--muted) 14%, transparent);color:color-mix(in srgb, var(--muted) 55%, var(--fg));border-color:color-mix(in srgb, var(--muted) 40%, transparent);}
+  .tag-critical{background:color-mix(in srgb, var(--bad) 14%, transparent);color:var(--bad);border-color:color-mix(in srgb, var(--bad) 45%, transparent);}
+
+  .card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:18px 20px;}
+  .card.tint-accent{background:color-mix(in srgb, var(--accent) 8%, transparent);border-color:color-mix(in srgb, var(--accent) 40%, transparent);}
+  .card.tint-warn{background:color-mix(in srgb, var(--warn) 8%, transparent);border-color:color-mix(in srgb, var(--warn) 35%, transparent);}
+  /* Grids default to content height so trailing content never gets pushed under
+     the nav pill. Add the "fill" class only when a grid should stretch to fill
+     the remaining slide height (e.g. tall code comparisons). */
+  .cols-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:0 0 auto;min-height:0;}
+  .cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;flex:0 0 auto;min-height:0;}
+  .cols-2.fill,.cols-3.fill{flex:1;}
+  .col{display:flex;flex-direction:column;gap:12px;min-height:0;}
+  .stat{display:flex;flex-direction:column;gap:2px;}
+  .stat .num{font-size:38px;font-weight:800;color:var(--accent);line-height:1;}
+  .stat .lbl{font-size:13px;color:var(--muted);letter-spacing:.06em;}
+  .stat-row{display:flex;gap:22px;flex-wrap:wrap;}
+
+  pre.code{background:var(--code-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;overflow:hidden;font-family:var(--mono);font-size:14.5px;line-height:1.55;color:var(--code-fg);}
+  pre.code.small{font-size:12.5px;line-height:1.5;}
+  pre.code .c{color:var(--code-comment);} /* comments */
+  pre.code .k{color:var(--code-keyword);} /* keywords */
+  pre.code .s{color:var(--code-string);} /* strings */
+  pre.code .n{color:var(--code-string);} /* names/literals */
+  code.inline{font-family:var(--mono);background:color-mix(in srgb, var(--muted) 15%, transparent);padding:1px 6px;border-radius:5px;font-size:.92em;color:color-mix(in srgb, var(--accent2) 55%, var(--fg));}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;}
+  th{text-align:left;color:var(--accent2);font-size:12px;letter-spacing:.05em;padding:6px 10px;border-bottom:1px solid var(--card-border);}
+  td{padding:7px 10px;border-bottom:1px solid color-mix(in srgb, var(--muted) 10%, transparent);color:var(--text);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  td code.inline, th code.inline{white-space:nowrap;}
+
+  /* Simple box-and-arrow diagrams. Keep these plain: no SVG, no external
+     diagramming libs. A row of .flow-box separated by .flow-arrow; stack rows
+     for multi-step flows; .flow-vert-arrow for a row-to-row down arrow. */
+  .flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:nowrap;}
+  .flow-box{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:14px 16px;text-align:center;flex:1;min-width:0;}
+  .flow-box .t{font-weight:700;font-size:15px;color:var(--strong);margin-bottom:4px;}
+  .flow-box .d{font-size:12.5px;color:var(--muted);line-height:1.35;}
+  .flow-box.accent{border-color:color-mix(in srgb, var(--accent) 50%, transparent);background:color-mix(in srgb, var(--accent) 8%, transparent);}
+  .flow-box.warn{border-color:color-mix(in srgb, var(--warn) 50%, transparent);background:color-mix(in srgb, var(--warn) 8%, transparent);}
+  .flow-arrow{flex:0 0 auto;color:var(--muted);font-size:22px;padding:0 10px;}
+  .flow-vert-arrow{color:var(--muted);font-size:20px;padding:4px 0;}
+
+  /* Lane diagram: for "where X applies vs. doesn't" / critical-path-vs-optional
+     comparisons: one labeled row per case. */
+  .lane{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .lane-label{width:150px;flex:0 0 150px;font-size:12px;letter-spacing:.05em;font-weight:800;text-align:right;padding-right:6px;}
+  .lane-label.critical{color:var(--bad);}
+  .lane-label.parallel{color:var(--accent2);}
+  .lane-label.optional{color:var(--muted);}
+  .lane-track{flex:1;display:flex;align-items:center;gap:0;background:color-mix(in srgb, var(--strong) 2%, transparent);border-radius:12px;padding:10px 14px;border:1px dashed color-mix(in srgb, var(--muted) 22%, transparent);}
+
+  .section-slide{align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 40%, var(--section-1) 0%, var(--section-2) 75%);}
+  .section-slide .num{font-size:15px;color:var(--accent);font-weight:800;letter-spacing:.2em;margin-bottom:18px;}
+  .section-slide h1{font-size:52px;}
+  .section-slide .subtitle{font-size:20px;max-width:760px;}
+
+  .title-slide{align-items:center;justify-content:center;text-align:center;}
+  .title-slide h1{font-size:58px;}
+  .title-slide h1 .grad{background:linear-gradient(90deg,var(--grad-1),var(--grad-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .title-slide .logo-row{display:flex;gap:12px;margin-bottom:26px;}
+
+  .img-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;}
+  .img-wrap img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;border:1px solid var(--card-border);background:var(--img-bg);}
+  .img-wrap svg{max-width:100%;max-height:100%;height:auto;}
+  .img-placeholder{flex:1;align-self:stretch;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;border:2px dashed var(--card-border);border-radius:10px;color:var(--muted);font-size:15px;}
+  .caption{text-align:center;color:var(--muted);font-size:15px;margin-top:10px;}
+
+  .list-check li{list-style:none;position:relative;padding-left:26px;}
+  .list-check li:before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:800;}
+  .list-todo li{list-style:none;position:relative;padding-left:26px;}
+  .list-todo li:before{content:"→";position:absolute;left:0;color:var(--accent2);font-weight:800;}
+  .list-x li{list-style:none;position:relative;padding-left:26px;}
+  .list-x li:before{content:"✕";position:absolute;left:0;color:var(--bad);font-weight:800;}
+
+  /* Speaker notes: add <aside class="notes">…</aside> anywhere in a slide;
+     invisible until the presenter presses N (and always excluded from
+     screenshots/PDF unless toggled). */
+  .notes{display:none;}
+  .deck.show-notes .slide.active .notes{display:block;position:absolute;left:24px;right:24px;bottom:76px;background:color-mix(in srgb, var(--code-bg) 92%, transparent);border:1px solid var(--card-border);border-radius:10px;padding:12px 16px;font-size:14px;line-height:1.5;color:var(--muted);z-index:5;}
+  /* Overview grid: Esc toggles, #overview deep-links. Uses zoom so the
+     layout box scales with the render (supported in all evergreen browsers). */
+  .deck.overview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px;overflow-y:auto;align-content:start;}
+  .deck.overview .slide{position:relative;inset:auto;zoom:0.2266;opacity:1;visibility:visible;transition:none;cursor:pointer;border:2px solid var(--card-border);border-radius:18px;}
+
+  /* HUD / navigation: do not remove; every slide relies on the JS below */
+  .progress{position:fixed;top:0;left:0;height:4px;background:var(--accent);z-index:50;transition:width .2s ease;box-shadow:0 0 12px color-mix(in srgb, var(--accent) 60%, transparent);}
+  .hud{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:16px;background:color-mix(in srgb, var(--bg) 85%, transparent);backdrop-filter:blur(6px);border:1px solid var(--card-border);padding:8px 14px;border-radius:999px;z-index:60;}
+  .nav-btn{background:color-mix(in srgb, var(--strong) 6%, transparent);border:1px solid var(--card-border);color:var(--fg);width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .nav-btn:hover{background:color-mix(in srgb, var(--accent) 25%, transparent);}
+  .counter{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:56px;text-align:center;}
+  .hint{position:fixed;top:16px;right:20px;font-size:12px;color:var(--muted);z-index:60;opacity:.7;}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progressBar"></div>
+<div class="hint">← → or click · Esc overview · N notes</div>
+
+<div class="stage">
+  <div class="deck" id="deck">
+    <!-- SLIDES START (replace everything between this marker and SLIDES END;
+         leave everything outside the markers untouched).
+         Remember: HTML-escape every verbatim code snippet (& < > → &amp; &lt; &gt;). -->
+
+    <!-- 0: TITLE -->
+    <section class="slide title-slide">
+      <div class="logo-row">
+        <span class="tag tag-new">EOM</span>
+        <span class="tag tag-existing">v1.0.0</span>
+      </div>
+      <h1>A quiet vault<br><span class="grad">for the mind</span></h1>
+      <p class="subtitle">Onboarding overview: five cognitive intents, a local epistemic graph, and how a thought becomes a response.</p>
+      <p class="small muted" style="margin-top:26px;">thebdag/EOM · general overview · 24 slides</p>
+      <aside class="notes">Non-interactive build: outline was not user-reviewed. Theme mapped from lib/theme/eom_colors.dart (void, gold orientation, indigo selection). Audience: new joiners and agents working in this repo.</aside>
+    </section>
+
+    <!-- 1: AGENDA -->
+    <section class="slide">
+      <div class="kicker">Agenda</div>
+      <h2>What we'll cover</h2>
+      <div class="body">
+        <div class="cols-2">
+          <div class="card"><h3>1. What EOM is</h3><p class="small muted">A private thinking tool, not a feed. Five intents, local storage.</p></div>
+          <div class="card"><h3>2. Request path</h3><p class="small muted">Home to AiService to a swappable LlmProvider, then an epistemic epilogue.</p></div>
+          <div class="card"><h3>3. The map underneath</h3><p class="small muted">SQLite graph: nodes, edges, gaps, drift, maturity. Tree plus Connections.</p></div>
+          <div class="card"><h3>4. Run it, then change it</h3><p class="small muted">Soft gate, History, service-first layout, tokens, tracker keys, this deck.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2: WHAT -->
+    <section class="slide">
+      <div class="kicker">Product</div>
+      <h2>Understanding, not throughput</h2>
+      <div class="body">
+        <div class="card">
+          <p style="font-size:19px;margin:0;">EOM is a personal thinking tool. You write what is on your mind, pick an intent, and get a calm reply. No feeds, no notifications, no social features. Dark, single-mode Material 3. Title: EOM. Home is HomeScreen.</p>
+        </div>
+        <div class="cols-2">
+          <div class="card"><h3>On device</h3><p class="small" style="margin:0;">Settings init and Hive History open in <code class="inline">main()</code> before <code class="inline">runApp</code>. Theme is <code class="inline">EomTheme.dark</code> only.</p></div>
+          <div class="card"><h3>Your choice of guide</h3><p class="small" style="margin:0;">OpenAI, Anthropic Claude, Google Gemini, or LiteLLM (persisted id <code class="inline">LOCAL</code>). Fallback when nothing is saved: Gemini.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3: INTENTS -->
+    <section class="slide">
+      <div class="kicker">Product</div>
+      <h2>Five cognitive intents, one composer</h2>
+      <div class="body">
+        <table data-src="lib/models/intent.dart:5-35" data-sha256="4388f48bf0c1">
+          <tr><th>Intent</th><th>Idle description</th><th>Color token</th></tr>
+          <tr><td><code class="inline">Clarify</code></td><td>Untangle what you mean</td><td><code class="inline">EomColors.accent</code></td></tr>
+          <tr><td><code class="inline">Compress</code></td><td>Distill to the essence</td><td><code class="inline">EomColors.accent</code></td></tr>
+          <tr><td><code class="inline">Map</code></td><td>See the structure</td><td><code class="inline">EomColors.accent</code></td></tr>
+          <tr><td><code class="inline">Reflect</code></td><td>Look at it differently</td><td><code class="inline">EomColors.accent</code></td></tr>
+          <tr><td><code class="inline">Act</code></td><td>Turn it into action</td><td><code class="inline">EomColors.sage</code></td></tr>
+        </table>
+        <p class="small muted" style="margin:0;">Labels and descriptions from <code class="inline">CognitiveIntent</code> in <code class="inline">lib/models/intent.dart</code>. Act is the only sage pill.</p>
+      </div>
+    </section>
+
+    <!-- 4: PRIVACY -->
+    <section class="slide">
+      <div class="kicker">Product</div>
+      <h2>Keys live in SharedPreferences, not source</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/services/settings_service.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/services/settings_service.dart:73-78" data-sha256="e1e39683616f">  /// Essential credential for [kind] (cloud API key or LiteLLM master key).
+  static String keyFor(LlmProviderKind kind) =&gt;
+      _prefs.getString(_providerKeyPreferences[kind]!) ?? &#x27;&#x27;;
+
+  static Future&lt;void&gt; setKey(LlmProviderKind kind, String key) async =&gt;
+      await _setString(_providerKeyPreferences[kind]!, key.trim());</pre>
+          </div>
+          <div class="col">
+            <div class="card"><p class="small" style="margin:0;"><b>One seam:</b> cloud API keys and the LiteLLM master key both go through <code class="inline">keyFor</code> / <code class="inline">setKey</code>.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Usable guide:</b> <code class="inline">hasUsableGuide</code> is true only when the <i>active</i> provider has a non-empty key. A key on another provider does not count.</p></div>
+            <div class="card tint-warn"><p class="small" style="margin:0;"><b>Code wins over README:</b> keys are on-device preference storage. They are not in git, and they are not loaded from <code class="inline">.env</code>.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5: SECTION REQUEST -->
+    <section class="slide section-slide">
+      <div class="num">Deep dive · 1 of 3</div>
+      <h1>A thought becomes a response</h1>
+      <p class="subtitle">Home collects the intent, AiService talks to a provider, then splits prose from a JSON epilogue.</p>
+    </section>
+
+    <!-- 6: FLOW -->
+    <section class="slide">
+      <div class="kicker">Request path</div>
+      <h2>The call path is a straight line</h2>
+      <div class="body" style="justify-content:center;gap:4px;">
+        <div class="flow">
+          <div class="flow-box"><div class="t">HomeScreen</div><div class="d">_processIntent: empty hint, then soft gate</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent"><div class="t">AiService.process</div><div class="d">defaultContext + intent.buildPrompt</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box"><div class="t">LlmProvider.generate</div><div class="d">OpenAI, Anthropic, Gemini, or Local</div></div>
+        </div>
+        <div class="flow" style="justify-content:center;"><div class="flow-vert-arrow">↓</div></div>
+        <div class="flow">
+          <div class="flow-box"><div class="t">Split on ---EPISTEMIC---</div><div class="d">prose for the card; JSON for the graph</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box"><div class="t">EpistemicIntentService</div><div class="d">upsert nodes; gaps are read-only</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-box accent"><div class="t">HistoryService</div><div class="d">Hive box conversations, errors skipped</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7: PROCESS -->
+    <section class="slide">
+      <div class="kicker">Request path</div>
+      <h2>Map is the only tree-producing intent</h2>
+      <div class="body">
+        <div class="cols-2">
+          <div class="card"><p class="small" style="margin:0;"><b>Marker:</b> all five intents share one delimiter before the JSON epilogue.</p></div>
+          <div class="card"><p class="small" style="margin:0;"><b>Tree:</b> only Map takes the <code class="inline">_parseMapResponse</code> branch.</p></div>
+        </div>
+        <div class="tag tag-existing" style="align-self:flex-start;">lib/services/ai_service.dart</div>
+        <pre class="code small" style="margin:0;"
+             data-src="lib/services/ai_service.dart:87-89" data-sha256="d41c2198e51c">  /// Delimiter between an intent&#x27;s prose response and its epistemic JSON
+  /// epilogue. All five intents use the same marker.
+  static const epistemicMarker = &#x27;---EPISTEMIC---&#x27;;</pre>
+        <pre class="code small" style="margin:0;"
+             data-src="lib/services/ai_service.dart:114-118" data-sha256="70b583091bd9">      if (intent.producesTree) {
+        return _parseMapResponse(textResponse, intent);
+      }
+
+      return _parseEpistemicResponse(textResponse, intent);</pre>
+      </div>
+    </section>
+
+    <!-- 8: PROVIDER -->
+    <section class="slide">
+      <div class="kicker">Request path</div>
+      <h2>Screens call an interface, not a vendor</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/services/llm_provider.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/services/llm_provider.dart:45-51" data-sha256="078abfc08b64">abstract class LlmProvider {
+  Future&lt;String&gt; generate(
+    String systemPrompt,
+    String userMessage, {
+    List&lt;ChatMessage&gt; history = const [],
+  });
+}</pre>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/services/llm_provider.dart:8-20" data-sha256="6454a06f1f8a">extension LlmProviderKindFactory on LlmProviderKind {
+  LlmProvider createProvider() {
+    switch (this) {
+      case LlmProviderKind.openai:
+        return OpenAiProvider();
+      case LlmProviderKind.anthropic:
+        return AnthropicProvider();
+      case LlmProviderKind.local:
+        return LocalProvider();
+      case LlmProviderKind.gemini:
+        return GeminiProvider();
+    }
+  }
+}</pre>
+          </div>
+          <div class="col">
+            <div class="card"><p class="small" style="margin:0;"><b>Factory lives in services:</b> <code class="inline">lib/models/</code> stays free of HTTP clients.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Tests:</b> <code class="inline">AiService({LlmProvider? provider})</code> injects a fake. Production reads <code class="inline">SettingsService.activeProvider.createProvider()</code>.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Shared POST:</b> OpenAI and Local share <code class="inline">_postChatCompletion</code>. Gemini uses <code class="inline">x-goog-api-key</code>, not a query string.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9: LOCAL -->
+    <section class="slide">
+      <div class="kicker">Request path</div>
+      <h2>LOCAL means the LiteLLM gateway</h2>
+      <div class="body">
+        <div class="card">
+          <p style="font-size:18px;margin:0;">ADR 0001: the Local slot is exclusively the LiteLLM gateway. Master key required. Model aliases. Gateway origin without <code class="inline">/v1</code>. Direct OpenAI / Anthropic / Gemini stay beside it so traffic is not forced through one box.</p>
+        </div>
+        <div class="cols-2">
+          <div class="card"><h3>Identity</h3><p class="small" style="margin:0;">Persisted id <code class="inline">LOCAL</code>. Settings label <code class="inline">LiteLLM</code>. Legacy <code class="inline">OLLAMA</code> maps to Local in <code class="inline">LlmProviderKind.fromString</code>.</p></div>
+          <div class="card"><h3>Origin rules</h3><p class="small" style="margin:0;"><code class="inline">normalizeGatewayOrigin</code> strips trailing slashes and optional <code class="inline">/v1</code>, requires http(s) + host, rejects userinfo. Empty origin falls back to the built-in default.</p></div>
+        </div>
+        <p class="small muted" style="margin:0;">Cited: <code class="inline">docs/adr/0001-local-means-litellm-gateway.md</code>, <code class="inline">lib/models/llm_provider_kind.dart</code>, <code class="inline">lib/services/settings_service.dart</code>.</p>
+      </div>
+    </section>
+
+    <!-- 10: SECTION MAP -->
+    <section class="slide section-slide">
+      <div class="num">Deep dive · 2 of 3</div>
+      <h1>The map under the surface</h1>
+      <p class="subtitle">Every session can refine a personal knowledge graph that never leaves the device.</p>
+    </section>
+
+    <!-- 11: NODE TYPES -->
+    <section class="slide">
+      <div class="kicker">Epistemic graph</div>
+      <h2>Six types, five origin categories</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/models/epistemic_node.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/models/epistemic_node.dart:15-22" data-sha256="7fad7d03fa30">enum EpistemicNodeType {
+  belief,
+  knowledge,
+  hypothesis,
+  intuition,
+  question,
+  unknown,
+}</pre>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/models/epistemic_node.dart:38-38" data-sha256="f841d103508d">enum EpistemicCategory { empirical, rational, intuitive, abductive, revelatory }</pre>
+          </div>
+          <div class="col">
+            <div class="card"><p class="small" style="margin:0;"><b>Type</b> is what the node is. <b>Category</b> is how the mind produced it. They are orthogonal. Confidence is a separate [0, 1] field.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Edges:</b> <code class="inline">entails</code>, <code class="inline">contradicts</code>, <code class="inline">refines</code>, <code class="inline">supports</code>, <code class="inline">undermines</code>, <code class="inline">isExampleOf</code> (LLM kebab-case accepted).</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Provenance:</b> <code class="inline">experience</code>, <code class="inline">reasoning</code>, <code class="inline">testimony</code>, <code class="inline">intuition</code>.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12: STORE -->
+    <section class="slide">
+      <div class="kicker">Epistemic graph</div>
+      <h2>Derived reads live on the abstract store</h2>
+      <div class="body">
+        <div class="tag tag-existing" style="align-self:flex-start;">lib/services/sqlite_epistemic_graph_store.dart</div>
+        <pre class="code small" style="margin:0;"
+             data-src="lib/services/sqlite_epistemic_graph_store.dart:33-42" data-sha256="774e584439e3">abstract class EpistemicGraphStore {
+  Future&lt;EpistemicNode&gt; create(EpistemicNode node);
+  Future&lt;EpistemicNode&gt; upsert(EpistemicNode node);
+  Future&lt;EpistemicNode?&gt; get(String id);
+  Future&lt;List&lt;EpistemicNode&gt;&gt; all();
+  Future&lt;List&lt;EpistemicNode&gt;&gt; byType(EpistemicNodeType type);
+  Future&lt;EpistemicRelationship&gt; addRelationship(
+    EpistemicRelationship relationship,
+  );
+  Future&lt;List&lt;EpistemicRelationship&gt;&gt; getRelationshipsForNode(String nodeId);</pre>
+        <div class="cols-2">
+          <div class="card"><p class="small" style="margin:0;"><b>Primitives are abstract.</b> Drift, maturity, and BFS traverse are concrete defaults on the class, so SQLite and in-memory fakes share semantics.</p></div>
+          <div class="card"><p class="small" style="margin:0;"><b>Search:</b> FTS5 in production. <code class="inline">sanitizeFtsQuery</code> quotes tokens so user punctuation cannot inject MATCH operators.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13: INTENT SERVICE -->
+    <section class="slide">
+      <div class="kicker">Epistemic graph</div>
+      <h2>Intents write the graph; gaps never do</h2>
+      <div class="body">
+        <div class="tag tag-existing" style="align-self:flex-start;">lib/services/epistemic_intent_service.dart</div>
+        <pre class="code small" style="margin:0;"
+             data-src="lib/services/epistemic_intent_service.dart:8-13" data-sha256="b86089c81a46">/// Bridges intent responses to the epistemic graph (EOM-T7, EOM-T11).
+///
+/// Keeps [AiService] focused on LLM interaction and [SqliteEpistemicGraphStore]
+/// focused on storage. Every thought session upserts the nodes derived
+/// from its operation; repeat sessions merge into existing nodes rather
+/// than duplicating them.</pre>
+        <div class="cols-3">
+          <div class="card"><p class="small" style="margin:0;"><b>Clarify / Compress / Act</b> persist a derived node, then keyword-overlap edges.</p></div>
+          <div class="card"><p class="small" style="margin:0;"><b>Map</b> also carries a thought tree for the Home tree view.</p></div>
+          <div class="card"><p class="small" style="margin:0;"><b>Gaps</b> (EOM-T14) are detected read-only. Detection never creates nodes.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14: GAPS DRIFT MATURITY -->
+    <section class="slide">
+      <div class="kicker">Epistemic graph</div>
+      <h2>Gaps, drift, and maturity are derived</h2>
+      <div class="body">
+        <div class="cols-3">
+          <div class="card"><h3>Gaps</h3><p class="small" style="margin:0;"><b>Explicit:</b> <code class="inline">question</code> / <code class="inline">unknown</code> nodes. <b>Inferred:</b> session concepts with no covering node. FTS search, then substring coverage.</p></div>
+          <div class="card"><h3>Drift</h3><p class="small" style="margin:0;">Confidence events, oldest first. Drift needs at least two values. Sorted by absolute movement. Not an observations table: that ADR is not in Dart yet.</p></div>
+          <div class="card"><h3>Maturity</h3><p class="small" style="margin:0;">Per <code class="inline">EpistemicCategory</code> (null = uncategorised). High ≥ 0.7, uncertain &lt; 0.4. Score is high / (high + uncertain), or null with no decided nodes.</p></div>
+        </div>
+        <div class="tag tag-existing" style="align-self:flex-start;">lib/models/epistemic_maturity.dart</div>
+        <pre class="code small" style="margin:0;"
+             data-src="lib/models/epistemic_maturity.dart:3-7" data-sha256="f010db05a887">/// Confidence at or above which a node counts as *high-confidence*.
+const double kMaturityHighThreshold = 0.7;
+
+/// Confidence below which a node counts as *uncertain*.
+const double kMaturityUncertainThreshold = 0.4;</pre>
+      </div>
+    </section>
+
+    <!-- 15: HOME MAP UI -->
+    <section class="slide">
+      <div class="kicker">Epistemic graph</div>
+      <h2>Your map is primary; Connections start closed</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/screens/home_screen.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/screens/home_screen.dart:72-72" data-sha256="348642971999">  bool _connectionsExpanded = false;</pre>
+            <div class="card" style="margin-top:12px;"><p class="small" style="margin:0;">Orientation serif labels: <b>Your map</b> on the thought tree, <b>Connections</b> on the disclosure that wraps <code class="inline">EpistemicGraphView</code>. New thought resets the flag to false.</p></div>
+          </div>
+          <div class="col">
+            <div class="card"><p class="small" style="margin:0;"><b>Export (EOM-T19):</b> JSON version 1, full nodes and edges, or Markdown grouped by type. JSON is the re-importable form. <code class="inline">toJson()</code> is not a sqflite column map.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Graph overlay:</b> radial layout, confidence colours from palette tokens, 0.5px borders, 300ms easeOut fade.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16: SECTION RUN -->
+    <section class="slide section-slide">
+      <div class="num">Deep dive · 3 of 3</div>
+      <h1>Run it, then change it</h1>
+      <p class="subtitle">Soft gate instead of a wall. History is a library. The repo has rules so agents do not fight the vault.</p>
+    </section>
+
+    <!-- 17: SOFT GATE -->
+    <section class="slide">
+      <div class="kicker">Using the app</div>
+      <h2>No key: a sheet, not a hard wall</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/screens/home_screen.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/screens/home_screen.dart:191-203" data-sha256="6e64cda4d381">  Future&lt;void&gt; _processIntent(CognitiveIntent intent) async {
+    if (_controller.text.trim().isEmpty) {
+      setState(() =&gt; _blankHint = &#x27;Write a thought first.&#x27;);
+      _focusNode.requestFocus();
+      return;
+    }
+
+    if (!SettingsService.hasUsableGuide) {
+      final connected = await _openSoftGate();
+      if (!connected || !mounted || !SettingsService.hasUsableGuide) {
+        return;
+      }
+    }</pre>
+          </div>
+          <div class="col">
+            <div class="card"><p class="small" style="margin:0;"><b>Empty field:</b> calm hint, never a silent no-op.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>SoftGateSheet:</b> provider pick + essential key only. Dismiss without Connect is cancel. Elevation 0. Motion through <code class="inline">EomMotion.sheetStyleOf</code>.</p></div>
+            <div class="card"><p class="small" style="margin:0;"><b>Settings:</b> active-provider key first; LiteLLM origin and alias under collapsed Advanced.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18: SESSION VS HISTORY -->
+    <section class="slide">
+      <div class="kicker">Using the app</div>
+      <h2>On-screen session is not the History library</h2>
+      <div class="body" style="justify-content:center;">
+        <div class="lane">
+          <div class="lane-label critical">Session</div>
+          <div class="lane-track"><span class="small" style="flex:1;">Home canvas: input, latest card, optional earlier turns, in-memory <code class="inline">ChatMessage</code> list sent to the model. <span class="tag tag-major">ephemeral</span></span></div>
+        </div>
+        <div class="lane">
+          <div class="lane-label parallel">History</div>
+          <div class="lane-track"><span class="small" style="flex:1;">Hive box <code class="inline">conversations</code>. Rows reopen on Home. Clear-all asks first. Presence pip uses <code class="inline">hasConversations</code>. <span class="tag tag-existing">on device</span></span></div>
+        </div>
+        <div class="lane">
+          <div class="lane-label optional">Errors</div>
+          <div class="lane-track"><span class="small" style="flex:1;"><code class="inline">IntentError</code> maps failures to calm copy. <code class="inline">isError</code> responses never enter History or the graph. Recoverable cases offer Open Settings.</span></div>
+        </div>
+        <div class="card"><p class="small" style="margin:0;"><b>New thought</b> confirms, then clears the on-screen session. It does not delete History.</p></div>
+      </div>
+    </section>
+
+    <!-- 19: GETTING STARTED -->
+    <section class="slide">
+      <div class="kicker">Using the app</div>
+      <h2>Clone, pub get, run</h2>
+      <div class="body">
+        <div class="cols-2">
+          <div class="card"><p class="small" style="margin:0;">💬 <i>"Connect a guide"</i><br><span class="muted">→ empty vault CTA when <code class="inline">hasUsableGuide</code> is false; opens SoftGateSheet</span></p></div>
+          <div class="card"><p class="small" style="margin:0;">💬 <i>"Write a thought first."</i><br><span class="muted">→ blank-field intent tap after a response; not a silent miss</span></p></div>
+        </div>
+        <pre class="code small" data-src="README.md:83-92" data-sha256="2a89866b0a0b"># Clone the repository
+git clone https://github.com/thebdag/EOM.git
+cd EOM
+
+# Install dependencies
+flutter pub get
+
+# Launch
+flutter run</pre>
+        <p class="small muted" style="margin:0;">Need Flutter plus one provider key, or a LiteLLM gateway. First paint defers intents until there is text.</p>
+      </div>
+    </section>
+
+    <!-- 20: SERVICE FIRST -->
+    <section class="slide">
+      <div class="kicker">Working in this repo</div>
+      <h2>Screens stop at services</h2>
+      <div class="body">
+        <div class="cols-3">
+          <div class="card"><h3>lib/screens/</h3><p class="small" style="margin:0;">Home, History, Settings. Default to StatelessWidget. Stateful only for ephemeral UI (focus, expand, processing).</p></div>
+          <div class="card"><h3>lib/services/</h3><p class="small" style="margin:0;">LLM, graph, settings, history, export, gaps. Abstract interfaces; tests fake the store, not sqflite.</p></div>
+          <div class="card"><h3>lib/models/</h3><p class="small" style="margin:0;">Pure data. Relative imports inside <code class="inline">lib/</code>. No HTTP clients here.</p></div>
+        </div>
+        <div class="card tint-accent"><p class="small" style="margin:0;"><b>Theming:</b> never hardcode colors. Use <code class="inline">EomColors</code>. Zero elevation. Depth is a 0.5px <code class="inline">surfaceBorder</code> stroke. Ordinary radius 12px; leaf radius only at ceremonial empty / success card.</p></div>
+      </div>
+    </section>
+
+    <!-- 21: TOKENS -->
+    <section class="slide">
+      <div class="kicker">Working in this repo</div>
+      <h2>Gold is rare; motion caps at 300ms</h2>
+      <div class="body">
+        <div class="cols-2 fill">
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/theme/eom_colors.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/theme/eom_colors.dart:10-16" data-sha256="81bddde9bbc5">  // Backgrounds — deeper void; surfaces lift for readable cards
+  static const Color background = Color(0xFF0E0F12);
+  static const Color surface = Color(0xFF1A1D26);
+  static const Color surfaceBorder = Color(0xFF3A3E4A);
+
+  // Primary accent — muted indigo (calm selection)
+  static const Color accent = Color(0xFF6366F1);</pre>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/theme/eom_colors.dart:26-27" data-sha256="470e5bb908fd">  static const Color gold = Color(0xFFC4A574);
+  static const Color goldMuted = Color(0xFFA68B4B);</pre>
+          </div>
+          <div class="col">
+            <div class="tag tag-existing" style="align-self:flex-start;">lib/theme/eom_motion.dart</div>
+            <pre class="code small" style="margin:0;"
+                 data-src="lib/theme/eom_motion.dart:11-23" data-sha256="bf5bf38fd30d">class EomMotion {
+  EomMotion._();
+
+  /// Intent select / small chrome.
+  static const Duration short = Duration(milliseconds: 200);
+
+  /// Enter, layout, page push.
+  static const Duration medium = Duration(milliseconds: 300);
+
+  /// Hide / reverse (page pop, sheet dismiss). Not appear-widget hide.
+  static const Duration exit = Duration(milliseconds: 200);
+
+  static const Curve curve = Curves.easeOut;</pre>
+            <div class="card"><p class="small" style="margin:0;">iOS Cupertino interactive pop at 500ms is the documented cap exception. Reduce-motion zeros durations that go through <code class="inline">EomMotion.of</code>.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22: TRACKER -->
+    <section class="slide">
+      <div class="kicker">Working in this repo</div>
+      <h2>Commit messages update the tracker</h2>
+      <div class="body">
+        <div class="tag tag-existing" style="align-self:flex-start;">dev/tracker/hooks/post-commit</div>
+        <pre class="code small" style="margin:0;"
+             data-src="dev/tracker/hooks/post-commit:8-13" data-sha256="00cd7fc5717e">//   [EOM-T7 done]         → marks subtask EOM-T7 as done
+//   [EOM-T7 wip]          → marks subtask EOM-T7 as in_progress
+//   [EOM-T7 todo]         → marks subtask EOM-T7 as todo
+//   [EOM-S3 done]         → marks story EOM-S3 as done
+//   [EOM-E2 in_progress]  → marks epic EOM-E2 as in_progress
+//   [EOM-T7 note: &lt;text&gt;] → appends a comment to subtask EOM-T7</pre>
+        <div class="cols-2">
+          <div class="card"><p class="small" style="margin:0;"><b>Without a commit:</b> <code class="inline">npm run mark EOM-T7 done</code> and <code class="inline">npm run comment EOM-T7 "…"</code>.</p></div>
+          <div class="card"><p class="small" style="margin:0;"><b>Keys:</b> epics <code class="inline">EOM-En</code>, stories <code class="inline">EOM-Sn</code>, subtasks <code class="inline">EOM-Tn</code>. Status only cycles todo → in_progress → done.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23: CLOSING -->
+    <section class="slide">
+      <div class="kicker">Closing</div>
+      <h2>Start here, and keep this deck honest</h2>
+      <div class="body">
+        <div class="cols-2">
+          <div class="col">
+            <h3>Shipped</h3>
+            <ul class="list-check small">
+              <li>Five intents + <code class="inline">---EPISTEMIC---</code> epilogue</li>
+              <li>Swappable providers, Local = LiteLLM</li>
+              <li>On-device graph, gaps, drift, maturity, export</li>
+              <li>Soft gate, calm Settings, Hive History</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h3>Open this folder</h3>
+            <ul class="small" style="padding-left:18px;">
+              <li><code class="inline">README.md</code>: product + flutter run</li>
+              <li><code class="inline">docs/REPOMAP.md</code>: where files live</li>
+              <li><code class="inline">docs/design_spec.md</code>: Epistemic Calm</li>
+              <li><code class="inline">AGENTS.md</code>: how to change the repo</li>
+              <li><code class="inline">CONTEXT.md</code>: ubiquitous language</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card tint-accent" style="text-align:center;">
+          <p class="small" style="margin:0;"><b>Evergreen check (no model, milliseconds):</b> <code class="inline">python3 tools/slideops-check.py docs/slides/ --repo . --suggest</code></p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SLIDES END -->
+  </div>
+</div>
+
+<div class="hud">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous slide">◂</button>
+  <div class="counter"><span id="counterCur">1</span> / <span id="counterTotal">1</span></div>
+  <button class="nav-btn" id="nextBtn" aria-label="Next slide">▸</button>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var deck = document.getElementById('deck');
+  var progressBar = document.getElementById('progressBar');
+  var counterCur = document.getElementById('counterCur');
+  var counterTotal = document.getElementById('counterTotal');
+  counterTotal.textContent = total;
+
+  var current = 0;
+  var overview = false;
+
+  function setOverview(on){
+    overview = on;
+    deck.classList.toggle('overview', on);
+    if (on){ history.replaceState(null, '', '#overview'); }
+    else { render(); }
+  }
+
+  // click: in overview, jump to the clicked slide; otherwise advance
+  // (except on links/buttons)
+  deck.addEventListener('click', function(e){
+    if (overview){
+      var s = e.target.closest('.slide');
+      if (s){ setOverview(false); go(slides.indexOf(s)); }
+      return;
+    }
+    if (e.target.closest('a, button')) return;
+    go(current + 1);
+  });
+
+  function clamp(i){ return Math.max(0, Math.min(total - 1, i)); }
+
+  function render(){
+    slides.forEach(function(s, i){ s.classList.toggle('active', i === current); });
+    counterCur.textContent = current + 1;
+    progressBar.style.width = (((current + 1) / total) * 100) + '%';
+    history.replaceState(null, '', '#' + (current + 1));
+  }
+
+  function go(i){
+    current = clamp(i);
+    render();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function(){ go(current - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function(){ go(current + 1); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ setOverview(!overview); return; }
+    if (overview) return;
+    if (['ArrowRight','ArrowDown','PageDown',' '].indexOf(e.key) > -1){ go(current + 1); e.preventDefault(); }
+    else if (['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key) > -1){ go(current - 1); e.preventDefault(); }
+    else if (e.key === 'Home'){ go(0); }
+    else if (e.key === 'End'){ go(total - 1); }
+    else if (e.key === 'n' || e.key === 'N'){ deck.classList.toggle('show-notes'); }
+  });
+
+  function initFromHash(){
+    if ((location.hash || '') === '#overview'){ setOverview(true); return; }
+    var h = parseInt((location.hash || '').replace('#',''), 10);
+    current = isNaN(h) ? 0 : clamp(h - 1);
+    render();
+  }
+  window.addEventListener('hashchange', initFromHash);
+
+  function scaleDeck(){
+    var sw = window.innerWidth / 1280;
+    var sh = window.innerHeight / 720;
+    var scale = Math.min(sw, sh, 1.3);
+    deck.style.transform = 'scale(' + scale + ')';
+  }
+  window.addEventListener('resize', scaleDeck);
+
+  initFromHash();
+  scaleDeck();
+})();
+</script>
+
+</body>
+</html>

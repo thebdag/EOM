@@ -1,0 +1,16 @@
+name: Deck freshness
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Are the decks still true?
+        run: |
+          python3 tools/slideops-check.py docs/slides/ --repo . --suggest --exit-zero \
+            | tee -a "$GITHUB_STEP_SUMMARY"

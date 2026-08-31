@@ -12,6 +12,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- SlideOps onboarding deck at `docs/slides/eom-overview-2026-08-31.html`
+  (24 slides, citations on quoted source). Vendored `tools/slideops-check.py`
+  and a report-only PR workflow `.github/workflows/deck-freshness.yml`.
 - Calm Material 3 utility motion (`EomMotion`, fade page routes, `EomAppear`,
   clamping scroll). Soft-gate sheets use `EomMotion.sheetStyleOf`.
 - `SettingsService.keyFor` / `setKey` so soft-gate and Settings share one

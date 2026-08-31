@@ -114,6 +114,14 @@ when relevant.
 
 ## Best Practices
 
+- **2026-08-31 — SlideOps decks cite source, not impressions** —
+  quote with `tools/slideops-cite.py path:start-end --snippet`; never
+  hand-hash. Code wins when README drifts (keys are SharedPreferences,
+  not "never on disk"; maturity domains include `abductive`, not
+  `deductive`). Stamp with `--stamp` from real HEAD. Evergreen decks
+  get a report-only PR check, not a blocking pre-commit hook.
+
+
 - **2026-08-27 — First-frame misses are layout clips, not opacity 0 (EOM-S30)** —
   `AnimatedSize` shrinks the hit box even with `Clip.none`. Flutter's
   `FadeTransition` still hit-tests at opacity 0 (wrap with `IgnorePointer`

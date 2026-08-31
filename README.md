@@ -93,7 +93,20 @@ flutter run
 ```
 
 On first launch, open **Settings** (the gear icon in the top-right corner)
-to select your AI provider and enter your credentials.
+to select your AI provider and enter your credentials. If you tap an intent
+with no usable key, a quiet **Connect a guide** sheet asks for the same
+fields.
+
+### Architecture slides
+
+A 24-slide onboarding deck lives at
+[`docs/slides/eom-overview-2026-08-31.html`](docs/slides/eom-overview-2026-08-31.html)
+(open in a browser; `Esc` for the overview grid). To see whether cited
+code still matches:
+
+```bash
+python3 tools/slideops-check.py docs/slides/ --repo . --suggest
+```
 
 ---
 

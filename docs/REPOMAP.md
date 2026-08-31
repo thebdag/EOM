@@ -19,9 +19,16 @@ EOM/
 │   ├── design_spec.md         # Epistemic Calm + Family kinship (dual accent, serif, soft gate)
 │   ├── ux_findings_eom_e4.md  # UX findings (EOM-E4): S16 walk + S21–S23 live beta + S24 structural closes
 │   ├── ui_spirit_enhancement_plan.md  # Epiture-kinship UI/UX spirit plan (Family; soft gate; calm Settings)
+│   ├── slides/                # SlideOps decks (cited HTML + folder README)
+│   │   ├── README.md          # Conventions, freshness command, per-deck notes
+│   │   └── eom-overview-2026-08-31.html  # 24-slide onboarding / architecture deck
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
 │       └── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
+│
+├── tools/
+│   ├── slideops-check.py      # Stdlib freshness sweep for docs/slides/ (CI + local)
+│   └── slideops-cite.py       # Writes data-src / data-sha256 and build stamp
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
