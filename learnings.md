@@ -123,7 +123,12 @@ when relevant.
   raw `debugDefaultTargetPlatformOverride` (the test binding asserts it
   was restored). `flutter_test` reports Android, so an unset Guide is
   On this device — persist Gemini (`persistGeminiGuideWithoutKey`) in
-  tests that still exercise the Connect / API-key gate.
+  tests that still exercise the Connect / API-key gate. Published
+  `genai-prompt:1.0.0-beta2` has no `SystemInstruction` /
+  `isSystemPromptAvailable`; use `PromptPrefix` on
+  `generateContentRequest(TextPart) { }` and import `DownloadStatus`
+  from `com.google.mlkit.genai.common`. Docs can be ahead of the AAR —
+  `javap` the `classes.jar` before writing Kotlin against it.
 
 - **2026-08-27 — First-frame misses are layout clips, not opacity 0 (EOM-S30)** —
   `AnimatedSize` shrinks the hit box even with `Clip.none`. Flutter's

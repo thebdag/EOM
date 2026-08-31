@@ -11,6 +11,8 @@ Add a fifth Guide, UI label **On this device**, persisted id `ON_DEVICE`:
 - **Android:** ML Kit GenAI Prompt API on AICore (Gemini Nano). The APK does
   not bundle a model. `uses-library com.google.android.aicore` is
   `android:required="false"` so install still succeeds without AICore.
+  Against `genai-prompt:1.0.0-beta2`, system text is `PromptPrefix` (the
+  AAR has no `SystemInstruction`).
 - **iOS:** Foundation Models (`LanguageModelSession`), runtime-gated with
   `#available(iOS 26.0, *)`. Deployment target stays 13.0.
 - **Elsewhere:** the picker omits this Guide. A saved `ON_DEVICE`

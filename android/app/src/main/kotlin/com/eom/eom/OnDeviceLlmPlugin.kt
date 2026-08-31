@@ -1,9 +1,10 @@
 package com.eom.eom
 
+import com.google.mlkit.genai.common.DownloadStatus
 import com.google.mlkit.genai.common.FeatureStatus
-import com.google.mlkit.genai.prompt.DownloadStatus
+import com.google.mlkit.genai.prompt.GenerateContentResponse
 import com.google.mlkit.genai.prompt.Generation
-import com.google.mlkit.genai.prompt.SystemInstruction
+import com.google.mlkit.genai.prompt.PromptPrefix
 import com.google.mlkit.genai.prompt.TextPart
 import com.google.mlkit.genai.prompt.generateContentRequest
 import io.flutter.plugin.common.BinaryMessenger
@@ -150,19 +151,19 @@ internal object NanoEngine {
         withContext(Dispatchers.IO) {
             val folded = foldHistory(user, history)
             val response =
-                try {
-                    if (model.isSystemPromptAvailable()) {
+                if (system.isBlank()) {
+                    model.generateContent(folded)
+                } else {
+                    try {
+                        // beta2 has PromptPrefix, not SystemInstruction.
                         model.generateContent(
-                            generateContentRequest(
-                                SystemInstruction(system),
-                                TextPart(folded),
-                            ),
+                            generateContentRequest(TextPart(folded)) {
+                                promptPrefix = PromptPrefix(system)
+                            },
                         )
-                    } else {
+                    } catch (_: Throwable) {
                         model.generateContent("$system\n\n$folded")
                     }
-                } catch (_: Throwable) {
-                    model.generateContent("$system\n\n$folded")
                 }
             extractText(response)
         }
@@ -181,25 +182,11 @@ internal object NanoEngine {
         return "$prior\n\n$user"
     }
 
-    private fun extractText(response: Any): String {
-        val textGetter =
-            response.javaClass.methods.firstOrNull {
-                it.name == "getText" && it.parameterCount == 0
-            }
-        val direct = textGetter?.invoke(response) as? String
-        if (!direct.isNullOrBlank()) return direct
-        val candidates =
-            response.javaClass.methods
-                .firstOrNull { it.name == "getCandidates" && it.parameterCount == 0 }
-                ?.invoke(response) as? List<*>
-        val first = candidates?.firstOrNull()
-        val fromCandidate =
-            first
-                ?.javaClass
-                ?.methods
-                ?.firstOrNull { it.name == "getText" && it.parameterCount == 0 }
-                ?.invoke(first) as? String
-        if (!fromCandidate.isNullOrBlank()) return fromCandidate
-        throw IllegalStateException("On-device Error: empty response")
+    private fun extractText(response: GenerateContentResponse): String {
+        val text = response.candidates.firstOrNull()?.text
+        if (text.isNullOrBlank()) {
+            throw IllegalStateException("On-device Error: empty response")
+        }
+        return text
     }
 }

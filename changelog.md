@@ -29,6 +29,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `HistoryService.hasConversations` for the History pip without parsing
   every transcript.
 
+### Fixed
+- Android on-device plugin compiles against ML Kit GenAI Prompt
+  `1.0.0-beta2` (`DownloadStatus` in `genai.common`, `PromptPrefix`
+  instead of unpublished `SystemInstruction`).
+
 ### Changed
 - Soft-gate sheet animation goes through `EomMotion.sheetStyleOf` so
   reduce-motion zeros the sheet. Spec names iOS Cupertino pop (500ms) as
