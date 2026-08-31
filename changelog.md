@@ -15,7 +15,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **On this device** Guide (`ON_DEVICE`): OS-managed on-device inference
   when packaged for Android (ML Kit GenAI Prompt API / AICore) or iOS
   (Foundation Models). Distinct from LiteLLM (`LOCAL`). Compact prompts,
-  no API key, availability in Settings. Covered by
+  no API key, availability in Settings. Unset preference defaults to this
+  Guide on Android/iOS (cloud/LiteLLM remain optional in Settings). Covered by
   `test/on_device_llm_test.dart` and `test/ux_on_device_guide_test.dart`.
   ADR `docs/adr/0003-on-device-means-os-foundation-models.md`.
 - Calm Material 3 utility motion (`EomMotion`, fade page routes, `EomAppear`,

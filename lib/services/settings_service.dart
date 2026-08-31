@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/llm_provider_kind.dart';
@@ -63,8 +64,20 @@ class SettingsService {
   static LlmProviderKind get activeProvider {
     final raw = _prefs.getString(_kProvider);
     return raw == null
-        ? LlmProviderKind.fallback
+        ? unsetDefaultFor(defaultTargetPlatform)
         : LlmProviderKind.fromString(raw);
+  }
+
+  /// Unset preference: on-device on Android/iOS so packaged apps start
+  /// without a cloud key. Desktop/web still default to Gemini.
+  static LlmProviderKind unsetDefaultFor(TargetPlatform platform) {
+    switch (platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        return LlmProviderKind.onDevice;
+      default:
+        return LlmProviderKind.fallback;
+    }
   }
 
   static Future<void> setActiveProvider(LlmProviderKind provider) async {

@@ -102,6 +102,7 @@ EOM/
     ├── sqlite_epistemic_graph_store_test.dart # Real sqflite-backed store regression via ffi factory (EOM-S2)
     ├── helpers/in_memory_epistemic_store.dart # Shared in-memory EpistemicGraphStore fake
     ├── helpers/fake_on_device_llm.dart # In-memory OnDeviceLlmClient for tests
+    ├── helpers/guide_prefs.dart # persistGeminiGuideWithoutKey (credential-gate tests)
     ├── helpers/ux_harness.dart  # Shared SilentLlmProvider, FakeHistory, pumpEomHome
     ├── history_service_test.dart  # Hive-backed save/read/clear + corrupt-entry tolerance (EOM-S11)
     ├── home_screen_test.dart      # Injected-service flows: clarify/map, friendly errors, New-thought confirm, Connections expand (S12, S18, S24)

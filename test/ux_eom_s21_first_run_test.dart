@@ -23,6 +23,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/guide_prefs.dart';
+
 Finder richTextContaining(String needle) => find.byWidgetPredicate(
   (w) => w is RichText && w.text.toPlainText().contains(needle),
 );
@@ -40,6 +42,9 @@ void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    // Live walk still covers the credential gate (LiteLLM). Android/iOS
+    // first-run On this device is asserted in ux_on_device_guide_test.
+    await persistGeminiGuideWithoutKey();
   });
 
   testWidgets(

@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpers/guide_prefs.dart';
+
 void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SettingsService.init();
+    await persistGeminiGuideWithoutKey();
   });
 
   Future<void> pushSettings(WidgetTester tester) async {

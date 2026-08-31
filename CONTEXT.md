@@ -13,7 +13,7 @@ EOM’s provider slot that means only the LiteLLM Gateway. Settings UI label is 
 _Avoid_: Ollama, LM Studio (as the product name for this slot)
 
 **On-device Guide**:
-EOM’s provider slot that means the OS-managed on-device model when packaged for Android (ML Kit GenAI Prompt API / AICore / Gemini Nano) or iOS (Foundation Models). Settings UI label is **On this device**; persisted provider id is `ON_DEVICE`. No API key. Not LiteLLM and not a bundled LiteRT-LM model.
+EOM’s provider slot that means the OS-managed on-device model when packaged for Android (ML Kit GenAI Prompt API / AICore / Gemini Nano) or iOS (Foundation Models). Settings UI label is **On this device**; persisted provider id is `ON_DEVICE`. Default Guide on Android/iOS when no preference is saved. No API key. Not LiteLLM and not a bundled LiteRT-LM model.
 _Avoid_: local (that is LiteLLM), Gemini Nano / Apple Intelligence (as the picker label), Ollama on phone
 
 **Master Key**:

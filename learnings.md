@@ -121,7 +121,9 @@ when relevant.
   the MethodChannel in tests — CI has no AICore or Foundation Models.
   Override platform in widget tests with `TargetPlatformVariant`, not a
   raw `debugDefaultTargetPlatformOverride` (the test binding asserts it
-  was restored).
+  was restored). `flutter_test` reports Android, so an unset Guide is
+  On this device — persist Gemini (`persistGeminiGuideWithoutKey`) in
+  tests that still exercise the Connect / API-key gate.
 
 - **2026-08-27 — First-frame misses are layout clips, not opacity 0 (EOM-S30)** —
   `AnimatedSize` shrinks the hit box even with `Clip.none`. Flutter's

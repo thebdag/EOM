@@ -6,14 +6,16 @@ import 'package:eom/screens/settings_screen.dart';
 import 'package:eom/services/on_device_llm.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:eom/theme/eom_theme.dart';
+import 'package:eom/widgets/empty_vault_panel.dart';
 import 'package:eom/widgets/guide_fields.dart';
 import 'package:eom/widgets/soft_gate_sheet.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_on_device_llm.dart';
+import 'helpers/in_memory_epistemic_store.dart';
+import 'helpers/ux_harness.dart';
 
 void main() {
   setUp(() async {
@@ -108,4 +110,23 @@ void main() {
     expect(find.text('Ready on this device'), findsOneWidget);
     expect(find.text('Advanced'), findsNothing);
   }, variant: TargetPlatformVariant.only(TargetPlatform.android));
+
+  testWidgets('Android first run uses on-device and skips Connect', (
+    tester,
+  ) async {
+    expect(SettingsService.activeProvider, LlmProviderKind.onDevice);
+    expect(SettingsService.hasUsableGuide, isTrue);
+    await pumpEomHome(tester, store: InMemoryStore());
+    expect(find.text('Connect a guide'), findsNothing);
+    expect(find.byType(EmptyVaultPanel), findsOneWidget);
+  }, variant: TargetPlatformVariant.only(TargetPlatform.android));
+
+  testWidgets('desktop first run still shows Connect until a key exists', (
+    tester,
+  ) async {
+    expect(SettingsService.activeProvider, LlmProviderKind.gemini);
+    expect(SettingsService.hasUsableGuide, isFalse);
+    await pumpEomHome(tester, store: InMemoryStore());
+    expect(find.text('Connect a guide'), findsOneWidget);
+  }, variant: TargetPlatformVariant.only(TargetPlatform.linux));
 }

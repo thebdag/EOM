@@ -15,13 +15,16 @@ Add a fifth Guide, UI label **On this device**, persisted id `ON_DEVICE`:
   `#available(iOS 26.0, *)`. Deployment target stays 13.0.
 - **Elsewhere:** the picker omits this Guide. A saved `ON_DEVICE`
   preference is not rewritten; generate fails with calm Settings recovery.
+- **Default:** an unset `active_provider` preference is `ON_DEVICE` on
+  Android/iOS (no key, skip the Connect gate) and Gemini on desktop.
 
 LiteRT-LM, bundled Gemma, and Windows on-device are out of scope.
 
 ## Consequences
 
-- No API key. `hasUsableGuide` is true once `ON_DEVICE` is selected;
-  availability is checked at generate (and shown in Settings).
+- No API key. `hasUsableGuide` is true for the on-device default on
+  Android/iOS; availability is checked at generate (and shown in Settings).
+  Cloud/LiteLLM remain optional in Settings.
 - Compact system prompts (~150 words) because Gemini Nano’s instruction
   budget is small. Missing `---EPISTEMIC---` epilogues still degrade to
   prose, same as cloud Guides.

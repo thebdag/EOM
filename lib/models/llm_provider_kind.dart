@@ -33,7 +33,8 @@ enum LlmProviderKind {
   /// Cloud / LiteLLM slots need a stored key; the OS on-device Guide does not.
   bool get requiresCredential => this != LlmProviderKind.onDevice;
 
-  /// The kind used when no preference has been saved yet.
+  /// Unknown persisted ids map here. Unset preference uses
+  /// [SettingsService.unsetDefaultFor] (on-device on Android/iOS).
   static const LlmProviderKind fallback = LlmProviderKind.gemini;
 
   /// Parses a persisted provider id, mapping the legacy `OLLAMA`
