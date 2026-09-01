@@ -118,6 +118,16 @@ The file is `build/app/outputs/flutter-apk/app-release.apk`. Copy it to
 the phone, enable **Install unknown apps** for the Files app (or your
 browser), and open the APK.
 
+For Google Play, build an **App Bundle** (and sign with
+`android/key.properties` — see [`docs/play_store.md`](docs/play_store.md)):
+
+```bash
+flutter build appbundle --release
+```
+
+CI also uploads `eom-android-aab`. Creating the Play listing, closed
+testing, and production release still happen in Play Console.
+
 Then open **EOM**. **On this device** works on phones with Google AICore
 (typically Pixel). Cloud Guides need an API key. A LiteLLM gateway on
 your LAN should use `http://<lan-ip>:4000` (not `127.0.0.1` — that is

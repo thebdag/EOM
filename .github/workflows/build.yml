@@ -38,6 +38,16 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
 
+      - name: Build App Bundle
+        run: flutter build appbundle --release --no-pub
+
+      - name: Upload Android AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: eom-android-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v3
         env:

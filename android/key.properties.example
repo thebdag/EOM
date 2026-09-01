@@ -1,0 +1,8 @@
+# Copy to android/key.properties (gitignored) for Play upload signing.
+# Generate a keystore once:
+#   keytool -genkey -v -keystore upload-keystore.jks -keyalg RSA \
+#     -keysize 2048 -validity 10000 -alias upload
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=upload
+storeFile=upload-keystore.jks
