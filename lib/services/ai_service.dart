@@ -6,6 +6,7 @@ import '../models/thought_node.dart';
 import 'intent_config.dart';
 import 'intent_error.dart';
 import 'llm_provider.dart';
+import 'on_device_context.dart';
 import 'settings_service.dart';
 
 /// Extracts the first balanced `{ ... }` object from [text], ignoring any
@@ -98,12 +99,13 @@ class AiService {
   /// Short ethics line prepended when [LlmProviderPromptBudget.usesCompactPrompt]
   /// is true (OS on-device models).
   static const compactContext =
-      'Use plain language. Be encouraging and truthful. Never use religious language. If chaotic, nudge toward balance; if too rigid, toward flexibility.';
+      'Use plain language. Be encouraging and truthful. Never use religious language. If chaotic, nudge toward balance; if too rigid, toward flexibility. A Known: block is prior vault memory, not the current thought.';
 
   Future<AiResponse> process(
     String input,
     CognitiveIntent intent, {
     List<ChatMessage> history = const [],
+    String vaultContext = '',
   }) async {
     final provider = _getProvider();
 
@@ -111,11 +113,18 @@ class AiService {
         ? '$compactContext\n\n${intent.buildPrompt(epistemicMarker, compact: true)}'
         : '$defaultContext\n\n${intent.buildPrompt(epistemicMarker)}';
 
+    final userMessage = provider.usesCompactPrompt
+        ? OnDeviceContext.packUser(thought: input, vault: vaultContext)
+        : input;
+    final promptHistory = provider.usesCompactPrompt
+        ? OnDeviceContext.clipHistory(history)
+        : history;
+
     try {
       final textResponse = await provider.generate(
         systemPrompt,
-        input,
-        history: history,
+        userMessage,
+        history: promptHistory,
       );
 
       if (intent.producesTree) {

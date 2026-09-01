@@ -2,6 +2,7 @@ package com.eom.eom
 
 import com.google.mlkit.genai.common.DownloadStatus
 import com.google.mlkit.genai.common.FeatureStatus
+import com.google.mlkit.genai.prompt.GenerateContentRequest
 import com.google.mlkit.genai.prompt.GenerateContentResponse
 import com.google.mlkit.genai.prompt.Generation
 import com.google.mlkit.genai.prompt.PromptPrefix
@@ -100,7 +101,14 @@ class OnDeviceLlmPlugin(
     }
 }
 
-/** Gemini Nano via ML Kit GenAI Prompt API (AICore). */
+/**
+ * Gemini Nano via ML Kit GenAI Prompt API (AICore).
+ *
+ * Input must stay under 4000 tokens (~3000 English words). [getTokenLimit] is
+ * input + output; [maxOutputTokens] is set so the prompt still fits. The
+ * compact system prompt stays in [PromptPrefix] (prefix cache); vault +
+ * thought live in the dynamic suffix.
+ */
 internal object NanoEngine {
     private val model by lazy { Generation.getClient() }
 
@@ -128,7 +136,14 @@ internal object NanoEngine {
     suspend fun prepare() =
         withContext(Dispatchers.IO) {
             when (model.checkStatus()) {
-                FeatureStatus.AVAILABLE -> return@withContext
+                FeatureStatus.AVAILABLE -> {
+                    try {
+                        model.warmup()
+                    } catch (_: Throwable) {
+                        // warmup is best-effort
+                    }
+                    return@withContext
+                }
                 FeatureStatus.UNAVAILABLE ->
                     throw IllegalStateException("On-device Error: model unavailable")
                 else -> {
@@ -138,6 +153,11 @@ internal object NanoEngine {
                                 "On-device Error: ${status.e.message ?: "download failed"}",
                             )
                         }
+                    }
+                    try {
+                        model.warmup()
+                    } catch (_: Throwable) {
+                        // warmup is best-effort
                     }
                 }
             }
@@ -150,36 +170,55 @@ internal object NanoEngine {
     ): String =
         withContext(Dispatchers.IO) {
             val folded = foldHistory(user, history)
+            val (prefix, clipped) = clipToWordBudget(system, folded)
+            var suffix = clipped
+            var request = buildRequest(prefix, suffix)
+            val fitted = fitToTokenLimit(prefix, suffix, request)
+            request = fitted.first
+            suffix = fitted.second
             val response =
-                if (system.isBlank()) {
-                    model.generateContent(folded)
-                } else {
-                    try {
-                        // beta2 has PromptPrefix, not SystemInstruction.
-                        model.generateContent(
-                            generateContentRequest(TextPart(folded)) {
-                                promptPrefix = PromptPrefix(system)
-                            },
-                        )
-                    } catch (_: Throwable) {
-                        model.generateContent("$system\n\n$folded")
-                    }
+                try {
+                    model.generateContent(request)
+                } catch (_: Throwable) {
+                    val combined = listOf(prefix, suffix).filter { it.isNotBlank() }.joinToString("\n\n")
+                    model.generateContent(combined)
                 }
             extractText(response)
         }
 
-    private fun foldHistory(
-        user: String,
-        history: List<Map<String, Any>>,
-    ): String {
-        if (history.isEmpty()) return user
-        val prior =
-            history.joinToString("\n") { turn ->
-                val role = turn["role"] as? String ?: "user"
-                val content = turn["content"] as? String ?: ""
-                "$role: $content"
+    private suspend fun fitToTokenLimit(
+        prefix: String,
+        suffix: String,
+        initial: GenerateContentRequest,
+    ): Pair<GenerateContentRequest, String> {
+        var request = initial
+        var clippedSuffix = suffix
+        try {
+            val limit = model.getTokenLimit()
+            val budget =
+                (limit - MAX_OUTPUT_TOKENS)
+                    .coerceAtMost(DOCUMENTED_INPUT_TOKEN_CAP)
+                    .coerceAtLeast(64)
+            var tokens = model.countTokens(request).totalTokens
+            var words = wordCount(clippedSuffix)
+            while (tokens > budget && words > 16) {
+                words = (words * 4) / 5
+                clippedSuffix = takeWords(clippedSuffix, words)
+                request = buildRequest(prefix, clippedSuffix)
+                tokens = model.countTokens(request).totalTokens
             }
-        return "$prior\n\n$user"
+        } catch (_: Throwable) {
+            // countTokens / getTokenLimit failed — word clip already applied.
+        }
+        return request to clippedSuffix
+    }
+
+    private fun buildRequest(
+        prefix: String,
+        suffix: String,
+    ) = generateContentRequest(TextPart(suffix.ifBlank { " " })) {
+        if (prefix.isNotBlank()) promptPrefix = PromptPrefix(prefix)
+        maxOutputTokens = MAX_OUTPUT_TOKENS
     }
 
     private fun extractText(response: GenerateContentResponse): String {
@@ -189,4 +228,46 @@ internal object NanoEngine {
         }
         return text
     }
+}
+
+/** ML Kit Prompt API: input < 4000 tokens (~3000 English words). */
+internal const val MAX_INPUT_WORDS = 3000
+internal const val DOCUMENTED_INPUT_TOKEN_CAP = 4000
+internal const val MAX_OUTPUT_TOKENS = 768
+
+internal fun wordCount(text: String): Int =
+    text.trim().split(Regex("\\s+")).count { it.isNotEmpty() }
+
+internal fun takeWords(
+    text: String,
+    maxWords: Int,
+): String {
+    if (maxWords <= 0) return ""
+    val words = text.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+    if (words.size <= maxWords) return text.trim()
+    return words.take(maxWords).joinToString(" ")
+}
+
+internal fun clipToWordBudget(
+    prefix: String,
+    suffix: String,
+    maxWords: Int = MAX_INPUT_WORDS,
+): Pair<String, String> {
+    val prefixWords = wordCount(prefix)
+    if (prefixWords >= maxWords) return takeWords(prefix, maxWords) to ""
+    return prefix to takeWords(suffix, maxWords - prefixWords)
+}
+
+internal fun foldHistory(
+    user: String,
+    history: List<Map<String, Any>>,
+): String {
+    if (history.isEmpty()) return user
+    val prior =
+        history.joinToString("\n") { turn ->
+            val role = turn["role"] as? String ?: "user"
+            val content = turn["content"] as? String ?: ""
+            "$role: $content"
+        }
+    return "$prior\n\n$user"
 }

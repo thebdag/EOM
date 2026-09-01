@@ -1,8 +1,11 @@
 /// On-device Guide picker, soft gate, and Settings (OS foundation models).
 library;
 
+import 'package:eom/models/epistemic_node.dart';
+import 'package:eom/models/epistemic_relationship.dart';
 import 'package:eom/models/llm_provider_kind.dart';
 import 'package:eom/screens/settings_screen.dart';
+import 'package:eom/services/llm_provider.dart';
 import 'package:eom/services/on_device_llm.dart';
 import 'package:eom/services/settings_service.dart';
 import 'package:eom/theme/eom_theme.dart';
@@ -129,4 +132,49 @@ void main() {
     await pumpEomHome(tester, store: InMemoryStore());
     expect(find.text('Connect a guide'), findsOneWidget);
   }, variant: TargetPlatformVariant.only(TargetPlatform.linux));
+
+  testWidgets('on-device Clarify retrieves vault into the user suffix', (
+    tester,
+  ) async {
+    final fake = FakeOnDeviceLlm();
+    final store = InMemoryStore();
+    final focus = EpistemicNode(
+      content: 'Daily focus slips after lunch',
+      type: EpistemicNodeType.belief,
+      confidence: 0.8,
+    );
+    final sleep = EpistemicNode(
+      content: 'Sleep debt undermines morning attention',
+      type: EpistemicNodeType.hypothesis,
+      confidence: 0.6,
+    );
+    store.nodes.addAll([focus, sleep]);
+    store.edges.add(
+      EpistemicRelationship(
+        sourceId: focus.id,
+        targetId: sleep.id,
+        type: EpistemicRelationshipType.supports,
+      ),
+    );
+
+    await pumpEomHome(
+      tester,
+      store: store,
+      history: FakeHistoryService(),
+      provider: OnDeviceProvider(client: fake),
+    );
+    await tester.enterText(
+      find.byType(TextField).first,
+      'I keep losing focus at work',
+    );
+    await tester.pump();
+    await tester.tap(find.text('Clarify'));
+    await tester.pumpAndSettle();
+
+    expect(fake.lastUser, contains('Known:'));
+    expect(fake.lastUser, contains('focus slips'));
+    expect(fake.lastUser, contains('Sleep debt'));
+    expect(fake.lastUser, contains('Thought:'));
+    expect(fake.lastSystem, isNot(contains('focus slips')));
+  }, variant: TargetPlatformVariant.only(TargetPlatform.android));
 }

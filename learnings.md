@@ -120,6 +120,15 @@ when relevant.
 
 ## Best Practices
 
+- **2026-09-01 — Nano’s window is not the vault** — durable memory is
+  Hive + SQLite. On-device generate gets a budgeted suffix (FTS
+  neighborhood, two clipped turns, 200-word thought) and a cacheable
+  `PromptPrefix`. javap `genai-prompt:1.0.0-beta2` before calling
+  `countTokens` / `getTokenLimit` / `warmup` / `maxOutputTokens` — those
+  exist; `SystemInstruction` still does not. Default `maxOutputTokens`
+  is 4096 and can starve the 4000-token input cap; set it (768 here).
+  Retrieval failures must not fail the intent.
+
 - **2026-08-31 — On-device ≠ LiteLLM** — `LOCAL` stays the LiteLLM
   gateway (ADR 0001). Phone OS models are `ON_DEVICE` / **On this device**.
   Gemini Nano system instructions should stay under ~150 words; use

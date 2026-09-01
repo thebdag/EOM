@@ -23,7 +23,8 @@ EOM/
 │   └── adr/
 │       ├── 0001-local-means-litellm-gateway.md
 │       ├── 0002-delta-update-model.md  # Sessions refine, never overwrite, epistemic nodes (EOM-T12)
-│       └── 0003-on-device-means-os-foundation-models.md  # ON_DEVICE ≠ LOCAL; AICore / Foundation Models
+│       ├── 0003-on-device-means-os-foundation-models.md  # ON_DEVICE ≠ LOCAL; AICore / Foundation Models
+│       └── 0004-on-device-context-budget.md  # Nano 4000-token cap, vault RAG suffix, user/history clip
 │
 ├── lib/
 │   ├── main.dart              # Application entry point & theme initialization
@@ -55,6 +56,7 @@ EOM/
 │   │   ├── intent_config.dart   # Per-intent prompt builder + epilogue JSON→operation routing (EOM-S14)
 │   │   ├── intent_error.dart    # Maps provider/auth failures to calm copy + Settings recovery (EOM-S18)
 │   │   ├── llm_provider.dart    # LlmProvider interface, ChatMessage, provider clients, shared chat-completions helper, OnDeviceProvider (EOM-S11, S13)
+│   │   ├── on_device_context.dart # Nano word budgets, vault packer, VaultContextService retrieval (ADR 0004)
 │   │   ├── on_device_llm.dart   # MethodChannel client for OS on-device models (AICore / Foundation Models)
 │   │   ├── settings_service.dart# SharedPreferences wrapper for persistent storage
 │   │   └── sqlite_epistemic_graph_store.dart # SQLite CRUD + FTS5 search/BFS traverse + confidence-event log + EpistemicGraphStore interface (EOM-T1, T7, T15, T17; renamed EOM-S12)
@@ -117,6 +119,7 @@ EOM/
     ├── intent_error_test.dart     # Provider/auth → calm copy + Settings recovery mapping (EOM-S18)
     ├── llm_provider_kind_test.dart # Provider-kind parsing, legacy mapping, factory, ChatMessage
     ├── on_device_llm_test.dart     # Fake channel + OnDeviceProvider prepare/generate (no device)
+    ├── on_device_context_test.dart  # Word budgets, vault packer, retrieval, compact vs cloud
     ├── settings_screen_test.dart  # Settings persist on system back / AppBar pop (EOM-S6)
     ├── settings_service_test.dart # Gateway-origin normalization + hasUsableGuide (S26)
     ├── thought_node_test.dart     # Logic tests for tree structure management
