@@ -11,13 +11,15 @@ EOM/
 ├── learnings.md               # Running log of bugs to avoid, gotchas, and best practices
 ├── README.md                  # Project overview and setup instructions
 ├── pubspec.yaml               # Flutter package dependencies and assets (incl. Cormorant Garamond)
-├── .github/workflows/build.yml # Tests, coverage, SonarQube, upload eom-android-apk
+├── .github/workflows/build.yml # Tests, coverage, SonarQube, upload eom-android-apk + eom-android-aab
 ├── assets/
 │   └── fonts/                 # Bundled orientation serif (Cormorant Garamond Medium + OFL)
 │
 ├── docs/                      # Project documentation
 │   ├── REPOMAP.md             # This file
 │   ├── design_spec.md         # Epistemic Calm + Family kinship (dual accent, serif, soft gate)
+│   ├── privacy_policy.md      # Privacy policy copy for Play / hosted URL
+│   ├── play_store.md          # Play Console checklist, listing draft, upload instructions
 │   ├── ux_findings_eom_e4.md  # UX findings (EOM-E4): S16 walk + S21–S23 live beta + S24 structural closes
 │   ├── ui_spirit_enhancement_plan.md  # Epiture-kinship UI/UX spirit plan (Family; soft gate; calm Settings)
 │   └── adr/
@@ -132,7 +134,13 @@ EOM/
     ├── ux_eom_s24_structural_test.dart # F8/F10/F11/F16 structural UX (EOM-S24)
     └── widget_test.dart           # EomApp smoke test (brand + input prompt)
 
+android/
+├── key.properties.example     # Upload-key template (copy to key.properties; gitignored)
+├── play/                      # Store graphics (icon-512, feature-graphic)
+│
 dev/
+├── play/
+│   └── upload_aab.py          # Google Play Developer API AAB upload (needs service account)
 ├── beta/                      # Epistemic alignment pressure tests (EOM-E5)
 │   ├── README.md               # How to run the beta pressure tests
 │   ├── rubric.md               # Scoring rubric: criteria, scale, weights, verdicts (EOM-T63)

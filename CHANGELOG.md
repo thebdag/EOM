@@ -6,6 +6,7 @@ All notable changes to the EOM project will be documented in this file.
 
 ### Added
 - **On-device context budget:** on-device Guides send a compact prompt, last two turns, a small slice of the on-device epistemic graph, and a capped current thought (ADR 0004). Not the whole vault.
+- **Play Store readiness:** App Bundle CI artifact, upload-key signing template, privacy policy copy, and Console checklist (`docs/play_store.md`). Production still requires a Play Developer account and closed testing.
 - **Android APK:** a sideloadable release build (`flutter build apk --release`). GitHub Actions uploads `eom-android-apk`. Requires Android 8.0+.
 - **Calm motion (EOM-S30):** screens fade instead of zoom; session chrome (intents, hints, processing) eases in (hide snaps off). No bounce, no springs. iOS keeps Cupertino pop (500ms exception). Soft-gate sheet motion honors reduce-motion via `EomMotion.sheetStyleOf`.
 - **Session continuity (EOM-E4 / EOM-S24):** tap a History row to reopen it on Home; multi-turn sessions keep earlier turns visible; **New thought** asks before clearing the on-screen session.
