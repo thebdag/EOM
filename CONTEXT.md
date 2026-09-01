@@ -57,8 +57,12 @@ An `AiResponse` with `isError = true` — provider/parse failure text shown to t
 _Avoid_: error message (that is just prose), failed intent
 
 **Session (on-screen)**:
-The in-progress Home canvas: current input, latest response, optional prior turns, and in-memory chat history sent to the model. Distinct from the Hive **History** library of saved conversations. **New thought** clears the on-screen session after confirm; it does not delete History (EOM-S24).
+The in-progress Home canvas: current input, latest response, optional prior turns, and in-memory chat history sent to the model. Distinct from the Hive **History** library of saved conversations. **New thought** clears the on-screen session after confirm; it does not delete History (EOM-S24). On-device Guides clip this history to two turns and cap each message before generate (ADR 0004).
 _Avoid_: conversation (ambiguous with History rows), thread (prefer "earlier in this session")
+
+**On-device context budget**:
+The Prompt API input ceiling for Gemini Nano (4000 tokens / ~3000 English words). Compact system text stays in `PromptPrefix`. Vault neighborhood + clipped history + capped thought go in the dynamic suffix. Cloud Guides do not use this budget.
+_Avoid_: context window (unqualified), RAG (prefer vault neighborhood / Known block)
 
 **History (library)**:
 Persisted list of saved thought sessions (`Conversation` rows via `HistoryService`). Rows reopen into Home; empty state invites capture; clear-all requires confirmation (EOM-S19, S24).

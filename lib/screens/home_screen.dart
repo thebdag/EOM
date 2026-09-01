@@ -5,6 +5,7 @@ import '../models/conversation.dart';
 import '../models/epistemic_operation.dart';
 import '../models/epistemic_query_result.dart';
 import '../models/intent.dart';
+import '../models/llm_provider_kind.dart';
 import '../services/ai_service.dart';
 import '../services/intent_error.dart';
 import '../theme/eom_colors.dart';
@@ -25,6 +26,7 @@ import '../services/epistemic_intent_service.dart';
 import '../services/sqlite_epistemic_graph_store.dart';
 import '../services/history_service.dart';
 import '../services/llm_provider.dart';
+import '../services/on_device_context.dart';
 import '../services/settings_service.dart';
 
 /// Main screen — the "vault" where thoughts are processed.
@@ -115,6 +117,20 @@ class _HomeScreenState extends State<HomeScreen> {
       store,
       gapDetector: EpistemicGapService(store),
     );
+  }
+
+  /// Small FTS neighborhood for the on-device suffix. Cloud Guides skip this.
+  Future<String> _vaultContextFor(String input) async {
+    if (SettingsService.activeProvider != LlmProviderKind.onDevice) {
+      return '';
+    }
+    try {
+      final store = await _getEpistemicStore();
+      return await VaultContextService(store).retrieve(input);
+    } catch (e, st) {
+      debugPrint('EOM: vault retrieve failed: $e\n$st');
+      return '';
+    }
   }
 
   /// Persists epistemic operations to the graph without blocking the UI —
@@ -217,10 +233,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
+      final vaultContext = await _vaultContextFor(input);
       final response = await _aiService.process(
         input,
         intent,
         history: _history,
+        vaultContext: vaultContext,
       );
       if (mounted) {
         setState(() {

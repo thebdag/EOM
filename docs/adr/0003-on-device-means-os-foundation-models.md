@@ -30,4 +30,6 @@ LiteRT-LM, bundled Gemma, and Windows on-device are out of scope.
 - Compact system prompts (~150 words) because Gemini Nano’s instruction
   budget is small. Missing `---EPISTEMIC---` epilogues still degrade to
   prose, same as cloud Guides.
+- On-device context is budgeted separately from durable storage — see
+  [0004](0004-on-device-context-budget.md).
 - `minSdk` is 26 for the Prompt API. iOS min stays 13.

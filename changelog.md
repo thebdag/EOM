@@ -12,6 +12,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- On-device context budget (ADR 0004): SQLite neighborhood retrieval into
+  a `Known:` suffix, 200-word thought cap, clipped history bodies, ML Kit
+  `countTokens`/`getTokenLimit`/`maxOutputTokens`/`warmup` on Android.
+  Cloud Guides unchanged. Covered by `test/on_device_context_test.dart`.
 - Sideloadable Android release APK: CI uploads `eom-android-apk` from
   `flutter build apk --release`. Main manifest declares `INTERNET` and
   allows cleartext so cloud Guides and a LAN LiteLLM gateway work off a

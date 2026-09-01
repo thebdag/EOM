@@ -70,6 +70,9 @@ Settings screen:
   Foundation Models on iOS 26+ with Apple Intelligence). No API key.
   Switch to OpenAI, Anthropic, Gemini, or LiteLLM in Settings anytime.
   If the phone has no on-device model, first thought offers Settings.
+  On-device turns send a compact prompt, the last two turns, a small
+  slice of your on-device epistemic graph, and a capped current thought
+  — not the whole vault.
 
 ---
 

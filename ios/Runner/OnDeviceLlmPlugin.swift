@@ -155,8 +155,9 @@ final class OnDeviceLlmPlugin: NSObject, FlutterPlugin {
       }
 
       let folded = foldHistory(user: user, history: history)
-      let session = LanguageModelSession(instructions: Instructions(system))
-      let response = try await session.respond(to: folded)
+      let (prefix, suffix) = clipToWordBudget(prefix: system, suffix: folded)
+      let session = LanguageModelSession(instructions: Instructions(prefix))
+      let response = try await session.respond(to: suffix)
       let text = String(describing: response.content)
       if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
         throw OnDeviceLlmError.empty
@@ -173,6 +174,31 @@ final class OnDeviceLlmPlugin: NSObject, FlutterPlugin {
       return "\(role): \(content)"
     }.joined(separator: "\n")
     return "\(prior)\n\n\(user)"
+  }
+
+  /// Matches ML Kit's documented ~3000 English-word input ceiling so both
+  /// OS on-device paths share one budget.
+  static let maxInputWords = 3000
+
+  static func wordCount(_ text: String) -> Int {
+    text.split(whereSeparator: { $0.isWhitespace }).filter { !$0.isEmpty }.count
+  }
+
+  static func takeWords(_ text: String, _ maxWords: Int) -> String {
+    if maxWords <= 0 { return "" }
+    let words = text.split(whereSeparator: { $0.isWhitespace }).filter { !$0.isEmpty }
+    if words.count <= maxWords {
+      return text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    return words.prefix(maxWords).joined(separator: " ")
+  }
+
+  static func clipToWordBudget(prefix: String, suffix: String) -> (String, String) {
+    let prefixWords = wordCount(prefix)
+    if prefixWords >= maxInputWords {
+      return (takeWords(prefix, maxInputWords), "")
+    }
+    return (prefix, takeWords(suffix, maxInputWords - prefixWords))
   }
 }
 
