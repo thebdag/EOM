@@ -120,6 +120,15 @@ when relevant.
 
 ## Best Practices
 
+- **2026-09-01 — Play Console is not an API create** — you cannot mint a
+  new Play listing from a CI agent. Need a Developer account, Console
+  “Create app”, hosted privacy URL, ≥2 screenshots, upload keystore
+  (`android/key.properties`, never commit), and (personal accounts) a
+  14-day closed test with ≥12 testers before production. Ship an AAB
+  (`flutter build appbundle`), not an APK. Without a release keystore,
+  release builds still use the debug key — fine for sideload, not for
+  Play.
+
 - **2026-09-01 — Nano’s window is not the vault** — durable memory is
   Hive + SQLite. On-device generate gets a budgeted suffix (FTS
   neighborhood, two clipped turns, 200-word thought) and a cacheable

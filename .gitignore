@@ -45,6 +45,14 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Play / release signing (never commit keys or service accounts)
+/android/key.properties
+/android/*.jks
+/android/*.keystore
+/android/play/*service-account*.json
+**/play-service-account*.json
+/android/local.properties
+
 # graphify build cache (regenerable)
 graphify-out/cache/
 

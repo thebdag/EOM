@@ -12,6 +12,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## Unreleased
 
 ### Added
+- Google Play readiness: App Bundle CI artifact (`eom-android-aab`),
+  release signing via `android/key.properties`, branded launcher + Play
+  graphics, privacy policy copy, Console checklist
+  (`docs/play_store.md`), and `dev/play/upload_aab.py` for service-account
+  uploads. Live Console create/production still needs a human developer
+  account (closed testing, hosted privacy URL).
 - On-device context budget (ADR 0004): SQLite neighborhood retrieval into
   a `Known:` suffix, 200-word thought cap, clipped history bodies, ML Kit
   `countTokens`/`getTokenLimit`/`maxOutputTokens`/`warmup` on Android.
